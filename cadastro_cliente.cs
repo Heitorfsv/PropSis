@@ -34,7 +34,7 @@ namespace PrototipoSistema
             cliente.cidade = txt_cidade.Text;
             cliente.dt_cadastro = DateTime.Now;
             cliente.doc = txt_doc.Text;
-            cliente.email = txt_email.Text;
+            cliente.email = txt_email.Text; 
             cliente.telefone = txt_telefone.Text;
             cliente.telefone2 = txt_telefone2.Text;
             cliente.cep = txt_cep.Text;
