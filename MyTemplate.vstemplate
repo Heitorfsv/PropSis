@@ -1,0 +1,124 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>PrototipoSistema</Name>
+    <Description>&lt;Nenhuma descrição disponível&gt;</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>PrototipoSistema</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="PrototipoSistema.csproj" File="PrototipoSistema.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="add_calendar.cs">add_calendar.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="add_calendar.Designer.cs">add_calendar.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="add_calendar.resx">add_calendar.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="add_pecas.cs">add_pecas.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="add_pecas.Designer.cs">add_pecas.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="add_pecas.resx">add_pecas.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="add_servicos.cs">add_servicos.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="add_servicos.Designer.cs">add_servicos.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="add_servicos.resx">add_servicos.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="aniversarios.cs">aniversarios.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="aniversarios.Designer.cs">aniversarios.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="aniversarios.resx">aniversarios.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="blank.cs">blank.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="blank.Designer.cs">blank.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="blank.resx">blank.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="blankdays.cs">blankdays.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="blankdays.Designer.cs">blankdays.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="blankdays.resx">blankdays.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_cliente.cs">cadastro_cliente.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_cliente.Designer.cs">cadastro_cliente.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_cliente.resx">cadastro_cliente.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_moto.cs">cadastro_moto.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_moto.Designer.cs">cadastro_moto.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_moto.resx">cadastro_moto.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_os.cs">cadastro_os.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_os.Designer.cs">cadastro_os.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_os.resx">cadastro_os.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_pecas.cs">cadastro_pecas.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_pecas.Designer.cs">cadastro_pecas.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_pecas.resx">cadastro_pecas.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_servico.cs">cadastro_servico.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_servico.Designer.cs">cadastro_servico.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="cadastro_servico.resx">cadastro_servico.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="calendar.cs">calendar.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="calendar.Designer.cs">calendar.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="calendar.resx">calendar.resx</ProjectItem>
+      <Folder Name="classes" TargetFolderName="classes">
+        <ProjectItem ReplaceParameters="true" TargetFileName="cliente.cs">cliente.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="ConsultaCep.cs">ConsultaCep.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="motos.cs">motos.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="OS.cs">OS.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="pecas.cs">pecas.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="pecas_os.cs">pecas_os.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="servicos.cs">servicos.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="servicos_os.cs">servicos_os.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="static_class.cs">static_class.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Connected Services" TargetFolderName="Connected Services" />
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_cliente.cs">consulta_cliente.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_cliente.Designer.cs">consulta_cliente.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_cliente.resx">consulta_cliente.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_motos.cs">consulta_motos.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_motos.Designer.cs">consulta_motos.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_motos.resx">consulta_motos.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_os.cs">consulta_os.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_os.Designer.cs">consulta_os.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_os.resx">consulta_os.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_pecas.cs">consulta_pecas.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_pecas.Designer.cs">consulta_pecas.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_pecas.resx">consulta_pecas.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_servicos.cs">consulta_servicos.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_servicos.Designer.cs">consulta_servicos.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="consulta_servicos.resx">consulta_servicos.resx</ProjectItem>
+      <Folder Name="credenciais" TargetFolderName="credenciais">
+        <ProjectItem ReplaceParameters="true" TargetFileName="credentials.json">credentials.json</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_cliente.cs">edicao_cliente.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_cliente.Designer.cs">edicao_cliente.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_cliente.resx">edicao_cliente.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_motos.cs">edicao_motos.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_motos.Designer.cs">edicao_motos.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_motos.resx">edicao_motos.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_os.cs">edicao_os.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_os.Designer.cs">edicao_os.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_os.resx">edicao_os.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_pecas.cs">edicao_pecas.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_pecas.Designer.cs">edicao_pecas.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_pecas.resx">edicao_pecas.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_servicos.cs">edicao_servicos.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_servicos.Designer.cs">edicao_servicos.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="edicao_servicos.resx">edicao_servicos.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="historico.cs">historico.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="historico.Designer.cs">historico.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="historico.resx">historico.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="historico_moto.cs">historico_moto.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="historico_moto.Designer.cs">historico_moto.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="historico_moto.resx">historico_moto.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="MDI_tela.cs">MDI_tela.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="MDI_tela.Designer.cs">MDI_tela.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="MDI_tela.resx">MDI_tela.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Program.cs">Program.cs</ProjectItem>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.resx">Resources.resx</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.Designer.cs">Resources.Designer.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Settings.settings">Settings.settings</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Settings.Designer.cs">Settings.Designer.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="false" TargetFileName="PrototipoSistema_TemporaryKey.pfx">PrototipoSistema_TemporaryKey.pfx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="qtd.cs">qtd.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="qtd.Designer.cs">qtd.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="qtd.resx">qtd.resx</ProjectItem>
+      <Folder Name="Resources" TargetFolderName="Resources" />
+    </Project>
+  </TemplateContent>
+</VSTemplate>
