@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Name = "blank";
-            this.Size = new System.Drawing.Size(201, 100);
+            this.Size = new System.Drawing.Size(257, 121);
             this.Load += new System.EventHandler(this.blank_Load);
             this.ResumeLayout(false);
 

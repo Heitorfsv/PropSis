@@ -83,11 +83,6 @@ namespace PrototipoSistema
             }
         }
 
-        private void txt_cep_Leave(object sender, EventArgs e)
-        {
-
-        }
-
         private void txt_cep_TextChanged(object sender, EventArgs e)
         {
             if (txt_cep.MaskCompleted == true)

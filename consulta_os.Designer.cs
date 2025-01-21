@@ -157,7 +157,6 @@
             this.lst_preco_servico.Size = new System.Drawing.Size(93, 407);
             this.lst_preco_servico.TabIndex = 8;
             this.lst_preco_servico.Click += new System.EventHandler(this.lst_preco_servico_Click);
-            this.lst_preco_servico.SelectedIndexChanged += new System.EventHandler(this.lst_preco_servico_SelectedIndexChanged);
             this.lst_preco_servico.DoubleClick += new System.EventHandler(this.lst_preco_servico_DoubleClick);
             // 
             // lst_preco_peca
@@ -169,7 +168,6 @@
             this.lst_preco_peca.Size = new System.Drawing.Size(93, 407);
             this.lst_preco_peca.TabIndex = 9;
             this.lst_preco_peca.Click += new System.EventHandler(this.lst_preco_peca_Click);
-            this.lst_preco_peca.SelectedIndexChanged += new System.EventHandler(this.lst_preco_peca_SelectedIndexChanged);
             this.lst_preco_peca.DoubleClick += new System.EventHandler(this.lst_preco_peca_DoubleClick);
             // 
             // lst_total
@@ -242,7 +240,6 @@
             this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 16;
             this.label6.Text = "Valor Serviços";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
@@ -253,7 +250,6 @@
             this.label7.Size = new System.Drawing.Size(64, 13);
             this.label7.TabIndex = 17;
             this.label7.Text = "Valor Peças";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
             // 

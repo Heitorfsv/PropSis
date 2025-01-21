@@ -633,25 +633,5 @@ namespace PrototipoSistema
             lst_dt.Items.Clear();
             lst_dt_saida.Items.Clear();
         }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lst_preco_peca_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lst_preco_servico_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

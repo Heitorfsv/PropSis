@@ -587,7 +587,6 @@
             this.label15.Size = new System.Drawing.Size(101, 13);
             this.label15.TabIndex = 55;
             this.label15.Text = "Última troca de óleo";
-            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // txt_trocaoleo
             // 
@@ -596,7 +595,6 @@
             this.txt_trocaoleo.Name = "txt_trocaoleo";
             this.txt_trocaoleo.Size = new System.Drawing.Size(100, 20);
             this.txt_trocaoleo.TabIndex = 56;
-            this.txt_trocaoleo.TextChanged += new System.EventHandler(this.txt_trocaoleo_TextChanged);
             // 
             // txt_trocakm
             // 

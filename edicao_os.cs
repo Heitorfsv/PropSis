@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Mysqlx.Cursor;
 using PrototipoSistema.classes;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,6 @@ namespace PrototipoSistema
     public partial class edicao_os : Form
     {
         string doc_cliente;
-        pecas_os pecas_os = new pecas_os();
-        servicos_os servicos_os = new servicos_os();
         OS os = new OS();
         public edicao_os()
         {
@@ -108,7 +107,7 @@ namespace PrototipoSistema
                 lst_pecas.Items.Add(reader.GetString("nome"));
                 lst_pecas_qtd.Items.Add(reader.GetString("qtd"));
                 total = reader.GetString("valor");
-                lst_peca_total.Items.Add(total); 
+                lst_peca_total.Items.Add(total);
           
                 try
                 { total_peca += decimal.Parse(reader.GetString("valor")) * decimal.Parse(reader.GetString("qtd")); }
@@ -216,7 +215,7 @@ namespace PrototipoSistema
 
                 if (cb_pago.Checked == true)
                 { os.pago = 1; }
-                else 
+                else
                 { os.pago = 0; }
 
                 if (lst_servicos.Items.Contains("TROCA DE OLEO"))
@@ -326,16 +325,6 @@ namespace PrototipoSistema
             cmd.ExecuteReader();
             conexao.Close();
             Close();
-        }
-
-        private void label15_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txt_trocaoleo_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

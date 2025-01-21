@@ -26,7 +26,7 @@ namespace PrototipoSistema
 
         int month;
         int year;
-        string tarefa = "";
+        List<string> tarefa = new List<string>();
         public calendar()
         {
             InitializeComponent();
@@ -142,6 +142,8 @@ namespace PrototipoSistema
 
             if (events.Items != null && events.Items.Count > 0)
             {
+                tarefa.Clear();
+
                 foreach (var eventItem in events.Items)
                 {
                     string eventName = eventItem.Summary;
@@ -149,13 +151,12 @@ namespace PrototipoSistema
                     DateTime? endTime = eventItem.End.DateTime;
 
                     tasks.AppendLine(eventName);
-                    tasks.AppendLine(new string('-', 30));
+                    tarefa.Add(eventName);
                 }
             }
             else
-            { tasks.AppendLine(" "); }
+            { tarefa.Clear(); }
 
-            tarefa = tasks.ToString();
             //MessageBox.Show(tarefa);
         }
 

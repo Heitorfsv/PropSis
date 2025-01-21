@@ -11,8 +11,6 @@ namespace PrototipoSistema
     public partial class cadastro_os : Form
     {
         OS os = new OS();
-        pecas_os pecas_os = new pecas_os();
-        servicos_os servicos_os = new servicos_os();
         string doc_cliente;
 
         public cadastro_os()

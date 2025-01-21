@@ -245,7 +245,6 @@
             this.txt_cep.Size = new System.Drawing.Size(57, 20);
             this.txt_cep.TabIndex = 33;
             this.txt_cep.TextChanged += new System.EventHandler(this.txt_cep_TextChanged);
-            this.txt_cep.Leave += new System.EventHandler(this.txt_cep_Leave);
             // 
             // txt_bairro
             // 
