@@ -50,7 +50,6 @@
             this.dayscontainer.Name = "dayscontainer";
             this.dayscontainer.Size = new System.Drawing.Size(1900, 643);
             this.dayscontainer.TabIndex = 1;
-            this.dayscontainer.Paint += new System.Windows.Forms.PaintEventHandler(this.dayscontainer_Paint);
             // 
             // label2
             // 

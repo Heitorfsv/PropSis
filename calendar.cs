@@ -125,7 +125,7 @@ namespace PrototipoSistema
             });
 
             // Define o intervalo de tempo para buscar os eventos de hoje
-            DateTime startOfDay = new DateTime(year, month, day ,0 ,0 ,0);
+            DateTime startOfDay = new DateTime(year, month, day, 0, 0, 0);
             DateTime endOfDay = new DateTime(year, month, day, 23, 59, 59);
 
             EventsResource.ListRequest request = service.Events.List("jcmotors2020@gmail.com");
@@ -158,11 +158,6 @@ namespace PrototipoSistema
             { tarefa.Clear(); }
 
             //MessageBox.Show(tarefa);
-        }
-
-        private void dayscontainer_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void bnt_atualizar_Click(object sender, EventArgs e)

@@ -189,6 +189,12 @@
     <Compile Include="classes\motos.cs" />
     <Compile Include="classes\OS.cs" />
     <Compile Include="classes\pecas.cs" />
+    <Compile Include="edicao_calendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="edicao_calendar.Designer.cs">
+      <DependentUpon>edicao_calendar.cs</DependentUpon>
+    </Compile>
     <Compile Include="consulta_cliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="calendar.resx">
       <DependentUpon>calendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="edicao_calendar.resx">
+      <DependentUpon>edicao_calendar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="consulta_cliente.resx">
       <DependentUpon>consulta_cliente.cs</DependentUpon>

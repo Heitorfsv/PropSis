@@ -49,6 +49,7 @@
             this.lst_tarefas.Name = "lst_tarefas";
             this.lst_tarefas.Size = new System.Drawing.Size(251, 95);
             this.lst_tarefas.TabIndex = 2;
+            this.lst_tarefas.SelectedIndexChanged += new System.EventHandler(this.lst_tarefas_SelectedIndexChanged);
             this.lst_tarefas.DoubleClick += new System.EventHandler(this.lst_tarefas_DoubleClick);
             // 
             // blankdays

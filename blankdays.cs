@@ -70,13 +70,7 @@ namespace PrototipoSistema
             using (var stream = new FileStream("C:\\credentials\\credentials.json", FileMode.Open, FileAccess.Read))
             {
                 string credPath = "token.json";
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-                Console.WriteLine("Credenciais salvas em: " + credPath);
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets, Scopes, "user", CancellationToken.None, new FileDataStore(credPath, true)).Result; Console.WriteLine("Credenciais salvas em: " + credPath);
             }
 
             // Criar o serviço do Google Calendar
@@ -109,7 +103,6 @@ namespace PrototipoSistema
 
                 Console.WriteLine($"Eventos em {specificDate.ToShortDateString()}:");
 
-                bool found = false;
                 if (events.Items != null && events.Items.Count > 0)
                 {
                     foreach (var eventItem in events.Items)
@@ -117,15 +110,26 @@ namespace PrototipoSistema
                         // Verificar se o evento corresponde ao nome específico
                         if (eventItem.Summary != null && eventItem.Summary.Contains(eventNameToSearch))
                         {
-                            string when = eventItem.Start.DateTime.HasValue
-                                ? eventItem.Start.DateTime.Value.ToString("g")
+                            string inicio = eventItem.Start.DateTime.HasValue
+                                ? eventItem.Start.DateTime.Value.ToString("t")
                                 : eventItem.Start.Date;
-                            MessageBox.Show($"Evento encontrado: {eventItem.Summary} - {when}");
-                            found = true;
+
+                            string fim = eventItem.End.DateTime.HasValue
+                                ? eventItem.End.DateTime.Value.ToString("t")
+                                : eventItem.End.Date;
+
+                            edicao_calendar edicao_calendar = new edicao_calendar();
+                            edicao_calendar.carregar_info(eventItem.Summary, year, month, day, inicio, fim);
+                            edicao_calendar.Show();
                         }
                     }
                 }
             }
+        }
+
+        private void lst_tarefas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
