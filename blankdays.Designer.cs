@@ -49,7 +49,6 @@
             this.lst_tarefas.Name = "lst_tarefas";
             this.lst_tarefas.Size = new System.Drawing.Size(251, 95);
             this.lst_tarefas.TabIndex = 2;
-            this.lst_tarefas.SelectedIndexChanged += new System.EventHandler(this.lst_tarefas_SelectedIndexChanged);
             this.lst_tarefas.DoubleClick += new System.EventHandler(this.lst_tarefas_DoubleClick);
             // 
             // blankdays
@@ -60,7 +59,6 @@
             this.Controls.Add(this.lbl_days);
             this.Name = "blankdays";
             this.Size = new System.Drawing.Size(257, 121);
-            this.Load += new System.EventHandler(this.blankdays_Load);
             this.DoubleClick += new System.EventHandler(this.blankdays_DoubleClick);
             this.ResumeLayout(false);
             this.PerformLayout();

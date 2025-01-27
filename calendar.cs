@@ -156,8 +156,6 @@ namespace PrototipoSistema
             }
             else
             { tarefa.Clear(); }
-
-            //MessageBox.Show(tarefa);
         }
 
         private void bnt_atualizar_Click(object sender, EventArgs e)

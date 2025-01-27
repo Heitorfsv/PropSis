@@ -19,12 +19,8 @@ namespace PrototipoSistema
 {
     public partial class edicao_calendar : Form
     {
-        string evento;
-        int year;
-        int month;
-        int day;
-        string inicio;
-        string fim;
+        string evento, inicio, fim;
+        int year, month, day;
 
         static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
         static string ApplicationName = "Google Calendar API C# App";
@@ -119,22 +115,22 @@ namespace PrototipoSistema
                 {
                     // Obter o evento existente
                     Event existingEvent = service.Events.Get(calendarId, eventItem.Id).Execute();
-
+                    
                     // Editar nome do evento
                     existingEvent.Summary = txt_evento.Text;
-
+                MessageBox.Show(day + "/" + month + "/" + year + "T" + txt_horario2.Text);
                     // Alterar horário do evento
                     existingEvent.Start = new EventDateTime()
                     {
-                        DateTime = DateTime.Parse(year + "/" + month + "/" + day + "T" + txt_horario1.Text),
+                        DateTime = DateTime.Parse(year + "/" + month + "/" + day + "," + txt_horario1.Text + ":00"),
                         TimeZone = "America/Sao_Paulo"
                     };
                     existingEvent.End = new EventDateTime()
                     {
-                        DateTime = DateTime.Parse(year + "/" + month + "/" + day + "T" + txt_horario2.Text),
+                        DateTime = DateTime.Parse(day + "/" + month + "/" + year + "," + txt_horario2.Text + ":00"),
                         TimeZone = "America/Sao_Paulo"
                     };
-
+                    
                     // Enviar a atualização
                     Event updatedEvent = service.Events.Update(existingEvent, calendarId, eventItem.Id).Execute();
                     

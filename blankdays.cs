@@ -22,18 +22,11 @@ namespace PrototipoSistema
         static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
         static string ApplicationName = "Google Calendar API C# App";
 
-        int day;
-        int month;
-        int year;
+        int day, month, year;
 
         public blankdays()
         {
             InitializeComponent();
-        }
-
-        private void blankdays_Load(object sender, EventArgs e)
-        {
-
         }
 
         public void days(int numday, int month, int year, List<string> tarefa)
@@ -125,11 +118,6 @@ namespace PrototipoSistema
                     }
                 }
             }
-        }
-
-        private void lst_tarefas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
