@@ -118,7 +118,7 @@ namespace PrototipoSistema
                     
                     // Editar nome do evento
                     existingEvent.Summary = txt_evento.Text;
-                MessageBox.Show(day + "/" + month + "/" + year + "T" + txt_horario2.Text);
+
                     // Alterar horário do evento
                     existingEvent.Start = new EventDateTime()
                     {

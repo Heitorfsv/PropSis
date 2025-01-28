@@ -52,6 +52,12 @@ namespace PrototipoSistema
         {
             add_calendar add_calendar = new add_calendar();
             add_calendar.carregar_data(day, month, year);
+
+            add_calendar.FormClosed += (s, args) =>
+            {
+                AtualizarListaTarefas(); // Método para atualizar as tarefas
+            };
+
             add_calendar.Show();
         }
 
@@ -113,10 +119,73 @@ namespace PrototipoSistema
 
                             edicao_calendar edicao_calendar = new edicao_calendar();
                             edicao_calendar.carregar_info(eventItem.Summary, year, month, day, inicio, fim);
+
+                            edicao_calendar.FormClosed += (s, args) =>
+                            {
+                                AtualizarListaTarefas(); // Método para atualizar as tarefas
+                            };
+
                             edicao_calendar.Show();
                         }
                     }
                 }
+            }
+        }
+
+        private async void AtualizarListaTarefas()
+        {
+            try
+            {
+                lst_tarefas.Items.Clear(); // Limpa a lista atual
+
+                // Configurar autenticação
+                UserCredential credential;
+                using (var stream = new FileStream("C:\\credentials\\credentials.json", FileMode.Open, FileAccess.Read))
+                {
+                    string credPath = "token.json";
+                    credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.Load(stream).Secrets,
+                        Scopes,
+                        "user",
+                        CancellationToken.None,
+                        new FileDataStore(credPath, true));
+                }
+
+                // Criar o serviço do Google Calendar
+                var service = new CalendarService(new BaseClientService.Initializer
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = ApplicationName,
+                });
+
+                // Buscar eventos no intervalo de tempo
+                DateTime specificDate = new DateTime(year, month, day);
+                DateTime startTime = specificDate.Date;
+                DateTime endTime = specificDate.Date.AddDays(1).AddTicks(-1);
+
+                EventsResource.ListRequest request = service.Events.List("primary");
+                request.TimeMin = startTime;
+                request.TimeMax = endTime;
+                request.ShowDeleted = false;
+                request.SingleEvents = true;
+                request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+
+                Events events = await request.ExecuteAsync();
+
+                if (events.Items != null && events.Items.Count > 0)
+                {
+                    foreach (var eventItem in events.Items)
+                    {
+                        if (!string.IsNullOrEmpty(eventItem.Summary))
+                        {
+                            lst_tarefas.Items.Add(eventItem.Summary);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao atualizar tarefas: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

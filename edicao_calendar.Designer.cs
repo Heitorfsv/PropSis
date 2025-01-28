@@ -135,7 +135,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txt_evento);
             this.Name = "edicao_calendar";
-            this.Text = "consulta_calendar";
+            this.Text = "Consulta do evento";
             this.Load += new System.EventHandler(this.consulta_calendar_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
