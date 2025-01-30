@@ -30,6 +30,7 @@
         {
             this.lbl_days = new System.Windows.Forms.Label();
             this.lst_tarefas = new System.Windows.Forms.ListBox();
+            this.bnt_add = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_days
@@ -51,15 +52,26 @@
             this.lst_tarefas.TabIndex = 2;
             this.lst_tarefas.DoubleClick += new System.EventHandler(this.lst_tarefas_DoubleClick);
             // 
+            // bnt_add
+            // 
+            this.bnt_add.Font = new System.Drawing.Font("Arial Black", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_add.Location = new System.Drawing.Point(231, 0);
+            this.bnt_add.Name = "bnt_add";
+            this.bnt_add.Size = new System.Drawing.Size(23, 23);
+            this.bnt_add.TabIndex = 3;
+            this.bnt_add.Text = "+";
+            this.bnt_add.UseVisualStyleBackColor = true;
+            this.bnt_add.Click += new System.EventHandler(this.bnt_add_Click);
+            // 
             // blankdays
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.bnt_add);
             this.Controls.Add(this.lst_tarefas);
             this.Controls.Add(this.lbl_days);
             this.Name = "blankdays";
             this.Size = new System.Drawing.Size(257, 121);
-            this.DoubleClick += new System.EventHandler(this.blankdays_DoubleClick);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -69,5 +81,6 @@
 
         private System.Windows.Forms.Label lbl_days;
         private System.Windows.Forms.ListBox lst_tarefas;
+        private System.Windows.Forms.Button bnt_add;
     }
 }

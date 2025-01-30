@@ -40,6 +40,7 @@ namespace PrototipoSistema
                 txt_ano.Text = reader.GetString("ano");
                 txt_chassi.Text = reader.GetString("chassi");
                 txt_observacao.Text = reader.GetString("observacao");
+                txt_dt_registro.Text = reader.GetDateTime("dt_registro").ToString("d");
                 doc_dono = reader.GetString("doc_dono");
             }
             conexao.Close();

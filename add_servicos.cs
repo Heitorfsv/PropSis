@@ -140,49 +140,51 @@ namespace PrototipoSistema
                 qtd_tela.valor = valor;
                 qtd_tela.ShowDialog();
 
-
-                decimal total = 0;
-                decimal qtd = qtd_tela.quantidade;
-                valor = qtd_tela.valor;
-                MessageBox.Show(valor.ToString());
-                lst_servicos.Items.Add(servico);
-                lst_qtd.Items.Add(qtd_tela.quantidade);
-
-                lst_valor.Items.Add(valor);
-
-                try
+                if (qtd_tela.quantidade >= 1)
                 {
-                    lst_total.Items.Add((decimal.Parse(valor) * qtd).ToString("N2"));
-                }
-                catch { lst_total.Items.Add(valor); }
+                    decimal total = 0;
+                    decimal qtd = qtd_tela.quantidade;
+                    valor = qtd_tela.valor;
+                    MessageBox.Show(valor.ToString());
+                    lst_servicos.Items.Add(servico);
+                    lst_qtd.Items.Add(qtd_tela.quantidade);
 
-                lst_total.SelectedIndex = 0;
-                while (lst_total.SelectedIndex < lst_total.Items.Count - 1)
-                {
-                    total += decimal.Parse(lst_total.SelectedItem.ToString());
-                    lst_total.SelectedIndex += 1;
-                }
-                try
-                {
-                    if (lst_total.SelectedIndex == lst_total.Items.Count - 1)
+                    lst_valor.Items.Add(valor);
+
+                    try
+                    {
+                        lst_total.Items.Add((decimal.Parse(valor) * qtd).ToString("N2"));
+                    }
+                    catch { lst_total.Items.Add(valor); }
+
+                    lst_total.SelectedIndex = 0;
+                    while (lst_total.SelectedIndex < lst_total.Items.Count - 1)
                     {
                         total += decimal.Parse(lst_total.SelectedItem.ToString());
+                        lst_total.SelectedIndex += 1;
                     }
+                    try
+                    {
+                        if (lst_total.SelectedIndex == lst_total.Items.Count - 1)
+                        {
+                            total += decimal.Parse(lst_total.SelectedItem.ToString());
+                        }
+                    }
+                    catch { }
+                    txt_total.Text = total.ToString("N2");
+
+                    conexao.Close();
+                    ///
+                    servicos_os.ultimo_index();
+                    servicos_os.index++;
+                    servicos_os.os = static_class.controle_os;
+                    servicos_os.nome = servico.ToString();
+                    servicos_os.valor = valor;
+                    servicos_os.qtd = qtd_tela.quantidade;
+                    servicos_os.pos = lst_servicos.Items.Count - 1;
+
+                    servicos_os.cadastrar_peca_os();
                 }
-                catch { }
-                txt_total.Text = total.ToString("N2");
-
-                conexao.Close();
-                ///
-                servicos_os.ultimo_index();
-                servicos_os.index++;
-                servicos_os.os = static_class.controle_os;
-                servicos_os.nome = servico.ToString();
-                servicos_os.valor = valor;
-                servicos_os.qtd = qtd_tela.quantidade;
-                servicos_os.pos = lst_servicos.Items.Count - 1;
-
-                servicos_os.cadastrar_peca_os();
             }
             catch { }
         }

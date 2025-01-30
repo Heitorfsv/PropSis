@@ -118,9 +118,9 @@ namespace PrototipoSistema
 
             txt_total.Text = (total_peca + total_servico).ToString("N2");
 
-            /////////////////////
+            ///////////////////////////////////////
             
-            cmd = new MySqlCommand($"SELECT * FROM os WHERE aviso_oleo = '*' AND placa = '{cmb_placa.Text}' ORDER BY dt_saida DESC", conexao);
+            cmd = new MySqlCommand($"SELECT * FROM os WHERE aviso_oleo = '*' AND placa = '{cmb_placa.Text}' ORDER BY dt_cadastro DESC", conexao);
 
             conexao.Open();
             reader = cmd.ExecuteReader();
@@ -140,10 +140,9 @@ namespace PrototipoSistema
                 if (int.Parse(txt_km.Text) - km_antigo >= 3000)
                 {
                     MessageBox.Show("Ultima troca de oleo a " + (int.Parse(txt_km.Text) - km_antigo).ToString() + " KM");
-                    txt_trocakm.Text = (int.Parse(txt_km.Text) - km_antigo).ToString() + " KM";  
                 }
+                txt_trocakm.Text = (int.Parse(txt_km.Text) - km_antigo).ToString() + " KM";
             }
-      
             conexao.Close();
         }
 

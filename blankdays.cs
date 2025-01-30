@@ -47,10 +47,9 @@ namespace PrototipoSistema
                 }
             }
         }
-
-        private void blankdays_DoubleClick(object sender, EventArgs e)
+        private void bnt_add_Click(object sender, EventArgs e)
         {
-            add_calendar add_calendar = new add_calendar();
+            add_calendar add_calendar = new add_calendar(); 
             add_calendar.carregar_data(day, month, year);
 
             add_calendar.FormClosed += (s, args) =>

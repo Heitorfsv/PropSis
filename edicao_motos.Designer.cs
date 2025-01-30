@@ -47,6 +47,8 @@
             this.txt_cliente = new System.Windows.Forms.TextBox();
             this.bnt_deletar = new System.Windows.Forms.Button();
             this.bnt_historico = new System.Windows.Forms.Button();
+            this.txt_dt_registro = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label8
@@ -228,11 +230,30 @@
             this.bnt_historico.UseVisualStyleBackColor = true;
             this.bnt_historico.Click += new System.EventHandler(this.bnt_historico_Click);
             // 
+            // txt_dt_registro
+            // 
+            this.txt_dt_registro.Location = new System.Drawing.Point(541, 22);
+            this.txt_dt_registro.Name = "txt_dt_registro";
+            this.txt_dt_registro.ReadOnly = true;
+            this.txt_dt_registro.Size = new System.Drawing.Size(100, 20);
+            this.txt_dt_registro.TabIndex = 58;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(538, 5);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(82, 13);
+            this.label15.TabIndex = 57;
+            this.label15.Text = "Data de registro";
+            // 
             // edicao_motos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txt_dt_registro);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.bnt_historico);
             this.Controls.Add(this.bnt_deletar);
             this.Controls.Add(this.txt_cliente);
@@ -282,5 +303,7 @@
         private System.Windows.Forms.TextBox txt_cliente;
         private System.Windows.Forms.Button bnt_deletar;
         private System.Windows.Forms.Button bnt_historico;
+        private System.Windows.Forms.TextBox txt_dt_registro;
+        private System.Windows.Forms.Label label15;
     }
 }

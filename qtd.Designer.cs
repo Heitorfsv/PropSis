@@ -80,6 +80,7 @@
             this.txt_valor.Name = "txt_valor";
             this.txt_valor.Size = new System.Drawing.Size(100, 20);
             this.txt_valor.TabIndex = 3;
+            this.txt_valor.TextChanged += new System.EventHandler(this.txt_valor_TextChanged);
             // 
             // label3
             // 
@@ -94,6 +95,7 @@
             // 
             this.txt_total.Location = new System.Drawing.Point(245, 8);
             this.txt_total.Name = "txt_total";
+            this.txt_total.ReadOnly = true;
             this.txt_total.Size = new System.Drawing.Size(100, 20);
             this.txt_total.TabIndex = 5;
             // 

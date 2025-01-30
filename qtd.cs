@@ -55,7 +55,20 @@ namespace PrototipoSistema
 
         private void txt_qtd_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                txt_total.Text = (decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)).ToString();
+            }
+            catch { txt_total.Text = ""; }
+        }
 
+        private void txt_valor_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                txt_total.Text = (decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)).ToString();
+            }
+            catch { txt_total.Text = ""; }
         }
     }
 }

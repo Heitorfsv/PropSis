@@ -85,7 +85,8 @@ namespace PrototipoSistema
                 qtd_tela.valor = valor;
                 qtd_tela.ShowDialog();
 
-
+            if (qtd_tela.quantidade >= 1)
+            {
                 decimal total = 0;
                 decimal qtd = qtd_tela.quantidade;
                 valor = qtd_tela.valor;
@@ -96,7 +97,7 @@ namespace PrototipoSistema
                 lst_valor.Items.Add(valor);
 
                 try
-                {   
+                {
                     lst_total.Items.Add((decimal.Parse(valor) * qtd).ToString("N2"));
                 }
                 catch { lst_total.Items.Add(valor); }
@@ -125,9 +126,10 @@ namespace PrototipoSistema
                 pecas_os.nome = peca.ToString();
                 pecas_os.valor = valor;
                 pecas_os.qtd = qtd_tela.quantidade;
-                pecas_os.pos = lst_pecas.Items.Count-1;
+                pecas_os.pos = lst_pecas.Items.Count - 1;
 
                 pecas_os.cadastrar_peca_os();
+            }
 
         }
 
