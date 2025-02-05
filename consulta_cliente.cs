@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using ListBox = System.Windows.Forms.ListBox;
 
 namespace PrototipoSistema
 {
     public partial class consulta_cliente : Form
     {
-        private List<string> docSujo = new List<string>();
+        private List<bool> docSujo = new List<bool>();
 
         public consulta_cliente()
         {
@@ -37,21 +38,10 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            // Preenche a lista de documentos sujos
-            var cmd = new MySqlCommand("SELECT doc FROM clientes WHERE sujo = 1", conexao);
+            // Preenche as ListBox
+            var cmd = new MySqlCommand("SELECT * FROM clientes", conexao);
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                docSujo.Add(reader.GetString("doc"));
-            }
-            conexao.Close();
-
-            // Preenche as ListBox
-            cmd = new MySqlCommand("SELECT * FROM clientes", conexao);
-            conexao.Open();
-            reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
@@ -61,8 +51,55 @@ namespace PrototipoSistema
                 lst_telefone.Items.Add(reader.GetString("telefone"));
                 lst_endereco.Items.Add(reader.GetString("rua") + ", " + reader.GetString("bairro") + ", " + reader.GetString("cidade"));
                 lst_dt_nascimento.Items.Add(reader.GetString("dt_nascimento"));
+
+                docSujo.Add(reader.GetInt32("sujo") == 0);
             }
             conexao.Close();
+
+            lst_dt_cadastro.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_dt_cadastro.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_nome.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_nome.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_doc.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_doc.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_telefone.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_telefone.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_endereco.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_endereco.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_dt_nascimento.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_dt_nascimento.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+        }
+
+        private void lst_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            try
+            {
+                // Verifica se o índice é válido
+                if (e.Index < 0) return;
+
+                // Identifica a ListBox sendo desenhada
+                ListBox listBox = (ListBox)sender;
+
+                // Define a cor com base no status de "pago"
+                bool isPago = !docSujo[e.Index]; // true se pago == 1, false se pago == 0
+                Color textColor = isPago ? Color.Red : Color.Black;
+
+                // Preenche o fundo
+                e.DrawBackground();
+
+                // Desenha o item na cor correta
+                e.Graphics.DrawString(listBox.Items[e.Index].ToString(), e.Font, new SolidBrush(textColor), e.Bounds);
+
+                // Desenha o foco no item se necessário
+                e.DrawFocusRectangle();
+
+            }
+            catch { }
         }
 
 
@@ -196,164 +233,5 @@ namespace PrototipoSistema
 
         private void lst_dt_nascimento_Click(object sender, EventArgs e)
         { lst_nome.SelectedIndex = lst_dt_nascimento.SelectedIndex; }
-
-        private void lst_endereco_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void lst_nome_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            // Verifica se o índice é válido
-            if (e.Index < 0)
-                return;
-
-            // Obtém o documento do cliente correspondente
-            string docCliente = lst_doc.Items[e.Index].ToString();
-
-            // Define a cor vermelha para documentos "sujos", senão cor preta
-            if (docSujo.Contains(docCliente))
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_nome.Items[e.Index].ToString(), e.Font, Brushes.Red, e.Bounds);
-            }
-            else
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_nome.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
-            }
-
-            // Desenha o foco se o item estiver selecionado
-            e.DrawFocusRectangle();
-        }
-
-        private void lst_dt_cadastro_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            // Verifica se o índice é válido
-            if (e.Index < 0)
-                return;
-
-            // Obtém o documento do cliente correspondente
-            string docCliente = lst_doc.Items[e.Index].ToString();
-
-            // Define a cor vermelha para documentos "sujos", senão cor preta
-            if (docSujo.Contains(docCliente))
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_dt_cadastro.Items[e.Index].ToString(), e.Font, Brushes.Red, e.Bounds);
-            }
-            else
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_dt_cadastro.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
-            }
-
-            // Desenha o foco se o item estiver selecionado
-            e.DrawFocusRectangle();
-        }
-
-        private void lst_doc_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            // Verifica se o índice é válido
-            if (e.Index < 0)
-                return;
-
-            // Obtém o documento do cliente correspondente
-            string docCliente = lst_doc.Items[e.Index].ToString();
-
-            // Define a cor vermelha para documentos "sujos", senão cor preta
-            if (docSujo.Contains(docCliente))
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_doc.Items[e.Index].ToString(), e.Font, Brushes.Red, e.Bounds);
-            }
-            else
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_doc.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
-            }
-
-            // Desenha o foco se o item estiver selecionado
-            e.DrawFocusRectangle();
-        }
-
-        private void lst_telefone_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            // Verifica se o índice é válido
-            if (e.Index < 0)
-                return;
-
-            // Obtém o documento do cliente correspondente
-            string docCliente = lst_doc.Items[e.Index].ToString();
-
-            // Define a cor vermelha para documentos "sujos", senão cor preta
-            if (docSujo.Contains(docCliente))
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_telefone.Items[e.Index].ToString(), e.Font, Brushes.Red, e.Bounds);
-            }
-            else
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_telefone.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
-            }
-
-            // Desenha o foco se o item estiver selecionado
-            e.DrawFocusRectangle();
-        }
-
-        private void lst_endereco_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            // Verifica se o índice é válido
-            if (e.Index < 0)
-                return;
-
-            // Obtém o documento do cliente correspondente
-            string docCliente = lst_doc.Items[e.Index].ToString();
-
-            // Define a cor vermelha para documentos "sujos", senão cor preta
-            if (docSujo.Contains(docCliente))
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_endereco.Items[e.Index].ToString(), e.Font, Brushes.Red, e.Bounds);
-            }
-            else
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_endereco.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
-            }
-
-            // Desenha o foco se o item estiver selecionado
-            e.DrawFocusRectangle();
-        }
-
-        private void lst_dt_nascimento_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            // Verifica se o índice é válido
-            if (e.Index < 0)
-                return;
-
-            // Obtém o documento do cliente correspondente
-            string docCliente = lst_doc.Items[e.Index].ToString();
-
-            // Define a cor vermelha para documentos "sujos", senão cor preta
-            if (docSujo.Contains(docCliente))
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_dt_nascimento.Items[e.Index].ToString(), e.Font, Brushes.Red, e.Bounds);
-            }
-            else
-            {
-                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-                e.Graphics.DrawString(lst_dt_nascimento.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
-            }
-
-            // Desenha o foco se o item estiver selecionado
-            e.DrawFocusRectangle();
-        }
-
-        private void cmb_consulta_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

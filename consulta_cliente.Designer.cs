@@ -57,7 +57,6 @@
             this.lst_nome.Name = "lst_nome";
             this.lst_nome.Size = new System.Drawing.Size(89, 225);
             this.lst_nome.TabIndex = 0;
-            this.lst_nome.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lst_nome_DrawItem);
             this.lst_nome.SelectedIndexChanged += new System.EventHandler(this.lst_nome_SelectedIndexChanged);
             this.lst_nome.DragEnter += new System.Windows.Forms.DragEventHandler(this.lst_nome_DragEnter);
             this.lst_nome.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -83,7 +82,6 @@
             this.cmb_consulta.Name = "cmb_consulta";
             this.cmb_consulta.Size = new System.Drawing.Size(82, 21);
             this.cmb_consulta.TabIndex = 3;
-            this.cmb_consulta.SelectedIndexChanged += new System.EventHandler(this.cmb_consulta_SelectedIndexChanged);
             // 
             // bnt_pesquisar
             // 
@@ -107,7 +105,6 @@
             this.lst_dt_nascimento.Size = new System.Drawing.Size(89, 225);
             this.lst_dt_nascimento.TabIndex = 3;
             this.lst_dt_nascimento.Click += new System.EventHandler(this.lst_dt_nascimento_Click);
-            this.lst_dt_nascimento.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lst_dt_nascimento_DrawItem);
             this.lst_dt_nascimento.DoubleClick += new System.EventHandler(this.lst_dt_nascimento_DoubleClick);
             // 
             // lst_doc
@@ -120,7 +117,6 @@
             this.lst_doc.Size = new System.Drawing.Size(89, 225);
             this.lst_doc.TabIndex = 1;
             this.lst_doc.Click += new System.EventHandler(this.lst_doc_Click);
-            this.lst_doc.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lst_doc_DrawItem);
             this.lst_doc.DoubleClick += new System.EventHandler(this.lst_doc_DoubleClick);
             // 
             // lst_telefone
@@ -133,7 +129,6 @@
             this.lst_telefone.Size = new System.Drawing.Size(89, 225);
             this.lst_telefone.TabIndex = 2;
             this.lst_telefone.Click += new System.EventHandler(this.lst_telefone_Click);
-            this.lst_telefone.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lst_telefone_DrawItem);
             this.lst_telefone.DoubleClick += new System.EventHandler(this.lst_telefone_DoubleClick);
             // 
             // label1
@@ -201,7 +196,6 @@
             this.lst_dt_cadastro.Size = new System.Drawing.Size(89, 225);
             this.lst_dt_cadastro.TabIndex = 11;
             this.lst_dt_cadastro.Click += new System.EventHandler(this.lst_dt_cadastro_Click);
-            this.lst_dt_cadastro.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lst_dt_cadastro_DrawItem);
             this.lst_dt_cadastro.DoubleClick += new System.EventHandler(this.lst_dt_cadastro_DoubleClick);
             // 
             // label5
@@ -224,8 +218,6 @@
             this.lst_endereco.Size = new System.Drawing.Size(89, 225);
             this.lst_endereco.TabIndex = 13;
             this.lst_endereco.Click += new System.EventHandler(this.lst_endereco_Click);
-            this.lst_endereco.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lst_endereco_DrawItem);
-            this.lst_endereco.SelectedIndexChanged += new System.EventHandler(this.lst_endereco_SelectedIndexChanged);
             this.lst_endereco.DoubleClick += new System.EventHandler(this.lst_endereco_DoubleClick);
             // 
             // label6
