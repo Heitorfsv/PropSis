@@ -37,7 +37,7 @@ namespace PrototipoSistema
                 lista_os.Add(reader.GetInt32("os"));
             }
             conexao.Close();
-            //
+            ///////////////////////
             int count = 0;
 
             while (count < lista_os.Count)
@@ -60,7 +60,7 @@ namespace PrototipoSistema
                 conexao.Open();
                 reader = cmd.ExecuteReader();
 
-                while (reader.Read())
+                if (reader.Read())
                 {
                     lst_marca.Items.Add(reader.GetString("marca"));
                     lst_modelo.Items.Add(reader.GetString("modelo"));

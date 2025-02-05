@@ -55,6 +55,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.bnt_delete = new System.Windows.Forms.Button();
             this.cb_dt_nascimento = new System.Windows.Forms.CheckBox();
+            this.txt_dt_registro = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // bnt_editar
@@ -157,7 +159,6 @@
             this.txt_cep.Size = new System.Drawing.Size(57, 20);
             this.txt_cep.TabIndex = 60;
             this.txt_cep.TextChanged += new System.EventHandler(this.txt_cep_TextChanged);
-            this.txt_cep.Leave += new System.EventHandler(this.txt_cep_Leave);
             // 
             // txt_rua
             // 
@@ -336,11 +337,30 @@
             this.cb_dt_nascimento.UseVisualStyleBackColor = true;
             this.cb_dt_nascimento.CheckedChanged += new System.EventHandler(this.cb_dt_nascimento_CheckedChanged);
             // 
+            // txt_dt_registro
+            // 
+            this.txt_dt_registro.Location = new System.Drawing.Point(576, 26);
+            this.txt_dt_registro.Name = "txt_dt_registro";
+            this.txt_dt_registro.ReadOnly = true;
+            this.txt_dt_registro.Size = new System.Drawing.Size(100, 20);
+            this.txt_dt_registro.TabIndex = 72;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(573, 9);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(82, 13);
+            this.label15.TabIndex = 71;
+            this.label15.Text = "Data de registro";
+            // 
             // edicao_cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(686, 353);
+            this.Controls.Add(this.txt_dt_registro);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.cb_dt_nascimento);
             this.Controls.Add(this.bnt_delete);
             this.Controls.Add(this.rb_fisica);
@@ -405,5 +425,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button bnt_delete;
         private System.Windows.Forms.CheckBox cb_dt_nascimento;
+        private System.Windows.Forms.TextBox txt_dt_registro;
+        private System.Windows.Forms.Label label15;
     }
 }

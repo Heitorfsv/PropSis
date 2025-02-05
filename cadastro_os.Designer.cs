@@ -52,11 +52,19 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txt_observacao = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lst_peca_total = new System.Windows.Forms.ListBox();
+            this.lst_pecas_qtd = new System.Windows.Forms.ListBox();
             this.bnt_editar_peca = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.txt_total_pecas = new System.Windows.Forms.TextBox();
             this.lst_pecas = new System.Windows.Forms.ListBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lst_servico_total = new System.Windows.Forms.ListBox();
+            this.lst_servicos_qtd = new System.Windows.Forms.ListBox();
             this.bnt_editar_servico = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.txt_total_servico = new System.Windows.Forms.TextBox();
@@ -68,14 +76,7 @@
             this.dtp_saida = new System.Windows.Forms.DateTimePicker();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.cb_pago = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.lst_peca_total = new System.Windows.Forms.ListBox();
-            this.lst_pecas_qtd = new System.Windows.Forms.ListBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.lst_servico_total = new System.Windows.Forms.ListBox();
-            this.lst_servicos_qtd = new System.Windows.Forms.ListBox();
+            this.cb_saida = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -338,6 +339,44 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Peças";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(220, 28);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(42, 13);
+            this.label13.TabIndex = 27;
+            this.label13.Text = "Valores";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(161, 28);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(27, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Qtd.";
+            // 
+            // lst_peca_total
+            // 
+            this.lst_peca_total.FormattingEnabled = true;
+            this.lst_peca_total.Location = new System.Drawing.Point(222, 42);
+            this.lst_peca_total.Margin = new System.Windows.Forms.Padding(2);
+            this.lst_peca_total.Name = "lst_peca_total";
+            this.lst_peca_total.Size = new System.Drawing.Size(72, 199);
+            this.lst_peca_total.TabIndex = 25;
+            // 
+            // lst_pecas_qtd
+            // 
+            this.lst_pecas_qtd.FormattingEnabled = true;
+            this.lst_pecas_qtd.Location = new System.Drawing.Point(164, 42);
+            this.lst_pecas_qtd.Margin = new System.Windows.Forms.Padding(2);
+            this.lst_pecas_qtd.Name = "lst_pecas_qtd";
+            this.lst_pecas_qtd.Size = new System.Drawing.Size(55, 199);
+            this.lst_pecas_qtd.TabIndex = 24;
+            // 
             // bnt_editar_peca
             // 
             this.bnt_editar_peca.Location = new System.Drawing.Point(306, 273);
@@ -396,6 +435,44 @@
             this.groupBox6.TabIndex = 24;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Serviços";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(219, 28);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(42, 13);
+            this.label14.TabIndex = 28;
+            this.label14.Text = "Valores";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(160, 28);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(27, 13);
+            this.label12.TabIndex = 27;
+            this.label12.Text = "Qtd.";
+            // 
+            // lst_servico_total
+            // 
+            this.lst_servico_total.FormattingEnabled = true;
+            this.lst_servico_total.Location = new System.Drawing.Point(222, 42);
+            this.lst_servico_total.Margin = new System.Windows.Forms.Padding(2);
+            this.lst_servico_total.Name = "lst_servico_total";
+            this.lst_servico_total.Size = new System.Drawing.Size(72, 199);
+            this.lst_servico_total.TabIndex = 26;
+            // 
+            // lst_servicos_qtd
+            // 
+            this.lst_servicos_qtd.FormattingEnabled = true;
+            this.lst_servicos_qtd.Location = new System.Drawing.Point(163, 42);
+            this.lst_servicos_qtd.Margin = new System.Windows.Forms.Padding(2);
+            this.lst_servicos_qtd.Name = "lst_servicos_qtd";
+            this.lst_servicos_qtd.Size = new System.Drawing.Size(55, 199);
+            this.lst_servicos_qtd.TabIndex = 25;
             // 
             // bnt_editar_servico
             // 
@@ -500,87 +577,22 @@
             this.cb_pago.Text = "Pago?";
             this.cb_pago.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // cb_saida
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(220, 28);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(42, 13);
-            this.label13.TabIndex = 27;
-            this.label13.Text = "Valores";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(161, 28);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(27, 13);
-            this.label11.TabIndex = 26;
-            this.label11.Text = "Qtd.";
-            // 
-            // lst_peca_total
-            // 
-            this.lst_peca_total.FormattingEnabled = true;
-            this.lst_peca_total.Location = new System.Drawing.Point(222, 42);
-            this.lst_peca_total.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_peca_total.Name = "lst_peca_total";
-            this.lst_peca_total.Size = new System.Drawing.Size(72, 199);
-            this.lst_peca_total.TabIndex = 25;
-            // 
-            // lst_pecas_qtd
-            // 
-            this.lst_pecas_qtd.FormattingEnabled = true;
-            this.lst_pecas_qtd.Location = new System.Drawing.Point(164, 42);
-            this.lst_pecas_qtd.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_pecas_qtd.Name = "lst_pecas_qtd";
-            this.lst_pecas_qtd.Size = new System.Drawing.Size(55, 199);
-            this.lst_pecas_qtd.TabIndex = 24;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(219, 28);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(42, 13);
-            this.label14.TabIndex = 28;
-            this.label14.Text = "Valores";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(160, 28);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(27, 13);
-            this.label12.TabIndex = 27;
-            this.label12.Text = "Qtd.";
-            // 
-            // lst_servico_total
-            // 
-            this.lst_servico_total.FormattingEnabled = true;
-            this.lst_servico_total.Location = new System.Drawing.Point(222, 42);
-            this.lst_servico_total.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_servico_total.Name = "lst_servico_total";
-            this.lst_servico_total.Size = new System.Drawing.Size(72, 199);
-            this.lst_servico_total.TabIndex = 26;
-            // 
-            // lst_servicos_qtd
-            // 
-            this.lst_servicos_qtd.FormattingEnabled = true;
-            this.lst_servicos_qtd.Location = new System.Drawing.Point(163, 42);
-            this.lst_servicos_qtd.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_servicos_qtd.Name = "lst_servicos_qtd";
-            this.lst_servicos_qtd.Size = new System.Drawing.Size(55, 199);
-            this.lst_servicos_qtd.TabIndex = 25;
+            this.cb_saida.AutoSize = true;
+            this.cb_saida.Location = new System.Drawing.Point(603, 26);
+            this.cb_saida.Name = "cb_saida";
+            this.cb_saida.Size = new System.Drawing.Size(15, 14);
+            this.cb_saida.TabIndex = 43;
+            this.cb_saida.UseVisualStyleBackColor = true;
+            this.cb_saida.CheckedChanged += new System.EventHandler(this.cb_saida_CheckedChanged);
             // 
             // cadastro_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(931, 557);
+            this.Controls.Add(this.cb_saida);
             this.Controls.Add(this.cb_pago);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.dtp_saida);
@@ -664,5 +676,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ListBox lst_servico_total;
         private System.Windows.Forms.ListBox lst_servicos_qtd;
+        private System.Windows.Forms.CheckBox cb_saida;
     }
 }

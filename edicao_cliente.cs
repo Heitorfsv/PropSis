@@ -71,6 +71,7 @@ namespace PrototipoSistema
                 txt_rua.Text = reader.GetString("rua");
                 txt_bairro.Text = reader.GetString("bairro");
                 txt_cidade.Text = reader.GetString("cidade");
+                txt_dt_registro.Text = reader.GetDateTime("dt_cadastro").ToString("d");
             }
 
             conexao.Close();
@@ -129,11 +130,6 @@ namespace PrototipoSistema
                 txt_inscricao.Visible = true;
                 lbl_inscricao.Visible = true;
             }
-        }
-
-        private void txt_cep_Leave(object sender, EventArgs e)
-        {
-
         }
 
         private void txt_cep_TextChanged(object sender, EventArgs e)

@@ -40,9 +40,13 @@ namespace PrototipoSistema
                 txt_dt_cadastro.Text = reader.GetDateTime("dt_cadastro").ToString("dd/MM/yyyy");
                 txt_observacao.Text = reader.GetString("observacao");
                 try
-                { dtp_saida.Value = DateTime.Parse(reader.GetString("dt_saida")); }
+                { 
+                    dtp_saida.Value = DateTime.Parse(reader.GetString("dt_saida"));
+                    dtp_saida.Enabled = true;
+                    cb_saida.Checked = true;
+                }
                 catch
-                { dtp_saida.Value = DateTime.Now; }
+                { dtp_saida.Enabled = false; }
 
                 if (reader.GetInt32("pago") == 1)
                 { cb_pago.Checked = true; }
@@ -210,7 +214,11 @@ namespace PrototipoSistema
                 os.km = int.Parse(txt_km.Text);
                 os.observacao = txt_observacao.Text;
                 os.total = txt_total.Text;
-                os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
+
+                if (dtp_saida.Enabled == true)
+                { os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); }
+                else 
+                { os.dt_saida = null; }
 
                 if (cb_pago.Checked == true)
                 { os.pago = 1; }
@@ -324,6 +332,14 @@ namespace PrototipoSistema
             cmd.ExecuteReader();
             conexao.Close();
             Close();
+        }
+
+        private void cb_saida_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_saida.Checked == true)
+            { dtp_saida.Enabled = true; }
+            else
+            { dtp_saida.Enabled = false; }
         }
     }
 }

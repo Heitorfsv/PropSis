@@ -48,7 +48,7 @@
             this.dayscontainer.BackColor = System.Drawing.SystemColors.Control;
             this.dayscontainer.Location = new System.Drawing.Point(12, 138);
             this.dayscontainer.Name = "dayscontainer";
-            this.dayscontainer.Size = new System.Drawing.Size(1900, 643);
+            this.dayscontainer.Size = new System.Drawing.Size(1900, 806);
             this.dayscontainer.TabIndex = 1;
             // 
             // label2
@@ -123,7 +123,7 @@
             // 
             // bnt_anterior
             // 
-            this.bnt_anterior.Location = new System.Drawing.Point(1723, 786);
+            this.bnt_anterior.Location = new System.Drawing.Point(1735, 949);
             this.bnt_anterior.Name = "bnt_anterior";
             this.bnt_anterior.Size = new System.Drawing.Size(75, 23);
             this.bnt_anterior.TabIndex = 9;
@@ -133,7 +133,7 @@
             // 
             // bnt_proximo
             // 
-            this.bnt_proximo.Location = new System.Drawing.Point(1816, 787);
+            this.bnt_proximo.Location = new System.Drawing.Point(1828, 950);
             this.bnt_proximo.Name = "bnt_proximo";
             this.bnt_proximo.Size = new System.Drawing.Size(75, 23);
             this.bnt_proximo.TabIndex = 10;
@@ -170,7 +170,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1924, 819);
+            this.ClientSize = new System.Drawing.Size(1924, 995);
             this.Controls.Add(this.bnt_atualizar);
             this.Controls.Add(this.lbl_mes);
             this.Controls.Add(this.bnt_proximo);

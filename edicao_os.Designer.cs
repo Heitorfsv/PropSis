@@ -80,6 +80,7 @@
             this.txt_trocaoleo = new System.Windows.Forms.TextBox();
             this.txt_trocakm = new System.Windows.Forms.TextBox();
             this.cb_pago = new System.Windows.Forms.CheckBox();
+            this.cb_saida = new System.Windows.Forms.CheckBox();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -107,7 +108,7 @@
             // 
             // bnt_editar
             // 
-            this.bnt_editar.Location = new System.Drawing.Point(842, 490);
+            this.bnt_editar.Location = new System.Drawing.Point(843, 525);
             this.bnt_editar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar.Name = "bnt_editar";
             this.bnt_editar.Size = new System.Drawing.Size(86, 28);
@@ -571,9 +572,9 @@
             // bnt_deletar
             // 
             this.bnt_deletar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bnt_deletar.Location = new System.Drawing.Point(532, 20);
+            this.bnt_deletar.Location = new System.Drawing.Point(843, 492);
             this.bnt_deletar.Name = "bnt_deletar";
-            this.bnt_deletar.Size = new System.Drawing.Size(75, 20);
+            this.bnt_deletar.Size = new System.Drawing.Size(86, 28);
             this.bnt_deletar.TabIndex = 54;
             this.bnt_deletar.Text = "Deletar";
             this.bnt_deletar.UseVisualStyleBackColor = true;
@@ -614,11 +615,22 @@
             this.cb_pago.Text = "Pago?";
             this.cb_pago.UseVisualStyleBackColor = true;
             // 
+            // cb_saida
+            // 
+            this.cb_saida.AutoSize = true;
+            this.cb_saida.Location = new System.Drawing.Point(606, 24);
+            this.cb_saida.Name = "cb_saida";
+            this.cb_saida.Size = new System.Drawing.Size(15, 14);
+            this.cb_saida.TabIndex = 59;
+            this.cb_saida.UseVisualStyleBackColor = true;
+            this.cb_saida.CheckedChanged += new System.EventHandler(this.cb_saida_CheckedChanged);
+            // 
             // edicao_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 576);
+            this.Controls.Add(this.cb_saida);
             this.Controls.Add(this.cb_pago);
             this.Controls.Add(this.txt_trocakm);
             this.Controls.Add(this.txt_trocaoleo);
@@ -708,5 +720,6 @@
         private System.Windows.Forms.TextBox txt_trocaoleo;
         private System.Windows.Forms.TextBox txt_trocakm;
         private System.Windows.Forms.CheckBox cb_pago;
+        private System.Windows.Forms.CheckBox cb_saida;
     }
 }

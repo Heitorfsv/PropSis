@@ -163,7 +163,6 @@
             this.Controls.Add(this.lst_clientes);
             this.Name = "historico_moto";
             this.Text = "Histórico da moto";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.historico_moto_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

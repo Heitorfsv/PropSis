@@ -19,7 +19,9 @@ namespace PrototipoSistema
         }
         private void cadastro_os_Load(object sender, EventArgs e)
         {
+            dtp_saida.Enabled = false;
             txt_dt_cadastro.Text = DateTime.Now.ToString("dd/MM/yyyy");
+
             os.ultimo_index();
             os.index++;
             static_class.controle_os = os.index;
@@ -155,7 +157,11 @@ namespace PrototipoSistema
 
 
                 os.dt_cadastro = DateTime.Parse(txt_dt_cadastro.Text);
-                os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
+
+                if (dtp_saida.Enabled == true)
+                { os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); }
+                else
+                { os.dt_saida = null; }
 
                 os.cadastrar_os();
 
@@ -272,6 +278,14 @@ namespace PrototipoSistema
         private void lst_pecas_MouseDown(object sender, MouseEventArgs e)
         {
             object index = lst_pecas.SelectedIndex;
+        }
+
+        private void cb_saida_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_saida.Checked == true)
+            { dtp_saida.Enabled = true; }
+            else
+            {  dtp_saida.Enabled = false;}
         }
     }
 }
