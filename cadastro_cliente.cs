@@ -38,6 +38,7 @@ namespace PrototipoSistema
             cliente.telefone = txt_telefone.Text;
             cliente.telefone2 = txt_telefone2.Text;
             cliente.cep = txt_cep.Text;
+            cliente.sujo = 0;
 
             if (cb_dt_nascimento.Checked == true)
             { cliente.dt_nascimento = dtp_nascimento.Value.ToString("dd/MM/yyyy"); }
