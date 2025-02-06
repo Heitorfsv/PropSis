@@ -54,6 +54,7 @@
             this.consultaServiçosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultarMotoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aniversáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calendarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +63,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.calendarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +78,7 @@
             this.menuStrip.MdiWindowListItem = this.windowsMenu;
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip.Size = new System.Drawing.Size(829, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1149, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -176,9 +176,8 @@
             this.cadastrarServiçoToolStripMenuItem,
             this.cadastrarMotoToolStripMenuItem});
             this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
-            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.newWindowToolStripMenuItem.Text = "Cadastro";
-            this.newWindowToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // cadastroClienteToolStripMenuItem
             // 
@@ -224,7 +223,7 @@
             this.consultaServiçosToolStripMenuItem,
             this.consultarMotoToolStripMenuItem});
             this.consultaToolStripMenuItem.Name = "consultaToolStripMenuItem";
-            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.consultaToolStripMenuItem.Text = "Consulta";
             // 
             // consultaDeClienteToolStripMenuItem
@@ -265,9 +264,16 @@
             // aniversáriosToolStripMenuItem
             // 
             this.aniversáriosToolStripMenuItem.Name = "aniversáriosToolStripMenuItem";
-            this.aniversáriosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aniversáriosToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.aniversáriosToolStripMenuItem.Text = "Aniversários";
             this.aniversáriosToolStripMenuItem.Click += new System.EventHandler(this.aniversáriosToolStripMenuItem_Click);
+            // 
+            // calendarioToolStripMenuItem
+            // 
+            this.calendarioToolStripMenuItem.Name = "calendarioToolStripMenuItem";
+            this.calendarioToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.calendarioToolStripMenuItem.Text = "Calendário ";
+            this.calendarioToolStripMenuItem.Click += new System.EventHandler(this.calendarioToolStripMenuItem_Click);
             // 
             // helpMenu
             // 
@@ -319,18 +325,11 @@
             this.saveToolStripButton.Size = new System.Drawing.Size(34, 28);
             this.saveToolStripButton.Text = "Salvar";
             // 
-            // calendarioToolStripMenuItem
-            // 
-            this.calendarioToolStripMenuItem.Name = "calendarioToolStripMenuItem";
-            this.calendarioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.calendarioToolStripMenuItem.Text = "Calendário ";
-            this.calendarioToolStripMenuItem.Click += new System.EventHandler(this.calendarioToolStripMenuItem_Click);
-            // 
             // MDI_tela
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(829, 453);
+            this.ClientSize = new System.Drawing.Size(1149, 582);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
@@ -338,7 +337,6 @@
             this.Text = "Sistema";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MDI_tela_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MDI_tela_KeyPress);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);

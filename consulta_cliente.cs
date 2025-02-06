@@ -102,7 +102,6 @@ namespace PrototipoSistema
             catch { }
         }
 
-
         private void bnt_pesquisar_Click(object sender, EventArgs e)
         {
             lst_dt_cadastro.Items.Clear();
@@ -111,6 +110,7 @@ namespace PrototipoSistema
             lst_telefone.Items.Clear();
             lst_endereco.Items.Clear();
             lst_dt_nascimento.Items.Clear();
+            docSujo.Clear();
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
@@ -128,9 +128,29 @@ namespace PrototipoSistema
                 lst_telefone.Items.Add(reader.GetString("telefone"));
                 lst_endereco.Items.Add(reader.GetString("rua") + ", " + reader.GetString("bairro") + ", " + reader.GetString("cidade"));
                 lst_dt_nascimento.Items.Add(reader.GetString("dt_nascimento"));
+
+                docSujo.Add(reader.GetInt32("sujo") == 0);
             }
 
             conexao.Close();
+
+            lst_dt_cadastro.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_dt_cadastro.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_nome.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_nome.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_doc.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_doc.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_telefone.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_telefone.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_endereco.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_endereco.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_dt_nascimento.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_dt_nascimento.DrawItem += new DrawItemEventHandler(lst_DrawItem);
         }
 
         private void bnt_atualizar_Click(object sender, EventArgs e)

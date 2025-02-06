@@ -18,10 +18,6 @@ namespace PrototipoSistema
             InitializeComponent();
         }
 
-        private void ShowNewForm(object sender, EventArgs e)
-        {
-        }
-
         private void OpenFile(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -133,12 +129,6 @@ namespace PrototipoSistema
             cadastro_cliente.MdiParent = this;
             cadastro_cliente.Show();
         }
-
-        private void MDI_tela_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void cadastrarServiçoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cadastro_servicos cadastro_servico = new cadastro_servicos();

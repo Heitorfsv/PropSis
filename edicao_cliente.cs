@@ -55,7 +55,7 @@ namespace PrototipoSistema
                     txt_doc.Text = doc;
                 }
 
-                if (reader.GetString("dt_nascimento") == "NULL")
+                if (reader.GetString("dt_nascimento") == null)
                 { cb_dt_nascimento.Checked = false; }
                 else
                 {
@@ -103,7 +103,7 @@ namespace PrototipoSistema
             if (cb_dt_nascimento.Checked == true)
             { cliente.dt_nascimento = dtp_nascimento.Value.ToString("dd/MM/yyyy"); }
             else
-            { cliente.dt_nascimento = "NULL"; }
+            { cliente.dt_nascimento = null; }
 
             try
             {
