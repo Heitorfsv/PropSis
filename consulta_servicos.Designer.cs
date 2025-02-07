@@ -56,10 +56,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 37);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(2, 34);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.Size = new System.Drawing.Size(52, 16);
             this.label1.TabIndex = 15;
             this.label1.Text = "Nome:";
             // 
@@ -96,22 +97,26 @@
             // 
             // lst_nome
             // 
+            this.lst_nome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_nome.FormattingEnabled = true;
+            this.lst_nome.ItemHeight = 16;
             this.lst_nome.Location = new System.Drawing.Point(5, 52);
             this.lst_nome.Margin = new System.Windows.Forms.Padding(2);
             this.lst_nome.Name = "lst_nome";
-            this.lst_nome.Size = new System.Drawing.Size(282, 225);
+            this.lst_nome.Size = new System.Drawing.Size(282, 212);
             this.lst_nome.TabIndex = 0;
             this.lst_nome.SelectedIndexChanged += new System.EventHandler(this.lst_nome_SelectedIndexChanged);
             this.lst_nome.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
             // 
             // lst_valor
             // 
+            this.lst_valor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_valor.FormattingEnabled = true;
+            this.lst_valor.ItemHeight = 16;
             this.lst_valor.Location = new System.Drawing.Point(293, 52);
             this.lst_valor.Margin = new System.Windows.Forms.Padding(2);
             this.lst_valor.Name = "lst_valor";
-            this.lst_valor.Size = new System.Drawing.Size(234, 225);
+            this.lst_valor.Size = new System.Drawing.Size(234, 212);
             this.lst_valor.TabIndex = 20;
             this.lst_valor.SelectedIndexChanged += new System.EventHandler(this.lst_status_SelectedIndexChanged);
             this.lst_valor.DoubleClick += new System.EventHandler(this.lst_status_DoubleClick);
@@ -119,10 +124,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(290, 37);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(290, 34);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 13);
+            this.label2.Size = new System.Drawing.Size(48, 16);
             this.label2.TabIndex = 21;
             this.label2.Text = "Valor:";
             // 

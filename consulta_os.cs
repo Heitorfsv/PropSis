@@ -50,14 +50,14 @@ namespace PrototipoSistema
                 lst_placa.Items.Add(reader.GetString("placa"));
                 lst_cliente.Items.Add(reader.GetString("cliente"));
                 lst_dt.Items.Add(reader.GetDateTime("dt_cadastro").ToString("dd/MM/yyyy"));
-                lst_total.Items.Add(reader.GetDecimal("total").ToString()); 
+                lst_total.Items.Add(reader.GetDecimal("total").ToString());
                 lista_doc.Add(reader.GetString("doc"));
 
-                pagoStatus.Add(reader.GetInt32("pago") == 0); 
+                pagoStatus.Add(reader.GetInt32("pago") == 0);
 
                 try
                 { lst_dt_saida.Items.Add(reader.GetString("dt_saida")); }
-                catch 
+                catch
                 { lst_dt_saida.Items.Add(""); }
                 count++;
             }
@@ -99,7 +99,7 @@ namespace PrototipoSistema
                 cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{lista_os[count]}'", conexao);
 
                 conexao.Open();
-                reader = cmd.ExecuteReader(); 
+                reader = cmd.ExecuteReader();
                 decimal soma_peca = 0;
 
                 while (reader.Read())

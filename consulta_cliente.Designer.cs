@@ -51,8 +51,9 @@
             // 
             this.lst_nome.AllowDrop = true;
             this.lst_nome.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lst_nome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_nome.FormattingEnabled = true;
-            this.lst_nome.Location = new System.Drawing.Point(104, 47);
+            this.lst_nome.Location = new System.Drawing.Point(104, 60);
             this.lst_nome.Margin = new System.Windows.Forms.Padding(2);
             this.lst_nome.Name = "lst_nome";
             this.lst_nome.Size = new System.Drawing.Size(89, 225);
@@ -97,9 +98,10 @@
             // lst_dt_nascimento
             // 
             this.lst_dt_nascimento.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lst_dt_nascimento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_dt_nascimento.ForeColor = System.Drawing.SystemColors.WindowText;
             this.lst_dt_nascimento.FormattingEnabled = true;
-            this.lst_dt_nascimento.Location = new System.Drawing.Point(476, 47);
+            this.lst_dt_nascimento.Location = new System.Drawing.Point(476, 60);
             this.lst_dt_nascimento.Margin = new System.Windows.Forms.Padding(2);
             this.lst_dt_nascimento.Name = "lst_dt_nascimento";
             this.lst_dt_nascimento.Size = new System.Drawing.Size(89, 225);
@@ -110,8 +112,9 @@
             // lst_doc
             // 
             this.lst_doc.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lst_doc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_doc.FormattingEnabled = true;
-            this.lst_doc.Location = new System.Drawing.Point(197, 47);
+            this.lst_doc.Location = new System.Drawing.Point(197, 60);
             this.lst_doc.Margin = new System.Windows.Forms.Padding(2);
             this.lst_doc.Name = "lst_doc";
             this.lst_doc.Size = new System.Drawing.Size(89, 225);
@@ -122,8 +125,9 @@
             // lst_telefone
             // 
             this.lst_telefone.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lst_telefone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_telefone.FormattingEnabled = true;
-            this.lst_telefone.Location = new System.Drawing.Point(290, 47);
+            this.lst_telefone.Location = new System.Drawing.Point(290, 60);
             this.lst_telefone.Margin = new System.Windows.Forms.Padding(2);
             this.lst_telefone.Name = "lst_telefone";
             this.lst_telefone.Size = new System.Drawing.Size(89, 225);
@@ -134,40 +138,44 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(101, 32);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(101, 42);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.Size = new System.Drawing.Size(52, 16);
             this.label1.TabIndex = 6;
             this.label1.Text = "Nome:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(194, 32);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(194, 42);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 13);
+            this.label2.Size = new System.Drawing.Size(89, 16);
             this.label2.TabIndex = 7;
             this.label2.Text = "Documento:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(287, 32);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(287, 42);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.Size = new System.Drawing.Size(73, 16);
             this.label3.TabIndex = 8;
             this.label3.Text = "Telefone:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(473, 32);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(473, 42);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 13);
+            this.label4.Size = new System.Drawing.Size(149, 16);
             this.label4.TabIndex = 9;
             this.label4.Text = "Data de nascimento:";
             // 
@@ -189,8 +197,9 @@
             // 
             this.lst_dt_cadastro.AllowDrop = true;
             this.lst_dt_cadastro.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lst_dt_cadastro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_dt_cadastro.FormattingEnabled = true;
-            this.lst_dt_cadastro.Location = new System.Drawing.Point(11, 47);
+            this.lst_dt_cadastro.Location = new System.Drawing.Point(11, 60);
             this.lst_dt_cadastro.Margin = new System.Windows.Forms.Padding(2);
             this.lst_dt_cadastro.Name = "lst_dt_cadastro";
             this.lst_dt_cadastro.Size = new System.Drawing.Size(89, 225);
@@ -201,18 +210,20 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 32);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(8, 42);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 13);
+            this.label5.Size = new System.Drawing.Size(91, 16);
             this.label5.TabIndex = 12;
             this.label5.Text = "Dt cadastro:";
             // 
             // lst_endereco
             // 
             this.lst_endereco.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lst_endereco.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_endereco.FormattingEnabled = true;
-            this.lst_endereco.Location = new System.Drawing.Point(383, 47);
+            this.lst_endereco.Location = new System.Drawing.Point(383, 60);
             this.lst_endereco.Margin = new System.Windows.Forms.Padding(2);
             this.lst_endereco.Name = "lst_endereco";
             this.lst_endereco.Size = new System.Drawing.Size(89, 225);
@@ -223,10 +234,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(380, 32);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(380, 42);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 13);
+            this.label6.Size = new System.Drawing.Size(78, 16);
             this.label6.TabIndex = 14;
             this.label6.Text = "Endereço:";
             // 
@@ -234,7 +246,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 292);
+            this.ClientSize = new System.Drawing.Size(642, 333);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lst_endereco);
             this.Controls.Add(this.label5);

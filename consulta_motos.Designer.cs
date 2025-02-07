@@ -102,43 +102,50 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(101, 46);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(101, 43);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 13);
+            this.label5.Size = new System.Drawing.Size(51, 16);
             this.label5.TabIndex = 22;
             this.label5.Text = "Placa:";
             // 
             // lst_placa
             // 
             this.lst_placa.AllowDrop = true;
+            this.lst_placa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_placa.FormattingEnabled = true;
-            this.lst_placa.Location = new System.Drawing.Point(104, 61);
+            this.lst_placa.ItemHeight = 16;
+            this.lst_placa.Location = new System.Drawing.Point(104, 64);
             this.lst_placa.Margin = new System.Windows.Forms.Padding(2);
             this.lst_placa.Name = "lst_placa";
-            this.lst_placa.Size = new System.Drawing.Size(89, 225);
+            this.lst_placa.Size = new System.Drawing.Size(89, 212);
             this.lst_placa.TabIndex = 21;
             this.lst_placa.SelectedIndexChanged += new System.EventHandler(this.lst_placa_SelectedIndexChanged);
             this.lst_placa.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
             // 
             // lst_cor
             // 
+            this.lst_cor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_cor.FormattingEnabled = true;
-            this.lst_cor.Location = new System.Drawing.Point(383, 61);
+            this.lst_cor.ItemHeight = 16;
+            this.lst_cor.Location = new System.Drawing.Point(383, 64);
             this.lst_cor.Margin = new System.Windows.Forms.Padding(2);
             this.lst_cor.Name = "lst_cor";
-            this.lst_cor.Size = new System.Drawing.Size(89, 225);
+            this.lst_cor.Size = new System.Drawing.Size(89, 212);
             this.lst_cor.TabIndex = 17;
             this.lst_cor.Click += new System.EventHandler(this.lst_cor_Click);
             this.lst_cor.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
             // 
             // lst_modelo
             // 
+            this.lst_modelo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_modelo.FormattingEnabled = true;
-            this.lst_modelo.Location = new System.Drawing.Point(290, 61);
+            this.lst_modelo.ItemHeight = 16;
+            this.lst_modelo.Location = new System.Drawing.Point(290, 64);
             this.lst_modelo.Margin = new System.Windows.Forms.Padding(2);
             this.lst_modelo.Name = "lst_modelo";
-            this.lst_modelo.Size = new System.Drawing.Size(89, 225);
+            this.lst_modelo.Size = new System.Drawing.Size(89, 212);
             this.lst_modelo.TabIndex = 16;
             this.lst_modelo.Click += new System.EventHandler(this.lst_modelo_Click);
             this.lst_modelo.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -146,11 +153,13 @@
             // lst_marca
             // 
             this.lst_marca.AllowDrop = true;
+            this.lst_marca.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_marca.FormattingEnabled = true;
-            this.lst_marca.Location = new System.Drawing.Point(197, 61);
+            this.lst_marca.ItemHeight = 16;
+            this.lst_marca.Location = new System.Drawing.Point(197, 64);
             this.lst_marca.Margin = new System.Windows.Forms.Padding(2);
             this.lst_marca.Name = "lst_marca";
-            this.lst_marca.Size = new System.Drawing.Size(89, 225);
+            this.lst_marca.Size = new System.Drawing.Size(89, 212);
             this.lst_marca.TabIndex = 15;
             this.lst_marca.Click += new System.EventHandler(this.lst_marca_Click);
             this.lst_marca.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -158,40 +167,45 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(380, 46);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.Size = new System.Drawing.Size(35, 16);
             this.label3.TabIndex = 20;
             this.label3.Text = "Cor:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(287, 46);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.Size = new System.Drawing.Size(63, 16);
             this.label2.TabIndex = 19;
             this.label2.Text = "Modelo:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(194, 46);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.Size = new System.Drawing.Size(54, 16);
             this.label1.TabIndex = 18;
             this.label1.Text = "Marca:";
             // 
             // lst_ano
             // 
+            this.lst_ano.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_ano.FormattingEnabled = true;
-            this.lst_ano.Location = new System.Drawing.Point(476, 61);
+            this.lst_ano.ItemHeight = 16;
+            this.lst_ano.Location = new System.Drawing.Point(476, 64);
             this.lst_ano.Margin = new System.Windows.Forms.Padding(2);
             this.lst_ano.Name = "lst_ano";
-            this.lst_ano.Size = new System.Drawing.Size(89, 225);
+            this.lst_ano.Size = new System.Drawing.Size(89, 212);
             this.lst_ano.TabIndex = 23;
             this.lst_ano.Click += new System.EventHandler(this.lst_ano_Click);
             this.lst_ano.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -199,10 +213,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(473, 46);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 13);
+            this.label4.Size = new System.Drawing.Size(38, 16);
             this.label4.TabIndex = 24;
             this.label4.Text = "Ano:";
             // 
@@ -236,11 +251,13 @@
             // 
             // lst_nome
             // 
+            this.lst_nome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_nome.FormattingEnabled = true;
-            this.lst_nome.Location = new System.Drawing.Point(11, 61);
+            this.lst_nome.ItemHeight = 16;
+            this.lst_nome.Location = new System.Drawing.Point(11, 64);
             this.lst_nome.Margin = new System.Windows.Forms.Padding(2);
             this.lst_nome.Name = "lst_nome";
-            this.lst_nome.Size = new System.Drawing.Size(89, 225);
+            this.lst_nome.Size = new System.Drawing.Size(89, 212);
             this.lst_nome.TabIndex = 28;
             this.lst_nome.Click += new System.EventHandler(this.lst_nome_Click);
             this.lst_nome.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -248,10 +265,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(8, 46);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(42, 13);
+            this.label7.Size = new System.Drawing.Size(59, 16);
             this.label7.TabIndex = 29;
             this.label7.Text = "Cliente:";
             // 

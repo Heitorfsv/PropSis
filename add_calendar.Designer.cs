@@ -69,22 +69,22 @@
             // 
             // txt_horario1
             // 
-            this.txt_horario1.Location = new System.Drawing.Point(16, 152);
+            this.txt_horario1.Location = new System.Drawing.Point(133, 107);
             this.txt_horario1.Name = "txt_horario1";
             this.txt_horario1.Size = new System.Drawing.Size(71, 20);
             this.txt_horario1.TabIndex = 3;
             // 
             // txt_horario2
             // 
-            this.txt_horario2.Location = new System.Drawing.Point(139, 152);
+            this.txt_horario2.Location = new System.Drawing.Point(238, 107);
             this.txt_horario2.Name = "txt_horario2";
-            this.txt_horario2.Size = new System.Drawing.Size(71, 20);
+            this.txt_horario2.Size = new System.Drawing.Size(76, 20);
             this.txt_horario2.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(101, 155);
+            this.label2.Location = new System.Drawing.Point(210, 110);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(22, 13);
             this.label2.TabIndex = 5;
@@ -92,7 +92,7 @@
             // 
             // bnt_add
             // 
-            this.bnt_add.Location = new System.Drawing.Point(238, 152);
+            this.bnt_add.Location = new System.Drawing.Point(241, 156);
             this.bnt_add.Name = "bnt_add";
             this.bnt_add.Size = new System.Drawing.Size(73, 20);
             this.bnt_add.TabIndex = 6;
