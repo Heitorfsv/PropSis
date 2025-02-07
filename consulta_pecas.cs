@@ -144,5 +144,11 @@ namespace PrototipoSistema
             static_class.doc_consultar = lst_nome.SelectedItem.ToString();
             tela_peca.Show();
         }
+
+        private void bnt_add_Click(object sender, EventArgs e)
+        {
+            cadastro_pecas cadastro = new cadastro_pecas();
+            cadastro.Show();
+        }
     }
 }

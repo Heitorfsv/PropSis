@@ -98,5 +98,11 @@ namespace PrototipoSistema
             static_class.doc_consultar = lst_nome.SelectedItem.ToString();
             tela_servico.Show();
         }
+
+        private void bnt_add_Click(object sender, EventArgs e)
+        {
+            cadastro_servicos cadastro = new cadastro_servicos();
+            cadastro.Show();
+        }
     }
 }

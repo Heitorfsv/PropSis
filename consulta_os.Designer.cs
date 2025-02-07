@@ -55,6 +55,7 @@
             this.bnt_pesquisar_ps = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.lst_dt_saida = new System.Windows.Forms.ListBox();
+            this.bnt_add = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lst_cliente
@@ -285,7 +286,7 @@
             this.bnt_atualizar.Location = new System.Drawing.Point(1132, 10);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_atualizar.Name = "bnt_atualizar";
-            this.bnt_atualizar.Size = new System.Drawing.Size(28, 25);
+            this.bnt_atualizar.Size = new System.Drawing.Size(21, 20);
             this.bnt_atualizar.TabIndex = 28;
             this.bnt_atualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.bnt_atualizar.UseVisualStyleBackColor = false;
@@ -357,11 +358,26 @@
             this.lst_dt_saida.Click += new System.EventHandler(this.lst_dt_saida_Click);
             this.lst_dt_saida.DoubleClick += new System.EventHandler(this.lst_dt_saida_DoubleClick);
             // 
+            // bnt_add
+            // 
+            this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
+            this.bnt_add.Location = new System.Drawing.Point(1106, 10);
+            this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
+            this.bnt_add.Name = "bnt_add";
+            this.bnt_add.Size = new System.Drawing.Size(21, 20);
+            this.bnt_add.TabIndex = 35;
+            this.bnt_add.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.bnt_add.UseVisualStyleBackColor = false;
+            this.bnt_add.Click += new System.EventHandler(this.bnt_add_Click);
+            // 
             // consulta_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1827, 914);
+            this.Controls.Add(this.bnt_add);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.lst_dt_saida);
             this.Controls.Add(this.bnt_pesquisar_ps);
@@ -427,5 +443,6 @@
         private System.Windows.Forms.Button bnt_pesquisar_ps;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox lst_dt_saida;
+        private System.Windows.Forms.Button bnt_add;
     }
 }

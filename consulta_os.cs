@@ -633,5 +633,11 @@ namespace PrototipoSistema
             lst_dt.Items.Clear();
             lst_dt_saida.Items.Clear();
         }
+
+        private void bnt_add_Click(object sender, EventArgs e)
+        {
+            cadastro_os cadastro = new cadastro_os();
+            cadastro.Show();
+        }
     }
 }

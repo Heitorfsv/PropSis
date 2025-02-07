@@ -48,6 +48,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.lst_nome = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.bnt_add = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // bnt_atualizar
@@ -273,11 +274,26 @@
             this.label7.TabIndex = 29;
             this.label7.Text = "Cliente:";
             // 
+            // bnt_add
+            // 
+            this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
+            this.bnt_add.Location = new System.Drawing.Point(686, 10);
+            this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
+            this.bnt_add.Name = "bnt_add";
+            this.bnt_add.Size = new System.Drawing.Size(21, 20);
+            this.bnt_add.TabIndex = 30;
+            this.bnt_add.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.bnt_add.UseVisualStyleBackColor = false;
+            this.bnt_add.Click += new System.EventHandler(this.bnt_add_Click);
+            // 
             // consulta_motos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(775, 340);
+            this.Controls.Add(this.bnt_add);
             this.Controls.Add(this.lst_nome);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -327,5 +343,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ListBox lst_nome;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button bnt_add;
     }
 }

@@ -37,6 +37,7 @@
             this.lst_nome = new System.Windows.Forms.ListBox();
             this.lst_valor = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.bnt_add = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // bnt_atualizar
@@ -132,11 +133,26 @@
             this.label2.TabIndex = 21;
             this.label2.Text = "Valor:";
             // 
+            // bnt_add
+            // 
+            this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
+            this.bnt_add.Location = new System.Drawing.Point(480, 7);
+            this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
+            this.bnt_add.Name = "bnt_add";
+            this.bnt_add.Size = new System.Drawing.Size(21, 20);
+            this.bnt_add.TabIndex = 37;
+            this.bnt_add.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.bnt_add.UseVisualStyleBackColor = false;
+            this.bnt_add.Click += new System.EventHandler(this.bnt_add_Click);
+            // 
             // consulta_servicos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(533, 292);
+            this.Controls.Add(this.bnt_add);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lst_valor);
             this.Controls.Add(this.lst_nome);
@@ -165,5 +181,6 @@
         private System.Windows.Forms.ListBox lst_nome;
         private System.Windows.Forms.ListBox lst_valor;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button bnt_add;
     }
 }

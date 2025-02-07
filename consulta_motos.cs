@@ -230,5 +230,11 @@ namespace PrototipoSistema
             }
             catch { }
         }
+
+        private void bnt_add_Click(object sender, EventArgs e)
+        {
+            cadastro_moto cadastro = new cadastro_moto();
+            cadastro.Show();
+        }
     }
 }

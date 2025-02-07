@@ -45,6 +45,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lst_endereco = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.bnt_add = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lst_nome
@@ -242,11 +243,26 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "Endereço:";
             // 
+            // bnt_add
+            // 
+            this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
+            this.bnt_add.Location = new System.Drawing.Point(519, 8);
+            this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
+            this.bnt_add.Name = "bnt_add";
+            this.bnt_add.Size = new System.Drawing.Size(21, 20);
+            this.bnt_add.TabIndex = 15;
+            this.bnt_add.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.bnt_add.UseVisualStyleBackColor = false;
+            this.bnt_add.Click += new System.EventHandler(this.bnt_add_Click);
+            // 
             // consulta_cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(642, 333);
+            this.Controls.Add(this.bnt_add);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lst_endereco);
             this.Controls.Add(this.label5);
@@ -291,5 +307,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ListBox lst_endereco;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button bnt_add;
     }
 }

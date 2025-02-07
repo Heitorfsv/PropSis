@@ -253,5 +253,11 @@ namespace PrototipoSistema
 
         private void lst_dt_nascimento_Click(object sender, EventArgs e)
         { lst_nome.SelectedIndex = lst_dt_nascimento.SelectedIndex; }
+
+        private void bnt_add_Click(object sender, EventArgs e)
+        {
+            cadastro_cliente cadastro = new cadastro_cliente();
+            cadastro.Show();
+        }
     }
 }
