@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.txt_dt_cadastro = new System.Windows.Forms.TextBox();
-            this.cmb_placa = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txt_ano = new System.Windows.Forms.MaskedTextBox();
@@ -77,6 +76,7 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.cb_pago = new System.Windows.Forms.CheckBox();
             this.cb_saida = new System.Windows.Forms.CheckBox();
+            this.cmb_placa = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -103,18 +103,6 @@
             this.txt_dt_cadastro.Size = new System.Drawing.Size(117, 20);
             this.txt_dt_cadastro.TabIndex = 1;
             // 
-            // cmb_placa
-            // 
-            this.cmb_placa.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmb_placa.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmb_placa.FormattingEnabled = true;
-            this.cmb_placa.Location = new System.Drawing.Point(7, 29);
-            this.cmb_placa.Margin = new System.Windows.Forms.Padding(2);
-            this.cmb_placa.Name = "cmb_placa";
-            this.cmb_placa.Size = new System.Drawing.Size(82, 21);
-            this.cmb_placa.TabIndex = 2;
-            this.cmb_placa.TextChanged += new System.EventHandler(this.cmb_placa_TextChanged);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -127,6 +115,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmb_placa);
             this.groupBox1.Controls.Add(this.txt_ano);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
@@ -135,7 +124,6 @@
             this.groupBox1.Controls.Add(this.txt_km);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txt_marca);
-            this.groupBox1.Controls.Add(this.cmb_placa);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(8, 44);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
@@ -587,6 +575,17 @@
             this.cb_saida.UseVisualStyleBackColor = true;
             this.cb_saida.CheckedChanged += new System.EventHandler(this.cb_saida_CheckedChanged);
             // 
+            // cmb_placa
+            // 
+            this.cmb_placa.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmb_placa.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_placa.FormattingEnabled = true;
+            this.cmb_placa.Location = new System.Drawing.Point(7, 28);
+            this.cmb_placa.Name = "cmb_placa";
+            this.cmb_placa.Size = new System.Drawing.Size(82, 21);
+            this.cmb_placa.TabIndex = 13;
+            this.cmb_placa.TextChanged += new System.EventHandler(this.cmb_placa_TextChanged_1);
+            // 
             // cadastro_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -609,7 +608,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "cadastro_os";
             this.Text = "Cadastro OS";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.cadastro_os_FormClosing);
             this.Load += new System.EventHandler(this.cadastro_os_Load);
             this.groupBox1.ResumeLayout(false);
@@ -631,7 +629,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_dt_cadastro;
-        private System.Windows.Forms.ComboBox cmb_placa;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
@@ -677,5 +674,6 @@
         private System.Windows.Forms.ListBox lst_servico_total;
         private System.Windows.Forms.ListBox lst_servicos_qtd;
         private System.Windows.Forms.CheckBox cb_saida;
+        private System.Windows.Forms.ComboBox cmb_placa;
     }
 }

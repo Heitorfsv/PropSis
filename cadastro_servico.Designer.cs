@@ -96,7 +96,6 @@
             this.Controls.Add(this.label1);
             this.Name = "cadastro_servicos";
             this.Text = "Cadastro de Serviços";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 

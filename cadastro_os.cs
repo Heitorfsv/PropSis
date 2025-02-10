@@ -27,54 +27,6 @@ namespace PrototipoSistema
             static_class.controle_os = os.index;
         }
 
-        private void cmb_placa_TextChanged(object sender, EventArgs e)
-        {
-            // cmb_placa.Items.Clear();
-
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-             while (reader.Read())
-             {
-                 cmb_placa.Items.Add(reader.GetString("placa"));
-                 txt_marca.Text = reader.GetString("marca");
-                 txt_modelo.Text = reader.GetString("modelo");
-                 txt_ano.Text = reader.GetString("ano");
-                 doc_cliente = reader.GetString("doc_dono");
-                 txt_doc.Text = doc_cliente;
-             }
-            
-            conexao.Close();
-
-            cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{doc_cliente}'", conexao);
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                txt_cliente.Text = reader.GetString("nome");
-                txt_telefone.Text = reader.GetString("telefone");
-            }
-            conexao.Close();
-
-            if (cmb_placa.Text == "" || cmb_placa.Text == " ")
-            {
-                txt_marca.Text = "";
-                txt_modelo.Text = "";
-                txt_ano.Text = "";
-                doc_cliente = "";
-                txt_doc.Text = "";
-                txt_cliente.Text = "";
-                txt_telefone.Text = "";
-            }
-        }
-
         private void bnt_add_peca_Click(object sender, EventArgs e)
         {
             lst_pecas.Items.Clear();
@@ -100,7 +52,6 @@ namespace PrototipoSistema
                 lst_pecas.Items.RemoveAt(selected);
                 lst_pecas_qtd.Items.RemoveAt(selected);
             }
-
         }
 
         private void bnt_deletar_servico_Click(object sender, EventArgs e)
@@ -286,6 +237,54 @@ namespace PrototipoSistema
             { dtp_saida.Enabled = true; }
             else
             {  dtp_saida.Enabled = false;}
+        }
+
+        private void cmb_placa_TextChanged_1(object sender, EventArgs e)
+        {
+            // cmb_placa.Items.Clear();
+
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa LIKE '%{cmb_placa.Text}%'", conexao);
+
+            conexao.Open();
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                cmb_placa.Items.Add(reader.GetString("placa"));
+                txt_marca.Text = reader.GetString("marca");
+                txt_modelo.Text = reader.GetString("modelo");
+                txt_ano.Text = reader.GetString("ano");
+                doc_cliente = reader.GetString("doc_dono");
+                txt_doc.Text = doc_cliente;
+            }
+
+            conexao.Close();
+
+            cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{doc_cliente}'", conexao);
+
+            conexao.Open();
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                txt_cliente.Text = reader.GetString("nome");
+                txt_telefone.Text = reader.GetString("telefone");
+            }
+            conexao.Close();
+
+            if (cmb_placa.Text == "" || cmb_placa.Text == " ")
+            {
+                txt_marca.Text = "";
+                txt_modelo.Text = "";
+                txt_ano.Text = "";
+                doc_cliente = "";
+                txt_doc.Text = "";
+                txt_cliente.Text = "";
+                txt_telefone.Text = "";
+            }
         }
     }
 }

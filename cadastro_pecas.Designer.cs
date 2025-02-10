@@ -340,7 +340,6 @@
             this.Controls.Add(this.label1);
             this.Name = "cadastro_pecas";
             this.Text = "Cadastro de peças";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.cadastro_pecas_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

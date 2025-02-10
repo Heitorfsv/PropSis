@@ -73,7 +73,7 @@
             // 
             this.txt_nome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_nome.Location = new System.Drawing.Point(8, 27);
-            this.txt_nome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_nome.Margin = new System.Windows.Forms.Padding(2);
             this.txt_nome.Name = "txt_nome";
             this.txt_nome.Size = new System.Drawing.Size(200, 20);
             this.txt_nome.TabIndex = 2;
@@ -93,7 +93,7 @@
             // 
             this.bnt_cadastro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_cadastro.Location = new System.Drawing.Point(397, 211);
-            this.bnt_cadastro.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bnt_cadastro.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_cadastro.Name = "bnt_cadastro";
             this.bnt_cadastro.Size = new System.Drawing.Size(122, 31);
             this.bnt_cadastro.TabIndex = 7;
@@ -105,7 +105,7 @@
             // 
             this.dtp_nascimento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtp_nascimento.Location = new System.Drawing.Point(237, 27);
-            this.dtp_nascimento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtp_nascimento.Margin = new System.Windows.Forms.Padding(2);
             this.dtp_nascimento.Name = "dtp_nascimento";
             this.dtp_nascimento.Size = new System.Drawing.Size(125, 20);
             this.dtp_nascimento.TabIndex = 8;
@@ -126,7 +126,7 @@
             // 
             this.txt_email.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_email.Location = new System.Drawing.Point(8, 121);
-            this.txt_email.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_email.Margin = new System.Windows.Forms.Padding(2);
             this.txt_email.Name = "txt_email";
             this.txt_email.Size = new System.Drawing.Size(200, 20);
             this.txt_email.TabIndex = 17;
@@ -157,7 +157,7 @@
             // 
             this.rb_juridica.AutoSize = true;
             this.rb_juridica.Location = new System.Drawing.Point(58, 0);
-            this.rb_juridica.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rb_juridica.Margin = new System.Windows.Forms.Padding(2);
             this.rb_juridica.Name = "rb_juridica";
             this.rb_juridica.Size = new System.Drawing.Size(63, 17);
             this.rb_juridica.TabIndex = 19;
@@ -169,7 +169,7 @@
             this.rb_fisica.AutoSize = true;
             this.rb_fisica.Checked = true;
             this.rb_fisica.Location = new System.Drawing.Point(0, 0);
-            this.rb_fisica.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rb_fisica.Margin = new System.Windows.Forms.Padding(2);
             this.rb_fisica.Name = "rb_fisica";
             this.rb_fisica.Size = new System.Drawing.Size(54, 17);
             this.rb_fisica.TabIndex = 18;
@@ -181,7 +181,7 @@
             // txt_doc
             // 
             this.txt_doc.Location = new System.Drawing.Point(8, 170);
-            this.txt_doc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_doc.Margin = new System.Windows.Forms.Padding(2);
             this.txt_doc.Name = "txt_doc";
             this.txt_doc.Size = new System.Drawing.Size(126, 20);
             this.txt_doc.TabIndex = 21;
@@ -189,7 +189,7 @@
             // txt_telefone
             // 
             this.txt_telefone.Location = new System.Drawing.Point(8, 75);
-            this.txt_telefone.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_telefone.Margin = new System.Windows.Forms.Padding(2);
             this.txt_telefone.Mask = "(00)00000-0000";
             this.txt_telefone.Name = "txt_telefone";
             this.txt_telefone.Size = new System.Drawing.Size(97, 20);
@@ -200,7 +200,7 @@
             this.panel1.Controls.Add(this.rb_fisica);
             this.panel1.Controls.Add(this.rb_juridica);
             this.panel1.Location = new System.Drawing.Point(8, 207);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(133, 17);
             this.panel1.TabIndex = 25;
@@ -220,7 +220,7 @@
             // 
             this.txt_rua.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_rua.Location = new System.Drawing.Point(297, 75);
-            this.txt_rua.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_rua.Margin = new System.Windows.Forms.Padding(2);
             this.txt_rua.Name = "txt_rua";
             this.txt_rua.Size = new System.Drawing.Size(216, 20);
             this.txt_rua.TabIndex = 32;
@@ -239,7 +239,7 @@
             // txt_cep
             // 
             this.txt_cep.Location = new System.Drawing.Point(237, 75);
-            this.txt_cep.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_cep.Margin = new System.Windows.Forms.Padding(2);
             this.txt_cep.Mask = "00000-000";
             this.txt_cep.Name = "txt_cep";
             this.txt_cep.Size = new System.Drawing.Size(57, 20);
@@ -250,7 +250,7 @@
             // 
             this.txt_bairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_bairro.Location = new System.Drawing.Point(237, 122);
-            this.txt_bairro.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_bairro.Margin = new System.Windows.Forms.Padding(2);
             this.txt_bairro.Name = "txt_bairro";
             this.txt_bairro.Size = new System.Drawing.Size(131, 20);
             this.txt_bairro.TabIndex = 37;
@@ -270,7 +270,7 @@
             // 
             this.txt_cidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_cidade.Location = new System.Drawing.Point(378, 122);
-            this.txt_cidade.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_cidade.Margin = new System.Windows.Forms.Padding(2);
             this.txt_cidade.Name = "txt_cidade";
             this.txt_cidade.Size = new System.Drawing.Size(131, 20);
             this.txt_cidade.TabIndex = 39;
@@ -300,7 +300,7 @@
             // txt_telefone2
             // 
             this.txt_telefone2.Location = new System.Drawing.Point(109, 75);
-            this.txt_telefone2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_telefone2.Margin = new System.Windows.Forms.Padding(2);
             this.txt_telefone2.Mask = "(00)00000-0000";
             this.txt_telefone2.Name = "txt_telefone2";
             this.txt_telefone2.Size = new System.Drawing.Size(102, 20);
@@ -319,7 +319,7 @@
             // txt_inscricao
             // 
             this.txt_inscricao.Location = new System.Drawing.Point(144, 170);
-            this.txt_inscricao.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_inscricao.Margin = new System.Windows.Forms.Padding(2);
             this.txt_inscricao.Mask = "000000000";
             this.txt_inscricao.Name = "txt_inscricao";
             this.txt_inscricao.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -366,7 +366,7 @@
             this.Controls.Add(this.lbl_cpf);
             this.Controls.Add(this.txt_nome);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "cadastro_cliente";
             this.Text = " Cadastro de cliente";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

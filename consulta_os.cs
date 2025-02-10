@@ -439,6 +439,7 @@ namespace PrototipoSistema
                         { lst_dt_saida.Items.Add(" "); }
                         lst_cliente.Items.Add(reader.GetString("cliente"));
                         lst_placa.Items.Add(reader.GetString("placa"));
+                        lst_total.Items.Add(reader.GetDecimal("total").ToString());
                         doc.Add(reader.GetString("doc"));
                     }
                     conexao.Close();
@@ -465,6 +466,8 @@ namespace PrototipoSistema
                     count++;
                 }
 
+                count = 0;
+
                 while (count < lista_os.Count)
                 {
                     cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{lista_os[count]}'", conexao);
@@ -477,22 +480,20 @@ namespace PrototipoSistema
                     {
                         valor += reader.GetDecimal("valor") * reader.GetDecimal("qtd");
                     }
-                    lst_preco_servico.Items.Add(valor);
+                    lst_preco_servico.Items.Add(valor.ToString("N2"));
                     conexao.Close();
 
                     cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{lista_os[count]}'", conexao);
 
                     conexao.Open();
                     reader = cmd.ExecuteReader();
-
                     valor = 0;
 
                     while (reader.Read())
                     {
                         valor += reader.GetDecimal("valor") * reader.GetDecimal("qtd");
                     }
-                    lst_preco_peca.Items.Add(valor);
-
+                    lst_preco_peca.Items.Add(valor.ToString("N2"));
                     conexao.Close();
 
                     count++;

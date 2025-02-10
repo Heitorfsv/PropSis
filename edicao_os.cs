@@ -170,7 +170,7 @@ namespace PrototipoSistema
             }
             conexao.Close();
 
-            cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{doc_cliente}'", conexao);
+            cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc LIKE '%{doc_cliente}%'", conexao);
 
             conexao.Open();
             reader = cmd.ExecuteReader();
