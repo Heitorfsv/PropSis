@@ -63,6 +63,7 @@
             // 
             // txt_observacao
             // 
+            this.txt_observacao.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.txt_observacao.Location = new System.Drawing.Point(285, 108);
             this.txt_observacao.MaxLength = 150;
             this.txt_observacao.Multiline = true;

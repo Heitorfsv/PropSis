@@ -20,7 +20,7 @@ namespace PrototipoSistema
         private void cadastro_os_Load(object sender, EventArgs e)
         {
             dtp_saida.Enabled = false;
-            txt_dt_cadastro.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            dtp_cadastro.Value = DateTime.Now;
 
             os.ultimo_index();
             os.index++;
@@ -109,7 +109,7 @@ namespace PrototipoSistema
                 { os.aviso_oleo = "*"; }
 
 
-                os.dt_cadastro = DateTime.Parse(txt_dt_cadastro.Text);
+                os.dt_cadastro = dtp_cadastro.Value;
 
                 if (dtp_saida.Enabled == true)
                 { os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); }

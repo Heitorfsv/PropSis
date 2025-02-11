@@ -72,7 +72,6 @@
             this.txt_marca = new System.Windows.Forms.TextBox();
             this.cmb_placa = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txt_dt_cadastro = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.bnt_deletar = new System.Windows.Forms.Button();
@@ -81,6 +80,7 @@
             this.txt_trocakm = new System.Windows.Forms.TextBox();
             this.cb_pago = new System.Windows.Forms.CheckBox();
             this.cb_saida = new System.Windows.Forms.CheckBox();
+            this.dtp_cadastro = new System.Windows.Forms.DateTimePicker();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -544,15 +544,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Placa";
             // 
-            // txt_dt_cadastro
-            // 
-            this.txt_dt_cadastro.Location = new System.Drawing.Point(11, 21);
-            this.txt_dt_cadastro.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_dt_cadastro.Name = "txt_dt_cadastro";
-            this.txt_dt_cadastro.ReadOnly = true;
-            this.txt_dt_cadastro.Size = new System.Drawing.Size(117, 20);
-            this.txt_dt_cadastro.TabIndex = 43;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -625,11 +616,20 @@
             this.cb_saida.UseVisualStyleBackColor = true;
             this.cb_saida.CheckedChanged += new System.EventHandler(this.cb_saida_CheckedChanged);
             // 
+            // dtp_cadastro
+            // 
+            this.dtp_cadastro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtp_cadastro.Location = new System.Drawing.Point(11, 22);
+            this.dtp_cadastro.Name = "dtp_cadastro";
+            this.dtp_cadastro.Size = new System.Drawing.Size(200, 20);
+            this.dtp_cadastro.TabIndex = 60;
+            // 
             // edicao_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 576);
+            this.Controls.Add(this.dtp_cadastro);
             this.Controls.Add(this.cb_saida);
             this.Controls.Add(this.cb_pago);
             this.Controls.Add(this.txt_trocakm);
@@ -646,7 +646,6 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.txt_dt_cadastro);
             this.Controls.Add(this.label1);
             this.Name = "edicao_os";
             this.Text = "Edição OS";
@@ -712,7 +711,6 @@
         private System.Windows.Forms.TextBox txt_marca;
         private System.Windows.Forms.ComboBox cmb_placa;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txt_dt_cadastro;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button bnt_deletar;
@@ -721,5 +719,6 @@
         private System.Windows.Forms.TextBox txt_trocakm;
         private System.Windows.Forms.CheckBox cb_pago;
         private System.Windows.Forms.CheckBox cb_saida;
+        private System.Windows.Forms.DateTimePicker dtp_cadastro;
     }
 }

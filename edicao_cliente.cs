@@ -55,12 +55,20 @@ namespace PrototipoSistema
                     txt_doc.Text = doc;
                 }
 
-                if (reader.GetString("dt_nascimento") == null)
-                { cb_dt_nascimento.Checked = false; }
-                else
+                try
                 {
-                    cb_dt_nascimento.Checked = true;
-                    dtp_nascimento.Value = DateTime.Parse(reader.GetString("dt_nascimento")); 
+                    if (reader.GetString("dt_nascimento") == null)
+                    { }
+                    else
+                    {                           
+                        cb_dt_nascimento.Checked = true;
+                        dtp_nascimento.Value = DateTime.Parse(reader.GetString("dt_nascimento"));
+                    }
+                }
+                catch 
+                { 
+                    cb_dt_nascimento.Checked = false; 
+                    dtp_nascimento.Enabled = false; 
                 }
 
                 txt_inscricao.Text = reader.GetInt32("inscricao").ToString();

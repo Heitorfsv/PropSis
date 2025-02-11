@@ -37,7 +37,7 @@ namespace PrototipoSistema
                 os.index = reader.GetInt32("controle");
                 cmb_placa.Text = reader.GetString("placa");
                 txt_km.Text = reader.GetInt32("km").ToString();
-                txt_dt_cadastro.Text = reader.GetDateTime("dt_cadastro").ToString("dd/MM/yyyy");
+                dtp_cadastro.Value = reader.GetDateTime("dt_cadastro");
                 txt_observacao.Text = reader.GetString("observacao");
                 try
                 { 
