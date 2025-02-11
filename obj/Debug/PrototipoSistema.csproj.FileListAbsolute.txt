@@ -83,3 +83,4 @@ C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\Prototip.8C8FBFD8.U
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\$safeprojectname$.exe
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\$safeprojectname$.pdb
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.edicao_calendar.resources
+C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.aviso.resources

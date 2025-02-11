@@ -75,6 +75,8 @@ namespace PrototipoSistema
 
         private void bnt_cadastrar_Click(object sender, EventArgs e)
         {
+
+
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
@@ -96,7 +98,7 @@ namespace PrototipoSistema
                 if (txt_total.Text != "")
                 { os.total = txt_total.Text; }
                 else
-                { os.total = "0"; }
+                { os.total = "0,00"; }
 
                 if (cb_pago.Checked == true)
                 { os.pago = 1; }

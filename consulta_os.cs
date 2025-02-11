@@ -34,6 +34,7 @@ namespace PrototipoSistema
             clear_lists();
             pagoStatus.Clear();
             lista_os.Clear();
+            lista_doc.Clear();
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
@@ -68,6 +69,17 @@ namespace PrototipoSistema
             while (count <= lst_placa.Items.Count -1)
             {
                 lst_placa.SelectedIndex = count;
+
+                cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{lista_doc[count]}'", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    lst_telefone.Items.Add(reader.GetString("telefone"));
+                }
+                conexao.Close();
 
                 cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{lst_placa.SelectedItem}'", conexao);
 
@@ -113,32 +125,7 @@ namespace PrototipoSistema
                 count++;
             }
 
-            lst_cliente.DrawMode = DrawMode.OwnerDrawFixed;
-            lst_cliente.DrawItem += new DrawItemEventHandler(lst_DrawItem);
-
-            lst_dt.DrawMode = DrawMode.OwnerDrawFixed;
-            lst_dt.DrawItem += new DrawItemEventHandler(lst_DrawItem);
-
-            lst_dt_saida.DrawMode = DrawMode.OwnerDrawFixed;
-            lst_dt_saida.DrawItem += new DrawItemEventHandler(lst_DrawItem);
-
-            lst_modelo.DrawMode = DrawMode.OwnerDrawFixed;
-            lst_modelo.DrawItem += new DrawItemEventHandler(lst_DrawItem);
-
-            lst_marca.DrawMode = DrawMode.OwnerDrawFixed;
-            lst_marca.DrawItem += new DrawItemEventHandler(lst_DrawItem);
-
-            lst_preco_servico.DrawMode = DrawMode.OwnerDrawFixed;
-            lst_preco_servico.DrawItem += new DrawItemEventHandler(lst_DrawItem);
-
-            lst_preco_peca.DrawMode = DrawMode.OwnerDrawFixed;
-            lst_preco_peca.DrawItem += new DrawItemEventHandler(lst_DrawItem);
-
-            lst_placa.DrawMode = DrawMode.OwnerDrawFixed;
-            lst_placa.DrawItem += new DrawItemEventHandler(lst_DrawItem);
-
-            lst_total.DrawMode = DrawMode.OwnerDrawFixed;
-            lst_total.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+            nome_vermelho();
         }
 
         private void lst_DrawItem(object sender, DrawItemEventArgs e)
@@ -168,6 +155,39 @@ namespace PrototipoSistema
             catch { }
         }
 
+        private void nome_vermelho()
+        {
+            lst_cliente.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_cliente.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_telefone.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_telefone.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_dt.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_dt.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_dt_saida.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_dt_saida.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_modelo.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_modelo.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_marca.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_marca.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_preco_servico.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_preco_servico.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_preco_peca.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_preco_peca.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_placa.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_placa.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+
+            lst_total.DrawMode = DrawMode.OwnerDrawFixed;
+            lst_total.DrawItem += new DrawItemEventHandler(lst_DrawItem);
+        }
+
         private void lst_cliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             lst_marca.SelectedIndex = lst_cliente.SelectedIndex;
@@ -176,9 +196,12 @@ namespace PrototipoSistema
             lst_preco_peca.SelectedIndex = lst_cliente.SelectedIndex;
             lst_preco_servico.SelectedIndex = lst_cliente.SelectedIndex;
             lst_total.SelectedIndex = lst_cliente.SelectedIndex;
-            lst_dt.SelectedIndex = lst_cliente.SelectedIndex;   
-            lst_dt_saida.SelectedIndex = lst_cliente.SelectedIndex;  
+            lst_dt.SelectedIndex = lst_cliente.SelectedIndex;
+            lst_telefone.SelectedIndex = lst_cliente.SelectedIndex;
 
+            try
+            { lst_dt_saida.SelectedIndex = lst_cliente.SelectedIndex; }
+            catch { }
         }
 
         private void lst_placa_Click(object sender, EventArgs e)
@@ -324,6 +347,7 @@ namespace PrototipoSistema
         {
             clear_lists();
             lista_os.Clear();
+            lista_doc.Clear();
 
             List<int> list_index = new List<int>();
 
@@ -338,17 +362,19 @@ namespace PrototipoSistema
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 List<string> placa = new List<string>();
-                List<string> doc = new List<string>();
 
                 while (reader.Read())
                 {
                     lista_os.Add(reader.GetInt32("controle"));
                     lst_dt.Items.Add(reader.GetDateTime("dt_cadastro").ToString("dd/MM/yyyy"));
                     lst_cliente.Items.Add(reader.GetString("cliente"));
+                    lista_doc.Add(reader.GetString("doc"));
                     placa.Add(reader.GetString("placa"));
                     lst_placa.Items.Add(placa.Last());
                     lst_total.Items.Add(reader.GetDecimal("total").ToString());
-                    lst_dt_saida.Items.Add(reader.GetString("dt_saida"));
+                    try
+                    { lst_dt_saida.Items.Add(reader.GetString("dt_saida")); }
+                    catch { }
                 }
                 conexao.Close();
                 int count = 0;
@@ -364,7 +390,6 @@ namespace PrototipoSistema
                     {
                         lst_marca.Items.Add(reader.GetString("marca"));
                         lst_modelo.Items.Add(reader.GetString("modelo"));
-                        doc.Add(reader.GetString("doc_dono"));
                     }
                     conexao.Close();
                     count++;
@@ -373,6 +398,17 @@ namespace PrototipoSistema
 
                 while (count < lista_os.Count)
                 {
+                    cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{lista_doc[count]}'", conexao);
+
+                    conexao.Open();
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        lst_telefone.Items.Add(reader.GetString("telefone"));
+                    }
+                    conexao.Close();
+
                     cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{lista_os[count]}'", conexao);
 
                     conexao.Open();
@@ -412,7 +448,7 @@ namespace PrototipoSistema
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 List<string> placa = new List<string>();
-                List<string> doc = new List<string>();
+                lista_doc.Clear();
 
                 while (reader.Read())
                 {
@@ -440,7 +476,7 @@ namespace PrototipoSistema
                         lst_cliente.Items.Add(reader.GetString("cliente"));
                         lst_placa.Items.Add(reader.GetString("placa"));
                         lst_total.Items.Add(reader.GetDecimal("total").ToString());
-                        doc.Add(reader.GetString("doc"));
+                        lista_doc.Add(reader.GetString("doc"));
                     }
                     conexao.Close();
 
@@ -449,9 +485,9 @@ namespace PrototipoSistema
 
                 count = 0;
 
-                while (count < doc.Count)
+                while (count < lista_doc.Count)
                 {
-                    cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{doc[count]}'", conexao);
+                    cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{lista_doc[count]}'", conexao);
 
                     conexao.Open();
                     reader = cmd.ExecuteReader();
@@ -498,7 +534,8 @@ namespace PrototipoSistema
 
                     count++;
                 }
-            }   
+            }
+            nome_vermelho();
         }
 
         private void bnt_atualizar_Click(object sender, EventArgs e)
@@ -580,6 +617,17 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
 
+                cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{lista_doc[count]}'", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    lst_telefone.Items.Add(reader.GetString("telefone"));
+                }
+                conexao.Close();
+
                 cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{doc_dono[count]}'", conexao);
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -619,12 +667,14 @@ namespace PrototipoSistema
                 conexao.Close();
                 count++;
             }
+            nome_vermelho();
         }
 
 
         public void clear_lists()
         {
             lst_cliente.Items.Clear();
+            lst_telefone.Items.Clear();
             lst_placa.Items.Clear();
             lst_marca.Items.Clear();
             lst_modelo.Items.Clear();
@@ -639,6 +689,24 @@ namespace PrototipoSistema
         {
             cadastro_os cadastro = new cadastro_os();
             cadastro.Show();
+        }
+
+        private void lst_telefone_Click(object sender, EventArgs e)
+        {
+            lst_cliente.SelectedIndex = lst_telefone.SelectedIndex;
+        }
+
+        private void lst_telefone_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
         }
     }
 }

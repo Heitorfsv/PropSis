@@ -50,7 +50,9 @@ namespace PrototipoSistema
                 lst_doc.Items.Add(reader.GetString("doc"));
                 lst_telefone.Items.Add(reader.GetString("telefone"));
                 lst_endereco.Items.Add(reader.GetString("rua") + ", " + reader.GetString("bairro") + ", " + reader.GetString("cidade"));
-                lst_dt_nascimento.Items.Add(reader.GetString("dt_nascimento"));
+                try
+                { lst_dt_nascimento.Items.Add(reader.GetString("dt_nascimento")); }
+                catch { }
 
                 docSujo.Add(reader.GetInt32("sujo") == 0);
             }
@@ -215,7 +217,10 @@ namespace PrototipoSistema
             lst_doc.SelectedIndex = lst_nome.SelectedIndex;
             lst_telefone.SelectedIndex = lst_nome.SelectedIndex;
             lst_endereco.SelectedIndex = lst_nome.SelectedIndex;
-            lst_dt_nascimento.SelectedIndex = lst_nome.SelectedIndex;
+
+            try
+            { lst_dt_nascimento.SelectedIndex = lst_nome.SelectedIndex; }
+            catch { }
         }
 
         private void lst_nome_DragEnter(object sender, DragEventArgs e)

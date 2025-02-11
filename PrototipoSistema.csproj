@@ -15,7 +15,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>D:\</PublishUrl>
+    <PublishUrl>E:\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -141,6 +141,12 @@
     </Compile>
     <Compile Include="aniversarios.Designer.cs">
       <DependentUpon>aniversarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="aviso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="aviso.Designer.cs">
+      <DependentUpon>aviso.cs</DependentUpon>
     </Compile>
     <Compile Include="blank.cs">
       <SubType>UserControl</SubType>
@@ -307,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="aniversarios.resx">
       <DependentUpon>aniversarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="aviso.resx">
+      <DependentUpon>aviso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="blank.resx">
       <DependentUpon>blank.cs</DependentUpon>

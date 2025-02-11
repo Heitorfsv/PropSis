@@ -95,16 +95,20 @@ namespace PrototipoSistema
             MySqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
-            {
-                DateTime aniversario = DateTime.Parse(reader.GetString("dt_nascimento").Substring(0,5));
-                TimeSpan dif = aniversario - DateTime.Now;
+            { 
+                try
+                {
+                    DateTime aniversario = DateTime.Parse(reader.GetString("dt_nascimento").Substring(0, 5));
+                    TimeSpan dif = aniversario - DateTime.Now;
 
-                if (dif.TotalDays<15 && dif.TotalDays > 0)
-                { 
-                    lista_aniversarios_futuros = lista_aniversarios_futuros + "- " + reader.GetString("nome") + "\r\n";
+                    if (dif.TotalDays < 15 && dif.TotalDays > 0)
+                    {
+                        lista_aniversarios_futuros = lista_aniversarios_futuros + "- " + reader.GetString("nome") + "\r\n";
+                    }
+                    if (dif.TotalDays > -1 && dif.TotalDays < 0.1)
+                    { lista_aniversarios = lista_aniversarios + "- " + reader.GetString("nome") + "\r\n"; }
                 }
-                if (dif.TotalDays > -1 && dif.TotalDays < 0.1)
-                { lista_aniversarios = lista_aniversarios + "- " + reader.GetString("nome") + "\r\n"; }
+                catch { }
             }
             conexao.Close();
 

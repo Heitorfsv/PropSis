@@ -60,7 +60,7 @@ namespace PrototipoSistema
 
             if (pesquisa_doc == null)
             {
-                var cmd2 = new MySqlCommand("INSERT INTO clientes (controle, nome, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro) values (@controle,@nome,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro)", conexao);
+                var cmd2 = new MySqlCommand("INSERT INTO clientes (controle, nome, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo) values (@controle,@nome,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo)", conexao);
                 cmd2.Parameters.AddWithValue("@controle", index);
                 cmd2.Parameters.AddWithValue("@nome", nome);
                 cmd2.Parameters.AddWithValue("@doc", doc);
@@ -74,6 +74,7 @@ namespace PrototipoSistema
                 cmd2.Parameters.AddWithValue("@cidade", cidade);
                 cmd2.Parameters.AddWithValue("@cep", cep);
                 cmd2.Parameters.AddWithValue("@dt_cadastro", dt_cadastro);
+                cmd2.Parameters.AddWithValue("@sujo", sujo);
 
                 conexao.Open();
                 cmd2.ExecuteReader();
