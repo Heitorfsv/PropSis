@@ -58,6 +58,7 @@
             this.bnt_add = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.lst_telefone = new System.Windows.Forms.ListBox();
+            this.lbl_order = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lst_cliente
@@ -285,7 +286,7 @@
             this.bnt_atualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
-            this.bnt_atualizar.Location = new System.Drawing.Point(1132, 10);
+            this.bnt_atualizar.Location = new System.Drawing.Point(1271, 10);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_atualizar.Name = "bnt_atualizar";
             this.bnt_atualizar.Size = new System.Drawing.Size(21, 20);
@@ -365,7 +366,7 @@
             this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
-            this.bnt_add.Location = new System.Drawing.Point(1106, 10);
+            this.bnt_add.Location = new System.Drawing.Point(1245, 10);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_add.Name = "bnt_add";
             this.bnt_add.Size = new System.Drawing.Size(21, 20);
@@ -398,11 +399,23 @@
             this.lst_telefone.Click += new System.EventHandler(this.lst_telefone_Click);
             this.lst_telefone.DoubleClick += new System.EventHandler(this.lst_telefone_DoubleClick);
             // 
+            // lbl_order
+            // 
+            this.lbl_order.AutoSize = true;
+            this.lbl_order.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_order.Location = new System.Drawing.Point(1299, 59);
+            this.lbl_order.Name = "lbl_order";
+            this.lbl_order.Size = new System.Drawing.Size(18, 20);
+            this.lbl_order.TabIndex = 38;
+            this.lbl_order.Text = "↑";
+            this.lbl_order.Click += new System.EventHandler(this.lbl_order_Click);
+            // 
             // consulta_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1827, 914);
+            this.Controls.Add(this.lbl_order);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.lst_telefone);
             this.Controls.Add(this.bnt_add);
@@ -474,5 +487,6 @@
         private System.Windows.Forms.Button bnt_add;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox lst_telefone;
+        private System.Windows.Forms.Label lbl_order;
     }
 }

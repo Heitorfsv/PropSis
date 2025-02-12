@@ -16,11 +16,14 @@ namespace PrototipoSistema
 {
     public partial class consulta_os : Form
     {
-        List<bool> pagoStatus = new List<bool>();
         OS os = new OS();
+
+        List<bool> pagoStatus = new List<bool>();
         List<String> lista_doc = new List<String>();
         public List<int> lista_os = new List<int>();
+
         int count;
+        string order = "DESC";
         public consulta_os()
         {
             InitializeComponent();
@@ -39,7 +42,7 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand("SELECT * FROM os ORDER BY dt_cadastro DESC", conexao);
+            var cmd = new MySqlCommand($"SELECT * FROM os ORDER BY dt_cadastro {order}", conexao);
 
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -707,6 +710,22 @@ namespace PrototipoSistema
                 edicao_os.Show();
             }
             catch { }
+        }
+
+        private void lbl_order_Click(object sender, EventArgs e)
+        {
+            if (order == "DESC")
+            {
+                order = "ASC";
+                lbl_order.Text = "↓" ;
+                consulta_os_Load(sender, e);
+            }
+            else 
+            {
+                order = "DESC";
+                lbl_order.Text = "↑";
+                consulta_os_Load(sender, e);
+            }
         }
     }
 }
