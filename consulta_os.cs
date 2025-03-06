@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +25,34 @@ namespace PrototipoSistema
 
         int count;
         string order = "DESC";
+
+        /// <summary>
+        /// //////////////////////////////////////////////////////////
+        /// </summary>
+
+        private const int WM_VSCROLL = 0x115;
+        private List<ListBox> listas = new List<ListBox>();
+        
         public consulta_os()
         {
             InitializeComponent();
+
+            // Adicione todas as ListBox à lista
+            listas.AddRange(new ListBox[] { lst_dt, lst_cliente, lst_telefone, lst_placa, lst_marca,
+                                         lst_modelo, lst_preco_peca, lst_preco_servico, lst_total, lst_dt_saida });
+
+            foreach (var list in listas)
+            list.MouseWheel += ListBox_MouseWheel; // Captura o scroll do mouse
         }
+
+        private void ListBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            foreach (var list in listas)
+                SendMessage(list.Handle, WM_VSCROLL, (IntPtr)(e.Delta > 0 ? 0 : 1), IntPtr.Zero);
+        }
+
+        [DllImport("user32.dll")]
+        private static extern int SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         private void consulta_os_Load(object sender, EventArgs e)
         {
