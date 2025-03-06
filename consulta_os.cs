@@ -130,7 +130,12 @@ namespace PrototipoSistema
                 while (reader.Read())
                 {
                     try
-                    { soma_servico += reader.GetDecimal("valor") * reader.GetDecimal("qtd"); }
+                    {
+                        string qtd = reader.GetString("qtd");
+                        qtd = qtd.Replace(".", ",");
+
+                        soma_servico += reader.GetDecimal("valor") * decimal.Parse(qtd); 
+                    }
                     catch { }
                 }
                 lst_preco_servico.Items.Add(soma_servico.ToString("N2"));
@@ -145,7 +150,12 @@ namespace PrototipoSistema
                 while (reader.Read())
                 {
                     try
-                    { soma_peca += reader.GetDecimal("valor") * reader.GetDecimal("qtd"); }
+                    {
+                        string qtd = reader.GetString("qtd");
+                        qtd = qtd.Replace(".", ",");
+
+                        soma_peca += reader.GetDecimal("valor") * decimal.Parse(qtd); 
+                    }
                     catch { }
                 }
                 lst_preco_peca.Items.Add(soma_peca.ToString("N2"));
@@ -445,7 +455,10 @@ namespace PrototipoSistema
 
                     while (reader.Read())
                     {
-                        valor += reader.GetDecimal("valor") * reader.GetDecimal("qtd");
+                        string qtd = reader.GetString("qtd");
+                        qtd = qtd.Replace(".", ",");
+
+                        valor += reader.GetDecimal("valor") * decimal.Parse(qtd);
                     }
                     lst_preco_servico.Items.Add(valor.ToString("N2"));
                     conexao.Close();
@@ -458,7 +471,10 @@ namespace PrototipoSistema
 
                     while (reader.Read())
                     {
-                        valor += reader.GetDecimal("valor") * reader.GetDecimal("qtd");
+                        string qtd = reader.GetString("qtd");
+                        qtd = qtd.Replace(".", ",");
+
+                        valor += reader.GetDecimal("valor") * decimal.Parse(qtd);
                     }
                     lst_preco_peca.Items.Add(valor.ToString("N2"));
                     conexao.Close();
@@ -675,7 +691,10 @@ namespace PrototipoSistema
 
                 while (reader.Read())
                 {
-                    soma_servico += reader.GetDecimal("valor") * reader.GetDecimal("qtd");
+                    string qtd = reader.GetString("qtd");
+                    qtd = qtd.Replace(".", ",");
+
+                    soma_servico += reader.GetDecimal("valor") * decimal.Parse(qtd);
                 }
                 lst_preco_servico.Items.Add(soma_servico);
                 conexao.Close();
@@ -689,7 +708,10 @@ namespace PrototipoSistema
 
                 while (reader.Read())
                 {
-                    soma_peca += reader.GetDecimal("valor") * reader.GetDecimal("qtd");
+                    string qtd = reader.GetString("qtd");
+                    qtd = qtd.Replace(".", ",");
+
+                    soma_peca += reader.GetDecimal("valor") * decimal.Parse(qtd);
                 }
                 lst_preco_peca.Items.Add(soma_peca);
                 conexao.Close();

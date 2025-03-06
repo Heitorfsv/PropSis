@@ -101,7 +101,11 @@ namespace PrototipoSistema
                 lst_servicos_qtd.Items.Add(reader.GetString("qtd"));
                 total = reader.GetString("valor");
                 lst_servico_total.Items.Add(total);
-                total_servico += decimal.Parse(reader.GetString("valor")) * decimal.Parse(reader.GetString("qtd"));
+
+                string qtd = reader.GetString("qtd");
+                qtd = qtd.Replace(".", ",");
+
+                total_servico += decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd);
             }
             txt_total_servico.Text = total_servico.ToString("N2");
             conexao.Close();
@@ -118,9 +122,12 @@ namespace PrototipoSistema
                 lst_pecas_qtd.Items.Add(reader.GetString("qtd"));
                 total = reader.GetString("valor");
                 lst_peca_total.Items.Add(total);
-          
+
+                string qtd = reader.GetString("qtd");
+                qtd = qtd.Replace(".", ",");
+
                 try
-                { total_peca += decimal.Parse(reader.GetString("valor")) * decimal.Parse(reader.GetString("qtd")); }
+                { total_peca += decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd); }
                 catch { }
             }
             txt_total_pecas.Text = total_peca.ToString("N2");
