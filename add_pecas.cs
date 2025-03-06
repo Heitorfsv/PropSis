@@ -32,7 +32,7 @@ namespace PrototipoSistema
 
             if (txt_pesquisa.Text != "")
             {
-                var strConexao = "server=192.168.100.15;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
                 var cmd = new MySqlCommand($"SELECT * FROM pecas WHERE nome LIKE '%{txt_pesquisa.Text}%'", conexao);
@@ -47,7 +47,7 @@ namespace PrototipoSistema
             }
             else 
             {
-                var strConexao = "server=192.168.100.15;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
                 var cmd = new MySqlCommand($"SELECT * FROM pecas", conexao);
@@ -90,7 +90,7 @@ namespace PrototipoSistema
                 decimal total = 0;
                 decimal qtd = qtd_tela.quantidade;
                 valor = qtd_tela.valor;
-                MessageBox.Show(valor.ToString());
+
                 lst_pecas.Items.Add(peca);
                 lst_qtd.Items.Add(qtd_tela.quantidade);
 

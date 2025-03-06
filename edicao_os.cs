@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 using Mysqlx.Cursor;
+using Org.BouncyCastle.Asn1.Ocsp;
 using PrototipoSistema.classes;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 namespace PrototipoSistema
@@ -24,6 +27,8 @@ namespace PrototipoSistema
 
         private void edicao_os2_Load(object sender, EventArgs e)
         {
+            gb_troca.Visible = false;
+
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
@@ -37,8 +42,9 @@ namespace PrototipoSistema
                 os.index = reader.GetInt32("controle");
                 cmb_placa.Text = reader.GetString("placa");
                 txt_km.Text = reader.GetInt32("km").ToString();
-                dtp_cadastro.Value = reader.GetDateTime("dt_cadastro");
+                dtp_cadastro.Value = DateTime.Parse(reader.GetString("dt_cadastro"));
                 txt_observacao.Text = reader.GetString("observacao");
+
                 try
                 { 
                     dtp_saida.Value = DateTime.Parse(reader.GetString("dt_saida"));
@@ -123,29 +129,16 @@ namespace PrototipoSistema
             txt_total.Text = (total_peca + total_servico).ToString("N2");
 
             ///////////////////////////////////////
-            
-            cmd = new MySqlCommand($"SELECT * FROM os WHERE aviso_oleo = '*' AND placa = '{cmb_placa.Text}' ORDER BY dt_cadastro DESC", conexao);
+
+            cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo_km REGEXP '[A-Za-z0-9]' OR aviso_oleo_dt REGEXP '[A-Za-z0-9]') AND placa = '{cmb_placa.Text}' ORDER BY dt_cadastro DESC;", conexao); 
 
             conexao.Open();
             reader = cmd.ExecuteReader();
 
             if (reader.Read())
             {
-                txt_trocaoleo.Text = reader.GetString("dt_saida");
-                decimal km_antigo = reader.GetInt64("km");
-
-                TimeSpan data_troca = DateTime.Now - DateTime.Parse(txt_trocaoleo.Text);
-
-                if (data_troca.TotalDays >= 180)
-                { MessageBox.Show("Troca de oleo a 6 meses"); }
-                if (data_troca.TotalDays >= 365)
-                { MessageBox.Show("Troca de oleo a 1 ano"); }
-                
-                if (int.Parse(txt_km.Text) - km_antigo >= 3000)
-                {
-                    MessageBox.Show("Ultima troca de oleo a " + (int.Parse(txt_km.Text) - km_antigo).ToString() + " KM");
-                }
-                txt_trocakm.Text = (int.Parse(txt_km.Text) - km_antigo).ToString() + " KM";
+                txt_trocaoleo.Text = reader.GetString("dt_cadastro");
+                txt_trocakm.Text = reader.GetString("km");
             }
             conexao.Close();
         }
@@ -214,6 +207,13 @@ namespace PrototipoSistema
                 os.km = int.Parse(txt_km.Text);
                 os.observacao = txt_observacao.Text;
                 os.total = txt_total.Text;
+                os.dt_cadastro = dtp_cadastro.Value;
+
+                os.aviso_oleo_km = txt_troca_oleo.Text;
+                os.aviso_oleo_dt = dtp_troca_oleo.Value.ToString();
+
+                os.aviso_filtro_km = txt_troca_filtro.Text;
+                os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
 
                 if (dtp_saida.Enabled == true)
                 { os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); }
@@ -224,9 +224,6 @@ namespace PrototipoSistema
                 { os.pago = 1; }
                 else
                 { os.pago = 0; }
-
-                if (lst_servicos.Items.Contains("TROCA DE OLEO"))
-                { os.aviso_oleo = "*"; }
             }
             else
             { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -241,7 +238,7 @@ namespace PrototipoSistema
 
                 MessageBox.Show("OS Alterada!", "JCMotorsport", MessageBoxButtons.OK);
             }
-            catch { }
+            catch (Exception a) { MessageBox.Show(a.ToString()); }
         }
 
         private void bnt_add_peca_Click(object sender, EventArgs e)
@@ -337,9 +334,15 @@ namespace PrototipoSistema
         private void cb_saida_CheckedChanged(object sender, EventArgs e)
         {
             if (cb_saida.Checked == true)
-            { dtp_saida.Enabled = true; }
+            { 
+                dtp_saida.Enabled = true; 
+                gb_troca.Visible = true;
+            }
             else
-            { dtp_saida.Enabled = false; }
+            { 
+                dtp_saida.Enabled = false; 
+                gb_troca.Visible = false;
+            }
         }
     }
 }

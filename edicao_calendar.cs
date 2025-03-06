@@ -171,7 +171,7 @@ namespace PrototipoSistema
             string calendarId = "primary";
 
             //Buscando eventID pra usar depois
-            // Nome e data do evento que você quer buscar
+            //Nome e data do evento que você quer buscar
             string eventNameToSearch = evento; // Substitua pelo nome do evento
             DateTime eventDate = new DateTime(year, month, day); // Substitua pela data do evento
 

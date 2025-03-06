@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
@@ -24,7 +25,10 @@ namespace PrototipoSistema.classes
         public string total { get; set; }
         public DateTime dt_cadastro { get; set; }
         public string dt_saida { get; set; }
-        public string aviso_oleo { get; set; }
+        public string aviso_oleo_km { get; set; }
+        public string aviso_oleo_dt {  get; set; }
+        public string aviso_filtro_km { get; set; }
+        public string aviso_filtro_dt { get; set; }
         public int pago { get; set; }
 
         public void ultimo_index()
@@ -45,7 +49,7 @@ namespace PrototipoSistema.classes
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand("INSERT INTO os (controle, placa, km, cliente, doc, observacao, total, dt_cadastro, dt_saida, aviso_oleo, pago) values (@controle,@placa,@km,@cliente,@doc,@observacao,@total,@dt_cadastro,@dt_saida,@aviso_oleo,@pago)", conexao);
+                var cmd = new MySqlCommand("INSERT INTO os (controle, placa, km, cliente, doc, observacao, total, dt_cadastro, dt_saida, pago) values (@controle,@placa,@km,@cliente,@doc,@observacao,@total,@dt_cadastro,@dt_saida,@pago)", conexao);
                 cmd.Parameters.AddWithValue("@controle", index);
                 cmd.Parameters.AddWithValue("@placa", placa);
                 cmd.Parameters.AddWithValue("@km", km);
@@ -55,12 +59,11 @@ namespace PrototipoSistema.classes
                 cmd.Parameters.AddWithValue("@total", total);
                 cmd.Parameters.AddWithValue("@dt_cadastro", dt_cadastro);
                 cmd.Parameters.AddWithValue("@dt_saida", dt_saida);
-                cmd.Parameters.AddWithValue("@aviso_oleo", aviso_oleo);
                 cmd.Parameters.AddWithValue("@pago", pago);
 
             conexao.Open();
-                cmd.ExecuteReader();
-                conexao.Close();
+            cmd.ExecuteReader();
+            conexao.Close();
         }
 
         public void alterar_os()
@@ -68,7 +71,10 @@ namespace PrototipoSistema.classes
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"UPDATE os SET placa = '{placa}', cliente = '{cliente}', doc = '{doc}', km = '{km}', observacao = '{observacao}', total = '{total}', dt_saida = '{dt_saida}', aviso_oleo = '{aviso_oleo}', pago = '{pago}' WHERE controle = {index}", conexao);
+            dt_cadastro.ToString("yyyy-MM-dd HH:mm:ss");
+            MessageBox.Show(dt_cadastro.ToString());
+
+            var cmd = new MySqlCommand($"UPDATE os SET placa = '{placa}', cliente = '{cliente}', km = '{km}', observacao = '{observacao}', total = '{total}', dt_cadastro = '{dt_cadastro}', dt_saida = '{dt_saida}', aviso_oleo_km = '{aviso_oleo_km}', aviso_oleo_dt = '{aviso_oleo_dt}', aviso_filtro_km = '{aviso_filtro_km}', aviso_filtro_dt = '{aviso_oleo_dt}', pago = '{pago}' WHERE controle = {index}", conexao);
 
             conexao.Open();
             cmd.ExecuteReader();

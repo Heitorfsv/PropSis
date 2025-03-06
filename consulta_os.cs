@@ -53,8 +53,8 @@ namespace PrototipoSistema
                 lista_os.Add(reader.GetInt32("controle"));
                 lst_placa.Items.Add(reader.GetString("placa"));
                 lst_cliente.Items.Add(reader.GetString("cliente"));
-                lst_dt.Items.Add(reader.GetDateTime("dt_cadastro").ToString("dd/MM/yyyy"));
-                lst_total.Items.Add(reader.GetDecimal("total").ToString());
+                lst_dt.Items.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
+                lst_total.Items.Add(reader.GetString("total").ToString());
                 lista_doc.Add(reader.GetString("doc"));
 
                 pagoStatus.Add(reader.GetInt32("pago") == 0);
@@ -369,7 +369,7 @@ namespace PrototipoSistema
                 while (reader.Read())
                 {
                     lista_os.Add(reader.GetInt32("controle"));
-                    lst_dt.Items.Add(reader.GetDateTime("dt_cadastro").ToString("dd/MM/yyyy"));
+                    lst_dt.Items.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
                     lst_cliente.Items.Add(reader.GetString("cliente"));
                     lista_doc.Add(reader.GetString("doc"));
                     placa.Add(reader.GetString("placa"));
@@ -613,8 +613,8 @@ namespace PrototipoSistema
                 {
                     lst_cliente.Items.Add(reader.GetString("cliente"));
                     lst_placa.Items.Add(reader.GetString("placa"));
-                    lst_dt.Items.Add(reader.GetDateTime("dt_cadastro").ToString("dd/MM/yyyy"));
-                    lst_dt_saida.Items.Add(reader.GetString("dt_saida"));   
+                    lst_dt.Items.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
+                    lst_dt_saida.Items.Add(reader.GetString("dt_saida"));
                     lst_total.Items.Add(reader.GetDecimal("total").ToString());
                     doc_dono.Add(reader.GetString("doc"));
                 }

@@ -81,11 +81,22 @@
             this.cb_pago = new System.Windows.Forms.CheckBox();
             this.cb_saida = new System.Windows.Forms.CheckBox();
             this.dtp_cadastro = new System.Windows.Forms.DateTimePicker();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.dtp_troca_oleo = new System.Windows.Forms.DateTimePicker();
+            this.dtp_troca_filtro = new System.Windows.Forms.DateTimePicker();
+            this.txt_troca_filtro = new System.Windows.Forms.TextBox();
+            this.txt_troca_oleo = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.gb_troca = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.gb_troca.SuspendLayout();
             this.SuspendLayout();
             // 
             // label23
@@ -113,7 +124,7 @@
             this.bnt_editar.Name = "bnt_editar";
             this.bnt_editar.Size = new System.Drawing.Size(86, 28);
             this.bnt_editar.TabIndex = 51;
-            this.bnt_editar.Text = "Editar";
+            this.bnt_editar.Text = "Salvar";
             this.bnt_editar.UseVisualStyleBackColor = true;
             this.bnt_editar.Click += new System.EventHandler(this.bnt_editar_Click);
             // 
@@ -146,11 +157,11 @@
             this.groupBox6.Controls.Add(this.label21);
             this.groupBox6.Controls.Add(this.txt_total_servico);
             this.groupBox6.Controls.Add(this.lst_servicos);
-            this.groupBox6.Location = new System.Drawing.Point(436, 163);
+            this.groupBox6.Location = new System.Drawing.Point(423, 163);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox6.Size = new System.Drawing.Size(389, 301);
+            this.groupBox6.Size = new System.Drawing.Size(404, 301);
             this.groupBox6.TabIndex = 49;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Serviços";
@@ -158,7 +169,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(219, 28);
+            this.label14.Location = new System.Drawing.Point(285, 28);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(42, 13);
@@ -168,7 +179,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(160, 28);
+            this.label12.Location = new System.Drawing.Point(226, 28);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(27, 13);
@@ -178,7 +189,7 @@
             // lst_servico_total
             // 
             this.lst_servico_total.FormattingEnabled = true;
-            this.lst_servico_total.Location = new System.Drawing.Point(222, 42);
+            this.lst_servico_total.Location = new System.Drawing.Point(288, 42);
             this.lst_servico_total.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servico_total.Name = "lst_servico_total";
             this.lst_servico_total.Size = new System.Drawing.Size(72, 199);
@@ -187,7 +198,7 @@
             // lst_servicos_qtd
             // 
             this.lst_servicos_qtd.FormattingEnabled = true;
-            this.lst_servicos_qtd.Location = new System.Drawing.Point(163, 42);
+            this.lst_servicos_qtd.Location = new System.Drawing.Point(229, 42);
             this.lst_servicos_qtd.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servicos_qtd.Name = "lst_servicos_qtd";
             this.lst_servicos_qtd.Size = new System.Drawing.Size(55, 199);
@@ -195,7 +206,7 @@
             // 
             // bnt_editar_servico
             // 
-            this.bnt_editar_servico.Location = new System.Drawing.Point(229, 274);
+            this.bnt_editar_servico.Location = new System.Drawing.Point(335, 274);
             this.bnt_editar_servico.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar_servico.Name = "bnt_editar_servico";
             this.bnt_editar_servico.Size = new System.Drawing.Size(65, 23);
@@ -229,7 +240,7 @@
             this.lst_servicos.Location = new System.Drawing.Point(4, 42);
             this.lst_servicos.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servicos.Name = "lst_servicos";
-            this.lst_servicos.Size = new System.Drawing.Size(155, 199);
+            this.lst_servicos.Size = new System.Drawing.Size(221, 199);
             this.lst_servicos.TabIndex = 0;
             // 
             // groupBox4
@@ -246,7 +257,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(421, 301);
+            this.groupBox4.Size = new System.Drawing.Size(408, 301);
             this.groupBox4.TabIndex = 47;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Peças";
@@ -254,7 +265,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(220, 28);
+            this.label13.Location = new System.Drawing.Point(285, 28);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(42, 13);
@@ -264,7 +275,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(161, 28);
+            this.label11.Location = new System.Drawing.Point(226, 28);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(27, 13);
@@ -274,7 +285,7 @@
             // lst_peca_total
             // 
             this.lst_peca_total.FormattingEnabled = true;
-            this.lst_peca_total.Location = new System.Drawing.Point(222, 42);
+            this.lst_peca_total.Location = new System.Drawing.Point(287, 42);
             this.lst_peca_total.Margin = new System.Windows.Forms.Padding(2);
             this.lst_peca_total.Name = "lst_peca_total";
             this.lst_peca_total.Size = new System.Drawing.Size(72, 199);
@@ -283,7 +294,7 @@
             // lst_pecas_qtd
             // 
             this.lst_pecas_qtd.FormattingEnabled = true;
-            this.lst_pecas_qtd.Location = new System.Drawing.Point(164, 42);
+            this.lst_pecas_qtd.Location = new System.Drawing.Point(229, 42);
             this.lst_pecas_qtd.Margin = new System.Windows.Forms.Padding(2);
             this.lst_pecas_qtd.Name = "lst_pecas_qtd";
             this.lst_pecas_qtd.Size = new System.Drawing.Size(55, 199);
@@ -291,7 +302,7 @@
             // 
             // bnt_editar_peca
             // 
-            this.bnt_editar_peca.Location = new System.Drawing.Point(229, 274);
+            this.bnt_editar_peca.Location = new System.Drawing.Point(339, 274);
             this.bnt_editar_peca.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar_peca.Name = "bnt_editar_peca";
             this.bnt_editar_peca.Size = new System.Drawing.Size(65, 23);
@@ -325,7 +336,7 @@
             this.lst_pecas.Location = new System.Drawing.Point(5, 42);
             this.lst_pecas.Margin = new System.Windows.Forms.Padding(2);
             this.lst_pecas.Name = "lst_pecas";
-            this.lst_pecas.Size = new System.Drawing.Size(155, 199);
+            this.lst_pecas.Size = new System.Drawing.Size(220, 199);
             this.lst_pecas.TabIndex = 0;
             // 
             // groupBox3
@@ -574,16 +585,17 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(883, 20);
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(840, 43);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(101, 13);
+            this.label15.Size = new System.Drawing.Size(136, 13);
             this.label15.TabIndex = 55;
-            this.label15.Text = "Última troca de óleo";
+            this.label15.Text = "Última troca de óleo a:";
             // 
             // txt_trocaoleo
             // 
             this.txt_trocaoleo.Enabled = false;
-            this.txt_trocaoleo.Location = new System.Drawing.Point(886, 37);
+            this.txt_trocaoleo.Location = new System.Drawing.Point(843, 60);
             this.txt_trocaoleo.Name = "txt_trocaoleo";
             this.txt_trocaoleo.Size = new System.Drawing.Size(100, 20);
             this.txt_trocaoleo.TabIndex = 56;
@@ -591,7 +603,7 @@
             // txt_trocakm
             // 
             this.txt_trocakm.Enabled = false;
-            this.txt_trocakm.Location = new System.Drawing.Point(886, 63);
+            this.txt_trocakm.Location = new System.Drawing.Point(843, 86);
             this.txt_trocakm.Name = "txt_trocakm";
             this.txt_trocakm.Size = new System.Drawing.Size(100, 20);
             this.txt_trocakm.TabIndex = 57;
@@ -624,11 +636,106 @@
             this.dtp_cadastro.Size = new System.Drawing.Size(200, 20);
             this.dtp_cadastro.TabIndex = 60;
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(7, 84);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(155, 13);
+            this.label16.TabIndex = 66;
+            this.label16.Text = "Proxima troca de filtro em:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(7, 16);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(154, 13);
+            this.label17.TabIndex = 65;
+            this.label17.Text = "Proxima troca de oleo em:";
+            // 
+            // dtp_troca_oleo
+            // 
+            this.dtp_troca_oleo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtp_troca_oleo.Location = new System.Drawing.Point(10, 58);
+            this.dtp_troca_oleo.Name = "dtp_troca_oleo";
+            this.dtp_troca_oleo.Size = new System.Drawing.Size(100, 20);
+            this.dtp_troca_oleo.TabIndex = 60;
+            // 
+            // dtp_troca_filtro
+            // 
+            this.dtp_troca_filtro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtp_troca_filtro.Location = new System.Drawing.Point(10, 126);
+            this.dtp_troca_filtro.Name = "dtp_troca_filtro";
+            this.dtp_troca_filtro.Size = new System.Drawing.Size(100, 20);
+            this.dtp_troca_filtro.TabIndex = 60;
+            // 
+            // txt_troca_filtro
+            // 
+            this.txt_troca_filtro.Location = new System.Drawing.Point(10, 100);
+            this.txt_troca_filtro.Name = "txt_troca_filtro";
+            this.txt_troca_filtro.Size = new System.Drawing.Size(75, 20);
+            this.txt_troca_filtro.TabIndex = 62;
+            // 
+            // txt_troca_oleo
+            // 
+            this.txt_troca_oleo.Location = new System.Drawing.Point(10, 32);
+            this.txt_troca_oleo.Name = "txt_troca_oleo";
+            this.txt_troca_oleo.Size = new System.Drawing.Size(75, 20);
+            this.txt_troca_oleo.TabIndex = 61;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(89, 103);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(21, 13);
+            this.label18.TabIndex = 68;
+            this.label18.Text = "km";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(89, 35);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(21, 13);
+            this.label19.TabIndex = 69;
+            this.label19.Text = "km";
+            // 
+            // gb_troca
+            // 
+            this.gb_troca.Controls.Add(this.label17);
+            this.gb_troca.Controls.Add(this.label19);
+            this.gb_troca.Controls.Add(this.txt_troca_oleo);
+            this.gb_troca.Controls.Add(this.label18);
+            this.gb_troca.Controls.Add(this.txt_troca_filtro);
+            this.gb_troca.Controls.Add(this.dtp_troca_filtro);
+            this.gb_troca.Controls.Add(this.label16);
+            this.gb_troca.Controls.Add(this.dtp_troca_oleo);
+            this.gb_troca.Location = new System.Drawing.Point(843, 112);
+            this.gb_troca.Name = "gb_troca";
+            this.gb_troca.Size = new System.Drawing.Size(161, 164);
+            this.gb_troca.TabIndex = 70;
+            this.gb_troca.TabStop = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(949, 89);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(21, 13);
+            this.label20.TabIndex = 70;
+            this.label20.Text = "km";
+            // 
             // edicao_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 576);
+            this.ClientSize = new System.Drawing.Size(1010, 576);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.gb_troca);
             this.Controls.Add(this.dtp_cadastro);
             this.Controls.Add(this.cb_saida);
             this.Controls.Add(this.cb_pago);
@@ -661,6 +768,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.gb_troca.ResumeLayout(false);
+            this.gb_troca.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -720,5 +829,15 @@
         private System.Windows.Forms.CheckBox cb_pago;
         private System.Windows.Forms.CheckBox cb_saida;
         private System.Windows.Forms.DateTimePicker dtp_cadastro;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.DateTimePicker dtp_troca_oleo;
+        private System.Windows.Forms.DateTimePicker dtp_troca_filtro;
+        private System.Windows.Forms.TextBox txt_troca_filtro;
+        private System.Windows.Forms.TextBox txt_troca_oleo;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.GroupBox gb_troca;
+        private System.Windows.Forms.Label label20;
     }
 }

@@ -77,6 +77,9 @@
             this.cb_pago = new System.Windows.Forms.CheckBox();
             this.cb_saida = new System.Windows.Forms.CheckBox();
             this.dtp_cadastro = new System.Windows.Forms.DateTimePicker();
+            this.txt_trocakm = new System.Windows.Forms.TextBox();
+            this.txt_trocaoleo = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -585,11 +588,40 @@
             this.dtp_cadastro.Size = new System.Drawing.Size(200, 20);
             this.dtp_cadastro.TabIndex = 61;
             // 
+            // txt_trocakm
+            // 
+            this.txt_trocakm.Enabled = false;
+            this.txt_trocakm.Location = new System.Drawing.Point(839, 88);
+            this.txt_trocakm.Name = "txt_trocakm";
+            this.txt_trocakm.Size = new System.Drawing.Size(100, 20);
+            this.txt_trocakm.TabIndex = 64;
+            // 
+            // txt_trocaoleo
+            // 
+            this.txt_trocaoleo.Enabled = false;
+            this.txt_trocaoleo.Location = new System.Drawing.Point(839, 62);
+            this.txt_trocaoleo.Name = "txt_trocaoleo";
+            this.txt_trocaoleo.Size = new System.Drawing.Size(100, 20);
+            this.txt_trocaoleo.TabIndex = 63;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(836, 45);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(121, 13);
+            this.label15.TabIndex = 62;
+            this.label15.Text = "Última troca de óleo";
+            // 
             // cadastro_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(931, 557);
+            this.ClientSize = new System.Drawing.Size(1024, 557);
+            this.Controls.Add(this.txt_trocakm);
+            this.Controls.Add(this.txt_trocaoleo);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.dtp_cadastro);
             this.Controls.Add(this.cb_saida);
             this.Controls.Add(this.cb_pago);
@@ -675,5 +707,8 @@
         private System.Windows.Forms.CheckBox cb_saida;
         private System.Windows.Forms.ComboBox cmb_placa;
         private System.Windows.Forms.DateTimePicker dtp_cadastro;
+        private System.Windows.Forms.TextBox txt_trocakm;
+        private System.Windows.Forms.TextBox txt_trocaoleo;
+        private System.Windows.Forms.Label label15;
     }
 }

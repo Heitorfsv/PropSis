@@ -35,44 +35,6 @@ namespace PrototipoSistema
             add_pecas.Show();
         }
 
-        private void bnt_deletar_Click(object sender, EventArgs e)
-        {
-            if (lst_servicos.SelectedIndex != -1)
-            {
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
-
-                var cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE nome = '{lst_pecas.SelectedItem}'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                conexao.Close();
-
-                int selected = lst_pecas.SelectedIndex;
-                lst_pecas.Items.RemoveAt(selected);
-                lst_pecas_qtd.Items.RemoveAt(selected);
-            }
-        }
-
-        private void bnt_deletar_servico_Click(object sender, EventArgs e)
-        {
-            if (lst_servicos.SelectedIndex != -1)
-            {
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
-
-                var cmd = new MySqlCommand($"DELETE FROM servicos_os WHERE nome = '{lst_servicos.SelectedItem}'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                conexao.Close();
-
-                int selected = lst_servicos.SelectedIndex;
-                lst_servicos.Items.RemoveAt(selected);
-                lst_servicos_qtd.Items.RemoveAt(selected);
-            }
-        }
-
         private void bnt_cadastrar_Click(object sender, EventArgs e)
         {
 
@@ -88,7 +50,7 @@ namespace PrototipoSistema
             cliente cliente = new cliente();
 
             if (reader.Read())
-            {
+            { 
                 os.placa = cmb_placa.Text;
                 os.km = int.Parse(txt_km.Text);
                 os.cliente = txt_cliente.Text;
@@ -104,10 +66,6 @@ namespace PrototipoSistema
                 { os.pago = 1; }
                 else
                 { os.pago = 0; }
-
-                if (lst_servicos.Items.Contains("TROCA DE OLEO"))
-                { os.aviso_oleo = "*"; }
-
 
                 os.dt_cadastro = dtp_cadastro.Value;
 
@@ -274,6 +232,22 @@ namespace PrototipoSistema
             {
                 txt_cliente.Text = reader.GetString("nome");
                 txt_telefone.Text = reader.GetString("telefone");
+            }
+            conexao.Close();
+
+            cmd = new MySqlCommand($"SELECT * FROM os WHERE aviso_oleo_km = '*' AND placa = '{cmb_placa.Text}' ORDER BY dt_cadastro DESC", conexao);
+
+            conexao.Open();
+            reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                txt_trocaoleo.Text = reader.GetString("dt_saida");
+                decimal km_antigo = reader.GetInt64("km");
+
+
+
+
             }
             conexao.Close();
 

@@ -243,13 +243,13 @@ namespace PrototipoSistema
         {
             if (lst_endereco.SelectedIndex != -1)
             {
-                edicao_cliente tela_cliente = new edicao_cliente();
+                edicao_cliente tela_cliente = new edicao_cliente()
+                    ;
 
                 static_class.doc_consultar = lst_doc.SelectedItem.ToString();
                 tela_cliente.Show();
             }
         }
-
         private void lst_dt_cadastro_Click(object sender, EventArgs e)
         { lst_nome.SelectedIndex = lst_dt_cadastro.SelectedIndex; }
 
@@ -263,6 +263,6 @@ namespace PrototipoSistema
         {
             cadastro_cliente cadastro = new cadastro_cliente();
             cadastro.Show();
-        }
+        } 
     }
 }

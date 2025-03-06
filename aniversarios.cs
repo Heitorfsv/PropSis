@@ -30,14 +30,18 @@ namespace PrototipoSistema
 
             while (reader.Read())
             {
-                DateTime aniversario = DateTime.Parse(reader.GetString("dt_nascimento").Substring(0, 5));
-                TimeSpan dif = aniversario - DateTime.Now; 
+                try
+                {
+                    DateTime aniversario = DateTime.Parse(reader.GetString("dt_nascimento").Substring(0, 5));
+                    TimeSpan dif = aniversario - DateTime.Now;
 
-                if (dif.TotalDays < 15 && dif.TotalDays > 0) 
-                { lst_15dias.Items.Add(reader.GetString("nome")); }
+                    if (dif.TotalDays < 15 && dif.TotalDays > 0)
+                    { lst_15dias.Items.Add(reader.GetString("nome")); }
 
-                if (dif.TotalDays > -1 && dif.TotalDays < 0.1)
-                { lst_hoje.Items.Add(reader.GetString("nome")); }
+                    if (dif.TotalDays > -1 && dif.TotalDays < 0.1)
+                    { lst_hoje.Items.Add(reader.GetString("nome")); }
+                }
+                catch { }
 
             }
 
