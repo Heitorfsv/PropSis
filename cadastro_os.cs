@@ -69,7 +69,7 @@ namespace PrototipoSistema
 
                 os.dt_cadastro = dtp_cadastro.Value;
 
-                if (dtp_saida.Enabled == true)
+                if (cb_saida.Checked == true)
                 { os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); }
                 else
                 { os.dt_saida = null; }

@@ -282,7 +282,6 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
 
                 edicao_os.Show();
@@ -295,7 +294,6 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
 
                 edicao_os.Show();
@@ -308,7 +306,6 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
 
                 edicao_os.Show();
@@ -321,7 +318,6 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
 
                 edicao_os.Show();
@@ -334,7 +330,6 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
 
                 edicao_os.Show();
@@ -347,7 +342,6 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
 
                 edicao_os.Show();
@@ -360,7 +354,6 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
 
                 edicao_os.Show();
@@ -373,7 +366,6 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
 
                 edicao_os.Show();
@@ -597,7 +589,6 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
 
                 edicao_os.Show();
@@ -758,6 +749,7 @@ namespace PrototipoSistema
             }
             catch { }
         }
+
 
         private void lbl_order_Click(object sender, EventArgs e)
         {

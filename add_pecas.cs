@@ -85,7 +85,7 @@ namespace PrototipoSistema
                 qtd_tela.valor = valor;
                 qtd_tela.ShowDialog();
 
-            if (qtd_tela.quantidade >= 1)
+            if (qtd_tela.quantidade > 0)
             {
                 decimal total = 0;
                 decimal qtd = qtd_tela.quantidade;
