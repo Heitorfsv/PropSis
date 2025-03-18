@@ -98,6 +98,8 @@ namespace PrototipoSistema
 
                 try
                 {
+                    string qtd_formatado = qtd.ToString();
+                    qtd_formatado = qtd_formatado.Replace(".", ",");
                     lst_total.Items.Add((decimal.Parse(valor) * qtd).ToString("N2"));
                 }
                 catch { lst_total.Items.Add(valor); }

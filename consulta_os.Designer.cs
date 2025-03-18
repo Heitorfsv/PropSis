@@ -59,6 +59,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.lst_telefone = new System.Windows.Forms.ListBox();
             this.lbl_order = new System.Windows.Forms.Label();
+            this.scrollbar = new System.Windows.Forms.VScrollBar();
             this.SuspendLayout();
             // 
             // lst_cliente
@@ -410,11 +411,20 @@
             this.lbl_order.Text = "↑";
             this.lbl_order.Click += new System.EventHandler(this.lbl_order_Click);
             // 
+            // scrollbar
+            // 
+            this.scrollbar.Location = new System.Drawing.Point(1320, 59);
+            this.scrollbar.Name = "scrollbar";
+            this.scrollbar.Size = new System.Drawing.Size(17, 500);
+            this.scrollbar.TabIndex = 39;
+            this.scrollbar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollbar_Scroll);
+            // 
             // consulta_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1827, 914);
+            this.Controls.Add(this.scrollbar);
             this.Controls.Add(this.lbl_order);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.lst_telefone);
@@ -488,5 +498,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox lst_telefone;
         private System.Windows.Forms.Label lbl_order;
+        private System.Windows.Forms.VScrollBar scrollbar;
     }
 }

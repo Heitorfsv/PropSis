@@ -145,7 +145,7 @@ namespace PrototipoSistema
                     decimal total = 0;
                     decimal qtd = qtd_tela.quantidade;
                     valor = qtd_tela.valor;
-                    MessageBox.Show(valor.ToString());
+
                     lst_servicos.Items.Add(servico);
                     lst_qtd.Items.Add(qtd_tela.quantidade);
 
@@ -153,6 +153,8 @@ namespace PrototipoSistema
 
                     try
                     {
+                        string qtd_formatado = qtd.ToString();
+                        qtd_formatado = qtd_formatado.Replace(".", ",");
                         lst_total.Items.Add((decimal.Parse(valor) * qtd).ToString("N2"));
                     }
                     catch { lst_total.Items.Add(valor); }
