@@ -37,7 +37,7 @@ namespace PrototipoSistema
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            while (reader.Read())
+            if (reader.Read())
             {
                 os.index = reader.GetInt32("controle");
                 cmb_placa.Text = reader.GetString("placa");
@@ -46,13 +46,25 @@ namespace PrototipoSistema
                 txt_observacao.Text = reader.GetString("observacao");
 
                 try
-                { 
+                {
+                    txt_troca_filtro.Text = reader.GetString("aviso_filtro_km");
+                    txt_troca_oleo.Text = reader.GetString("aviso_oleo_km");
+                    dtp_troca_filtro.Value = DateTime.Parse(reader.GetString("aviso_filtro_dt"));
+                    dtp_troca_oleo.Value = DateTime.Parse(reader.GetString("aviso_oleo_dt"));
+                }
+                catch { }
+
+                try
+                {
                     dtp_saida.Value = DateTime.Parse(reader.GetString("dt_saida"));
-                    dtp_saida.Enabled = true;
+                    dtp_saida.Enabled = true;  
                     cb_saida.Checked = true;
                 }
-                catch
-                { dtp_saida.Enabled = false; }
+                catch (Exception a)
+                { 
+                    dtp_saida.Enabled = false;
+                    cb_saida.Checked = false;
+                }
 
                 if (reader.GetInt32("pago") == 1)
                 { cb_pago.Checked = true; }
@@ -137,7 +149,7 @@ namespace PrototipoSistema
 
             ///////////////////////////////////////
 
-            cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo_km REGEXP '[A-Za-z0-9]' OR aviso_oleo_dt REGEXP '[A-Za-z0-9]') AND placa = '{cmb_placa.Text}' ORDER BY dt_cadastro DESC;", conexao); 
+            cmd = new MySqlCommand($"SELECT * FROM os WHERE ((aviso_oleo_km REGEXP '[A-Za-z0-9]' OR aviso_oleo_dt REGEXP '[A-Za-z0-9]') AND placa = '{cmb_placa.Text}') AND controle != {static_class.controle_os} ORDER BY dt_cadastro DESC;", conexao); 
 
             conexao.Open();
             reader = cmd.ExecuteReader();
@@ -145,7 +157,8 @@ namespace PrototipoSistema
             if (reader.Read())
             {
                 txt_trocaoleo.Text = reader.GetString("dt_cadastro");
-                txt_trocakm.Text = reader.GetString("km");
+                txt_trocakm.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
+
             }
             conexao.Close();
         }

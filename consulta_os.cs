@@ -51,7 +51,7 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"SELECT * FROM os ORDER BY dt_cadastro {order}", conexao);
+            var cmd = new MySqlCommand($"SELECT * FROM os ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') {order}", conexao);
 
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -100,7 +100,7 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    lst_marca.Items.Add(reader.GetString("marca"));
+                    lst_marca.Items.Add(reader.GetString("marca"));  
                     lst_modelo.Items.Add(reader.GetString("modelo"));
                 }
                 conexao.Close();
