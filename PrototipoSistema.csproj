@@ -302,6 +302,12 @@
     <Compile Include="qtd.Designer.cs">
       <DependentUpon>qtd.cs</DependentUpon>
     </Compile>
+    <Compile Include="trocas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="trocas.Designer.cs">
+      <DependentUpon>trocas.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="add_calendar.resx">
       <DependentUpon>add_calendar.cs</DependentUpon>
     </EmbeddedResource>
@@ -390,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="qtd.resx">
       <DependentUpon>qtd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="trocas.resx">
+      <DependentUpon>trocas.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="credenciais\credentials.json" />
     <None Include="Properties\Settings.settings">

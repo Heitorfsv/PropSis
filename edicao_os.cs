@@ -57,11 +57,11 @@ namespace PrototipoSistema
                 try
                 {
                     dtp_saida.Value = DateTime.Parse(reader.GetString("dt_saida"));
-                    dtp_saida.Enabled = true;  
+                    dtp_saida.Enabled = true;
                     cb_saida.Checked = true;
                 }
                 catch (Exception a)
-                { 
+                {
                     dtp_saida.Enabled = false;
                     cb_saida.Checked = false;
                 }

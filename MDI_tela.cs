@@ -200,5 +200,12 @@ namespace PrototipoSistema
         {
 
         }
+
+        private void trocaDeOleoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            trocas trocas = new trocas();
+            trocas.MdiParent = this;
+            trocas.Show();
+        }
     }
 }

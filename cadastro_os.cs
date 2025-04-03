@@ -54,6 +54,7 @@ namespace PrototipoSistema
                 os.placa = cmb_placa.Text;
                 os.km = int.Parse(txt_km.Text);
                 os.cliente = txt_cliente.Text;
+                
                 os.doc = doc_cliente;
                 os.observacao = txt_observacao.Text;
 

@@ -118,7 +118,7 @@ namespace PrototipoSistema
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
 
-                        soma_servico += reader.GetDecimal("valor") * decimal.Parse(qtd); 
+                        soma_servico += reader.GetDecimal("valor") * decimal.Parse(qtd);
                     }
                     catch { }
                 }

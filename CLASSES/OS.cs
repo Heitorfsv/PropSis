@@ -71,7 +71,6 @@ namespace PrototipoSistema.classes
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            dt_cadastro.ToString("yyyy-MM-dd HH:mm:ss");
             MessageBox.Show(dt_cadastro.ToString());
 
             var cmd = new MySqlCommand($"UPDATE os SET placa = '{placa}', cliente = '{cliente}', km = '{km}', observacao = '{observacao}', total = '{total}', dt_cadastro = '{dt_cadastro}', dt_saida = '{dt_saida}', aviso_oleo_km = '{aviso_oleo_km}', aviso_oleo_dt = '{aviso_oleo_dt}', aviso_filtro_km = '{aviso_filtro_km}', aviso_filtro_dt = '{aviso_oleo_dt}', pago = '{pago}' WHERE controle = {index}", conexao);
