@@ -91,6 +91,8 @@
             this.label19 = new System.Windows.Forms.Label();
             this.gb_troca = new System.Windows.Forms.GroupBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.cb_oleo = new System.Windows.Forms.CheckBox();
+            this.cb_filtro = new System.Windows.Forms.CheckBox();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -706,6 +708,8 @@
             // 
             // gb_troca
             // 
+            this.gb_troca.Controls.Add(this.cb_filtro);
+            this.gb_troca.Controls.Add(this.cb_oleo);
             this.gb_troca.Controls.Add(this.label17);
             this.gb_troca.Controls.Add(this.label19);
             this.gb_troca.Controls.Add(this.txt_troca_oleo);
@@ -728,6 +732,25 @@
             this.label20.Size = new System.Drawing.Size(21, 13);
             this.label20.TabIndex = 70;
             this.label20.Text = "km";
+            // 
+            // cb_oleo
+            // 
+            this.cb_oleo.AutoSize = true;
+            this.cb_oleo.Location = new System.Drawing.Point(118, 58);
+            this.cb_oleo.Name = "cb_oleo";
+            this.cb_oleo.Size = new System.Drawing.Size(15, 14);
+            this.cb_oleo.TabIndex = 70;
+            this.cb_oleo.UseVisualStyleBackColor = true;
+            this.cb_oleo.CheckedChanged += new System.EventHandler(this.cb_oleo_CheckedChanged);
+            // 
+            // cb_filtro
+            // 
+            this.cb_filtro.AutoSize = true;
+            this.cb_filtro.Location = new System.Drawing.Point(117, 126);
+            this.cb_filtro.Name = "cb_filtro";
+            this.cb_filtro.Size = new System.Drawing.Size(15, 14);
+            this.cb_filtro.TabIndex = 71;
+            this.cb_filtro.UseVisualStyleBackColor = true;
             // 
             // edicao_os
             // 
@@ -839,5 +862,7 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.GroupBox gb_troca;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.CheckBox cb_filtro;
+        private System.Windows.Forms.CheckBox cb_oleo;
     }
 }

@@ -82,5 +82,41 @@ namespace PrototipoSistema
                 count++;
             }
         }
+
+        private void lst_oleo_atrasado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_nome_atrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
+            lst_moto_atrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
+        }
+
+        private void lst_nome_atrasado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_oleo_atrasado.SelectedIndex = lst_nome_atrasado.SelectedIndex;
+            lst_moto_atrasado.SelectedIndex = lst_nome_atrasado.SelectedIndex;
+        }
+
+        private void lst_moto_atrasado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_oleo_atrasado.SelectedIndex = lst_moto_atrasado.SelectedIndex;
+            lst_nome_atrasado.SelectedIndex = lst_moto_atrasado.SelectedIndex;
+        }
+
+        private void lst_oleo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_nome.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
+            lst_moto.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
+        }
+
+        private void lst_nome_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_oleo.SelectedIndex = lst_nome_atrasado.SelectedIndex;
+            lst_moto.SelectedIndex = lst_nome_atrasado.SelectedIndex;
+        }
+
+        private void lst_moto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_oleo.SelectedIndex = lst_moto_atrasado.SelectedIndex;
+            lst_nome.SelectedIndex = lst_moto_atrasado.SelectedIndex;
+        }
     }
 }

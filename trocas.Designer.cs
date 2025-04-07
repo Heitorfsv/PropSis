@@ -45,6 +45,7 @@
             this.lst_oleo.Name = "lst_oleo";
             this.lst_oleo.Size = new System.Drawing.Size(92, 381);
             this.lst_oleo.TabIndex = 0;
+            this.lst_oleo.SelectedIndexChanged += new System.EventHandler(this.lst_oleo_SelectedIndexChanged);
             // 
             // lst_oleo_atrasado
             // 
@@ -53,6 +54,7 @@
             this.lst_oleo_atrasado.Name = "lst_oleo_atrasado";
             this.lst_oleo_atrasado.Size = new System.Drawing.Size(92, 381);
             this.lst_oleo_atrasado.TabIndex = 1;
+            this.lst_oleo_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_oleo_atrasado_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -81,6 +83,7 @@
             this.lst_nome_atrasado.Name = "lst_nome_atrasado";
             this.lst_nome_atrasado.Size = new System.Drawing.Size(166, 381);
             this.lst_nome_atrasado.TabIndex = 4;
+            this.lst_nome_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_nome_atrasado_SelectedIndexChanged);
             // 
             // lst_moto_atrasado
             // 
@@ -89,6 +92,7 @@
             this.lst_moto_atrasado.Name = "lst_moto_atrasado";
             this.lst_moto_atrasado.Size = new System.Drawing.Size(134, 381);
             this.lst_moto_atrasado.TabIndex = 5;
+            this.lst_moto_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_moto_atrasado_SelectedIndexChanged);
             // 
             // lst_nome
             // 
@@ -97,6 +101,7 @@
             this.lst_nome.Name = "lst_nome";
             this.lst_nome.Size = new System.Drawing.Size(166, 381);
             this.lst_nome.TabIndex = 6;
+            this.lst_nome.SelectedIndexChanged += new System.EventHandler(this.lst_nome_SelectedIndexChanged);
             // 
             // lst_moto
             // 
@@ -105,6 +110,7 @@
             this.lst_moto.Name = "lst_moto";
             this.lst_moto.Size = new System.Drawing.Size(134, 381);
             this.lst_moto.TabIndex = 7;
+            this.lst_moto.SelectedIndexChanged += new System.EventHandler(this.lst_moto_SelectedIndexChanged);
             // 
             // trocas
             // 

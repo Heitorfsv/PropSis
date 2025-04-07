@@ -147,7 +147,7 @@ namespace PrototipoSistema
 
             txt_total.Text = (total_peca + total_servico).ToString("N2");
 
-            ///////////////////////////////////////
+            /////////////////////////////////////////
 
             cmd = new MySqlCommand($"SELECT * FROM os WHERE ((aviso_oleo_km REGEXP '[A-Za-z0-9]' OR aviso_oleo_dt REGEXP '[A-Za-z0-9]') AND placa = '{cmb_placa.Text}') AND controle != {static_class.controle_os} ORDER BY dt_cadastro DESC;", conexao); 
 
@@ -230,20 +230,19 @@ namespace PrototipoSistema
                 os.dt_cadastro = dtp_cadastro.Value;
 
                 os.aviso_oleo_km = txt_troca_oleo.Text;
-                os.aviso_oleo_dt = dtp_troca_oleo.Value.ToString();
-
                 os.aviso_filtro_km = txt_troca_filtro.Text;
-                os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
 
-                if (dtp_saida.Enabled == true)
-                { os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); }
-                else 
-                { os.dt_saida = null; }
+                if (cb_oleo.Checked) os.aviso_oleo_dt = dtp_troca_oleo.Value.ToString();
+                else os.aviso_oleo_dt = null;
 
-                if (cb_pago.Checked == true)
-                { os.pago = 1; }
-                else
-                { os.pago = 0; }
+                if (cb_filtro.Checked) os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
+                else os.aviso_filtro_dt = null;
+
+                if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); 
+                else os.dt_saida = null; 
+
+                if (cb_pago.Checked == true) os.pago = 1; 
+                else os.pago = 0; 
             }
             else
             { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -365,12 +364,23 @@ namespace PrototipoSistema
             { 
                 dtp_saida.Enabled = true; 
                 gb_troca.Visible = true;
+                dtp_troca_oleo.Enabled = false;
+                dtp_troca_filtro.Enabled = false;
             }
             else
             { 
                 dtp_saida.Enabled = false; 
                 gb_troca.Visible = false;
             }
+        }
+
+        private void cb_oleo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_oleo.Checked == true) dtp_troca_oleo.Enabled = true;
+            else dtp_troca_oleo.Enabled = false;
+
+            if (cb_filtro.Checked == true) dtp_troca_oleo.Enabled = true;
+            else dtp_troca_filtro.Enabled = false;
         }
     }
 }
