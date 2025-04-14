@@ -32,12 +32,22 @@
             this.lst_oleo_atrasado = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lst_nome_atrasado = new System.Windows.Forms.ListBox();
-            this.lst_moto_atrasado = new System.Windows.Forms.ListBox();
-            this.lst_nome = new System.Windows.Forms.ListBox();
-            this.lst_moto = new System.Windows.Forms.ListBox();
-            this.lst_marca_atrasado = new System.Windows.Forms.ListBox();
-            this.lst_marca = new System.Windows.Forms.ListBox();
+            this.lst_nome_Oatrasado = new System.Windows.Forms.ListBox();
+            this.lst_moto_Oatrasado = new System.Windows.Forms.ListBox();
+            this.lst_nome_O = new System.Windows.Forms.ListBox();
+            this.lst_moto_O = new System.Windows.Forms.ListBox();
+            this.lst_marca_Oatrasado = new System.Windows.Forms.ListBox();
+            this.lst_marca_O = new System.Windows.Forms.ListBox();
+            this.lst_marca_F = new System.Windows.Forms.ListBox();
+            this.lst_marca_Fatrasado = new System.Windows.Forms.ListBox();
+            this.lst_moto_F = new System.Windows.Forms.ListBox();
+            this.lst_nome_F = new System.Windows.Forms.ListBox();
+            this.lst_moto_Fatrasado = new System.Windows.Forms.ListBox();
+            this.lst_nome_Fatrasado = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lst_filtro_atrasado = new System.Windows.Forms.ListBox();
+            this.lst_filtro = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lst_oleo
@@ -45,7 +55,7 @@
             this.lst_oleo.FormattingEnabled = true;
             this.lst_oleo.Location = new System.Drawing.Point(12, 26);
             this.lst_oleo.Name = "lst_oleo";
-            this.lst_oleo.Size = new System.Drawing.Size(92, 381);
+            this.lst_oleo.Size = new System.Drawing.Size(92, 316);
             this.lst_oleo.TabIndex = 0;
             this.lst_oleo.SelectedIndexChanged += new System.EventHandler(this.lst_oleo_SelectedIndexChanged);
             // 
@@ -54,7 +64,7 @@
             this.lst_oleo_atrasado.FormattingEnabled = true;
             this.lst_oleo_atrasado.Location = new System.Drawing.Point(591, 26);
             this.lst_oleo_atrasado.Name = "lst_oleo_atrasado";
-            this.lst_oleo_atrasado.Size = new System.Drawing.Size(92, 381);
+            this.lst_oleo_atrasado.Size = new System.Drawing.Size(92, 316);
             this.lst_oleo_atrasado.TabIndex = 1;
             this.lst_oleo_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_oleo_atrasado_SelectedIndexChanged);
             // 
@@ -78,71 +88,173 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Trocas de oleo atrasadas";
             // 
-            // lst_nome_atrasado
+            // lst_nome_Oatrasado
             // 
-            this.lst_nome_atrasado.FormattingEnabled = true;
-            this.lst_nome_atrasado.Location = new System.Drawing.Point(689, 25);
-            this.lst_nome_atrasado.Name = "lst_nome_atrasado";
-            this.lst_nome_atrasado.Size = new System.Drawing.Size(166, 381);
-            this.lst_nome_atrasado.TabIndex = 4;
-            this.lst_nome_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_nome_atrasado_SelectedIndexChanged);
+            this.lst_nome_Oatrasado.FormattingEnabled = true;
+            this.lst_nome_Oatrasado.Location = new System.Drawing.Point(689, 25);
+            this.lst_nome_Oatrasado.Name = "lst_nome_Oatrasado";
+            this.lst_nome_Oatrasado.Size = new System.Drawing.Size(166, 316);
+            this.lst_nome_Oatrasado.TabIndex = 4;
+            this.lst_nome_Oatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_nome_atrasado_SelectedIndexChanged);
             // 
-            // lst_moto_atrasado
+            // lst_moto_Oatrasado
             // 
-            this.lst_moto_atrasado.FormattingEnabled = true;
-            this.lst_moto_atrasado.Location = new System.Drawing.Point(1001, 24);
-            this.lst_moto_atrasado.Name = "lst_moto_atrasado";
-            this.lst_moto_atrasado.Size = new System.Drawing.Size(134, 381);
-            this.lst_moto_atrasado.TabIndex = 5;
-            this.lst_moto_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_moto_atrasado_SelectedIndexChanged);
+            this.lst_moto_Oatrasado.FormattingEnabled = true;
+            this.lst_moto_Oatrasado.Location = new System.Drawing.Point(1001, 24);
+            this.lst_moto_Oatrasado.Name = "lst_moto_Oatrasado";
+            this.lst_moto_Oatrasado.Size = new System.Drawing.Size(134, 316);
+            this.lst_moto_Oatrasado.TabIndex = 5;
+            this.lst_moto_Oatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_moto_atrasado_SelectedIndexChanged);
             // 
-            // lst_nome
+            // lst_nome_O
             // 
-            this.lst_nome.FormattingEnabled = true;
-            this.lst_nome.Location = new System.Drawing.Point(110, 26);
-            this.lst_nome.Name = "lst_nome";
-            this.lst_nome.Size = new System.Drawing.Size(166, 381);
-            this.lst_nome.TabIndex = 6;
-            this.lst_nome.SelectedIndexChanged += new System.EventHandler(this.lst_nome_SelectedIndexChanged);
+            this.lst_nome_O.FormattingEnabled = true;
+            this.lst_nome_O.Location = new System.Drawing.Point(110, 26);
+            this.lst_nome_O.Name = "lst_nome_O";
+            this.lst_nome_O.Size = new System.Drawing.Size(166, 316);
+            this.lst_nome_O.TabIndex = 6;
+            this.lst_nome_O.SelectedIndexChanged += new System.EventHandler(this.lst_nome_SelectedIndexChanged);
             // 
-            // lst_moto
+            // lst_moto_O
             // 
-            this.lst_moto.FormattingEnabled = true;
-            this.lst_moto.Location = new System.Drawing.Point(422, 26);
-            this.lst_moto.Name = "lst_moto";
-            this.lst_moto.Size = new System.Drawing.Size(134, 381);
-            this.lst_moto.TabIndex = 7;
-            this.lst_moto.SelectedIndexChanged += new System.EventHandler(this.lst_moto_SelectedIndexChanged);
+            this.lst_moto_O.FormattingEnabled = true;
+            this.lst_moto_O.Location = new System.Drawing.Point(422, 26);
+            this.lst_moto_O.Name = "lst_moto_O";
+            this.lst_moto_O.Size = new System.Drawing.Size(134, 316);
+            this.lst_moto_O.TabIndex = 7;
+            this.lst_moto_O.SelectedIndexChanged += new System.EventHandler(this.lst_moto_SelectedIndexChanged);
             // 
-            // lst_marca_atrasado
+            // lst_marca_Oatrasado
             // 
-            this.lst_marca_atrasado.FormattingEnabled = true;
-            this.lst_marca_atrasado.Location = new System.Drawing.Point(861, 25);
-            this.lst_marca_atrasado.Name = "lst_marca_atrasado";
-            this.lst_marca_atrasado.Size = new System.Drawing.Size(134, 381);
-            this.lst_marca_atrasado.TabIndex = 8;
-            this.lst_marca_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_marca_atrasado_SelectedIndexChanged);
+            this.lst_marca_Oatrasado.FormattingEnabled = true;
+            this.lst_marca_Oatrasado.Location = new System.Drawing.Point(861, 24);
+            this.lst_marca_Oatrasado.Name = "lst_marca_Oatrasado";
+            this.lst_marca_Oatrasado.Size = new System.Drawing.Size(134, 316);
+            this.lst_marca_Oatrasado.TabIndex = 8;
+            this.lst_marca_Oatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_marca_atrasado_SelectedIndexChanged);
             // 
-            // lst_marca
+            // lst_marca_O
             // 
-            this.lst_marca.FormattingEnabled = true;
-            this.lst_marca.Location = new System.Drawing.Point(282, 26);
-            this.lst_marca.Name = "lst_marca";
-            this.lst_marca.Size = new System.Drawing.Size(134, 381);
-            this.lst_marca.TabIndex = 9;
-            this.lst_marca.SelectedIndexChanged += new System.EventHandler(this.lst_marca_SelectedIndexChanged);
+            this.lst_marca_O.FormattingEnabled = true;
+            this.lst_marca_O.Location = new System.Drawing.Point(282, 26);
+            this.lst_marca_O.Name = "lst_marca_O";
+            this.lst_marca_O.Size = new System.Drawing.Size(134, 316);
+            this.lst_marca_O.TabIndex = 9;
+            this.lst_marca_O.SelectedIndexChanged += new System.EventHandler(this.lst_marca_SelectedIndexChanged);
+            // 
+            // lst_marca_F
+            // 
+            this.lst_marca_F.FormattingEnabled = true;
+            this.lst_marca_F.Location = new System.Drawing.Point(282, 370);
+            this.lst_marca_F.Name = "lst_marca_F";
+            this.lst_marca_F.Size = new System.Drawing.Size(134, 316);
+            this.lst_marca_F.TabIndex = 19;
+            this.lst_marca_F.SelectedIndexChanged += new System.EventHandler(this.lst_marca_F_SelectedIndexChanged);
+            // 
+            // lst_marca_Fatrasado
+            // 
+            this.lst_marca_Fatrasado.FormattingEnabled = true;
+            this.lst_marca_Fatrasado.Location = new System.Drawing.Point(861, 369);
+            this.lst_marca_Fatrasado.Name = "lst_marca_Fatrasado";
+            this.lst_marca_Fatrasado.Size = new System.Drawing.Size(134, 316);
+            this.lst_marca_Fatrasado.TabIndex = 18;
+            this.lst_marca_Fatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_marca_Fatrasado_SelectedIndexChanged);
+            // 
+            // lst_moto_F
+            // 
+            this.lst_moto_F.FormattingEnabled = true;
+            this.lst_moto_F.Location = new System.Drawing.Point(422, 370);
+            this.lst_moto_F.Name = "lst_moto_F";
+            this.lst_moto_F.Size = new System.Drawing.Size(134, 316);
+            this.lst_moto_F.TabIndex = 17;
+            this.lst_moto_F.SelectedIndexChanged += new System.EventHandler(this.lst_moto_F_SelectedIndexChanged);
+            // 
+            // lst_nome_F
+            // 
+            this.lst_nome_F.FormattingEnabled = true;
+            this.lst_nome_F.Location = new System.Drawing.Point(110, 370);
+            this.lst_nome_F.Name = "lst_nome_F";
+            this.lst_nome_F.Size = new System.Drawing.Size(166, 316);
+            this.lst_nome_F.TabIndex = 16;
+            this.lst_nome_F.SelectedIndexChanged += new System.EventHandler(this.lst_nome_F_SelectedIndexChanged);
+            // 
+            // lst_moto_Fatrasado
+            // 
+            this.lst_moto_Fatrasado.FormattingEnabled = true;
+            this.lst_moto_Fatrasado.Location = new System.Drawing.Point(1001, 369);
+            this.lst_moto_Fatrasado.Name = "lst_moto_Fatrasado";
+            this.lst_moto_Fatrasado.Size = new System.Drawing.Size(134, 316);
+            this.lst_moto_Fatrasado.TabIndex = 15;
+            this.lst_moto_Fatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_moto_Fatrasado_SelectedIndexChanged);
+            // 
+            // lst_nome_Fatrasado
+            // 
+            this.lst_nome_Fatrasado.FormattingEnabled = true;
+            this.lst_nome_Fatrasado.Location = new System.Drawing.Point(689, 369);
+            this.lst_nome_Fatrasado.Name = "lst_nome_Fatrasado";
+            this.lst_nome_Fatrasado.Size = new System.Drawing.Size(166, 316);
+            this.lst_nome_Fatrasado.TabIndex = 14;
+            this.lst_nome_Fatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_nome_Fatrasado_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(588, 353);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(151, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Trocas de oleo atrasadas";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(9, 354);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(142, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Próximas trocas de oleo";
+            // 
+            // lst_filtro_atrasado
+            // 
+            this.lst_filtro_atrasado.FormattingEnabled = true;
+            this.lst_filtro_atrasado.Location = new System.Drawing.Point(591, 370);
+            this.lst_filtro_atrasado.Name = "lst_filtro_atrasado";
+            this.lst_filtro_atrasado.Size = new System.Drawing.Size(92, 316);
+            this.lst_filtro_atrasado.TabIndex = 11;
+            this.lst_filtro_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_filtro_atrasado_SelectedIndexChanged);
+            // 
+            // lst_filtro
+            // 
+            this.lst_filtro.FormattingEnabled = true;
+            this.lst_filtro.Location = new System.Drawing.Point(12, 370);
+            this.lst_filtro.Name = "lst_filtro";
+            this.lst_filtro.Size = new System.Drawing.Size(92, 316);
+            this.lst_filtro.TabIndex = 10;
+            this.lst_filtro.SelectedIndexChanged += new System.EventHandler(this.lst_filtro_SelectedIndexChanged);
             // 
             // trocas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1156, 486);
-            this.Controls.Add(this.lst_marca);
-            this.Controls.Add(this.lst_marca_atrasado);
-            this.Controls.Add(this.lst_moto);
-            this.Controls.Add(this.lst_nome);
-            this.Controls.Add(this.lst_moto_atrasado);
-            this.Controls.Add(this.lst_nome_atrasado);
+            this.ClientSize = new System.Drawing.Size(1156, 730);
+            this.Controls.Add(this.lst_marca_F);
+            this.Controls.Add(this.lst_marca_Fatrasado);
+            this.Controls.Add(this.lst_moto_F);
+            this.Controls.Add(this.lst_nome_F);
+            this.Controls.Add(this.lst_moto_Fatrasado);
+            this.Controls.Add(this.lst_nome_Fatrasado);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lst_filtro_atrasado);
+            this.Controls.Add(this.lst_filtro);
+            this.Controls.Add(this.lst_marca_O);
+            this.Controls.Add(this.lst_marca_Oatrasado);
+            this.Controls.Add(this.lst_moto_O);
+            this.Controls.Add(this.lst_nome_O);
+            this.Controls.Add(this.lst_moto_Oatrasado);
+            this.Controls.Add(this.lst_nome_Oatrasado);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lst_oleo_atrasado);
@@ -161,11 +273,21 @@
         private System.Windows.Forms.ListBox lst_oleo_atrasado;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox lst_nome_atrasado;
-        private System.Windows.Forms.ListBox lst_moto_atrasado;
-        private System.Windows.Forms.ListBox lst_nome;
-        private System.Windows.Forms.ListBox lst_moto;
-        private System.Windows.Forms.ListBox lst_marca_atrasado;
-        private System.Windows.Forms.ListBox lst_marca;
+        private System.Windows.Forms.ListBox lst_nome_Oatrasado;
+        private System.Windows.Forms.ListBox lst_moto_Oatrasado;
+        private System.Windows.Forms.ListBox lst_nome_O;
+        private System.Windows.Forms.ListBox lst_moto_O;
+        private System.Windows.Forms.ListBox lst_marca_Oatrasado;
+        private System.Windows.Forms.ListBox lst_marca_O;
+        private System.Windows.Forms.ListBox lst_marca_F;
+        private System.Windows.Forms.ListBox lst_marca_Fatrasado;
+        private System.Windows.Forms.ListBox lst_moto_F;
+        private System.Windows.Forms.ListBox lst_nome_F;
+        private System.Windows.Forms.ListBox lst_moto_Fatrasado;
+        private System.Windows.Forms.ListBox lst_nome_Fatrasado;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox lst_filtro_atrasado;
+        private System.Windows.Forms.ListBox lst_filtro;
     }
 }

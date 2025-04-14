@@ -85,14 +85,12 @@
             this.label17 = new System.Windows.Forms.Label();
             this.dtp_troca_oleo = new System.Windows.Forms.DateTimePicker();
             this.dtp_troca_filtro = new System.Windows.Forms.DateTimePicker();
-            this.txt_troca_filtro = new System.Windows.Forms.TextBox();
-            this.txt_troca_oleo = new System.Windows.Forms.TextBox();
+            this.gb_troca = new System.Windows.Forms.GroupBox();
+            this.cb_filtro = new System.Windows.Forms.CheckBox();
+            this.cb_oleo = new System.Windows.Forms.CheckBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.gb_troca = new System.Windows.Forms.GroupBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.cb_oleo = new System.Windows.Forms.CheckBox();
-            this.cb_filtro = new System.Windows.Forms.CheckBox();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -191,7 +189,7 @@
             // lst_servico_total
             // 
             this.lst_servico_total.FormattingEnabled = true;
-            this.lst_servico_total.Location = new System.Drawing.Point(288, 42);
+            this.lst_servico_total.Location = new System.Drawing.Point(289, 42);
             this.lst_servico_total.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servico_total.Name = "lst_servico_total";
             this.lst_servico_total.Size = new System.Drawing.Size(72, 199);
@@ -200,7 +198,7 @@
             // lst_servicos_qtd
             // 
             this.lst_servicos_qtd.FormattingEnabled = true;
-            this.lst_servicos_qtd.Location = new System.Drawing.Point(229, 42);
+            this.lst_servicos_qtd.Location = new System.Drawing.Point(230, 42);
             this.lst_servicos_qtd.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servicos_qtd.Name = "lst_servicos_qtd";
             this.lst_servicos_qtd.Size = new System.Drawing.Size(55, 199);
@@ -239,7 +237,7 @@
             // lst_servicos
             // 
             this.lst_servicos.FormattingEnabled = true;
-            this.lst_servicos.Location = new System.Drawing.Point(4, 42);
+            this.lst_servicos.Location = new System.Drawing.Point(5, 42);
             this.lst_servicos.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servicos.Name = "lst_servicos";
             this.lst_servicos.Size = new System.Drawing.Size(221, 199);
@@ -642,7 +640,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(7, 84);
+            this.label16.Location = new System.Drawing.Point(7, 55);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(155, 13);
             this.label16.TabIndex = 66;
@@ -661,7 +659,7 @@
             // dtp_troca_oleo
             // 
             this.dtp_troca_oleo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_troca_oleo.Location = new System.Drawing.Point(10, 58);
+            this.dtp_troca_oleo.Location = new System.Drawing.Point(10, 32);
             this.dtp_troca_oleo.Name = "dtp_troca_oleo";
             this.dtp_troca_oleo.Size = new System.Drawing.Size(100, 20);
             this.dtp_troca_oleo.TabIndex = 60;
@@ -669,60 +667,42 @@
             // dtp_troca_filtro
             // 
             this.dtp_troca_filtro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_troca_filtro.Location = new System.Drawing.Point(10, 126);
+            this.dtp_troca_filtro.Location = new System.Drawing.Point(10, 73);
             this.dtp_troca_filtro.Name = "dtp_troca_filtro";
             this.dtp_troca_filtro.Size = new System.Drawing.Size(100, 20);
             this.dtp_troca_filtro.TabIndex = 60;
             // 
-            // txt_troca_filtro
-            // 
-            this.txt_troca_filtro.Location = new System.Drawing.Point(10, 100);
-            this.txt_troca_filtro.Name = "txt_troca_filtro";
-            this.txt_troca_filtro.Size = new System.Drawing.Size(75, 20);
-            this.txt_troca_filtro.TabIndex = 62;
-            // 
-            // txt_troca_oleo
-            // 
-            this.txt_troca_oleo.Location = new System.Drawing.Point(10, 32);
-            this.txt_troca_oleo.Name = "txt_troca_oleo";
-            this.txt_troca_oleo.Size = new System.Drawing.Size(75, 20);
-            this.txt_troca_oleo.TabIndex = 61;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(89, 103);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(21, 13);
-            this.label18.TabIndex = 68;
-            this.label18.Text = "km";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(89, 35);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(21, 13);
-            this.label19.TabIndex = 69;
-            this.label19.Text = "km";
-            // 
             // gb_troca
             // 
-            this.gb_troca.Controls.Add(this.cb_filtro);
-            this.gb_troca.Controls.Add(this.cb_oleo);
             this.gb_troca.Controls.Add(this.label17);
-            this.gb_troca.Controls.Add(this.label19);
-            this.gb_troca.Controls.Add(this.txt_troca_oleo);
-            this.gb_troca.Controls.Add(this.label18);
-            this.gb_troca.Controls.Add(this.txt_troca_filtro);
             this.gb_troca.Controls.Add(this.dtp_troca_filtro);
             this.gb_troca.Controls.Add(this.label16);
             this.gb_troca.Controls.Add(this.dtp_troca_oleo);
-            this.gb_troca.Location = new System.Drawing.Point(843, 112);
+            this.gb_troca.Location = new System.Drawing.Point(841, 205);
             this.gb_troca.Name = "gb_troca";
-            this.gb_troca.Size = new System.Drawing.Size(161, 164);
+            this.gb_troca.Size = new System.Drawing.Size(161, 108);
             this.gb_troca.TabIndex = 70;
             this.gb_troca.TabStop = false;
+            // 
+            // cb_filtro
+            // 
+            this.cb_filtro.AutoSize = true;
+            this.cb_filtro.Location = new System.Drawing.Point(843, 183);
+            this.cb_filtro.Name = "cb_filtro";
+            this.cb_filtro.Size = new System.Drawing.Size(15, 14);
+            this.cb_filtro.TabIndex = 71;
+            this.cb_filtro.UseVisualStyleBackColor = true;
+            this.cb_filtro.CheckedChanged += new System.EventHandler(this.cb_filtro_CheckedChanged);
+            // 
+            // cb_oleo
+            // 
+            this.cb_oleo.AutoSize = true;
+            this.cb_oleo.Location = new System.Drawing.Point(843, 163);
+            this.cb_oleo.Name = "cb_oleo";
+            this.cb_oleo.Size = new System.Drawing.Size(15, 14);
+            this.cb_oleo.TabIndex = 70;
+            this.cb_oleo.UseVisualStyleBackColor = true;
+            this.cb_oleo.CheckedChanged += new System.EventHandler(this.cb_oleo_CheckedChanged);
             // 
             // label20
             // 
@@ -733,31 +713,36 @@
             this.label20.TabIndex = 70;
             this.label20.Text = "km";
             // 
-            // cb_oleo
+            // label18
             // 
-            this.cb_oleo.AutoSize = true;
-            this.cb_oleo.Location = new System.Drawing.Point(118, 58);
-            this.cb_oleo.Name = "cb_oleo";
-            this.cb_oleo.Size = new System.Drawing.Size(15, 14);
-            this.cb_oleo.TabIndex = 70;
-            this.cb_oleo.UseVisualStyleBackColor = true;
-            this.cb_oleo.CheckedChanged += new System.EventHandler(this.cb_oleo_CheckedChanged);
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(864, 161);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(87, 13);
+            this.label18.TabIndex = 67;
+            this.label18.Text = "Óleo trocado?";
             // 
-            // cb_filtro
+            // label19
             // 
-            this.cb_filtro.AutoSize = true;
-            this.cb_filtro.Location = new System.Drawing.Point(117, 126);
-            this.cb_filtro.Name = "cb_filtro";
-            this.cb_filtro.Size = new System.Drawing.Size(15, 14);
-            this.cb_filtro.TabIndex = 71;
-            this.cb_filtro.UseVisualStyleBackColor = true;
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(864, 181);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(89, 13);
+            this.label19.TabIndex = 67;
+            this.label19.Text = "Filtro trocado?";
             // 
             // edicao_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1010, 576);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.cb_filtro);
             this.Controls.Add(this.label20);
+            this.Controls.Add(this.cb_oleo);
             this.Controls.Add(this.gb_troca);
             this.Controls.Add(this.dtp_cadastro);
             this.Controls.Add(this.cb_saida);
@@ -856,13 +841,11 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.DateTimePicker dtp_troca_oleo;
         private System.Windows.Forms.DateTimePicker dtp_troca_filtro;
-        private System.Windows.Forms.TextBox txt_troca_filtro;
-        private System.Windows.Forms.TextBox txt_troca_oleo;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.GroupBox gb_troca;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.CheckBox cb_filtro;
         private System.Windows.Forms.CheckBox cb_oleo;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
     }
 }

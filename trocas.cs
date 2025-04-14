@@ -37,13 +37,13 @@ namespace PrototipoSistema
             {
                 if (DateTime.Parse(reader.GetString("aviso_oleo_dt")) > DateTime.Now)
                 {
-                    lst_nome.Items.Add(reader.GetString("cliente"));
+                    lst_nome_O.Items.Add(reader.GetString("cliente"));
                     lst_oleo.Items.Add(DateTime.Parse(reader.GetString("aviso_oleo_dt")).ToString("dd/MM/yyyy"));
                     placa.Add(reader.GetString("placa"));
                 }
                 else if (DateTime.Parse(reader.GetString("aviso_oleo_dt")) < DateTime.Now)
                 {
-                    lst_nome_atrasado.Items.Add(reader.GetString("cliente"));
+                    lst_nome_Oatrasado.Items.Add(reader.GetString("cliente"));
                     lst_oleo_atrasado.Items.Add(DateTime.Parse(reader.GetString("aviso_oleo_dt")).ToString("dd/MM/yyyy"));
                     placa_atrasado.Add(reader.GetString("placa"));
                 }
@@ -61,8 +61,8 @@ namespace PrototipoSistema
 
                 if (reader.Read()) 
                 {
-                    lst_marca.Items.Add(reader.GetString("marca"));
-                    lst_moto.Items.Add(reader.GetString("modelo"));
+                    lst_marca_O.Items.Add(reader.GetString("marca"));
+                    lst_moto_O.Items.Add(reader.GetString("modelo"));
                 }
 
                 conexao.Close();
@@ -80,8 +80,71 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    lst_marca_atrasado.Items.Add(reader.GetString("marca"));
-                    lst_moto_atrasado.Items.Add(reader.GetString("modelo"));
+                    lst_marca_Oatrasado.Items.Add(reader.GetString("marca"));
+                    lst_moto_Oatrasado.Items.Add(reader.GetString("modelo"));
+                }
+
+                conexao.Close();
+                count++;
+            }
+
+            placa.Clear();
+            placa_atrasado.Clear();
+
+            cmd = new MySqlCommand($"SELECT * FROM os WHERE aviso_filtro_dt REGEXP '[A-Za-z0-9]'", conexao);
+
+            conexao.Open();
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                if (DateTime.Parse(reader.GetString("aviso_filtro_dt")) > DateTime.Now)
+                {
+                    lst_nome_F.Items.Add(reader.GetString("cliente"));
+                    lst_filtro.Items.Add(DateTime.Parse(reader.GetString("aviso_filtro_dt")).ToString("dd/MM/yyyy"));
+                    placa.Add(reader.GetString("placa"));
+                }
+                else if (DateTime.Parse(reader.GetString("aviso_filtro_dt")) < DateTime.Now)
+                {
+                    lst_nome_Fatrasado.Items.Add(reader.GetString("cliente"));
+                    lst_filtro_atrasado.Items.Add(DateTime.Parse(reader.GetString("aviso_filtro_dt")).ToString("dd/MM/yyyy"));
+                    placa_atrasado.Add(reader.GetString("placa"));
+                }
+            }
+            conexao.Close();
+
+            count = 0;
+
+            while (count < placa.Count)
+            {
+                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{placa[count]}'", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    lst_marca_F.Items.Add(reader.GetString("marca"));
+                    lst_moto_F.Items.Add(reader.GetString("modelo"));
+                }
+
+                conexao.Close();
+                count++;
+            }
+
+            count = 0;
+
+            while (count < placa_atrasado.Count)
+            {
+                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{placa_atrasado[count]}'", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    lst_marca_Fatrasado.Items.Add(reader.GetString("marca"));
+                    lst_moto_Fatrasado.Items.Add(reader.GetString("modelo"));
                 }
 
                 conexao.Close();
@@ -91,46 +154,90 @@ namespace PrototipoSistema
 
         private void lst_oleo_atrasado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_nome_atrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
-            lst_marca_atrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
-            lst_moto_atrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
+            lst_nome_Oatrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
+            lst_marca_Oatrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
+            lst_moto_Oatrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
         }
 
         private void lst_nome_atrasado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_oleo_atrasado.SelectedIndex = lst_nome_atrasado.SelectedIndex;
+            lst_oleo_atrasado.SelectedIndex = lst_nome_Oatrasado.SelectedIndex;
         }
 
         private void lst_moto_atrasado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_oleo_atrasado.SelectedIndex = lst_moto_atrasado.SelectedIndex;
+            lst_oleo_atrasado.SelectedIndex = lst_moto_Oatrasado.SelectedIndex;
         }
 
         private void lst_oleo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_nome.SelectedIndex = lst_oleo.SelectedIndex;
-            lst_marca.SelectedIndex = lst_oleo.SelectedIndex;
-            lst_moto.SelectedIndex = lst_oleo.SelectedIndex;
+            lst_nome_O.SelectedIndex = lst_oleo.SelectedIndex;
+            lst_marca_O.SelectedIndex = lst_oleo.SelectedIndex;
+            lst_moto_O.SelectedIndex = lst_oleo.SelectedIndex;
         }
 
         private void lst_nome_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_oleo.SelectedIndex = lst_nome_atrasado.SelectedIndex;
+            lst_oleo.SelectedIndex = lst_nome_Oatrasado.SelectedIndex;
         }
 
         private void lst_moto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_oleo.SelectedIndex = lst_moto_atrasado.SelectedIndex;
+            lst_oleo.SelectedIndex = lst_moto_Oatrasado.SelectedIndex;
         }
 
         private void lst_marca_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_oleo.SelectedIndex = lst_marca.SelectedIndex;
+            lst_oleo.SelectedIndex = lst_marca_O.SelectedIndex;
         }
 
         private void lst_marca_atrasado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_oleo_atrasado.SelectedIndex = lst_marca_atrasado.SelectedIndex;
+            lst_oleo_atrasado.SelectedIndex = lst_marca_Oatrasado.SelectedIndex;
+        }
+
+        private void lst_filtro_atrasado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_nome_Fatrasado.SelectedIndex = lst_filtro_atrasado.SelectedIndex;
+            lst_marca_Fatrasado.SelectedIndex = lst_filtro_atrasado.SelectedIndex;
+            lst_moto_Fatrasado.SelectedIndex = lst_filtro_atrasado.SelectedIndex;
+        }
+
+        private void lst_nome_Fatrasado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_filtro_atrasado.SelectedIndex = lst_nome_Fatrasado.SelectedIndex;
+        }
+
+        private void lst_marca_Fatrasado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_filtro_atrasado.SelectedIndex = lst_marca_Fatrasado.SelectedIndex;
+        }
+
+        private void lst_moto_Fatrasado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_filtro_atrasado.SelectedIndex = lst_moto_Fatrasado.SelectedIndex;
+        }
+
+        private void lst_filtro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_nome_F.SelectedIndex = lst_filtro.SelectedIndex;
+            lst_marca_F.SelectedIndex = lst_filtro.SelectedIndex;
+            lst_moto_F.SelectedIndex = lst_filtro.SelectedIndex;
+        }
+
+        private void lst_nome_F_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_filtro.SelectedIndex = lst_nome_F.SelectedIndex;
+        }
+
+        private void lst_marca_F_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_filtro.SelectedIndex = lst_marca_F.SelectedIndex;
+        }
+
+        private void lst_moto_F_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_filtro.SelectedIndex = lst_moto_F.SelectedIndex;
         }
     }
 }

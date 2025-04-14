@@ -47,8 +47,6 @@ namespace PrototipoSistema
 
                 try
                 {
-                    txt_troca_filtro.Text = reader.GetString("aviso_filtro_km");
-                    txt_troca_oleo.Text = reader.GetString("aviso_oleo_km");
                     dtp_troca_filtro.Value = DateTime.Parse(reader.GetString("aviso_filtro_dt"));
                     dtp_troca_oleo.Value = DateTime.Parse(reader.GetString("aviso_oleo_dt"));
                 }
@@ -229,14 +227,11 @@ namespace PrototipoSistema
                 os.total = txt_total.Text;
                 os.dt_cadastro = dtp_cadastro.Value.ToString();
 
-                os.aviso_oleo_km = txt_troca_oleo.Text;
-                os.aviso_filtro_km = txt_troca_filtro.Text;
-
                 if (cb_oleo.Checked) os.aviso_oleo_dt = dtp_troca_oleo.Value.ToString();
-                else os.aviso_oleo_dt = null;
+                else os.aviso_oleo_dt = "";
 
                 if (cb_filtro.Checked) os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
-                else os.aviso_filtro_dt = null;
+                else os.aviso_filtro_dt = "";
 
                 if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
                 else os.dt_saida = null;
@@ -250,6 +245,7 @@ namespace PrototipoSistema
 
             try
             {
+                MessageBox.Show(os.aviso_filtro_dt + "\n" + os.aviso_oleo_dt ); 
                 os.alterar_os();
 
                 cliente.doc = txt_doc.Text;
@@ -378,8 +374,11 @@ namespace PrototipoSistema
         {
             if (cb_oleo.Checked == true) dtp_troca_oleo.Enabled = true;
             else dtp_troca_oleo.Enabled = false;
+        }
 
-            if (cb_filtro.Checked == true) dtp_troca_oleo.Enabled = true;
+        private void cb_filtro_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_filtro.Checked == true) dtp_troca_filtro.Enabled = true;
             else dtp_troca_filtro.Enabled = false;
         }
     }
