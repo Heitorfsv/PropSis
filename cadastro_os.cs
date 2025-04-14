@@ -68,7 +68,7 @@ namespace PrototipoSistema
                 else
                 { os.pago = 0; }
 
-                os.dt_cadastro = dtp_cadastro.Value;
+                os.dt_cadastro = dtp_cadastro.Value.ToString();
 
                 if (cb_saida.Checked == true)
                 { os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); }
@@ -76,6 +76,8 @@ namespace PrototipoSistema
                 { os.dt_saida = null; }
 
                 os.cadastrar_os();
+
+                MessageBox.Show("OS Cadastrada");
 
                 cliente.doc = txt_doc.Text;
                 cliente.quitado();
@@ -253,10 +255,6 @@ namespace PrototipoSistema
             {
                 txt_trocaoleo.Text = reader.GetString("dt_saida");
                 decimal km_antigo = reader.GetInt64("km");
-
-
-
-
             }
             conexao.Close();
 

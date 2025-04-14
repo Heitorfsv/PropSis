@@ -23,7 +23,7 @@ namespace PrototipoSistema.classes
         public int km { get; set; }
         public string observacao { get; set; }
         public string total { get; set; }
-        public DateTime dt_cadastro { get; set; }
+        public string dt_cadastro { get; set; }
         public string dt_saida { get; set; }
         public string aviso_oleo_km { get; set; }
         public string aviso_oleo_dt {  get; set; }

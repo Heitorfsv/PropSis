@@ -60,7 +60,10 @@ namespace PrototipoSistema
                 reader = cmd.ExecuteReader();
 
                 if (reader.Read()) 
-                { lst_moto.Items.Add(reader.GetString("modelo")); }
+                {
+                    lst_marca.Items.Add(reader.GetString("marca"));
+                    lst_moto.Items.Add(reader.GetString("modelo"));
+                }
 
                 conexao.Close();
                 count++;
@@ -76,7 +79,10 @@ namespace PrototipoSistema
                 reader = cmd.ExecuteReader();
 
                 if (reader.Read())
-                { lst_moto_atrasado.Items.Add(reader.GetString("modelo")); }
+                {
+                    lst_marca_atrasado.Items.Add(reader.GetString("marca"));
+                    lst_moto_atrasado.Items.Add(reader.GetString("modelo"));
+                }
 
                 conexao.Close();
                 count++;
@@ -86,37 +92,45 @@ namespace PrototipoSistema
         private void lst_oleo_atrasado_SelectedIndexChanged(object sender, EventArgs e)
         {
             lst_nome_atrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
+            lst_marca_atrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
             lst_moto_atrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
         }
 
         private void lst_nome_atrasado_SelectedIndexChanged(object sender, EventArgs e)
         {
             lst_oleo_atrasado.SelectedIndex = lst_nome_atrasado.SelectedIndex;
-            lst_moto_atrasado.SelectedIndex = lst_nome_atrasado.SelectedIndex;
         }
 
         private void lst_moto_atrasado_SelectedIndexChanged(object sender, EventArgs e)
         {
             lst_oleo_atrasado.SelectedIndex = lst_moto_atrasado.SelectedIndex;
-            lst_nome_atrasado.SelectedIndex = lst_moto_atrasado.SelectedIndex;
         }
 
         private void lst_oleo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_nome.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
-            lst_moto.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
+            lst_nome.SelectedIndex = lst_oleo.SelectedIndex;
+            lst_marca.SelectedIndex = lst_oleo.SelectedIndex;
+            lst_moto.SelectedIndex = lst_oleo.SelectedIndex;
         }
 
         private void lst_nome_SelectedIndexChanged(object sender, EventArgs e)
         {
             lst_oleo.SelectedIndex = lst_nome_atrasado.SelectedIndex;
-            lst_moto.SelectedIndex = lst_nome_atrasado.SelectedIndex;
         }
 
         private void lst_moto_SelectedIndexChanged(object sender, EventArgs e)
         {
             lst_oleo.SelectedIndex = lst_moto_atrasado.SelectedIndex;
-            lst_nome.SelectedIndex = lst_moto_atrasado.SelectedIndex;
+        }
+
+        private void lst_marca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_oleo.SelectedIndex = lst_marca.SelectedIndex;
+        }
+
+        private void lst_marca_atrasado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_oleo_atrasado.SelectedIndex = lst_marca_atrasado.SelectedIndex;
         }
     }
 }

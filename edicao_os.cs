@@ -227,7 +227,7 @@ namespace PrototipoSistema
                 os.km = int.Parse(txt_km.Text);
                 os.observacao = txt_observacao.Text;
                 os.total = txt_total.Text;
-                os.dt_cadastro = dtp_cadastro.Value;
+                os.dt_cadastro = dtp_cadastro.Value.ToString();
 
                 os.aviso_oleo_km = txt_troca_oleo.Text;
                 os.aviso_filtro_km = txt_troca_filtro.Text;
@@ -238,11 +238,11 @@ namespace PrototipoSistema
                 if (cb_filtro.Checked) os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
                 else os.aviso_filtro_dt = null;
 
-                if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); 
-                else os.dt_saida = null; 
+                if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
+                else os.dt_saida = null;
 
-                if (cb_pago.Checked == true) os.pago = 1; 
-                else os.pago = 0; 
+                if (cb_pago.Checked == true) os.pago = 1;
+                else os.pago = 0;
             }
             else
             { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -262,7 +262,7 @@ namespace PrototipoSistema
 
         private void bnt_add_peca_Click(object sender, EventArgs e)
         {
-            lst_pecas.Items.Clear();    
+            lst_pecas.Items.Clear();
 
             add_pecas add_pecas = new add_pecas();
             add_pecas.Show();
@@ -362,14 +362,14 @@ namespace PrototipoSistema
         {
             if (cb_saida.Checked == true)
             { 
-                dtp_saida.Enabled = true; 
+                dtp_saida.Enabled = true;
                 gb_troca.Visible = true;
                 dtp_troca_oleo.Enabled = false;
                 dtp_troca_filtro.Enabled = false;
             }
             else
             { 
-                dtp_saida.Enabled = false; 
+                dtp_saida.Enabled = false;
                 gb_troca.Visible = false;
             }
         }
