@@ -68,6 +68,7 @@ namespace PrototipoSistema
 
                 object peca = lst_pesquisa.SelectedItem;
                 string valor = "";
+                string desc = "";
 
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
@@ -90,6 +91,7 @@ namespace PrototipoSistema
                 decimal total = 0;
                 decimal qtd = qtd_tela.quantidade;
                 valor = qtd_tela.valor;
+                desc = qtd_tela.desc;
 
                 lst_pecas.Items.Add(peca);
                 lst_qtd.Items.Add(qtd_tela.quantidade);
@@ -100,7 +102,7 @@ namespace PrototipoSistema
                 {
                     string qtd_formatado = qtd.ToString();
                     qtd_formatado = qtd_formatado.Replace(".", ",");
-                    lst_total.Items.Add((decimal.Parse(valor) * qtd).ToString("N2"));
+                    lst_total.Items.Add(((decimal.Parse(valor) * qtd) - decimal.Parse(desc)).ToString("N2"));
                 }
                 catch { lst_total.Items.Add(valor); }
 

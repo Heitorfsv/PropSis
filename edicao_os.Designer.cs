@@ -678,16 +678,16 @@
             this.gb_troca.Controls.Add(this.dtp_troca_filtro);
             this.gb_troca.Controls.Add(this.label16);
             this.gb_troca.Controls.Add(this.dtp_troca_oleo);
-            this.gb_troca.Location = new System.Drawing.Point(841, 205);
+            this.gb_troca.Location = new System.Drawing.Point(833, 215);
             this.gb_troca.Name = "gb_troca";
-            this.gb_troca.Size = new System.Drawing.Size(161, 108);
+            this.gb_troca.Size = new System.Drawing.Size(165, 111);
             this.gb_troca.TabIndex = 70;
             this.gb_troca.TabStop = false;
             // 
             // cb_filtro
             // 
             this.cb_filtro.AutoSize = true;
-            this.cb_filtro.Location = new System.Drawing.Point(843, 183);
+            this.cb_filtro.Location = new System.Drawing.Point(835, 193);
             this.cb_filtro.Name = "cb_filtro";
             this.cb_filtro.Size = new System.Drawing.Size(15, 14);
             this.cb_filtro.TabIndex = 71;
@@ -697,7 +697,7 @@
             // cb_oleo
             // 
             this.cb_oleo.AutoSize = true;
-            this.cb_oleo.Location = new System.Drawing.Point(843, 163);
+            this.cb_oleo.Location = new System.Drawing.Point(835, 173);
             this.cb_oleo.Name = "cb_oleo";
             this.cb_oleo.Size = new System.Drawing.Size(15, 14);
             this.cb_oleo.TabIndex = 70;
@@ -717,7 +717,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(864, 161);
+            this.label18.Location = new System.Drawing.Point(856, 171);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(87, 13);
             this.label18.TabIndex = 67;
@@ -727,7 +727,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(864, 181);
+            this.label19.Location = new System.Drawing.Point(856, 191);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(89, 13);
             this.label19.TabIndex = 67;

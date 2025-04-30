@@ -44,13 +44,7 @@ namespace PrototipoSistema
                 txt_km.Text = reader.GetInt32("km").ToString();
                 dtp_cadastro.Value = DateTime.Parse(reader.GetString("dt_cadastro"));
                 txt_observacao.Text = reader.GetString("observacao");
-
-                try
-                {
-                    dtp_troca_filtro.Value = DateTime.Parse(reader.GetString("aviso_filtro_dt"));
-                    dtp_troca_oleo.Value = DateTime.Parse(reader.GetString("aviso_oleo_dt"));
-                }
-                catch { }
+                txt_doc.Text = reader.GetString("doc");
 
                 try
                 {
@@ -68,6 +62,26 @@ namespace PrototipoSistema
                 { cb_pago.Checked = true; }
                 else
                 { cb_pago.Checked = false; }
+
+                //if (reader.GetString("aviso_oleo_dt") != null)
+                //{
+                //    cb_oleo.Checked = true;
+                //    dtp_troca_oleo.Enabled = true;
+                //}
+
+                //if (reader.GetString("aviso_filtro_dt") != null)
+                //{
+                //    cb_filtro.Checked = true;
+                //    dtp_troca_filtro.Enabled = true;
+                //}
+
+                try
+                {
+                    dtp_troca_filtro.Value = DateTime.Parse(reader.GetString("aviso_filtro_dt"));
+                    dtp_troca_oleo.Value = DateTime.Parse(reader.GetString("aviso_oleo_dt"));
+                }
+                catch { }
+
             }
             conexao.Close();
 
@@ -82,7 +96,6 @@ namespace PrototipoSistema
                 txt_modelo.Text = reader.GetString("modelo");
                 txt_ano.Text = reader.GetString("ano");
                 doc_cliente = reader.GetString("doc_dono");
-                txt_doc.Text = doc_cliente;
             }
             conexao.Close();
 
@@ -147,16 +160,15 @@ namespace PrototipoSistema
 
             /////////////////////////////////////////
 
-            cmd = new MySqlCommand($"SELECT * FROM os WHERE ((aviso_oleo_km REGEXP '[A-Za-z0-9]' OR aviso_oleo_dt REGEXP '[A-Za-z0-9]') AND placa = '{cmb_placa.Text}') AND controle != {static_class.controle_os} ORDER BY dt_cadastro DESC;", conexao); 
+            cmd = new MySqlCommand($"SELECT * FROM os WHERE ((aviso_filtro_dt REGEXP '[A-Za-z0-9]' OR aviso_oleo_dt REGEXP '[A-Za-z0-9]') AND placa = '{cmb_placa.Text}') AND controle != {static_class.controle_os} ORDER BY dt_cadastro DESC;", conexao); 
 
             conexao.Open();
             reader = cmd.ExecuteReader();
 
             if (reader.Read())
-            {
+            { 
                 txt_trocaoleo.Text = reader.GetString("dt_cadastro");
                 txt_trocakm.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
-
             }
             conexao.Close();
         }

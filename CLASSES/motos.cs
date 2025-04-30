@@ -46,7 +46,7 @@ namespace PrototipoSistema.classes
                
             var cmd = new MySqlCommand("INSERT INTO motos (controle, placa, marca, modelo, cor, ano, chassi, dt_registro, doc_dono, observacao) values (@controle,@placa,@marca,@modelo,@cor,@ano,@chassi,@dt_registro,@doc_dono,@observacao)", conexao); 
             
-            cmd.Parameters.AddWithValue("@controle", index);  
+            cmd.Parameters.AddWithValue("@controle", index);
             cmd.Parameters.AddWithValue("@placa", placa);
             cmd.Parameters.AddWithValue("@marca", marca);
             cmd.Parameters.AddWithValue("@modelo", modelo);

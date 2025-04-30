@@ -18,6 +18,9 @@ namespace PrototipoSistema
         List<string> placa = new List<string>();
         List<string> placa_atrasado = new List<string>();
 
+        List<int> lista_os = new List<int>();
+        List<int> lista_atrasado = new List<int>();
+
         public trocas()
         {
             InitializeComponent();
@@ -37,12 +40,14 @@ namespace PrototipoSistema
             {
                 if (DateTime.Parse(reader.GetString("aviso_oleo_dt")) > DateTime.Now)
                 {
+                    lista_os.Add(reader.GetInt32("controle"));
                     lst_nome_O.Items.Add(reader.GetString("cliente"));
                     lst_oleo.Items.Add(DateTime.Parse(reader.GetString("aviso_oleo_dt")).ToString("dd/MM/yyyy"));
                     placa.Add(reader.GetString("placa"));
                 }
                 else if (DateTime.Parse(reader.GetString("aviso_oleo_dt")) < DateTime.Now)
                 {
+                    lista_atrasado.Add(reader.GetInt32("controle"));
                     lst_nome_Oatrasado.Items.Add(reader.GetString("cliente"));
                     lst_oleo_atrasado.Items.Add(DateTime.Parse(reader.GetString("aviso_oleo_dt")).ToString("dd/MM/yyyy"));
                     placa_atrasado.Add(reader.GetString("placa"));
@@ -53,7 +58,7 @@ namespace PrototipoSistema
             int count = 0;
 
             while (count < placa.Count)
-            {
+            {   
                 cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{placa[count]}'", conexao);
 
                 conexao.Open();
@@ -238,6 +243,110 @@ namespace PrototipoSistema
         private void lst_moto_F_SelectedIndexChanged(object sender, EventArgs e)
         {
             lst_filtro.SelectedIndex = lst_moto_F.SelectedIndex;
+        }
+
+        private void lst_nome_Oatrasado_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_marca_Oatrasado_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_moto_Oatrasado_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_oleo_atrasado_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_filtro_atrasado_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_nome_Fatrasado_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_marca_Fatrasado_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_moto_Fatrasado_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
         }
     }
 }

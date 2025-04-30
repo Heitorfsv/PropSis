@@ -49,21 +49,19 @@
             this.lst_pesquisa.Location = new System.Drawing.Point(8, 48);
             this.lst_pesquisa.Margin = new System.Windows.Forms.Padding(2);
             this.lst_pesquisa.Name = "lst_pesquisa";
-            this.lst_pesquisa.Size = new System.Drawing.Size(210, 225);
+            this.lst_pesquisa.Size = new System.Drawing.Size(251, 225);
             this.lst_pesquisa.TabIndex = 0;
-            this.lst_pesquisa.SelectedIndexChanged += new System.EventHandler(this.lst_pesquisa_SelectedIndexChanged);
             this.lst_pesquisa.DoubleClick += new System.EventHandler(this.lst_pesquisa_DoubleClick);
             // 
             // lst_servicos
             // 
             this.lst_servicos.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.lst_servicos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lst_servicos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_servicos.FormattingEnabled = true;
-            this.lst_servicos.ItemHeight = 16;
-            this.lst_servicos.Location = new System.Drawing.Point(259, 48);
+            this.lst_servicos.Location = new System.Drawing.Point(281, 45);
             this.lst_servicos.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servicos.Name = "lst_servicos";
-            this.lst_servicos.Size = new System.Drawing.Size(169, 228);
+            this.lst_servicos.Size = new System.Drawing.Size(205, 225);
             this.lst_servicos.TabIndex = 3;
             this.lst_servicos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lst_servicos_KeyDown);
             // 
@@ -79,19 +77,18 @@
             // lst_qtd
             // 
             this.lst_qtd.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.lst_qtd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lst_qtd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_qtd.FormattingEnabled = true;
-            this.lst_qtd.ItemHeight = 16;
-            this.lst_qtd.Location = new System.Drawing.Point(490, 48);
+            this.lst_qtd.Location = new System.Drawing.Point(548, 45);
             this.lst_qtd.Margin = new System.Windows.Forms.Padding(2);
             this.lst_qtd.Name = "lst_qtd";
-            this.lst_qtd.Size = new System.Drawing.Size(39, 228);
+            this.lst_qtd.Size = new System.Drawing.Size(39, 225);
             this.lst_qtd.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(256, 33);
+            this.label2.Location = new System.Drawing.Point(278, 30);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 8;
@@ -100,7 +97,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(487, 33);
+            this.label3.Location = new System.Drawing.Point(545, 30);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(27, 13);
             this.label3.TabIndex = 9;
@@ -109,7 +106,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(429, 33);
+            this.label4.Location = new System.Drawing.Point(487, 30);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 11;
@@ -118,13 +115,12 @@
             // lst_valor
             // 
             this.lst_valor.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.lst_valor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lst_valor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_valor.FormattingEnabled = true;
-            this.lst_valor.ItemHeight = 16;
-            this.lst_valor.Location = new System.Drawing.Point(432, 48);
+            this.lst_valor.Location = new System.Drawing.Point(490, 45);
             this.lst_valor.Margin = new System.Windows.Forms.Padding(2);
             this.lst_valor.Name = "lst_valor";
-            this.lst_valor.Size = new System.Drawing.Size(54, 228);
+            this.lst_valor.Size = new System.Drawing.Size(54, 225);
             this.lst_valor.TabIndex = 10;
             // 
             // bnt_delete
@@ -141,30 +137,28 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(530, 33);
+            this.label5.Location = new System.Drawing.Point(588, 30);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 13);
             this.label5.TabIndex = 14;
             this.label5.Text = "Total";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // lst_total
             // 
             this.lst_total.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.lst_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lst_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_total.FormattingEnabled = true;
-            this.lst_total.ItemHeight = 16;
-            this.lst_total.Location = new System.Drawing.Point(533, 48);
+            this.lst_total.Location = new System.Drawing.Point(591, 45);
             this.lst_total.Margin = new System.Windows.Forms.Padding(2);
             this.lst_total.Name = "lst_total";
-            this.lst_total.Size = new System.Drawing.Size(54, 228);
+            this.lst_total.Size = new System.Drawing.Size(54, 225);
             this.lst_total.TabIndex = 13;
             // 
             // txt_total
             // 
             this.txt_total.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.txt_total.Enabled = false;
-            this.txt_total.Location = new System.Drawing.Point(498, 307);
+            this.txt_total.Location = new System.Drawing.Point(545, 307);
             this.txt_total.Name = "txt_total";
             this.txt_total.Size = new System.Drawing.Size(100, 20);
             this.txt_total.TabIndex = 22;
@@ -172,7 +166,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(495, 291);
+            this.label6.Location = new System.Drawing.Point(542, 291);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 13);
             this.label6.TabIndex = 21;
@@ -182,7 +176,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 339);
+            this.ClientSize = new System.Drawing.Size(679, 339);
             this.Controls.Add(this.txt_total);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);

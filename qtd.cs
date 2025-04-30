@@ -15,6 +15,7 @@ namespace PrototipoSistema
     {
         public decimal quantidade = 0;
         public string valor = "";
+        public string desc = "";
         public qtd()
         {
             InitializeComponent();
@@ -41,23 +42,18 @@ namespace PrototipoSistema
                 {
                     quantidade = decimal.Parse(txt_qtd.Text);
                     valor = txt_valor.Text;
+                    desc = txt_desc.Text;
                     Close();
                 }
                 else { MessageBox.Show("Insira um valor numérico na quantide", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
             }
             else { MessageBox.Show("Insira a quantidade e o valor", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void txt_qtd_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                txt_total.Text = (decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)).ToString();
+                txt_total.Text = ((decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)) - decimal.Parse(txt_desc.Text)).ToString();
             }
             catch { txt_total.Text = ""; }
         }
@@ -66,7 +62,16 @@ namespace PrototipoSistema
         {
             try
             {
-                txt_total.Text = (decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)).ToString();
+                txt_total.Text = ((decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)) - decimal.Parse(txt_desc.Text)).ToString();
+            }
+            catch { txt_total.Text = ""; }
+        }
+
+        private void txt_desc_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                txt_total.Text = ((decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)) - decimal.Parse(txt_desc.Text)).ToString();
             }
             catch { txt_total.Text = ""; }
         }

@@ -246,18 +246,6 @@ namespace PrototipoSistema
             }
             conexao.Close();
 
-            cmd = new MySqlCommand($"SELECT * FROM os WHERE aviso_oleo_km = '*' AND placa = '{cmb_placa.Text}' ORDER BY dt_cadastro DESC", conexao);
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-
-            if (reader.Read())
-            {
-                txt_trocaoleo.Text = reader.GetString("dt_saida");
-                decimal km_antigo = reader.GetInt64("km");
-            }
-            conexao.Close();
-
             if (cmb_placa.Text == "" || cmb_placa.Text == " ")
             {
                 txt_marca.Text = "";

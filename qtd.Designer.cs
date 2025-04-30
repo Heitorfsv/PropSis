@@ -35,11 +35,13 @@
             this.txt_valor = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txt_total = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txt_desc = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // bnt_ok
             // 
-            this.bnt_ok.Location = new System.Drawing.Point(270, 35);
+            this.bnt_ok.Location = new System.Drawing.Point(270, 61);
             this.bnt_ok.Name = "bnt_ok";
             this.bnt_ok.Size = new System.Drawing.Size(75, 23);
             this.bnt_ok.TabIndex = 0;
@@ -53,6 +55,7 @@
             this.txt_qtd.Name = "txt_qtd";
             this.txt_qtd.Size = new System.Drawing.Size(100, 20);
             this.txt_qtd.TabIndex = 1;
+            this.txt_qtd.Text = "1";
             this.txt_qtd.TextChanged += new System.EventHandler(this.txt_qtd_TextChanged);
             // 
             // label1
@@ -63,7 +66,6 @@
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Quantidade";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -85,7 +87,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(208, 11);
+            this.label3.Location = new System.Drawing.Point(204, 15);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 6;
@@ -99,11 +101,31 @@
             this.txt_total.Size = new System.Drawing.Size(100, 20);
             this.txt_total.TabIndex = 5;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(204, 37);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Desc.";
+            // 
+            // txt_desc
+            // 
+            this.txt_desc.Location = new System.Drawing.Point(245, 34);
+            this.txt_desc.Name = "txt_desc";
+            this.txt_desc.Size = new System.Drawing.Size(100, 20);
+            this.txt_desc.TabIndex = 7;
+            this.txt_desc.Text = "0";
+            this.txt_desc.TextChanged += new System.EventHandler(this.txt_desc_TextChanged);
+            // 
             // qtd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(357, 69);
+            this.ClientSize = new System.Drawing.Size(357, 97);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txt_desc);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txt_total);
             this.Controls.Add(this.label2);
@@ -128,5 +150,7 @@
         private System.Windows.Forms.TextBox txt_valor;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt_total;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txt_desc;
     }
 }

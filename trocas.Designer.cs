@@ -67,6 +67,7 @@
             this.lst_oleo_atrasado.Size = new System.Drawing.Size(92, 316);
             this.lst_oleo_atrasado.TabIndex = 1;
             this.lst_oleo_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_oleo_atrasado_SelectedIndexChanged);
+            this.lst_oleo_atrasado.DoubleClick += new System.EventHandler(this.lst_oleo_atrasado_DoubleClick);
             // 
             // label1
             // 
@@ -91,11 +92,12 @@
             // lst_nome_Oatrasado
             // 
             this.lst_nome_Oatrasado.FormattingEnabled = true;
-            this.lst_nome_Oatrasado.Location = new System.Drawing.Point(689, 25);
+            this.lst_nome_Oatrasado.Location = new System.Drawing.Point(689, 24);
             this.lst_nome_Oatrasado.Name = "lst_nome_Oatrasado";
             this.lst_nome_Oatrasado.Size = new System.Drawing.Size(166, 316);
             this.lst_nome_Oatrasado.TabIndex = 4;
             this.lst_nome_Oatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_nome_atrasado_SelectedIndexChanged);
+            this.lst_nome_Oatrasado.DoubleClick += new System.EventHandler(this.lst_nome_Oatrasado_DoubleClick);
             // 
             // lst_moto_Oatrasado
             // 
@@ -105,6 +107,7 @@
             this.lst_moto_Oatrasado.Size = new System.Drawing.Size(134, 316);
             this.lst_moto_Oatrasado.TabIndex = 5;
             this.lst_moto_Oatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_moto_atrasado_SelectedIndexChanged);
+            this.lst_moto_Oatrasado.DoubleClick += new System.EventHandler(this.lst_moto_Oatrasado_DoubleClick);
             // 
             // lst_nome_O
             // 
@@ -132,6 +135,7 @@
             this.lst_marca_Oatrasado.Size = new System.Drawing.Size(134, 316);
             this.lst_marca_Oatrasado.TabIndex = 8;
             this.lst_marca_Oatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_marca_atrasado_SelectedIndexChanged);
+            this.lst_marca_Oatrasado.DoubleClick += new System.EventHandler(this.lst_marca_Oatrasado_DoubleClick);
             // 
             // lst_marca_O
             // 
@@ -159,6 +163,7 @@
             this.lst_marca_Fatrasado.Size = new System.Drawing.Size(134, 316);
             this.lst_marca_Fatrasado.TabIndex = 18;
             this.lst_marca_Fatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_marca_Fatrasado_SelectedIndexChanged);
+            this.lst_marca_Fatrasado.DoubleClick += new System.EventHandler(this.lst_marca_Fatrasado_DoubleClick);
             // 
             // lst_moto_F
             // 
@@ -186,6 +191,7 @@
             this.lst_moto_Fatrasado.Size = new System.Drawing.Size(134, 316);
             this.lst_moto_Fatrasado.TabIndex = 15;
             this.lst_moto_Fatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_moto_Fatrasado_SelectedIndexChanged);
+            this.lst_moto_Fatrasado.DoubleClick += new System.EventHandler(this.lst_moto_Fatrasado_DoubleClick);
             // 
             // lst_nome_Fatrasado
             // 
@@ -195,6 +201,7 @@
             this.lst_nome_Fatrasado.Size = new System.Drawing.Size(166, 316);
             this.lst_nome_Fatrasado.TabIndex = 14;
             this.lst_nome_Fatrasado.SelectedIndexChanged += new System.EventHandler(this.lst_nome_Fatrasado_SelectedIndexChanged);
+            this.lst_nome_Fatrasado.DoubleClick += new System.EventHandler(this.lst_nome_Fatrasado_DoubleClick);
             // 
             // label3
             // 
@@ -202,9 +209,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(588, 353);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(151, 13);
+            this.label3.Size = new System.Drawing.Size(152, 13);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Trocas de oleo atrasadas";
+            this.label3.Text = "Trocas de filtro atrasadas";
             // 
             // label4
             // 
@@ -212,9 +219,9 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(9, 354);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(142, 13);
+            this.label4.Size = new System.Drawing.Size(143, 13);
             this.label4.TabIndex = 12;
-            this.label4.Text = "Próximas trocas de oleo";
+            this.label4.Text = "Próximas trocas de filtro";
             // 
             // lst_filtro_atrasado
             // 
@@ -224,6 +231,7 @@
             this.lst_filtro_atrasado.Size = new System.Drawing.Size(92, 316);
             this.lst_filtro_atrasado.TabIndex = 11;
             this.lst_filtro_atrasado.SelectedIndexChanged += new System.EventHandler(this.lst_filtro_atrasado_SelectedIndexChanged);
+            this.lst_filtro_atrasado.DoubleClick += new System.EventHandler(this.lst_filtro_atrasado_DoubleClick);
             // 
             // lst_filtro
             // 

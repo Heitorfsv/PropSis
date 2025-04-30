@@ -123,6 +123,7 @@ namespace PrototipoSistema
             {
                 object servico = lst_pesquisa.SelectedItem;
                 string valor = "";
+                string desc = "";
 
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
@@ -145,6 +146,7 @@ namespace PrototipoSistema
                     decimal total = 0;
                     decimal qtd = qtd_tela.quantidade;
                     valor = qtd_tela.valor;
+                    desc = qtd_tela.desc;
 
                     lst_servicos.Items.Add(servico);
                     lst_qtd.Items.Add(qtd_tela.quantidade);
@@ -155,7 +157,7 @@ namespace PrototipoSistema
                     {
                         string qtd_formatado = qtd.ToString();
                         qtd_formatado = qtd_formatado.Replace(".", ",");
-                        lst_total.Items.Add((decimal.Parse(valor) * qtd).ToString("N2"));
+                        lst_total.Items.Add(((decimal.Parse(valor) * qtd) - decimal.Parse(desc)).ToString("N2"));
                     }
                     catch { lst_total.Items.Add(valor); }
 
@@ -250,16 +252,6 @@ namespace PrototipoSistema
                 txt_total.Text = total.ToString("N2");
             }
             catch { txt_total.Text = "0"; }
-        }
-
-        private void lst_pesquisa_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void lst_servicos_KeyDown(object sender, KeyEventArgs e)
