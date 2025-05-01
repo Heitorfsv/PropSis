@@ -41,9 +41,9 @@
             // 
             // bnt_ok
             // 
-            this.bnt_ok.Location = new System.Drawing.Point(270, 61);
+            this.bnt_ok.Location = new System.Drawing.Point(285, 61);
             this.bnt_ok.Name = "bnt_ok";
-            this.bnt_ok.Size = new System.Drawing.Size(75, 23);
+            this.bnt_ok.Size = new System.Drawing.Size(60, 23);
             this.bnt_ok.TabIndex = 0;
             this.bnt_ok.Text = "Ok";
             this.bnt_ok.UseVisualStyleBackColor = true;

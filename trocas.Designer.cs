@@ -92,7 +92,7 @@
             // lst_nome_Oatrasado
             // 
             this.lst_nome_Oatrasado.FormattingEnabled = true;
-            this.lst_nome_Oatrasado.Location = new System.Drawing.Point(689, 24);
+            this.lst_nome_Oatrasado.Location = new System.Drawing.Point(689, 26);
             this.lst_nome_Oatrasado.Name = "lst_nome_Oatrasado";
             this.lst_nome_Oatrasado.Size = new System.Drawing.Size(166, 316);
             this.lst_nome_Oatrasado.TabIndex = 4;
@@ -102,7 +102,7 @@
             // lst_moto_Oatrasado
             // 
             this.lst_moto_Oatrasado.FormattingEnabled = true;
-            this.lst_moto_Oatrasado.Location = new System.Drawing.Point(1001, 24);
+            this.lst_moto_Oatrasado.Location = new System.Drawing.Point(1001, 26);
             this.lst_moto_Oatrasado.Name = "lst_moto_Oatrasado";
             this.lst_moto_Oatrasado.Size = new System.Drawing.Size(134, 316);
             this.lst_moto_Oatrasado.TabIndex = 5;
@@ -130,7 +130,7 @@
             // lst_marca_Oatrasado
             // 
             this.lst_marca_Oatrasado.FormattingEnabled = true;
-            this.lst_marca_Oatrasado.Location = new System.Drawing.Point(861, 24);
+            this.lst_marca_Oatrasado.Location = new System.Drawing.Point(861, 26);
             this.lst_marca_Oatrasado.Name = "lst_marca_Oatrasado";
             this.lst_marca_Oatrasado.Size = new System.Drawing.Size(134, 316);
             this.lst_marca_Oatrasado.TabIndex = 8;
@@ -158,7 +158,7 @@
             // lst_marca_Fatrasado
             // 
             this.lst_marca_Fatrasado.FormattingEnabled = true;
-            this.lst_marca_Fatrasado.Location = new System.Drawing.Point(861, 369);
+            this.lst_marca_Fatrasado.Location = new System.Drawing.Point(861, 370);
             this.lst_marca_Fatrasado.Name = "lst_marca_Fatrasado";
             this.lst_marca_Fatrasado.Size = new System.Drawing.Size(134, 316);
             this.lst_marca_Fatrasado.TabIndex = 18;
@@ -186,7 +186,7 @@
             // lst_moto_Fatrasado
             // 
             this.lst_moto_Fatrasado.FormattingEnabled = true;
-            this.lst_moto_Fatrasado.Location = new System.Drawing.Point(1001, 369);
+            this.lst_moto_Fatrasado.Location = new System.Drawing.Point(1001, 370);
             this.lst_moto_Fatrasado.Name = "lst_moto_Fatrasado";
             this.lst_moto_Fatrasado.Size = new System.Drawing.Size(134, 316);
             this.lst_moto_Fatrasado.TabIndex = 15;
@@ -196,7 +196,7 @@
             // lst_nome_Fatrasado
             // 
             this.lst_nome_Fatrasado.FormattingEnabled = true;
-            this.lst_nome_Fatrasado.Location = new System.Drawing.Point(689, 369);
+            this.lst_nome_Fatrasado.Location = new System.Drawing.Point(689, 370);
             this.lst_nome_Fatrasado.Name = "lst_nome_Fatrasado";
             this.lst_nome_Fatrasado.Size = new System.Drawing.Size(166, 316);
             this.lst_nome_Fatrasado.TabIndex = 14;
@@ -246,7 +246,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1156, 730);
+            this.ClientSize = new System.Drawing.Size(1147, 730);
             this.Controls.Add(this.lst_marca_F);
             this.Controls.Add(this.lst_marca_Fatrasado);
             this.Controls.Add(this.lst_moto_F);

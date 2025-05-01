@@ -52,8 +52,12 @@ namespace PrototipoSistema
                 lst_qtd.Items.Add(reader.GetString("qtd"));
                 valor = reader.GetString("valor");
                 lst_valor.Items.Add(valor);
+
+                string qtd = reader.GetString("qtd");
+                qtd = qtd.Replace(".", ",");
+
                 try
-                { total = decimal.Parse(reader.GetString("valor")) * decimal.Parse(reader.GetString("qtd")); }
+                { total = (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
                 catch { }
                 lst_total.Items.Add(total.ToString("N2"));
             }
@@ -185,12 +189,13 @@ namespace PrototipoSistema
                     servicos_os.nome = servico.ToString();
                     servicos_os.valor = valor;
                     servicos_os.qtd = qtd_tela.quantidade;
+                    servicos_os.desc = desc;
                     servicos_os.pos = lst_servicos.Items.Count - 1;
 
-                    servicos_os.cadastrar_peca_os();
+                    servicos_os.cadastrar_servico_os();
                 }
             }
-            catch { }
+            catch (Exception a) { MessageBox.Show(a.ToString()); }
         }
 
         private void add_servicos_FormClosing(object sender, FormClosingEventArgs e)

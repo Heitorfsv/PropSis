@@ -13,6 +13,7 @@ namespace PrototipoSistema
         public int os { get; set; }
         public string nome { get; set; }
         public string valor { get; set; }
+        public string desc { get; set; }
         public decimal qtd { get; set; }
         public int pos { get; set; }
 
@@ -28,17 +29,18 @@ namespace PrototipoSistema
             conexao.Close();
         }
 
-        public void cadastrar_peca_os()
+        public void cadastrar_servico_os()
         {
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand("INSERT INTO servicos_os (controle, os, nome, valor, qtd, pos) values (@controle,@os,@nome,@valor,@qtd,@pos)", conexao);
+            var cmd = new MySqlCommand("INSERT INTO servicos_os (controle, os, nome, valor, qtd, desco, pos) values (@controle,@os,@nome,@valor,@qtd,@desco,@pos)", conexao);
             cmd.Parameters.AddWithValue("@controle", index);
             cmd.Parameters.AddWithValue("@os", os);
             cmd.Parameters.AddWithValue("@nome", nome);
             cmd.Parameters.AddWithValue("@valor", valor);
             cmd.Parameters.AddWithValue("@qtd", qtd);
+            cmd.Parameters.AddWithValue("@desco", desc);
             cmd.Parameters.AddWithValue("@pos", pos);
 
             conexao.Open();

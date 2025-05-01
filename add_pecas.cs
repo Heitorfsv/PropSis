@@ -130,6 +130,7 @@ namespace PrototipoSistema
                 pecas_os.nome = peca.ToString();
                 pecas_os.valor = valor;
                 pecas_os.qtd = qtd_tela.quantidade;
+                pecas_os.desc = desc;
                 pecas_os.pos = lst_pecas.Items.Count - 1;
 
                 pecas_os.cadastrar_peca_os();
@@ -172,8 +173,12 @@ namespace PrototipoSistema
                 lst_qtd.Items.Add(reader.GetString("qtd"));
                 valor = reader.GetString("valor");
                 lst_valor.Items.Add(valor);
+
+                string qtd = reader.GetString("qtd");
+                qtd = qtd.Replace(".", ",");
+
                 try
-                { total = decimal.Parse(reader.GetString("valor")) * decimal.Parse(reader.GetString("qtd")); }
+                { total = (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
                 catch { }
                 lst_total.Items.Add(total.ToString("N2"));
             }
