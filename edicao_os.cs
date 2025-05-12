@@ -20,6 +20,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace PrototipoSistema
 {
@@ -70,13 +71,17 @@ namespace PrototipoSistema
 
                 try
                 {
-                    dtp_troca_filtro.Value = DateTime.Parse(reader.GetString("aviso_filtro_dt"));
+                    dtp_troca_filtro.Value = DateTime.ParseExact(reader.GetString("aviso_filtro_dt"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                     cb_filtro.Checked = true;
+                }
+                catch{}
 
-                    dtp_troca_oleo.Value = DateTime.Parse(reader.GetString("aviso_oleo_dt"));
+                try
+                {
+                    dtp_troca_oleo.Value = DateTime.ParseExact(reader.GetString("aviso_oleo_dt"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                     cb_oleo.Checked = true;
                 }
-                catch { }
+                catch{}
 
 
                 if (reader.GetInt32("pago") == 1)

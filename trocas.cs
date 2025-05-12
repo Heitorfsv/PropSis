@@ -183,12 +183,12 @@ namespace PrototipoSistema
 
         private void lst_nome_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_oleo.SelectedIndex = lst_nome_Oatrasado.SelectedIndex;
+            lst_oleo.SelectedIndex = lst_nome_O.SelectedIndex;
         }
 
         private void lst_moto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lst_oleo.SelectedIndex = lst_moto_Oatrasado.SelectedIndex;
+            lst_oleo.SelectedIndex = lst_moto_O.SelectedIndex;
         }
 
         private void lst_marca_SelectedIndexChanged(object sender, EventArgs e)
