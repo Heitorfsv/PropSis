@@ -58,6 +58,7 @@
             this.lst_oleo.Size = new System.Drawing.Size(92, 316);
             this.lst_oleo.TabIndex = 0;
             this.lst_oleo.SelectedIndexChanged += new System.EventHandler(this.lst_oleo_SelectedIndexChanged);
+            this.lst_oleo.DoubleClick += new System.EventHandler(this.lst_oleo_DoubleClick);
             // 
             // lst_oleo_atrasado
             // 
@@ -117,6 +118,7 @@
             this.lst_nome_O.Size = new System.Drawing.Size(166, 316);
             this.lst_nome_O.TabIndex = 6;
             this.lst_nome_O.SelectedIndexChanged += new System.EventHandler(this.lst_nome_SelectedIndexChanged);
+            this.lst_nome_O.DoubleClick += new System.EventHandler(this.lst_nome_O_DoubleClick);
             // 
             // lst_moto_O
             // 
@@ -126,6 +128,7 @@
             this.lst_moto_O.Size = new System.Drawing.Size(134, 316);
             this.lst_moto_O.TabIndex = 7;
             this.lst_moto_O.SelectedIndexChanged += new System.EventHandler(this.lst_moto_SelectedIndexChanged);
+            this.lst_moto_O.DoubleClick += new System.EventHandler(this.lst_moto_O_DoubleClick);
             // 
             // lst_marca_Oatrasado
             // 
@@ -145,6 +148,7 @@
             this.lst_marca_O.Size = new System.Drawing.Size(134, 316);
             this.lst_marca_O.TabIndex = 9;
             this.lst_marca_O.SelectedIndexChanged += new System.EventHandler(this.lst_marca_SelectedIndexChanged);
+            this.lst_marca_O.DoubleClick += new System.EventHandler(this.lst_marca_O_DoubleClick);
             // 
             // lst_marca_F
             // 
@@ -154,6 +158,7 @@
             this.lst_marca_F.Size = new System.Drawing.Size(134, 316);
             this.lst_marca_F.TabIndex = 19;
             this.lst_marca_F.SelectedIndexChanged += new System.EventHandler(this.lst_marca_F_SelectedIndexChanged);
+            this.lst_marca_F.DoubleClick += new System.EventHandler(this.lst_marca_F_DoubleClick);
             // 
             // lst_marca_Fatrasado
             // 
@@ -173,6 +178,7 @@
             this.lst_moto_F.Size = new System.Drawing.Size(134, 316);
             this.lst_moto_F.TabIndex = 17;
             this.lst_moto_F.SelectedIndexChanged += new System.EventHandler(this.lst_moto_F_SelectedIndexChanged);
+            this.lst_moto_F.DoubleClick += new System.EventHandler(this.lst_moto_F_DoubleClick);
             // 
             // lst_nome_F
             // 
@@ -182,6 +188,7 @@
             this.lst_nome_F.Size = new System.Drawing.Size(166, 316);
             this.lst_nome_F.TabIndex = 16;
             this.lst_nome_F.SelectedIndexChanged += new System.EventHandler(this.lst_nome_F_SelectedIndexChanged);
+            this.lst_nome_F.DoubleClick += new System.EventHandler(this.lst_nome_F_DoubleClick);
             // 
             // lst_moto_Fatrasado
             // 
@@ -241,6 +248,7 @@
             this.lst_filtro.Size = new System.Drawing.Size(92, 316);
             this.lst_filtro.TabIndex = 10;
             this.lst_filtro.SelectedIndexChanged += new System.EventHandler(this.lst_filtro_SelectedIndexChanged);
+            this.lst_filtro.DoubleClick += new System.EventHandler(this.lst_filtro_DoubleClick);
             // 
             // trocas
             // 

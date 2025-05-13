@@ -134,7 +134,7 @@ namespace PrototipoSistema
                 string qtd = reader.GetString("qtd");
                 qtd = qtd.Replace(".", ",");
 
-                total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
+                total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd));
             }
             txt_total_servico.Text = total_servico.ToString("N2");
             conexao.Close();

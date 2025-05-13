@@ -57,7 +57,7 @@ namespace PrototipoSistema
                 qtd = qtd.Replace(".", ",");
 
                 try
-                { total = (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
+                { total = (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)); }
                 catch { }
                 lst_total.Items.Add(total.ToString("N2"));
             }

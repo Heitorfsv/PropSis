@@ -60,6 +60,12 @@
             this.lst_telefone = new System.Windows.Forms.ListBox();
             this.lbl_order = new System.Windows.Forms.Label();
             this.scrollbar = new System.Windows.Forms.VScrollBar();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txt_total_servicos = new System.Windows.Forms.TextBox();
+            this.txt_total_pecas = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txt_total = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lst_cliente
@@ -419,11 +425,68 @@
             this.scrollbar.TabIndex = 39;
             this.scrollbar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollbar_Scroll);
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(1077, 649);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(139, 16);
+            this.label12.TabIndex = 45;
+            this.label12.Text = "Faturamento serviços:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(1090, 675);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(126, 16);
+            this.label13.TabIndex = 44;
+            this.label13.Text = "Faturamento peças:";
+            // 
+            // txt_total_servicos
+            // 
+            this.txt_total_servicos.Location = new System.Drawing.Point(1222, 646);
+            this.txt_total_servicos.Name = "txt_total_servicos";
+            this.txt_total_servicos.ReadOnly = true;
+            this.txt_total_servicos.Size = new System.Drawing.Size(115, 22);
+            this.txt_total_servicos.TabIndex = 43;
+            // 
+            // txt_total_pecas
+            // 
+            this.txt_total_pecas.Location = new System.Drawing.Point(1222, 672);
+            this.txt_total_pecas.Name = "txt_total_pecas";
+            this.txt_total_pecas.ReadOnly = true;
+            this.txt_total_pecas.Size = new System.Drawing.Size(115, 22);
+            this.txt_total_pecas.TabIndex = 42;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(1103, 701);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(113, 16);
+            this.label14.TabIndex = 41;
+            this.label14.Text = "Faturamento total:";
+            // 
+            // txt_total
+            // 
+            this.txt_total.Location = new System.Drawing.Point(1222, 698);
+            this.txt_total.Name = "txt_total";
+            this.txt_total.ReadOnly = true;
+            this.txt_total.Size = new System.Drawing.Size(115, 22);
+            this.txt_total.TabIndex = 40;
+            // 
             // consulta_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1827, 914);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.txt_total_servicos);
+            this.Controls.Add(this.txt_total_pecas);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.txt_total);
             this.Controls.Add(this.scrollbar);
             this.Controls.Add(this.lbl_order);
             this.Controls.Add(this.label11);
@@ -499,5 +562,11 @@
         private System.Windows.Forms.ListBox lst_telefone;
         private System.Windows.Forms.Label lbl_order;
         private System.Windows.Forms.VScrollBar scrollbar;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txt_total_servicos;
+        private System.Windows.Forms.TextBox txt_total_pecas;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txt_total;
     }
 }

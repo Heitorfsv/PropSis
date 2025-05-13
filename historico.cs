@@ -40,7 +40,7 @@ namespace PrototipoSistema
             ///////////////////////
             int count = 0;
 
-            while (count < lista_os.Count)
+            while (count <= lista_os.Count)
             {
                 cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{lista_os[count]}'", conexao);
 

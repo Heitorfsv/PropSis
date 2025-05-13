@@ -13,17 +13,17 @@ namespace PrototipoSistema
     public class cliente
     {
         public int index { get; set; }
-        public String nome { get; set; }
-        public String rua { get; set; }
-        public String bairro { get; set; }
-        public String cidade { get; set; }
-        public String email { get; set; }
-        public String doc { get; set; }
+        public string nome { get; set; }
+        public string rua { get; set; }
+        public string bairro { get; set; }
+        public string cidade { get; set; }
+        public string email { get; set; }
+        public string doc { get; set; }
         public int inscricao { get; set; }
-        public String telefone { get; set; }
-        public String telefone2 { get; set; }
-        public String dt_nascimento { get; set; }
-        public String cep { get; set; }
+        public string telefone { get; set; }
+        public string telefone2 { get; set; }
+        public string dt_nascimento { get; set; }
+        public string cep { get; set; }
         public DateTime dt_cadastro { get; set; }
         public int sujo { get; set; }
 

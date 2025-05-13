@@ -348,5 +348,109 @@ namespace PrototipoSistema
             }
             catch { }
         }
+
+        private void lst_oleo_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_os[lst_nome_O.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_nome_O_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_os[lst_nome_O.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_marca_O_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_os[lst_nome_O.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_moto_O_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_os[lst_nome_O.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_filtro_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_os[lst_nome_F.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_nome_F_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_os[lst_nome_F.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_marca_F_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_os[lst_nome_F.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
+
+        private void lst_moto_F_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                edicao_os edicao_os = new edicao_os();
+
+                static_class.controle_os = lista_os[lst_nome_F.SelectedIndex];
+
+                edicao_os.Show();
+            }
+            catch { }
+        }
     }
 }

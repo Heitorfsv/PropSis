@@ -77,6 +77,8 @@ namespace PrototipoSistema
             conexao.Close();
 
             count = 0;
+            decimal total_servicos = 0;
+            decimal total_pecas = 0;
 
             while (count <= lst_placa.Items.Count -1)
             {
@@ -122,7 +124,10 @@ namespace PrototipoSistema
                     }
                     catch { }
                 }
+
+                total_servicos += soma_servico;
                 lst_preco_servico.Items.Add(soma_servico.ToString("N2"));
+
                 conexao.Close();
 
                 cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{lista_os[count]}'", conexao);
@@ -142,10 +147,16 @@ namespace PrototipoSistema
                     }
                     catch { }
                 }
+
+                total_pecas += soma_peca;
                 lst_preco_peca.Items.Add(soma_peca.ToString("N2"));
+
                 conexao.Close();
                 count++;
             }
+
+            txt_total_pecas.Text = total_pecas.ToString("N2");
+            txt_total_servicos.Text = total_servicos.ToString("N2");
 
             nome_vermelho();
 
