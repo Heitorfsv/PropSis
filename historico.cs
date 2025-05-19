@@ -22,7 +22,11 @@ namespace PrototipoSistema
 
         private void historico_Load(object sender, EventArgs e)
         {
-            List<string> lista_placa = new List<string>();
+            if (static_class.historico == "pecas_os") lbl_titulo.Text = "Faturamento da peça";
+            else lbl_titulo.Text = "Faturamento do serviço";
+            //////////////////////
+
+            decimal total = 0;
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
@@ -35,12 +39,19 @@ namespace PrototipoSistema
             while (reader.Read())
             {
                 lista_os.Add(reader.GetInt32("os"));
-            }
-            conexao.Close();
-            ///////////////////////
-            int count = 0;
 
-            while (count <= lista_os.Count)
+                string qtd = reader.GetString("qtd");
+                qtd = qtd.Replace(".", ",");
+                total += decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd);
+            }
+
+            txt_total.Text = total.ToString("N2");
+            conexao.Close();
+
+            int count = 0;
+            List<string> lista_placa = new List<string>();
+
+            while (count < lista_os.Count)
             {
                 cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{lista_os[count]}'", conexao);
 
@@ -49,8 +60,10 @@ namespace PrototipoSistema
 
                 while (reader.Read())
                 {
+                    try { lst_dt_saida.Items.Add(reader.GetString("dt_saida")); }
+                    catch { }
+
                     lst_cliente.Items.Add(reader.GetString("cliente"));
-                    lst_dt_saida.Items.Add(reader.GetString("dt_saida"));
                     lista_placa.Add(reader.GetString("placa"));
                 }
                 conexao.Close();
@@ -74,23 +87,23 @@ namespace PrototipoSistema
         private void lst_dt_saida_SelectedIndexChanged(object sender, EventArgs e)
         {
             lst_cliente.SelectedIndex = lst_dt_saida.SelectedIndex;
-            lst_marca.SelectedIndex = lst_dt_saida.SelectedIndex;
-            lst_modelo.SelectedIndex = lst_dt_saida.SelectedIndex;
         }
 
         private void lst_cliente_Click(object sender, EventArgs e)
         {
-            lst_dt_saida.SelectedIndex = lst_cliente.SelectedIndex;
+            try { lst_dt_saida.SelectedIndex = lst_cliente.SelectedIndex; } catch { }
+            lst_marca.SelectedIndex = lst_cliente.SelectedIndex;
+            lst_modelo.SelectedIndex = lst_cliente.SelectedIndex;
         }
 
         private void lst_marca_Click(object sender, EventArgs e)
         {
-            lst_dt_saida.SelectedIndex = lst_marca.SelectedIndex;
+            lst_cliente.SelectedIndex = lst_marca.SelectedIndex;
         }
 
         private void lst_modelo_Click(object sender, EventArgs e)
         {
-            lst_dt_saida.SelectedIndex = lst_modelo.SelectedIndex;
+            lst_cliente.SelectedIndex = lst_modelo.SelectedIndex;
         }
 
         private void lst_dt_saida_DoubleClick(object sender, EventArgs e)
@@ -99,7 +112,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_dt_saida.SelectedIndex];
+                static_class.controle_os = lista_os[lst_cliente.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -112,7 +125,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_dt_saida.SelectedIndex];
+                static_class.controle_os = lista_os[lst_cliente.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -125,7 +138,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_dt_saida.SelectedIndex];
+                static_class.controle_os = lista_os[lst_cliente.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -138,7 +151,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_dt_saida.SelectedIndex];
+                static_class.controle_os = lista_os[lst_cliente.SelectedIndex];
 
                 edicao_os.Show();
             }
