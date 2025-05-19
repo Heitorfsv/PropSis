@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(consulta_os));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.lst_cliente = new System.Windows.Forms.ListBox();
             this.lst_placa = new System.Windows.Forms.ListBox();
             this.lst_marca = new System.Windows.Forms.ListBox();
@@ -66,6 +69,8 @@
             this.txt_total_pecas = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txt_total = new System.Windows.Forms.TextBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // lst_cliente
@@ -336,7 +341,7 @@
             // 
             // bnt_pesquisar_ps
             // 
-            this.bnt_pesquisar_ps.Location = new System.Drawing.Point(929, 10);
+            this.bnt_pesquisar_ps.Location = new System.Drawing.Point(929, 9);
             this.bnt_pesquisar_ps.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_pesquisar_ps.Name = "bnt_pesquisar_ps";
             this.bnt_pesquisar_ps.Size = new System.Drawing.Size(87, 25);
@@ -428,7 +433,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1077, 649);
+            this.label12.Location = new System.Drawing.Point(4, 671);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(139, 16);
             this.label12.TabIndex = 45;
@@ -437,7 +442,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(1090, 675);
+            this.label13.Location = new System.Drawing.Point(4, 715);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(126, 16);
             this.label13.TabIndex = 44;
@@ -445,7 +450,7 @@
             // 
             // txt_total_servicos
             // 
-            this.txt_total_servicos.Location = new System.Drawing.Point(1222, 646);
+            this.txt_total_servicos.Location = new System.Drawing.Point(7, 690);
             this.txt_total_servicos.Name = "txt_total_servicos";
             this.txt_total_servicos.ReadOnly = true;
             this.txt_total_servicos.Size = new System.Drawing.Size(115, 22);
@@ -453,7 +458,7 @@
             // 
             // txt_total_pecas
             // 
-            this.txt_total_pecas.Location = new System.Drawing.Point(1222, 672);
+            this.txt_total_pecas.Location = new System.Drawing.Point(7, 734);
             this.txt_total_pecas.Name = "txt_total_pecas";
             this.txt_total_pecas.ReadOnly = true;
             this.txt_total_pecas.Size = new System.Drawing.Size(115, 22);
@@ -462,7 +467,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(1103, 701);
+            this.label14.Location = new System.Drawing.Point(4, 759);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(113, 16);
             this.label14.TabIndex = 41;
@@ -470,17 +475,36 @@
             // 
             // txt_total
             // 
-            this.txt_total.Location = new System.Drawing.Point(1222, 698);
+            this.txt_total.Location = new System.Drawing.Point(7, 778);
             this.txt_total.Name = "txt_total";
             this.txt_total.ReadOnly = true;
             this.txt_total.Size = new System.Drawing.Size(115, 22);
             this.txt_total.TabIndex = 40;
+            // 
+            // chart1
+            // 
+            this.chart1.BackColor = System.Drawing.Color.Transparent;
+            this.chart1.BorderlineColor = System.Drawing.Color.SteelBlue;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(149, 637);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(646, 211);
+            this.chart1.TabIndex = 46;
+            this.chart1.Text = "chart1";
             // 
             // consulta_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1827, 914);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txt_total_servicos);
@@ -524,6 +548,7 @@
             this.Text = "Consultar OS";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.consulta_os_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -568,5 +593,6 @@
         private System.Windows.Forms.TextBox txt_total_pecas;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txt_total;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }

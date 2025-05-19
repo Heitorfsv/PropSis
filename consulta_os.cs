@@ -12,6 +12,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace PrototipoSistema
 {
@@ -38,6 +39,7 @@ namespace PrototipoSistema
             pagoStatus.Clear();
             lista_os.Clear();
             lista_doc.Clear();
+            CarregarGrafico();
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
@@ -156,6 +158,88 @@ namespace PrototipoSistema
             {
                 scrollbar.Maximum = lst_dt.Items.Count - 1;
             }
+        }
+
+        public void CarregarGrafico()
+        {
+            chart1.Series.Clear();
+            chart1.ChartAreas.Clear();
+
+            // Criar área do gráfico
+            ChartArea area = new ChartArea("AreaPrincipal");
+            chart1.ChartAreas.Add(area);
+
+            // Criar série (linha do gráfico)
+            Series servicos = new Series("Faturamento de serviços");
+            servicos.ChartType = SeriesChartType.Line;
+            servicos.BorderWidth = 1;
+            servicos.Color = System.Drawing.Color.Purple;
+
+            Series pecas = new Series("Faturamento de peças");
+            pecas.ChartType = SeriesChartType.Line;
+            pecas.BorderWidth = 1;
+            pecas.Color = System.Drawing.Color.Green;
+
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            int mes = 1;
+            List<int> os = new List<int>();
+            List<string> data = new List<string>();
+            count = 0;
+
+            while (mes != 12)
+            {
+                var cmd = new MySqlCommand($"SELECT * FROM os WHERE MONTH (STR_TO_DATE(dt_cadastro, '%d/%m/%y')) = {mes};", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    os.Add(reader.GetInt32("controle"));
+                    data.Add(reader.GetString("dt_cadastro").Substring(0, 10));
+                }
+                conexao.Close();
+
+                while (count < os.Count)
+                {
+                    cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{os[count]}'", conexao);
+
+                    conexao.Open();
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Simulação de dados: Faturamento por mês
+                        servicos.Points.AddXY(data[count], reader.GetString("valor"));
+                    }
+                    conexao.Close();
+
+                    cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{os[count]}'", conexao);
+
+                    conexao.Open();
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Simulação de dados: Faturamento por mês
+                        pecas.Points.AddXY(data[count], reader.GetString("valor"));
+                    }
+                    conexao.Close();
+                    count++;
+                }
+
+                mes++;
+            }
+
+            // Adiciona a série ao gráfico
+            chart1.Series.Add(servicos);
+            chart1.Series.Add(pecas);
+
+            // Título (opcional)
+            chart1.Titles.Clear();
+            chart1.Titles.Add("Faturamento");
         }
 
         private void lst_DrawItem(object sender, DrawItemEventArgs e)
