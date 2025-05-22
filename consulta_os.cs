@@ -39,7 +39,7 @@ namespace PrototipoSistema
             pagoStatus.Clear();
             lista_os.Clear();
             lista_doc.Clear();
-            CarregarGrafico();
+            CarregarGrafico("");
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
@@ -160,7 +160,7 @@ namespace PrototipoSistema
             }
         }
 
-        public void CarregarGrafico()
+        public void CarregarGrafico(string parametro)
         {
             chart1.Series.Clear();
             chart1.ChartAreas.Clear();
@@ -190,7 +190,7 @@ namespace PrototipoSistema
 
             while (mes != 12)
             {
-                var cmd = new MySqlCommand($"SELECT * FROM os WHERE MONTH (STR_TO_DATE(dt_cadastro, '%d/%m/%y')) = {mes};", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM os WHERE MONTH (STR_TO_DATE(dt_cadastro, '%d/%m/%y')) = {mes}{parametro} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') {order}", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -212,7 +212,7 @@ namespace PrototipoSistema
                     while (reader.Read())
                     {
                         // Simulação de dados: Faturamento por mês
-                        servicos.Points.AddXY(data[count], reader.GetString("valor"));
+                        servicos.Points.AddXY(data[count], (decimal.Parse(reader.GetString("valor")) * decimal.Parse(reader.GetString("qtd"))));
                     }
                     conexao.Close();
 
@@ -224,7 +224,7 @@ namespace PrototipoSistema
                     while (reader.Read())
                     {
                         // Simulação de dados: Faturamento por mês
-                        pecas.Points.AddXY(data[count], reader.GetString("valor"));
+                        pecas.Points.AddXY(data[count], (decimal.Parse(reader.GetString("valor")) * decimal.Parse(reader.GetString("qtd"))));
                     }
                     conexao.Close();
                     count++;
@@ -464,6 +464,7 @@ namespace PrototipoSistema
 
 
                 var cmd = new MySqlCommand($"SELECT * FROM os WHERE {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%'", conexao);
+                CarregarGrafico($" AND {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%'");
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -717,6 +718,7 @@ namespace PrototipoSistema
             {
                 lista = lista + lista_os[count] + "\n";
                 var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE os = {lista_os[count]} AND nome LIKE '%{txt_ps.Text}%'", conexao);
+
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
 

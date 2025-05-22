@@ -98,9 +98,8 @@
             // 
             // lst_nome
             // 
-            this.lst_nome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lst_nome.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_nome.FormattingEnabled = true;
-            this.lst_nome.ItemHeight = 16;
             this.lst_nome.Location = new System.Drawing.Point(5, 52);
             this.lst_nome.Margin = new System.Windows.Forms.Padding(2);
             this.lst_nome.Name = "lst_nome";
@@ -111,9 +110,8 @@
             // 
             // lst_valor
             // 
-            this.lst_valor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lst_valor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_valor.FormattingEnabled = true;
-            this.lst_valor.ItemHeight = 16;
             this.lst_valor.Location = new System.Drawing.Point(293, 52);
             this.lst_valor.Margin = new System.Windows.Forms.Padding(2);
             this.lst_valor.Name = "lst_valor";
