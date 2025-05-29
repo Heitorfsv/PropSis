@@ -63,7 +63,7 @@ namespace PrototipoSistema
                     dtp_saida.Enabled = true;
                     cb_saida.Checked = true;
                 }
-                catch (Exception a)
+                catch 
                 {
                     dtp_saida.Enabled = false;
                     cb_saida.Checked = false;

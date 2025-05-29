@@ -95,7 +95,7 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    lst_marca.Items.Add(reader.GetString("marca"));  
+                    lst_marca.Items.Add(reader.GetString("marca"));
                     lst_modelo.Items.Add(reader.GetString("modelo"));
                 }
                 conexao.Close();
@@ -113,7 +113,7 @@ namespace PrototipoSistema
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
 
-                        soma_servico += reader.GetDecimal("valor") * decimal.Parse(qtd);
+                        soma_servico += (reader.GetDecimal("valor") * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                     }
                     catch { }
                 }
@@ -136,7 +136,7 @@ namespace PrototipoSistema
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
 
-                        soma_peca += reader.GetDecimal("valor") * decimal.Parse(qtd); 
+                        soma_peca += (reader.GetDecimal("valor") * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); 
                     }
                     catch { }
                 }
@@ -211,8 +211,10 @@ namespace PrototipoSistema
 
                     while (reader.Read())
                     {
+                        string qtd = reader.GetString("qtd");
+                        qtd = qtd.Replace(".", ",");
                         // Simulação de dados: Faturamento por mês
-                        servicos.Points.AddXY(data[count], (decimal.Parse(reader.GetString("valor")) * decimal.Parse(reader.GetString("qtd"))));
+                        servicos.Points.AddXY(data[count], (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")));
                     }
                     conexao.Close();
 
@@ -223,8 +225,10 @@ namespace PrototipoSistema
 
                     while (reader.Read())
                     {
+                        string qtd = reader.GetString("qtd");
+                        qtd = qtd.Replace(".", ",");
                         // Simulação de dados: Faturamento por mês
-                        pecas.Points.AddXY(data[count], (decimal.Parse(reader.GetString("valor")) * decimal.Parse(reader.GetString("qtd"))));
+                        pecas.Points.AddXY(data[count], (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")));
                     }
                     conexao.Close();
                     count++;

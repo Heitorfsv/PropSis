@@ -194,6 +194,7 @@
     <Compile Include="classes\cliente.cs" />
     <Compile Include="classes\ConsultaCep.cs" />
     <Compile Include="classes\motos.cs" />
+    <Compile Include="classes\orcamento.cs" />
     <Compile Include="classes\OS.cs" />
     <Compile Include="classes\pecas.cs" />
     <Compile Include="edicao_calendar.cs">
@@ -281,6 +282,12 @@
       <DependentUpon>MDI_tela.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\pecas_os.cs" />
+    <Compile Include="orcamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="orcamento.Designer.cs">
+      <DependentUpon>orcamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -386,6 +393,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MDI_tela.resx">
       <DependentUpon>MDI_tela.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="orcamento.resx">
+      <DependentUpon>orcamento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

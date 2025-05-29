@@ -37,14 +37,13 @@ namespace PrototipoSistema
 
         private void bnt_cadastrar_Click(object sender, EventArgs e)
         {
-
-
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
             var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
 
             conexao.Open();
+
             MySqlDataReader reader = cmd.ExecuteReader();
 
             cliente cliente = new cliente();

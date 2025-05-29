@@ -18,7 +18,7 @@ namespace PrototipoSistema.classes
         public decimal valor_sugerido { get; set; }
         public string fornecedor { get; set; }
         public string contato { get; set; }
-        public string local {  get; set; }
+        public string local { get; set; }
         public string estoque { get; set; }
 
         public void ultimo_index()

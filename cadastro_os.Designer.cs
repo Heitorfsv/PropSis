@@ -527,10 +527,10 @@
             // 
             // bnt_cadastro
             // 
-            this.bnt_cadastro.Location = new System.Drawing.Point(839, 492);
+            this.bnt_cadastro.Location = new System.Drawing.Point(749, 518);
             this.bnt_cadastro.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_cadastro.Name = "bnt_cadastro";
-            this.bnt_cadastro.Size = new System.Drawing.Size(86, 28);
+            this.bnt_cadastro.Size = new System.Drawing.Size(86, 23);
             this.bnt_cadastro.TabIndex = 26;
             this.bnt_cadastro.Text = "Cadastro";
             this.bnt_cadastro.UseVisualStyleBackColor = true;

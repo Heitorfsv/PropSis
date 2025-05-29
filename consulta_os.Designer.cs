@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(consulta_os));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.lst_cliente = new System.Windows.Forms.ListBox();
             this.lst_placa = new System.Windows.Forms.ListBox();
             this.lst_marca = new System.Windows.Forms.ListBox();
@@ -311,7 +311,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(569, 14);
+            this.label9.Location = new System.Drawing.Point(582, 13);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(120, 16);
@@ -333,10 +333,10 @@
             this.cmb_ps.Items.AddRange(new object[] {
             "Peças",
             "Serviços"});
-            this.cmb_ps.Location = new System.Drawing.Point(691, 10);
+            this.cmb_ps.Location = new System.Drawing.Point(704, 9);
             this.cmb_ps.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmb_ps.Name = "cmb_ps";
-            this.cmb_ps.Size = new System.Drawing.Size(108, 24);
+            this.cmb_ps.Size = new System.Drawing.Size(94, 24);
             this.cmb_ps.TabIndex = 30;
             // 
             // bnt_pesquisar_ps
@@ -344,7 +344,7 @@
             this.bnt_pesquisar_ps.Location = new System.Drawing.Point(929, 9);
             this.bnt_pesquisar_ps.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_pesquisar_ps.Name = "bnt_pesquisar_ps";
-            this.bnt_pesquisar_ps.Size = new System.Drawing.Size(87, 25);
+            this.bnt_pesquisar_ps.Size = new System.Drawing.Size(87, 23);
             this.bnt_pesquisar_ps.TabIndex = 32;
             this.bnt_pesquisar_ps.Text = "Pesquisar";
             this.bnt_pesquisar_ps.UseVisualStyleBackColor = true;
@@ -485,16 +485,16 @@
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.SteelBlue;
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(149, 638);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart1.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(707, 211);
             this.chart1.TabIndex = 46;
             this.chart1.Text = "chart1";
