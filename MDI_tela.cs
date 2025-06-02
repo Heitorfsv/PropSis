@@ -202,5 +202,10 @@ namespace PrototipoSistema
             trocas.MdiParent = this;
             trocas.Show();
         }
+
+        private void cadastroOrçamentoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cadastro_or orcamento = new cadastro_or();
+        }
     }
 }

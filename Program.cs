@@ -16,7 +16,7 @@ namespace PrototipoSistema
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MDI_tela());
+            Application.Run(new cadastro_or());
         }
     }
 }
