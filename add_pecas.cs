@@ -20,6 +20,7 @@ namespace PrototipoSistema
 {
     public partial class add_pecas : Form
     {
+        public string modo;
         pecas_os pecas_os = new pecas_os();
         public add_pecas()
         {
@@ -163,7 +164,7 @@ namespace PrototipoSistema
             }
             conexao.Close();
 
-            cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+            cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE {modo} = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
             conexao.Open();
             reader = cmd.ExecuteReader();
 
@@ -213,7 +214,7 @@ namespace PrototipoSistema
 
                 while (lst_pecas.SelectedIndex < lst_pecas.Items.Count)
                 {
-                    var cmd = new MySqlCommand($"UPDATE pecas_os SET pos = '{lst_pecas.SelectedIndex}' WHERE os = {static_class.controle_os} AND nome = '{lst_pecas.SelectedItem}'", conexao);
+                    var cmd = new MySqlCommand($"UPDATE pecas_os SET pos = '{lst_pecas.SelectedIndex}' WHERE {modo} = {static_class.controle_os} AND nome = '{lst_pecas.SelectedItem}'", conexao);
                     conexao.Open();
                     cmd.ExecuteReader();
                     conexao.Close();
