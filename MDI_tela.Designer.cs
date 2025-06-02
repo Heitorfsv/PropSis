@@ -61,10 +61,9 @@
             this.consultarMotoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aniversáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calendarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.trocaDeOleoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.cadastroOrçamentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trocaDeOleoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -206,8 +205,7 @@
             this.cadastroPeçaToolStripMenuItem,
             this.cadastrarFichaToolStripMenuItem,
             this.cadastrarServiçoToolStripMenuItem,
-            this.cadastrarMotoToolStripMenuItem,
-            this.cadastroOrçamentoToolStripMenuItem});
+            this.cadastrarMotoToolStripMenuItem});
             this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
             this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newWindowToolStripMenuItem.Text = "Cadastro";
@@ -215,35 +213,35 @@
             // cadastroClienteToolStripMenuItem
             // 
             this.cadastroClienteToolStripMenuItem.Name = "cadastroClienteToolStripMenuItem";
-            this.cadastroClienteToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.cadastroClienteToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.cadastroClienteToolStripMenuItem.Text = "Cadastrar cliente";
             this.cadastroClienteToolStripMenuItem.Click += new System.EventHandler(this.cadastroClienteToolStripMenuItem_Click);
             // 
             // cadastroPeçaToolStripMenuItem
             // 
             this.cadastroPeçaToolStripMenuItem.Name = "cadastroPeçaToolStripMenuItem";
-            this.cadastroPeçaToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.cadastroPeçaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.cadastroPeçaToolStripMenuItem.Text = "Cadastrar peça";
             this.cadastroPeçaToolStripMenuItem.Click += new System.EventHandler(this.cadastroPeçaToolStripMenuItem_Click);
             // 
             // cadastrarFichaToolStripMenuItem
             // 
             this.cadastrarFichaToolStripMenuItem.Name = "cadastrarFichaToolStripMenuItem";
-            this.cadastrarFichaToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.cadastrarFichaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.cadastrarFichaToolStripMenuItem.Text = "Cadastrar OS";
             this.cadastrarFichaToolStripMenuItem.Click += new System.EventHandler(this.cadastrarFichaToolStripMenuItem_Click);
             // 
             // cadastrarServiçoToolStripMenuItem
             // 
             this.cadastrarServiçoToolStripMenuItem.Name = "cadastrarServiçoToolStripMenuItem";
-            this.cadastrarServiçoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.cadastrarServiçoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.cadastrarServiçoToolStripMenuItem.Text = "Cadastrar serviço";
             this.cadastrarServiçoToolStripMenuItem.Click += new System.EventHandler(this.cadastrarServiçoToolStripMenuItem_Click);
             // 
             // cadastrarMotoToolStripMenuItem
             // 
             this.cadastrarMotoToolStripMenuItem.Name = "cadastrarMotoToolStripMenuItem";
-            this.cadastrarMotoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.cadastrarMotoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.cadastrarMotoToolStripMenuItem.Text = "Cadastrar moto";
             this.cadastrarMotoToolStripMenuItem.Click += new System.EventHandler(this.cadastrarMotoToolStripMenuItem_Click);
             // 
@@ -262,35 +260,35 @@
             // consultaDeClienteToolStripMenuItem
             // 
             this.consultaDeClienteToolStripMenuItem.Name = "consultaDeClienteToolStripMenuItem";
-            this.consultaDeClienteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consultaDeClienteToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.consultaDeClienteToolStripMenuItem.Text = "Consulta de cliente";
             this.consultaDeClienteToolStripMenuItem.Click += new System.EventHandler(this.consultaDeClienteToolStripMenuItem_Click);
             // 
             // consultaPeçasToolStripMenuItem
             // 
             this.consultaPeçasToolStripMenuItem.Name = "consultaPeçasToolStripMenuItem";
-            this.consultaPeçasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consultaPeçasToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.consultaPeçasToolStripMenuItem.Text = "Consulta peças";
             this.consultaPeçasToolStripMenuItem.Click += new System.EventHandler(this.consultaPeçasToolStripMenuItem_Click);
             // 
             // consultaFichasToolStripMenuItem
             // 
             this.consultaFichasToolStripMenuItem.Name = "consultaFichasToolStripMenuItem";
-            this.consultaFichasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consultaFichasToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.consultaFichasToolStripMenuItem.Text = "Consulta OS";
             this.consultaFichasToolStripMenuItem.Click += new System.EventHandler(this.consultaFichasToolStripMenuItem_Click);
             // 
             // consultaServiçosToolStripMenuItem
             // 
             this.consultaServiçosToolStripMenuItem.Name = "consultaServiçosToolStripMenuItem";
-            this.consultaServiçosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consultaServiçosToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.consultaServiçosToolStripMenuItem.Text = "Consulta serviços";
             this.consultaServiçosToolStripMenuItem.Click += new System.EventHandler(this.consultaServiçosToolStripMenuItem_Click);
             // 
             // consultarMotoToolStripMenuItem
             // 
             this.consultarMotoToolStripMenuItem.Name = "consultarMotoToolStripMenuItem";
-            this.consultarMotoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consultarMotoToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.consultarMotoToolStripMenuItem.Text = "Consultar moto";
             this.consultarMotoToolStripMenuItem.Click += new System.EventHandler(this.consultarMotoToolStripMenuItem_Click);
             // 
@@ -307,13 +305,6 @@
             this.calendarioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.calendarioToolStripMenuItem.Text = "Calendário ";
             this.calendarioToolStripMenuItem.Click += new System.EventHandler(this.calendarioToolStripMenuItem_Click);
-            // 
-            // trocaDeOleoToolStripMenuItem
-            // 
-            this.trocaDeOleoToolStripMenuItem.Name = "trocaDeOleoToolStripMenuItem";
-            this.trocaDeOleoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.trocaDeOleoToolStripMenuItem.Text = "Troca de oleo";
-            this.trocaDeOleoToolStripMenuItem.Click += new System.EventHandler(this.trocaDeOleoToolStripMenuItem_Click);
             // 
             // helpMenu
             // 
@@ -337,12 +328,12 @@
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
-            // cadastroOrçamentoToolStripMenuItem
+            // trocaDeOleoToolStripMenuItem
             // 
-            this.cadastroOrçamentoToolStripMenuItem.Name = "cadastroOrçamentoToolStripMenuItem";
-            this.cadastroOrçamentoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.cadastroOrçamentoToolStripMenuItem.Text = "Cadastro orçamento";
-            this.cadastroOrçamentoToolStripMenuItem.Click += new System.EventHandler(this.cadastroOrçamentoToolStripMenuItem_Click);
+            this.trocaDeOleoToolStripMenuItem.Name = "trocaDeOleoToolStripMenuItem";
+            this.trocaDeOleoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.trocaDeOleoToolStripMenuItem.Text = "Troca de oleo";
+            this.trocaDeOleoToolStripMenuItem.Click += new System.EventHandler(this.trocaDeOleoToolStripMenuItem_Click);
             // 
             // MDI_tela
             // 
@@ -399,7 +390,6 @@
         private System.Windows.Forms.ToolStripMenuItem helpMenu;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem trocaDeOleoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cadastroOrçamentoToolStripMenuItem;
     }
 }
 

@@ -85,4 +85,4 @@ C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\$safeprojectname$.p
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.edicao_calendar.resources
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.aviso.resources
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.trocas.resources
-C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.cadastro_or.resources
+C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.Orçamento.resources
