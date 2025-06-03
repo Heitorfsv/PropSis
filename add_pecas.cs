@@ -127,7 +127,10 @@ namespace PrototipoSistema
                 ///
                 pecas_os.ultimo_index();
                 pecas_os.index++;
-                pecas_os.os = static_class.controle_os;
+                pecas_os.modo = modo;
+                //os serve tanto pra orçamento quando pra ordem de serviço nesse contexto
+                pecas_os.os_or = static_class.controle_os;
+
                 pecas_os.nome = peca.ToString();
                 pecas_os.valor = valor;
                 pecas_os.qtd = qtd_tela.quantidade;
@@ -233,7 +236,7 @@ namespace PrototipoSistema
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE nome = '{lst_pecas.SelectedItem}' AND os = {static_class.controle_os}", conexao);
+                var cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE nome = '{lst_pecas.SelectedItem}' AND {modo} = {static_class.controle_os}", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();

@@ -186,7 +186,10 @@ namespace PrototipoSistema
                     ///
                     servicos_os.ultimo_index();
                     servicos_os.index++;
-                    servicos_os.os = static_class.controle_os;
+                    servicos_os.modo = modo;
+                    //os serve tanto pra orçamento quando pra ordem de serviço nesse contexto
+                    servicos_os.os_or = static_class.controle_os;
+
                     servicos_os.nome = servico.ToString();
                     servicos_os.valor = valor;
                     servicos_os.qtd = qtd_tela.quantidade;

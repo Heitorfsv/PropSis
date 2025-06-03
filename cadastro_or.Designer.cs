@@ -52,6 +52,7 @@
             this.txt_total_pecas = new System.Windows.Forms.TextBox();
             this.lst_pecas = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmb_cliente = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
             this.txt_doc = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -69,8 +70,7 @@
             this.txt_marca = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmb_cliente = new System.Windows.Forms.ComboBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -324,6 +324,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dados do cliente";
             // 
+            // cmb_cliente
+            // 
+            this.cmb_cliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmb_cliente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_cliente.FormattingEnabled = true;
+            this.cmb_cliente.Location = new System.Drawing.Point(5, 29);
+            this.cmb_cliente.Name = "cmb_cliente";
+            this.cmb_cliente.Size = new System.Drawing.Size(189, 21);
+            this.cmb_cliente.TabIndex = 76;
+            this.cmb_cliente.TextChanged += new System.EventHandler(this.cmb_cliente_TextChanged);
+            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -500,13 +511,11 @@
             this.label1.TabIndex = 62;
             this.label1.Text = "Dt. cadastro";
             // 
-            // cmb_cliente
+            // timer
             // 
-            this.cmb_cliente.FormattingEnabled = true;
-            this.cmb_cliente.Location = new System.Drawing.Point(5, 29);
-            this.cmb_cliente.Name = "cmb_cliente";
-            this.cmb_cliente.Size = new System.Drawing.Size(189, 21);
-            this.cmb_cliente.TabIndex = 76;
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // cadastro_or
             // 
@@ -582,6 +591,6 @@
         private System.Windows.Forms.TextBox txt_marca;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer;
     }
 }

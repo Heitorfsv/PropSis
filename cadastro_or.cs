@@ -1,5 +1,6 @@
 ﻿using classes;
 using MySql.Data.MySqlClient;
+using PrototipoSistema.classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -67,7 +68,7 @@ namespace PrototipoSistema
             lst_servicos.Items.Clear();
 
             add_servicos add_servicos = new add_servicos();
-            add_servicos.modo = "or";
+            add_servicos.modo = "orca";
             add_servicos.Show();
         }
 
@@ -76,12 +77,13 @@ namespace PrototipoSistema
             lst_pecas.Items.Clear();
 
             add_pecas add_pecas = new add_pecas();
-            add_pecas.modo = "or";
+            add_pecas.modo = "orca";
             add_pecas.Show();
         }
 
         private void cadastro_or_FormClosing(object sender, FormClosingEventArgs e)
         {
+            int delete = 0;
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
@@ -93,18 +95,108 @@ namespace PrototipoSistema
             if (reader.Read())
             { }
             else
+            { delete = 1; }
+            conexao.Close();
+            
+            if (delete == 1)
             {
-                cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE or = '{orcamento.index}'", conexao);
+                cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE orca = '{orcamento.index}'", conexao);
                 conexao.Open();
                 cmd.ExecuteReader();
                 conexao.Close();
 
-                cmd = new MySqlCommand($"DELETE FROM servicos_os WHERE or = '{orcamento.index}'", conexao);
+                cmd = new MySqlCommand($"DELETE FROM servicos_os WHERE orca = '{orcamento.index}'", conexao);
                 conexao.Open();
                 cmd.ExecuteReader();
                 conexao.Close();
             }
+        }
+
+        private void cmb_cliente_TextChanged(object sender, EventArgs e)
+        {
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            var cmd = new MySqlCommand($"SELECT * FROM clientes WHERE nome LIKE '%{cmb_cliente.Text}%'", conexao);
+
+            conexao.Open();
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                cmb_cliente.Items.Add(reader.GetString("nome"));
+            }
+
             conexao.Close();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (static_class.close == 1)
+            {
+                lst_servicos.Items.Clear();
+                lst_servicos_qtd.Items.Clear();
+                lst_servico_total.Items.Clear();
+
+                lst_pecas.Items.Clear();
+                lst_pecas_qtd.Items.Clear();
+                lst_peca_total.Items.Clear();
+
+                decimal servico_total = 0;
+                decimal peca_total = 0;
+                string total = "";
+
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
+
+                var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    lst_servicos.Items.Add(reader.GetString("nome"));
+                    lst_servicos_qtd.Items.Add(reader.GetString("qtd"));
+                    total = reader.GetString("valor");
+                    lst_servico_total.Items.Add(total);
+
+                    string qtd = reader.GetString("qtd");
+                    qtd = qtd.Replace(".", ",");
+
+                    try
+                    { servico_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
+                    catch { }
+                }
+                conexao.Close();
+
+                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    lst_pecas.Items.Add(reader.GetString("nome"));
+                    lst_pecas_qtd.Items.Add(reader.GetString("qtd"));
+                    total = reader.GetString("valor");
+                    lst_peca_total.Items.Add(total);
+
+                    string qtd = reader.GetString("qtd");
+                    qtd = qtd.Replace(".", ",");
+
+                    try
+                    { peca_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
+                    catch { }
+                }
+                conexao.Close();
+
+                txt_total_servico.Text = servico_total.ToString("N2");
+                txt_total_pecas.Text = peca_total.ToString("N2");
+                txt_total.Text = (peca_total + servico_total).ToString("N2");
+
+                static_class.close = 0;
+            }
         }
     }
 }

@@ -14,7 +14,8 @@ namespace PrototipoSistema
     public class pecas_os
     {
         public int index {  get; set; }
-        public int os { get; set; }
+        public int os_or { get; set; }
+        public string modo { get; set; } // Modo pode ser "os" ou "orca"
         public string nome { get; set; }
         public string valor { get; set; }
         public string desc { get; set; }
@@ -39,9 +40,9 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand("INSERT INTO pecas_os (controle, os, nome, valor, qtd, desco, pos) values (@controle,@os,@nome,@valor,@qtd,@desco,@pos)", conexao);
+            var cmd = new MySqlCommand($"INSERT INTO pecas_os (controle, {modo}, nome, valor, qtd, desco, pos) values (@controle,@modo,@nome,@valor,@qtd,@desco,@pos)", conexao);
             cmd.Parameters.AddWithValue("@controle", index);
-            cmd.Parameters.AddWithValue("@os", os);
+            cmd.Parameters.AddWithValue("@modo", os_or);
             cmd.Parameters.AddWithValue("@nome", nome);
             cmd.Parameters.AddWithValue("@valor", valor);
             cmd.Parameters.AddWithValue("@qtd", qtd);

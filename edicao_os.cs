@@ -281,6 +281,7 @@ namespace PrototipoSistema
             lst_pecas.Items.Clear();
 
             add_pecas add_pecas = new add_pecas();
+            add_pecas.modo = "os";
             add_pecas.Show();
         }
 
@@ -289,6 +290,7 @@ namespace PrototipoSistema
             lst_servicos.Items.Clear();
 
             add_servicos add_servicos = new add_servicos();
+            add_servicos.modo = "os";
             add_servicos.Show();
         }
 

@@ -206,6 +206,8 @@ namespace PrototipoSistema
         private void cadastroOrçamentoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cadastro_or orcamento = new cadastro_or();
+            orcamento.MdiParent = this;
+            orcamento.Show();
         }
     }
 }
