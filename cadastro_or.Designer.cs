@@ -64,8 +64,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txt_modelo = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txt_km = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txt_marca = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -390,8 +388,6 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txt_modelo);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txt_km);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txt_marca);
             this.groupBox1.Controls.Add(this.label2);
@@ -399,7 +395,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(517, 55);
+            this.groupBox1.Size = new System.Drawing.Size(516, 55);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dados do veículo";
@@ -413,10 +409,11 @@
             this.cmb_placa.Name = "cmb_placa";
             this.cmb_placa.Size = new System.Drawing.Size(82, 21);
             this.cmb_placa.TabIndex = 13;
+            this.cmb_placa.TextChanged += new System.EventHandler(this.cmb_placa_TextChanged);
             // 
             // txt_ano
             // 
-            this.txt_ano.Location = new System.Drawing.Point(434, 29);
+            this.txt_ano.Location = new System.Drawing.Point(336, 28);
             this.txt_ano.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ano.Mask = "00/00";
             this.txt_ano.Name = "txt_ano";
@@ -427,7 +424,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(431, 14);
+            this.label6.Location = new System.Drawing.Point(333, 13);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(26, 13);
@@ -437,7 +434,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(305, 14);
+            this.label5.Location = new System.Drawing.Point(220, 13);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 13);
@@ -446,35 +443,17 @@
             // 
             // txt_modelo
             // 
-            this.txt_modelo.Location = new System.Drawing.Point(308, 29);
+            this.txt_modelo.Location = new System.Drawing.Point(223, 28);
             this.txt_modelo.Margin = new System.Windows.Forms.Padding(2);
             this.txt_modelo.Name = "txt_modelo";
             this.txt_modelo.ReadOnly = true;
             this.txt_modelo.Size = new System.Drawing.Size(109, 20);
             this.txt_modelo.TabIndex = 8;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(101, 14);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "KM";
-            // 
-            // txt_km
-            // 
-            this.txt_km.Location = new System.Drawing.Point(103, 29);
-            this.txt_km.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_km.Name = "txt_km";
-            this.txt_km.Size = new System.Drawing.Size(68, 20);
-            this.txt_km.TabIndex = 6;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(183, 14);
+            this.label3.Location = new System.Drawing.Point(92, 13);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 13);
@@ -484,11 +463,11 @@
             // txt_marca
             // 
             this.txt_marca.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txt_marca.Location = new System.Drawing.Point(185, 29);
+            this.txt_marca.Location = new System.Drawing.Point(94, 28);
             this.txt_marca.Margin = new System.Windows.Forms.Padding(2);
             this.txt_marca.Name = "txt_marca";
             this.txt_marca.ReadOnly = true;
-            this.txt_marca.Size = new System.Drawing.Size(109, 20);
+            this.txt_marca.Size = new System.Drawing.Size(125, 20);
             this.txt_marca.TabIndex = 4;
             // 
             // label2
@@ -585,8 +564,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt_modelo;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txt_km;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt_marca;
         private System.Windows.Forms.Label label2;

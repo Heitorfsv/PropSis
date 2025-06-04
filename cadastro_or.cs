@@ -125,6 +125,20 @@ namespace PrototipoSistema
             while (reader.Read())
             {
                 cmb_cliente.Items.Add(reader.GetString("nome"));
+                txt_doc.Text = reader.GetString("doc");
+            }
+            conexao.Close();
+
+            cmb_placa.Items.Clear();
+
+            cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{txt_doc.Text}'", conexao);
+
+            conexao.Open();
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                cmb_placa.Items.Add(reader.GetString("placa"));
             }
 
             conexao.Close();
@@ -197,6 +211,11 @@ namespace PrototipoSistema
 
                 static_class.close = 0;
             }
+        }
+
+        private void cmb_placa_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

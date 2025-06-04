@@ -246,7 +246,7 @@ namespace PrototipoSistema
                 lst_pecas.Items.RemoveAt(selected);
                 lst_qtd.Items.RemoveAt(selected);
                 lst_valor.Items.RemoveAt(selected);
-                lst_total.Items.RemoveAt(selected); 
+                lst_total.Items.RemoveAt(selected);
             }
 
             try
