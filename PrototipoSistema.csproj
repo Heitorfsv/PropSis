@@ -203,6 +203,12 @@
     <Compile Include="classes\orcamento.cs" />
     <Compile Include="classes\OS.cs" />
     <Compile Include="classes\pecas.cs" />
+    <Compile Include="consulta_or.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="consulta_or.Designer.cs">
+      <DependentUpon>consulta_or.cs</DependentUpon>
+    </Compile>
     <Compile Include="edicao_calendar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -357,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="calendar.resx">
       <DependentUpon>calendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="consulta_or.resx">
+      <DependentUpon>consulta_or.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="edicao_calendar.resx">
       <DependentUpon>edicao_calendar.cs</DependentUpon>

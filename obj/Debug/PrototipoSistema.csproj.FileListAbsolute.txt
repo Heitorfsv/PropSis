@@ -86,3 +86,4 @@ C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.ed
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.aviso.resources
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.trocas.resources
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.cadastro_or.resources
+C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.consulta_or.resources

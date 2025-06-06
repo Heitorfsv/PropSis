@@ -85,7 +85,7 @@
             // 
             // bnt_cadastro
             // 
-            this.bnt_cadastro.Location = new System.Drawing.Point(753, 523);
+            this.bnt_cadastro.Location = new System.Drawing.Point(740, 519);
             this.bnt_cadastro.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_cadastro.Name = "bnt_cadastro";
             this.bnt_cadastro.Size = new System.Drawing.Size(86, 23);
@@ -97,7 +97,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(719, 484);
+            this.label9.Location = new System.Drawing.Point(706, 480);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
@@ -106,7 +106,7 @@
             // 
             // txt_total
             // 
-            this.txt_total.Location = new System.Drawing.Point(722, 499);
+            this.txt_total.Location = new System.Drawing.Point(709, 495);
             this.txt_total.Margin = new System.Windows.Forms.Padding(2);
             this.txt_total.Name = "txt_total";
             this.txt_total.ReadOnly = true;
