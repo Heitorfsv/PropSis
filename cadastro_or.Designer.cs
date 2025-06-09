@@ -78,14 +78,14 @@
             // dtp_cadastro
             // 
             this.dtp_cadastro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_cadastro.Location = new System.Drawing.Point(12, 26);
+            this.dtp_cadastro.Location = new System.Drawing.Point(11, 26);
             this.dtp_cadastro.Name = "dtp_cadastro";
             this.dtp_cadastro.Size = new System.Drawing.Size(200, 20);
             this.dtp_cadastro.TabIndex = 75;
             // 
             // bnt_cadastro
             // 
-            this.bnt_cadastro.Location = new System.Drawing.Point(740, 519);
+            this.bnt_cadastro.Location = new System.Drawing.Point(738, 518);
             this.bnt_cadastro.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_cadastro.Name = "bnt_cadastro";
             this.bnt_cadastro.Size = new System.Drawing.Size(86, 23);
@@ -97,7 +97,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(706, 480);
+            this.label9.Location = new System.Drawing.Point(704, 479);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
@@ -106,7 +106,7 @@
             // 
             // txt_total
             // 
-            this.txt_total.Location = new System.Drawing.Point(709, 495);
+            this.txt_total.Location = new System.Drawing.Point(707, 494);
             this.txt_total.Margin = new System.Windows.Forms.Padding(2);
             this.txt_total.Name = "txt_total";
             this.txt_total.ReadOnly = true;
@@ -123,11 +123,11 @@
             this.groupBox6.Controls.Add(this.label21);
             this.groupBox6.Controls.Add(this.txt_total_servico);
             this.groupBox6.Controls.Add(this.lst_servicos);
-            this.groupBox6.Location = new System.Drawing.Point(437, 170);
+            this.groupBox6.Location = new System.Drawing.Point(420, 170);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox6.Size = new System.Drawing.Size(389, 301);
+            this.groupBox6.Size = new System.Drawing.Size(404, 301);
             this.groupBox6.TabIndex = 68;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Serviços";
@@ -135,7 +135,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(219, 28);
+            this.label14.Location = new System.Drawing.Point(295, 28);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(42, 13);
@@ -145,7 +145,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(160, 28);
+            this.label12.Location = new System.Drawing.Point(236, 28);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(27, 13);
@@ -155,7 +155,7 @@
             // lst_servico_total
             // 
             this.lst_servico_total.FormattingEnabled = true;
-            this.lst_servico_total.Location = new System.Drawing.Point(222, 42);
+            this.lst_servico_total.Location = new System.Drawing.Point(298, 42);
             this.lst_servico_total.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servico_total.Name = "lst_servico_total";
             this.lst_servico_total.Size = new System.Drawing.Size(72, 199);
@@ -164,7 +164,7 @@
             // lst_servicos_qtd
             // 
             this.lst_servicos_qtd.FormattingEnabled = true;
-            this.lst_servicos_qtd.Location = new System.Drawing.Point(163, 42);
+            this.lst_servicos_qtd.Location = new System.Drawing.Point(239, 42);
             this.lst_servicos_qtd.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servicos_qtd.Name = "lst_servicos_qtd";
             this.lst_servicos_qtd.Size = new System.Drawing.Size(55, 199);
@@ -206,7 +206,7 @@
             this.lst_servicos.Location = new System.Drawing.Point(4, 42);
             this.lst_servicos.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servicos.Name = "lst_servicos";
-            this.lst_servicos.Size = new System.Drawing.Size(155, 199);
+            this.lst_servicos.Size = new System.Drawing.Size(231, 199);
             this.lst_servicos.TabIndex = 0;
             // 
             // groupBox4
@@ -223,7 +223,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(386, 301);
+            this.groupBox4.Size = new System.Drawing.Size(404, 301);
             this.groupBox4.TabIndex = 66;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Peças";
@@ -231,7 +231,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(220, 28);
+            this.label13.Location = new System.Drawing.Point(297, 28);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(42, 13);
@@ -241,7 +241,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(161, 28);
+            this.label11.Location = new System.Drawing.Point(238, 28);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(27, 13);
@@ -251,7 +251,7 @@
             // lst_peca_total
             // 
             this.lst_peca_total.FormattingEnabled = true;
-            this.lst_peca_total.Location = new System.Drawing.Point(222, 42);
+            this.lst_peca_total.Location = new System.Drawing.Point(299, 42);
             this.lst_peca_total.Margin = new System.Windows.Forms.Padding(2);
             this.lst_peca_total.Name = "lst_peca_total";
             this.lst_peca_total.Size = new System.Drawing.Size(72, 199);
@@ -260,7 +260,7 @@
             // lst_pecas_qtd
             // 
             this.lst_pecas_qtd.FormattingEnabled = true;
-            this.lst_pecas_qtd.Location = new System.Drawing.Point(164, 42);
+            this.lst_pecas_qtd.Location = new System.Drawing.Point(241, 42);
             this.lst_pecas_qtd.Margin = new System.Windows.Forms.Padding(2);
             this.lst_pecas_qtd.Name = "lst_pecas_qtd";
             this.lst_pecas_qtd.Size = new System.Drawing.Size(55, 199);
@@ -302,7 +302,7 @@
             this.lst_pecas.Location = new System.Drawing.Point(5, 42);
             this.lst_pecas.Margin = new System.Windows.Forms.Padding(2);
             this.lst_pecas.Name = "lst_pecas";
-            this.lst_pecas.Size = new System.Drawing.Size(155, 199);
+            this.lst_pecas.Size = new System.Drawing.Size(232, 199);
             this.lst_pecas.TabIndex = 0;
             // 
             // groupBox2

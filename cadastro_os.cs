@@ -164,7 +164,7 @@ namespace PrototipoSistema
                     qtd = qtd.Replace(".", ",");
 
                     try
-                    { servico_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
+                    { servico_total += (decimal.Parse(total) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
                     catch { }
                 }
                 conexao.Close();
@@ -185,7 +185,7 @@ namespace PrototipoSistema
                     qtd = qtd.Replace(".", ",");
 
                     try
-                    { peca_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
+                    { peca_total += (decimal.Parse(total) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
                     catch { }
                 }
                 conexao.Close();

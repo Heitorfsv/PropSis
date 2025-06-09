@@ -66,6 +66,7 @@
             this.scrollbar.Name = "scrollbar";
             this.scrollbar.Size = new System.Drawing.Size(17, 500);
             this.scrollbar.TabIndex = 70;
+            this.scrollbar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollbar_Scroll);
             // 
             // lbl_order
             // 
@@ -76,6 +77,7 @@
             this.lbl_order.Size = new System.Drawing.Size(18, 20);
             this.lbl_order.TabIndex = 69;
             this.lbl_order.Text = "↑";
+            this.lbl_order.Click += new System.EventHandler(this.lbl_order_Click);
             // 
             // label11
             // 
@@ -98,6 +100,8 @@
             this.lst_telefone.Name = "lst_telefone";
             this.lst_telefone.Size = new System.Drawing.Size(123, 500);
             this.lst_telefone.TabIndex = 67;
+            this.lst_telefone.Click += new System.EventHandler(this.lst_telefone_Click);
+            this.lst_telefone.DoubleClick += new System.EventHandler(this.lst_telefone_DoubleClick);
             // 
             // bnt_add
             // 
@@ -111,6 +115,7 @@
             this.bnt_add.TabIndex = 66;
             this.bnt_add.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.bnt_add.UseVisualStyleBackColor = false;
+            this.bnt_add.Click += new System.EventHandler(this.bnt_add_Click);
             // 
             // bnt_pesquisar_ps
             // 
@@ -166,6 +171,7 @@
             this.bnt_atualizar.TabIndex = 59;
             this.bnt_atualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.bnt_atualizar.UseVisualStyleBackColor = false;
+            this.bnt_atualizar.Click += new System.EventHandler(this.bnt_atualizar_Click);
             // 
             // label8
             // 
@@ -257,6 +263,8 @@
             this.lst_total.Name = "lst_total";
             this.lst_total.Size = new System.Drawing.Size(123, 500);
             this.lst_total.TabIndex = 50;
+            this.lst_total.Click += new System.EventHandler(this.lst_total_Click);
+            this.lst_total.DoubleClick += new System.EventHandler(this.lst_total_DoubleClick);
             // 
             // lst_preco_peca
             // 
@@ -268,6 +276,8 @@
             this.lst_preco_peca.Name = "lst_preco_peca";
             this.lst_preco_peca.Size = new System.Drawing.Size(123, 500);
             this.lst_preco_peca.TabIndex = 49;
+            this.lst_preco_peca.Click += new System.EventHandler(this.lst_preco_peca_Click);
+            this.lst_preco_peca.DoubleClick += new System.EventHandler(this.lst_preco_peca_DoubleClick);
             // 
             // lst_preco_servico
             // 
@@ -279,6 +289,8 @@
             this.lst_preco_servico.Name = "lst_preco_servico";
             this.lst_preco_servico.Size = new System.Drawing.Size(123, 500);
             this.lst_preco_servico.TabIndex = 48;
+            this.lst_preco_servico.Click += new System.EventHandler(this.lst_preco_servico_Click);
+            this.lst_preco_servico.DoubleClick += new System.EventHandler(this.lst_preco_servico_DoubleClick);
             // 
             // txt_pequisa
             // 
@@ -324,6 +336,8 @@
             this.lst_dt.Name = "lst_dt";
             this.lst_dt.Size = new System.Drawing.Size(123, 500);
             this.lst_dt.TabIndex = 44;
+            this.lst_dt.Click += new System.EventHandler(this.lst_dt_Click);
+            this.lst_dt.DoubleClick += new System.EventHandler(this.lst_dt_DoubleClick);
             // 
             // lst_modelo
             // 
@@ -335,6 +349,8 @@
             this.lst_modelo.Name = "lst_modelo";
             this.lst_modelo.Size = new System.Drawing.Size(123, 500);
             this.lst_modelo.TabIndex = 43;
+            this.lst_modelo.Click += new System.EventHandler(this.lst_modelo_Click);
+            this.lst_modelo.DoubleClick += new System.EventHandler(this.lst_modelo_DoubleClick);
             // 
             // lst_marca
             // 
@@ -346,6 +362,8 @@
             this.lst_marca.Name = "lst_marca";
             this.lst_marca.Size = new System.Drawing.Size(123, 500);
             this.lst_marca.TabIndex = 42;
+            this.lst_marca.Click += new System.EventHandler(this.lst_marca_Click);
+            this.lst_marca.DoubleClick += new System.EventHandler(this.lst_marca_DoubleClick);
             // 
             // lst_placa
             // 
@@ -358,6 +376,8 @@
             this.lst_placa.Name = "lst_placa";
             this.lst_placa.Size = new System.Drawing.Size(123, 500);
             this.lst_placa.TabIndex = 41;
+            this.lst_placa.Click += new System.EventHandler(this.lst_placa_Click);
+            this.lst_placa.DoubleClick += new System.EventHandler(this.lst_placa_DoubleClick);
             // 
             // lst_cliente
             // 
@@ -369,6 +389,8 @@
             this.lst_cliente.Name = "lst_cliente";
             this.lst_cliente.Size = new System.Drawing.Size(179, 500);
             this.lst_cliente.TabIndex = 40;
+            this.lst_cliente.SelectedIndexChanged += new System.EventHandler(this.lst_cliente_SelectedIndexChanged);
+            this.lst_cliente.DoubleClick += new System.EventHandler(this.lst_cliente_DoubleClick);
             // 
             // consulta_or
             // 

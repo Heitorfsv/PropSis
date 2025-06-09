@@ -156,5 +156,228 @@ namespace PrototipoSistema
             lst_total.Items.Clear();
             lst_dt.Items.Clear();
         }
+
+        private void lst_cliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lst_marca.SelectedIndex = lst_cliente.SelectedIndex;
+            lst_modelo.SelectedIndex = lst_cliente.SelectedIndex;
+            lst_placa.SelectedIndex = lst_cliente.SelectedIndex;
+            lst_preco_peca.SelectedIndex = lst_cliente.SelectedIndex;
+            lst_preco_servico.SelectedIndex = lst_cliente.SelectedIndex;
+            lst_total.SelectedIndex = lst_cliente.SelectedIndex;
+            lst_dt.SelectedIndex = lst_cliente.SelectedIndex;
+            lst_telefone.SelectedIndex = lst_cliente.SelectedIndex;
+
+        }
+
+        private void bnt_atualizar_Click(object sender, EventArgs e)
+        {
+            consulta_or_Load(sender, e);
+        }
+
+        private void lbl_order_Click(object sender, EventArgs e)
+        {
+            if (order == "DESC")
+            {
+                order = "ASC";
+                lbl_order.Text = "↓";
+                consulta_or_Load(sender, e);
+            }
+            else
+            {
+                order = "DESC";
+                lbl_order.Text = "↑";
+                consulta_or_Load(sender, e);
+            }
+        }
+
+        private void scrollbar_Scroll(object sender, ScrollEventArgs e)
+        {
+            int scrollValue = e.NewValue;
+
+            // Sincronizar todas as listas
+            lst_dt.TopIndex = scrollValue;
+            lst_cliente.TopIndex = scrollValue;
+            lst_telefone.TopIndex = scrollValue;
+            lst_placa.TopIndex = scrollValue;
+            lst_marca.TopIndex = scrollValue;
+            lst_modelo.TopIndex = scrollValue;
+            lst_preco_peca.TopIndex = scrollValue;
+            lst_preco_servico.TopIndex = scrollValue;
+            lst_total.TopIndex = scrollValue;
+        }
+
+        private void lst_dt_Click(object sender, EventArgs e)
+        {
+            lst_cliente.SelectedIndex = lst_dt.SelectedIndex;
+        }
+
+        private void lst_telefone_Click(object sender, EventArgs e)
+        {
+            lst_cliente.SelectedIndex = lst_telefone.SelectedIndex; 
+        }
+
+        private void lst_placa_Click(object sender, EventArgs e)
+        {
+            lst_cliente.SelectedIndex = lst_placa.SelectedIndex;
+        }
+
+        private void lst_marca_Click(object sender, EventArgs e)
+        {
+            lst_cliente.SelectedIndex = lst_marca.SelectedIndex;
+        }
+
+        private void lst_modelo_Click(object sender, EventArgs e)
+        {
+            lst_cliente.SelectedIndex = lst_modelo.SelectedIndex;
+        }
+
+        private void lst_preco_peca_Click(object sender, EventArgs e)
+        {
+            lst_cliente.SelectedIndex = lst_preco_peca.SelectedIndex;
+        }
+
+        private void lst_preco_servico_Click(object sender, EventArgs e)
+        {
+            lst_cliente.SelectedIndex = lst_preco_servico.SelectedIndex;
+        }
+
+        private void lst_total_Click(object sender, EventArgs e)
+        {
+            lst_cliente.SelectedIndex = lst_total.SelectedIndex;
+        }
+
+        private void lst_cliente_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastro_or cadastro_or = new cadastro_or();
+                cadastro_or.Text = "Edição orçamento";
+
+                static_class.controle_os = lista_or[lst_cliente.SelectedIndex];
+
+                cadastro_or.Show();
+            }
+            catch { }
+        }
+
+        private void lst_dt_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastro_or cadastro_or = new cadastro_or();
+                cadastro_or.Text = "Edição orçamento";
+
+                static_class.controle_os = lista_or[lst_cliente.SelectedIndex];
+
+                cadastro_or.Show();
+            }
+            catch { }
+        }
+
+        private void lst_telefone_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastro_or cadastro_or = new cadastro_or();
+                cadastro_or.Text = "Edição orçamento";
+
+                static_class.controle_os = lista_or[lst_cliente.SelectedIndex];
+
+                cadastro_or.Show();
+            }
+            catch { }
+        }
+
+        private void lst_placa_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastro_or cadastro_or = new cadastro_or();
+                cadastro_or.Text = "Edição orçamento";
+
+                static_class.controle_os = lista_or[lst_cliente.SelectedIndex];
+
+                cadastro_or.Show();
+            }
+            catch { }
+        }
+
+        private void lst_marca_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastro_or cadastro_or = new cadastro_or();
+                cadastro_or.Text = "Edição orçamento";
+
+                static_class.controle_os = lista_or[lst_cliente.SelectedIndex];
+
+                cadastro_or.Show();
+            }
+            catch { }
+        }
+
+        private void lst_modelo_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastro_or cadastro_or = new cadastro_or();
+                cadastro_or.Text = "Edição orçamento";
+
+                static_class.controle_os = lista_or[lst_cliente.SelectedIndex];
+
+                cadastro_or.Show();
+            }
+            catch { }
+        }
+
+        private void lst_preco_peca_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastro_or cadastro_or = new cadastro_or();
+                cadastro_or.Text = "Edição orçamento";
+
+                static_class.controle_os = lista_or[lst_cliente.SelectedIndex];
+
+                cadastro_or.Show();
+            }
+            catch { }
+        }
+
+        private void lst_preco_servico_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastro_or cadastro_or = new cadastro_or();
+                cadastro_or.Text = "Edição orçamento";
+
+                static_class.controle_os = lista_or[lst_cliente.SelectedIndex];
+
+                cadastro_or.Show();
+            }
+            catch { }
+        }
+
+        private void lst_total_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                cadastro_or cadastro_or = new cadastro_or();
+                cadastro_or.Text = "Edição orçamento";
+
+                static_class.controle_os = lista_or[lst_cliente.SelectedIndex];
+
+                cadastro_or.Show();
+            }
+            catch { }
+        }
+
+        private void bnt_add_Click(object sender, EventArgs e)
+        {
+            cadastro_or cadastro_or = new cadastro_or();
+            cadastro_or.Text = "Cadastro orçamento";
+            cadastro_or.Show();
+        }
     }
 }
