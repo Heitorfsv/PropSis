@@ -126,6 +126,7 @@
             this.bnt_pesquisar_ps.TabIndex = 63;
             this.bnt_pesquisar_ps.Text = "Pesquisar";
             this.bnt_pesquisar_ps.UseVisualStyleBackColor = true;
+            this.bnt_pesquisar_ps.Click += new System.EventHandler(this.bnt_pesquisar_ps_Click);
             // 
             // txt_ps
             // 
@@ -309,6 +310,7 @@
             this.bnt_pesquisar.TabIndex = 46;
             this.bnt_pesquisar.Text = "Pesquisar";
             this.bnt_pesquisar.UseVisualStyleBackColor = true;
+            this.bnt_pesquisar.Click += new System.EventHandler(this.bnt_pesquisar_Click);
             // 
             // cmb_consulta
             // 
