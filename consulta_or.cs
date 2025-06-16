@@ -214,7 +214,7 @@ namespace PrototipoSistema
 
         private void lst_telefone_Click(object sender, EventArgs e)
         {
-            lst_cliente.SelectedIndex = lst_telefone.SelectedIndex; 
+            lst_cliente.SelectedIndex = lst_telefone.SelectedIndex;
         }
 
         private void lst_placa_Click(object sender, EventArgs e)
@@ -434,16 +434,20 @@ namespace PrototipoSistema
 
                 while (count < lista_or.Count)
                 {
-                    cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{lista_doc[count]}'", conexao);
-
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
+                    try
                     {
-                        lst_telefone.Items.Add(reader.GetString("telefone"));
+                        cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{lista_doc[count]}'", conexao);
+
+                        conexao.Open();
+                        reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            lst_telefone.Items.Add(reader.GetString("telefone"));
+                        }
+                        conexao.Close();
                     }
-                    conexao.Close();
+                    catch { lst_telefone.Items.Add(" "); }
 
                     cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{lista_or[count]}'", conexao);
 
@@ -520,7 +524,7 @@ namespace PrototipoSistema
 
                 while (count < placa.Count)
                 {
-                    cmd = new MySqlCommand($"SELECT * FROM orcamento WHERE placa = '{placa[count]}'", conexao);
+                    cmd = new MySqlCommand($"SELECT * FROM orcamentos WHERE placa = '{placa[count]}'", conexao);
 
                     conexao.Open();
                     reader = cmd.ExecuteReader();
@@ -542,7 +546,7 @@ namespace PrototipoSistema
 
                 while (count < lst_placa.Items.Count)
                 {
-                    cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{lista_doc[count]}'", conexao);
+                    cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{lista_doc[count]}' AND placa = '{lst_placa.Items[count]}'", conexao);
 
                     conexao.Open();
                     reader = cmd.ExecuteReader();
@@ -590,7 +594,10 @@ namespace PrototipoSistema
 
                     while (reader.Read())
                     {
-                        valor += reader.GetDecimal("valor") * reader.GetDecimal("qtd");
+                        string qtd = reader.GetString("qtd");
+                        qtd = qtd.Replace(".", ",");
+
+                        valor += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                     }
                     lst_preco_servico.Items.Add(valor.ToString("N2"));
                     conexao.Close();
@@ -603,7 +610,10 @@ namespace PrototipoSistema
 
                     while (reader.Read())
                     {
-                        valor += reader.GetDecimal("valor") * reader.GetDecimal("qtd");
+                        string qtd = reader.GetString("qtd");
+                        qtd = qtd.Replace(".", ",");
+
+                        valor += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                     }
                     lst_preco_peca.Items.Add(valor.ToString("N2"));
                     conexao.Close();
@@ -615,11 +625,11 @@ namespace PrototipoSistema
 
         private void bnt_pesquisar_ps_Click(object sender, EventArgs e)
         {
-            List<int> consulta_os = new List<int>();
+            List<int> consulta_or = new List<int>();
             List<string> doc_dono = new List<string>();
 
             clear_lists();
-            consulta_os.Clear();
+            consulta_or.Clear();
             doc_dono.Clear();
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
@@ -639,13 +649,13 @@ namespace PrototipoSistema
             while (count < lista_or.Count)
             {
                 lista = lista + lista_or[count] + "\n";
-                var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE os = {lista_or[count]} AND nome LIKE '%{txt_ps.Text}%'", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE orca = {lista_or[count]} AND nome LIKE '%{txt_ps.Text}%'", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
-                { consulta_os.Add(reader.GetInt32("os")); }
+                { consulta_or.Add(reader.GetInt32("os")); }
                 conexao.Close();
 
                 count++;
@@ -654,15 +664,17 @@ namespace PrototipoSistema
             count = 0;
             decimal total_servicos = 0;
             decimal total_pecas = 0;
+            lista_or.Clear();
 
-            while (count < consulta_os.Count)
+            while (count < consulta_or.Count)
             {
-                var cmd = new MySqlCommand($"SELECT * FROM orcamentos WHERE controle = {consulta_os[count]}", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM orcamentos WHERE controle = {consulta_or[count]}", conexao);
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {
+                    lista_or.Add(reader.GetInt32("controle"));
                     lst_cliente.Items.Add(reader.GetString("cliente"));
                     lst_placa.Items.Add(reader.GetString("placa"));
                     lst_dt.Items.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
@@ -671,20 +683,17 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{lista_doc[count]}'", conexao);
+                count++;
+            }
+
+            count = 0;
+
+            while (count < lst_placa.Items.Count)
+            {
+                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{doc_dono[count]}'", conexao);
 
                 conexao.Open();
-                reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    lst_telefone.Items.Add(reader.GetString("telefone"));
-                }
-                conexao.Close();
-
-                cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{doc_dono[count]}'", conexao);
-                conexao.Open();
-                reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -693,41 +702,65 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
 
-                decimal soma_servico = 0;
+                count++;
+            }
 
-                cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = {consulta_os[count]}", conexao);
+            count = 0;
+
+            while (count < consulta_or.Count)
+            {
+                try
+                {
+                    var cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{doc_dono[count]}'", conexao);
+
+                    conexao.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        lst_telefone.Items.Add(reader.GetString("telefone"));
+                    }
+                    conexao.Close();
+                }
+                catch { lst_telefone.Items.Add(" "); }
+
+                count++;
+            }
+
+            count = 0;
+
+            while (count < consulta_or.Count)
+            {
+                var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{lista_or[count]}'", conexao);
+
                 conexao.Open();
-                reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                decimal valor = 0;
 
                 while (reader.Read())
                 {
                     string qtd = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
-                    soma_servico += reader.GetDecimal("valor") * decimal.Parse(qtd);
+                    valor += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                 }
-                total_servicos += soma_servico;
-                lst_preco_servico.Items.Add(soma_servico.ToString("N2"));
-
+                lst_preco_servico.Items.Add(valor.ToString("N2"));
                 conexao.Close();
 
-                decimal soma_peca = 0;
-
-                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{consulta_os[count]}'", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{lista_or[count]}'", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
+                valor = 0;
 
                 while (reader.Read())
                 {
                     string qtd = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
-                    soma_peca += reader.GetDecimal("valor") * decimal.Parse(qtd);
+                    valor += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                 }
-                total_pecas += soma_peca;
-                lst_preco_peca.Items.Add(soma_peca.ToString("N2"));
-
+                lst_preco_peca.Items.Add(valor.ToString("N2"));
                 conexao.Close();
 
                 count++;
@@ -736,6 +769,8 @@ namespace PrototipoSistema
             //txt_total_pecas.Text = total_pecas.ToString("N2");
             //txt_total_servicos.Text = total_servicos.ToString("N2");
             //txt_total.Text = (total_pecas + total_servicos).ToString("N2");
+
+            //nome_vermelho();
         }
     }
 }

@@ -628,7 +628,7 @@ namespace PrototipoSistema
 
                 while (count < lst_placa.Items.Count)
                 {
-                    cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{lista_doc[count]}'", conexao);
+                    cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{lista_doc[count]}' AND placa = '{lst_placa.Items[count]}'", conexao);
 
                     conexao.Open();
                     reader = cmd.ExecuteReader();
