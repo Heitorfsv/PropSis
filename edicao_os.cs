@@ -308,7 +308,6 @@ namespace PrototipoSistema
 
                 decimal servico_total = 0;
                 decimal peca_total = 0;
-                string total = "";
 
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
@@ -322,14 +321,13 @@ namespace PrototipoSistema
                 {
                     lst_servicos.Items.Add(reader.GetString("nome"));
                     lst_servicos_qtd.Items.Add(reader.GetString("qtd"));
-                    total = reader.GetString("valor");
-                    lst_servico_total.Items.Add(total);
+                    lst_servico_total.Items.Add(reader.GetString("valor"));
 
                     string qtd = reader.GetString("qtd");
                     qtd = qtd.Replace(".",",");
 
                     try
-                    { servico_total += (decimal.Parse(total) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
+                    { servico_total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
                     catch (Exception a) { MessageBox.Show(a.ToString()); }
                 }
                 conexao.Close();
@@ -343,14 +341,13 @@ namespace PrototipoSistema
                 {
                     lst_pecas.Items.Add(reader.GetString("nome"));
                     lst_pecas_qtd.Items.Add(reader.GetString("qtd"));
-                    total = reader.GetString("valor");
-                    lst_peca_total.Items.Add(total);
+                    lst_peca_total.Items.Add(reader.GetString("valor"));
 
                     string qtd = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
                     try
-                    { peca_total += (decimal.Parse(total) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
+                    { peca_total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
                     catch { }
                 }
                 conexao.Close();

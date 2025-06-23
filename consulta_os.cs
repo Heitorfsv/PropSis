@@ -48,7 +48,7 @@ namespace PrototipoSistema
 
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
-            count = 0;
+            int count = 0;
 
             while (reader.Read())
             {
@@ -73,7 +73,7 @@ namespace PrototipoSistema
             decimal total_servicos = 0;
             decimal total_pecas = 0;
 
-            while (count <= lst_placa.Items.Count -1)
+            while (count < lst_placa.Items.Count)
             {
                 lst_placa.SelectedIndex = count;
 
@@ -113,7 +113,7 @@ namespace PrototipoSistema
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
 
-                        soma_servico += (reader.GetDecimal("valor") * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
+                        soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                     }
                     catch { }
                 }
@@ -136,7 +136,7 @@ namespace PrototipoSistema
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
 
-                        soma_peca += (reader.GetDecimal("valor") * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); 
+                        soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                     }
                     catch { }
                 }
@@ -482,7 +482,7 @@ namespace PrototipoSistema
                     lista_doc.Add(reader.GetString("doc"));
                     placa.Add(reader.GetString("placa"));
                     lst_placa.Items.Add(placa.Last());
-                    lst_total.Items.Add(reader.GetDecimal("total").ToString());
+                    lst_total.Items.Add(reader.GetString("total").ToString());
                     try
                     { lst_dt_saida.Items.Add(reader.GetString("dt_saida")); }
                     catch { }
@@ -539,7 +539,7 @@ namespace PrototipoSistema
                             string qtd = reader.GetString("qtd");
                             qtd = qtd.Replace(".", ",");
 
-                            soma_servico += reader.GetDecimal("valor") * decimal.Parse(qtd);
+                            soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                         }
                         catch { }
                     }
@@ -561,7 +561,7 @@ namespace PrototipoSistema
                             string qtd = reader.GetString("qtd");
                             qtd = qtd.Replace(".", ",");
 
-                            soma_peca += reader.GetDecimal("valor") * decimal.Parse(qtd);
+                            soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                         }
                         catch { }
                     }
@@ -612,7 +612,7 @@ namespace PrototipoSistema
                         lista_doc.Add(reader.GetString("doc"));
                         lst_cliente.Items.Add(reader.GetString("cliente"));
                         lst_placa.Items.Add(reader.GetString("placa"));
-                        lst_total.Items.Add(reader.GetDecimal("total").ToString());
+                        lst_total.Items.Add(reader.GetString("total").ToString());
                         lst_dt.Items.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
 
                         try
@@ -784,7 +784,7 @@ namespace PrototipoSistema
                     lst_placa.Items.Add(reader.GetString("placa"));
                     lst_dt.Items.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
                     lst_dt_saida.Items.Add(reader.GetString("dt_saida"));
-                    lst_total.Items.Add(reader.GetDecimal("total").ToString());
+                    lst_total.Items.Add(reader.GetString("total").ToString());
                     doc_dono.Add(reader.GetString("doc"));
                 }
                 conexao.Close();

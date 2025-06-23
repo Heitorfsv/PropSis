@@ -35,9 +35,9 @@ namespace PrototipoSistema
                 txt_nome.Text = reader.GetString("nome");
                 txt_marca.Text = reader.GetString("marca");
                 txt_modelo.Text = reader.GetString("modelo");
-                txt_valor.Text = reader.GetDecimal("valor_pago").ToString();
-                txt_impostos.Text = reader.GetDecimal("impostos").ToString();
-                txt_preco.Text = reader.GetDecimal("valor_sugerido").ToString();
+                txt_valor.Text = reader.GetDecimal("valor_pago").ToString("N2");
+                txt_impostos.Text = reader.GetDecimal("impostos").ToString("N2");
+                txt_preco.Text = reader.GetDecimal("valor_sugerido").ToString("N2");
                 txt_fornecedor.Text = reader.GetString("fornecedor");
                 txt_contato.Text = reader.GetString("contato");
                 txt_local.Text = reader.GetString("local");
@@ -48,10 +48,10 @@ namespace PrototipoSistema
 
             if (txt_valor.Text != "" && txt_impostos.Text != "")
             {
-                long valor_pago = long.Parse(txt_valor.Text);
-                long imposto = long.Parse(txt_impostos.Text);
+                decimal valor_pago = decimal.Parse(txt_valor.Text);
+                decimal imposto = decimal.Parse(txt_impostos.Text);
 
-                txt_total.Text = (valor_pago + imposto).ToString();
+                txt_total.Text = (valor_pago + imposto).ToString("N2");
             }
             else
             { txt_total.Text = ""; }

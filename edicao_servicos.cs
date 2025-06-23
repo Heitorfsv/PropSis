@@ -42,7 +42,7 @@ namespace PrototipoSistema
         private void bnt_editar_Click(object sender, EventArgs e)
         {
             servicos.nome = txt_nome.Text;
-            servicos.valor = long.Parse(txt_valor.Text);
+            servicos.valor = decimal.Parse(txt_valor.Text);
 
             try
             {

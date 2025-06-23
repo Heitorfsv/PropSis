@@ -99,7 +99,7 @@ namespace PrototipoSistema
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
 
-                        soma_servico += (reader.GetDecimal("valor") * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
+                        soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                     }
                     catch { }
                 }
@@ -122,7 +122,7 @@ namespace PrototipoSistema
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
 
-                        soma_peca += (reader.GetDecimal("valor") * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
+                        soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                     }
                     catch { }
                 }
@@ -408,7 +408,7 @@ namespace PrototipoSistema
                     lista_doc.Add(reader.GetString("doc"));
                     placa.Add(reader.GetString("placa"));
                     lst_placa.Items.Add(placa.Last());
-                    lst_total.Items.Add(reader.GetDecimal("total").ToString());
+                    lst_total.Items.Add(reader.GetString("total").ToString());
                 }
                 conexao.Close();
                 int count = 0;
@@ -462,7 +462,7 @@ namespace PrototipoSistema
                             string qtd = reader.GetString("qtd");
                             qtd = qtd.Replace(".", ",");
 
-                            soma_servico += reader.GetDecimal("valor") * decimal.Parse(qtd);
+                            soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                         }
                         catch { }
                     }
@@ -484,7 +484,7 @@ namespace PrototipoSistema
                             string qtd = reader.GetString("qtd");
                             qtd = qtd.Replace(".", ",");
 
-                            soma_peca += reader.GetDecimal("valor") * decimal.Parse(qtd);
+                            soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                         }
                         catch { }
                     }
@@ -535,7 +535,7 @@ namespace PrototipoSistema
                         lista_doc.Add(reader.GetString("doc"));
                         lst_cliente.Items.Add(reader.GetString("cliente"));
                         lst_placa.Items.Add(reader.GetString("placa"));
-                        lst_total.Items.Add(reader.GetDecimal("total").ToString());
+                        lst_total.Items.Add(reader.GetString("total").ToString());
                         lst_dt.Items.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
                     }
                     conexao.Close();
@@ -678,7 +678,7 @@ namespace PrototipoSistema
                     lst_cliente.Items.Add(reader.GetString("cliente"));
                     lst_placa.Items.Add(reader.GetString("placa"));
                     lst_dt.Items.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
-                    lst_total.Items.Add(reader.GetDecimal("total").ToString());
+                    lst_total.Items.Add(reader.GetString("total").ToString());
                     doc_dono.Add(reader.GetString("doc"));
                 }
                 conexao.Close();

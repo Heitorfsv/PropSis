@@ -324,6 +324,7 @@
     </Compile>
     <EmbeddedResource Include="add_calendar.resx">
       <DependentUpon>add_calendar.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="add_pecas.resx">
       <DependentUpon>add_pecas.cs</DependentUpon>

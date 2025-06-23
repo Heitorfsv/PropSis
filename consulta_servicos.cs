@@ -34,7 +34,7 @@ namespace PrototipoSistema
              while (reader.Read())
             {
                 lst_nome.Items.Add(reader.GetString("nome"));
-                lst_valor.Items.Add(reader.GetDecimal("valor"));    
+                lst_valor.Items.Add(reader.GetString("valor"));    
 
             }
 
@@ -59,8 +59,7 @@ namespace PrototipoSistema
             while (reader.Read())
             {
                 lst_nome.Items.Add(reader.GetString("nome"));
-                decimal valor = reader.GetDecimal("valor");
-                lst_valor.Items.Add(valor.ToString());
+                lst_valor.Items.Add(reader.GetString("valor"));
             }
 
             conexao.Close();
