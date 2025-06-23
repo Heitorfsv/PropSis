@@ -67,9 +67,9 @@
             this.txt_total_pecas = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txt_total = new System.Windows.Forms.TextBox();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label10 = new System.Windows.Forms.Label();
             this.lst_dt_saida = new System.Windows.Forms.ListBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -458,24 +458,6 @@
             this.txt_total.Size = new System.Drawing.Size(115, 22);
             this.txt_total.TabIndex = 40;
             // 
-            // chart1
-            // 
-            this.chart1.BackColor = System.Drawing.Color.Transparent;
-            this.chart1.BorderlineColor = System.Drawing.Color.SteelBlue;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(149, 638);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(707, 211);
-            this.chart1.TabIndex = 46;
-            this.chart1.Text = "chart1";
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -498,6 +480,24 @@
             this.lst_dt_saida.TabIndex = 33;
             this.lst_dt_saida.Click += new System.EventHandler(this.lst_dt_saida_Click);
             this.lst_dt_saida.DoubleClick += new System.EventHandler(this.lst_dt_saida_DoubleClick);
+            // 
+            // chart1
+            // 
+            this.chart1.BackColor = System.Drawing.Color.Transparent;
+            this.chart1.BorderlineColor = System.Drawing.Color.SteelBlue;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(149, 639);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(682, 211);
+            this.chart1.TabIndex = 46;
+            this.chart1.Text = "chart1";
             // 
             // consulta_os
             // 
@@ -591,8 +591,8 @@
         private System.Windows.Forms.TextBox txt_total_pecas;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txt_total;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox lst_dt_saida;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }

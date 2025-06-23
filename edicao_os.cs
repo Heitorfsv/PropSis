@@ -166,6 +166,7 @@ namespace PrototipoSistema
 
             /////////////////////////////////////////
 
+            // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
             cmd = new MySqlCommand($"SELECT * FROM os WHERE ((aviso_filtro_dt REGEXP '[A-Za-z0-9]' OR aviso_oleo_dt REGEXP '[A-Za-z0-9]') AND placa = '{cmb_placa.Text}') AND controle != {static_class.controle_os} ORDER BY dt_cadastro DESC;", conexao); 
 
             conexao.Open();

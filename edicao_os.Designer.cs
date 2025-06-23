@@ -91,6 +91,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -157,7 +158,7 @@
             this.groupBox6.Controls.Add(this.label21);
             this.groupBox6.Controls.Add(this.txt_total_servico);
             this.groupBox6.Controls.Add(this.lst_servicos);
-            this.groupBox6.Location = new System.Drawing.Point(423, 163);
+            this.groupBox6.Location = new System.Drawing.Point(421, 163);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
@@ -192,7 +193,7 @@
             this.lst_servico_total.Location = new System.Drawing.Point(299, 42);
             this.lst_servico_total.Margin = new System.Windows.Forms.Padding(2);
             this.lst_servico_total.Name = "lst_servico_total";
-            this.lst_servico_total.Size = new System.Drawing.Size(72, 199);
+            this.lst_servico_total.Size = new System.Drawing.Size(76, 199);
             this.lst_servico_total.TabIndex = 22;
             // 
             // lst_servicos_qtd
@@ -206,7 +207,7 @@
             // 
             // bnt_editar_servico
             // 
-            this.bnt_editar_servico.Location = new System.Drawing.Point(306, 274);
+            this.bnt_editar_servico.Location = new System.Drawing.Point(310, 274);
             this.bnt_editar_servico.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar_servico.Name = "bnt_editar_servico";
             this.bnt_editar_servico.Size = new System.Drawing.Size(65, 23);
@@ -288,7 +289,7 @@
             this.lst_peca_total.Location = new System.Drawing.Point(298, 42);
             this.lst_peca_total.Margin = new System.Windows.Forms.Padding(2);
             this.lst_peca_total.Name = "lst_peca_total";
-            this.lst_peca_total.Size = new System.Drawing.Size(72, 199);
+            this.lst_peca_total.Size = new System.Drawing.Size(76, 199);
             this.lst_peca_total.TabIndex = 21;
             // 
             // lst_pecas_qtd
@@ -302,7 +303,7 @@
             // 
             // bnt_editar_peca
             // 
-            this.bnt_editar_peca.Location = new System.Drawing.Point(306, 274);
+            this.bnt_editar_peca.Location = new System.Drawing.Point(309, 274);
             this.bnt_editar_peca.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar_peca.Name = "bnt_editar_peca";
             this.bnt_editar_peca.Size = new System.Drawing.Size(65, 23);
@@ -342,11 +343,11 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.txt_observacao);
-            this.groupBox3.Location = new System.Drawing.Point(532, 43);
+            this.groupBox3.Location = new System.Drawing.Point(532, 42);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(295, 116);
+            this.groupBox3.Size = new System.Drawing.Size(295, 117);
             this.groupBox3.TabIndex = 46;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Observação";
@@ -595,7 +596,7 @@
             // txt_trocaoleo
             // 
             this.txt_trocaoleo.Enabled = false;
-            this.txt_trocaoleo.Location = new System.Drawing.Point(843, 60);
+            this.txt_trocaoleo.Location = new System.Drawing.Point(843, 102);
             this.txt_trocaoleo.Name = "txt_trocaoleo";
             this.txt_trocaoleo.Size = new System.Drawing.Size(100, 20);
             this.txt_trocaoleo.TabIndex = 56;
@@ -603,7 +604,7 @@
             // txt_trocakm
             // 
             this.txt_trocakm.Enabled = false;
-            this.txt_trocakm.Location = new System.Drawing.Point(843, 86);
+            this.txt_trocakm.Location = new System.Drawing.Point(843, 59);
             this.txt_trocakm.Name = "txt_trocakm";
             this.txt_trocakm.Size = new System.Drawing.Size(100, 20);
             this.txt_trocakm.TabIndex = 57;
@@ -707,7 +708,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(949, 89);
+            this.label20.Location = new System.Drawing.Point(949, 62);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(21, 13);
             this.label20.TabIndex = 70;
@@ -733,11 +734,22 @@
             this.label19.TabIndex = 67;
             this.label19.Text = "Filtro trocado?";
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(840, 86);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(56, 13);
+            this.label24.TabIndex = 72;
+            this.label24.Text = "Na data:";
+            // 
             // edicao_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1010, 576);
+            this.Controls.Add(this.label24);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.cb_filtro);
@@ -847,5 +859,6 @@
         private System.Windows.Forms.CheckBox cb_oleo;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label24;
     }
 }

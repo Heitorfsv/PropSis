@@ -190,7 +190,7 @@ namespace PrototipoSistema
 
             while (mes != 12)
             {
-                var cmd = new MySqlCommand($"SELECT * FROM os WHERE MONTH (STR_TO_DATE(dt_cadastro, '%d/%m/%y')) = {mes}{parametro} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') {order}", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM os WHERE MONTH (STR_TO_DATE(dt_cadastro, '%d/%m/%y')) = {mes}{parametro} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') ASC", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -204,6 +204,8 @@ namespace PrototipoSistema
 
                 while (count < os.Count)
                 {
+                    decimal total = 0;
+
                     cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{os[count]}'", conexao);
 
                     conexao.Open();
@@ -213,10 +215,15 @@ namespace PrototipoSistema
                     {
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
-                        // Simulação de dados: Faturamento por mês
-                        servicos.Points.AddXY(data[count], (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")));
+
+                        total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                     }
                     conexao.Close();
+
+                    // Simulação de dados: Faturamento por mês
+                    servicos.Points.AddXY(data[count], total);
+
+                    total = 0;
 
                     cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{os[count]}'", conexao);
 
@@ -227,10 +234,14 @@ namespace PrototipoSistema
                     {
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
-                        // Simulação de dados: Faturamento por mês
-                        pecas.Points.AddXY(data[count], (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")));
+
+                        total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                     }
                     conexao.Close();
+
+                    // Simulação de dados: Faturamento por mês
+                    pecas.Points.AddXY(data[count],total);
+
                     count++;
                 }
 
