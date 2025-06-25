@@ -30,6 +30,7 @@ namespace PrototipoSistema
         static string ApplicationName = "CalendarioApp";
 
         string doc_cliente;
+
         OS os = new OS();
         public edicao_os()
         {
@@ -167,15 +168,28 @@ namespace PrototipoSistema
             /////////////////////////////////////////
 
             // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
-            cmd = new MySqlCommand($"SELECT * FROM os WHERE ((aviso_filtro_dt REGEXP '[A-Za-z0-9]' OR aviso_oleo_dt REGEXP '[A-Za-z0-9]') AND placa = '{cmb_placa.Text}') AND controle != {static_class.controle_os} ORDER BY dt_cadastro DESC;", conexao); 
+            cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle_os} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao); 
 
             conexao.Open();
             reader = cmd.ExecuteReader();
 
             if (reader.Read())
-            { 
-                txt_trocaoleo.Text = reader.GetString("dt_cadastro");
-                txt_trocakm.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
+            {
+                txt_oleo_dt.Text = reader.GetString("dt_cadastro"); 
+                txt_oleo_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
+            }
+            conexao.Close();
+
+            // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
+            cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_filtro_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle_os} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
+
+            conexao.Open();
+            reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                txt_filtro_dt.Text = reader.GetString("dt_cadastro");
+                txt_filtro_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
             }
             conexao.Close();
         }
@@ -246,9 +260,10 @@ namespace PrototipoSistema
                 os.total = txt_total.Text;
                 os.dt_cadastro = dtp_cadastro.Value.ToString();
 
+    
                 if (cb_oleo.Checked) os.aviso_oleo_dt = dtp_troca_oleo.Value.ToString();
                 else os.aviso_oleo_dt = "";
-
+                
                 if (cb_filtro.Checked) os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
                 else os.aviso_filtro_dt = "";
 

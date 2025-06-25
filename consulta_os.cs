@@ -65,6 +65,7 @@ namespace PrototipoSistema
                 { lst_dt_saida.Items.Add(reader.GetString("dt_saida")); }
                 catch
                 { lst_dt_saida.Items.Add(""); }
+
                 count++;
             }
             conexao.Close();
@@ -478,7 +479,7 @@ namespace PrototipoSistema
                 var conexao = new MySqlConnection(strConexao); 
 
 
-                var cmd = new MySqlCommand($"SELECT * FROM os WHERE {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%'", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM os WHERE {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%' ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') {order}", conexao);
                 CarregarGrafico($" AND {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%'");
 
                 conexao.Open();
@@ -597,7 +598,7 @@ namespace PrototipoSistema
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%'", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%' ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') {order}", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -765,7 +766,7 @@ namespace PrototipoSistema
             while (count < lista_os.Count)
             {
                 lista = lista + lista_os[count] + "\n";
-                var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE os = {lista_os[count]} AND nome LIKE '%{txt_ps.Text}%'", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE os = {lista_os[count]} AND nome LIKE '%{txt_ps.Text}%' ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') {order}", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
