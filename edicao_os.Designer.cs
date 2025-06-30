@@ -97,18 +97,21 @@
             this.txt_filtro_km = new System.Windows.Forms.TextBox();
             this.txt_filtro_dt = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gb_troca.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(624, 5);
+            this.label23.Location = new System.Drawing.Point(624, 35);
             this.label23.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(51, 13);
@@ -118,14 +121,14 @@
             // dtp_saida
             // 
             this.dtp_saida.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_saida.Location = new System.Drawing.Point(627, 21);
+            this.dtp_saida.Location = new System.Drawing.Point(627, 51);
             this.dtp_saida.Name = "dtp_saida";
             this.dtp_saida.Size = new System.Drawing.Size(200, 20);
             this.dtp_saida.TabIndex = 52;
             // 
             // bnt_editar
             // 
-            this.bnt_editar.Location = new System.Drawing.Point(832, 524);
+            this.bnt_editar.Location = new System.Drawing.Point(832, 554);
             this.bnt_editar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar.Name = "bnt_editar";
             this.bnt_editar.Size = new System.Drawing.Size(86, 28);
@@ -137,7 +140,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(707, 476);
+            this.label9.Location = new System.Drawing.Point(707, 506);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
@@ -146,7 +149,7 @@
             // 
             // txt_total
             // 
-            this.txt_total.Location = new System.Drawing.Point(710, 491);
+            this.txt_total.Location = new System.Drawing.Point(710, 521);
             this.txt_total.Margin = new System.Windows.Forms.Padding(2);
             this.txt_total.Name = "txt_total";
             this.txt_total.ReadOnly = true;
@@ -163,7 +166,7 @@
             this.groupBox6.Controls.Add(this.label21);
             this.groupBox6.Controls.Add(this.txt_total_servico);
             this.groupBox6.Controls.Add(this.lst_servicos);
-            this.groupBox6.Location = new System.Drawing.Point(421, 163);
+            this.groupBox6.Location = new System.Drawing.Point(421, 193);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
@@ -259,7 +262,7 @@
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.txt_total_pecas);
             this.groupBox4.Controls.Add(this.lst_pecas);
-            this.groupBox4.Location = new System.Drawing.Point(11, 163);
+            this.groupBox4.Location = new System.Drawing.Point(11, 193);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
@@ -320,7 +323,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1, 262);
+            this.label8.Location = new System.Drawing.Point(1, 261);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(46, 13);
@@ -329,7 +332,7 @@
             // 
             // txt_total_pecas
             // 
-            this.txt_total_pecas.Location = new System.Drawing.Point(4, 277);
+            this.txt_total_pecas.Location = new System.Drawing.Point(4, 276);
             this.txt_total_pecas.Margin = new System.Windows.Forms.Padding(2);
             this.txt_total_pecas.Name = "txt_total_pecas";
             this.txt_total_pecas.ReadOnly = true;
@@ -348,7 +351,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.txt_observacao);
-            this.groupBox3.Location = new System.Drawing.Point(532, 42);
+            this.groupBox3.Location = new System.Drawing.Point(532, 72);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
@@ -365,7 +368,7 @@
             this.txt_observacao.MaxLength = 300;
             this.txt_observacao.Multiline = true;
             this.txt_observacao.Name = "txt_observacao";
-            this.txt_observacao.Size = new System.Drawing.Size(289, 97);
+            this.txt_observacao.Size = new System.Drawing.Size(287, 96);
             this.txt_observacao.TabIndex = 0;
             // 
             // groupBox2
@@ -376,7 +379,7 @@
             this.groupBox2.Controls.Add(this.txt_cliente);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txt_telefone);
-            this.groupBox2.Location = new System.Drawing.Point(11, 102);
+            this.groupBox2.Location = new System.Drawing.Point(11, 132);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -454,7 +457,7 @@
             this.groupBox1.Controls.Add(this.txt_marca);
             this.groupBox1.Controls.Add(this.cmb_placa);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(11, 42);
+            this.groupBox1.Location = new System.Drawing.Point(11, 72);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -564,7 +567,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 6);
+            this.label1.Location = new System.Drawing.Point(8, 36);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 13);
@@ -580,7 +583,7 @@
             // bnt_deletar
             // 
             this.bnt_deletar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bnt_deletar.Location = new System.Drawing.Point(832, 491);
+            this.bnt_deletar.Location = new System.Drawing.Point(832, 521);
             this.bnt_deletar.Name = "bnt_deletar";
             this.bnt_deletar.Size = new System.Drawing.Size(86, 28);
             this.bnt_deletar.TabIndex = 54;
@@ -592,7 +595,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(840, 43);
+            this.label15.Location = new System.Drawing.Point(840, 73);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(136, 13);
             this.label15.TabIndex = 55;
@@ -601,7 +604,7 @@
             // txt_oleo_dt
             // 
             this.txt_oleo_dt.Enabled = false;
-            this.txt_oleo_dt.Location = new System.Drawing.Point(843, 102);
+            this.txt_oleo_dt.Location = new System.Drawing.Point(843, 132);
             this.txt_oleo_dt.Name = "txt_oleo_dt";
             this.txt_oleo_dt.Size = new System.Drawing.Size(100, 20);
             this.txt_oleo_dt.TabIndex = 56;
@@ -609,7 +612,7 @@
             // txt_oleo_km
             // 
             this.txt_oleo_km.Enabled = false;
-            this.txt_oleo_km.Location = new System.Drawing.Point(843, 59);
+            this.txt_oleo_km.Location = new System.Drawing.Point(843, 89);
             this.txt_oleo_km.Name = "txt_oleo_km";
             this.txt_oleo_km.Size = new System.Drawing.Size(100, 20);
             this.txt_oleo_km.TabIndex = 57;
@@ -617,7 +620,7 @@
             // cb_pago
             // 
             this.cb_pago.AutoSize = true;
-            this.cb_pago.Location = new System.Drawing.Point(629, 489);
+            this.cb_pago.Location = new System.Drawing.Point(629, 519);
             this.cb_pago.Name = "cb_pago";
             this.cb_pago.Size = new System.Drawing.Size(57, 17);
             this.cb_pago.TabIndex = 58;
@@ -627,7 +630,7 @@
             // cb_saida
             // 
             this.cb_saida.AutoSize = true;
-            this.cb_saida.Location = new System.Drawing.Point(606, 24);
+            this.cb_saida.Location = new System.Drawing.Point(606, 54);
             this.cb_saida.Name = "cb_saida";
             this.cb_saida.Size = new System.Drawing.Size(15, 14);
             this.cb_saida.TabIndex = 59;
@@ -637,7 +640,7 @@
             // dtp_cadastro
             // 
             this.dtp_cadastro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_cadastro.Location = new System.Drawing.Point(11, 22);
+            this.dtp_cadastro.Location = new System.Drawing.Point(11, 52);
             this.dtp_cadastro.Name = "dtp_cadastro";
             this.dtp_cadastro.Size = new System.Drawing.Size(200, 20);
             this.dtp_cadastro.TabIndex = 60;
@@ -684,7 +687,7 @@
             this.gb_troca.Controls.Add(this.dtp_troca_filtro);
             this.gb_troca.Controls.Add(this.label16);
             this.gb_troca.Controls.Add(this.dtp_troca_oleo);
-            this.gb_troca.Location = new System.Drawing.Point(841, 214);
+            this.gb_troca.Location = new System.Drawing.Point(843, 242);
             this.gb_troca.Name = "gb_troca";
             this.gb_troca.Size = new System.Drawing.Size(165, 111);
             this.gb_troca.TabIndex = 70;
@@ -693,7 +696,7 @@
             // cb_filtro
             // 
             this.cb_filtro.AutoSize = true;
-            this.cb_filtro.Location = new System.Drawing.Point(843, 192);
+            this.cb_filtro.Location = new System.Drawing.Point(843, 222);
             this.cb_filtro.Name = "cb_filtro";
             this.cb_filtro.Size = new System.Drawing.Size(15, 14);
             this.cb_filtro.TabIndex = 71;
@@ -703,7 +706,7 @@
             // cb_oleo
             // 
             this.cb_oleo.AutoSize = true;
-            this.cb_oleo.Location = new System.Drawing.Point(843, 172);
+            this.cb_oleo.Location = new System.Drawing.Point(843, 202);
             this.cb_oleo.Name = "cb_oleo";
             this.cb_oleo.Size = new System.Drawing.Size(15, 14);
             this.cb_oleo.TabIndex = 70;
@@ -713,7 +716,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(949, 62);
+            this.label20.Location = new System.Drawing.Point(949, 92);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(21, 13);
             this.label20.TabIndex = 70;
@@ -723,7 +726,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(866, 172);
+            this.label18.Location = new System.Drawing.Point(864, 203);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(87, 13);
             this.label18.TabIndex = 67;
@@ -733,7 +736,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(864, 190);
+            this.label19.Location = new System.Drawing.Point(864, 223);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(89, 13);
             this.label19.TabIndex = 67;
@@ -743,7 +746,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(840, 86);
+            this.label24.Location = new System.Drawing.Point(840, 116);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(56, 13);
             this.label24.TabIndex = 72;
@@ -753,7 +756,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(1002, 86);
+            this.label25.Location = new System.Drawing.Point(1002, 116);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(56, 13);
             this.label25.TabIndex = 77;
@@ -762,7 +765,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(1111, 62);
+            this.label26.Location = new System.Drawing.Point(1111, 92);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(21, 13);
             this.label26.TabIndex = 76;
@@ -771,7 +774,7 @@
             // txt_filtro_km
             // 
             this.txt_filtro_km.Enabled = false;
-            this.txt_filtro_km.Location = new System.Drawing.Point(1005, 59);
+            this.txt_filtro_km.Location = new System.Drawing.Point(1005, 89);
             this.txt_filtro_km.Name = "txt_filtro_km";
             this.txt_filtro_km.Size = new System.Drawing.Size(100, 20);
             this.txt_filtro_km.TabIndex = 75;
@@ -779,7 +782,7 @@
             // txt_filtro_dt
             // 
             this.txt_filtro_dt.Enabled = false;
-            this.txt_filtro_dt.Location = new System.Drawing.Point(1005, 102);
+            this.txt_filtro_dt.Location = new System.Drawing.Point(1005, 132);
             this.txt_filtro_dt.Name = "txt_filtro_dt";
             this.txt_filtro_dt.Size = new System.Drawing.Size(100, 20);
             this.txt_filtro_dt.TabIndex = 74;
@@ -788,17 +791,34 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(1002, 43);
+            this.label27.Location = new System.Drawing.Point(1002, 73);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(137, 13);
             this.label27.TabIndex = 73;
             this.label27.Text = "Última troca de filtro a:";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imprimirToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1158, 24);
+            this.menuStrip1.TabIndex = 78;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // imprimirToolStripMenuItem
+            // 
+            this.imprimirToolStripMenuItem.Name = "imprimirToolStripMenuItem";
+            this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.imprimirToolStripMenuItem.Text = "Imprimir";
+            this.imprimirToolStripMenuItem.Click += new System.EventHandler(this.imprimirToolStripMenuItem_Click);
+            // 
             // edicao_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1167, 576);
+            this.ClientSize = new System.Drawing.Size(1158, 584);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.txt_filtro_km);
@@ -829,6 +849,8 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "edicao_os";
             this.Text = "Edição OS";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -845,6 +867,8 @@
             this.groupBox1.PerformLayout();
             this.gb_troca.ResumeLayout(false);
             this.gb_troca.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -920,5 +944,7 @@
         private System.Windows.Forms.TextBox txt_filtro_km;
         private System.Windows.Forms.TextBox txt_filtro_dt;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
     }
 }

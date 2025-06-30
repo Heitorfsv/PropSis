@@ -217,5 +217,9 @@ namespace PrototipoSistema
             consulta_or.MdiParent = this;
             consulta_or.Show();
         }
+
+        private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

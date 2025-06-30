@@ -21,6 +21,11 @@ using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Globalization;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+
 
 namespace PrototipoSistema
 {
@@ -467,6 +472,78 @@ namespace PrototipoSistema
 
                 this.Close();
             }
+        }
+
+
+        public void gerarPDF()
+        {
+            SaveFileDialog salvar = new SaveFileDialog
+            {
+                Filter = "PDF files (*.pdf)|*.pdf",
+                FileName = $"OS_{static_class.controle_os}.pdf"
+            };
+
+            if (salvar.ShowDialog() != DialogResult.OK)
+                return;
+
+            using (var writer = new PdfWriter(salvar.FileName))
+            using (var pdf = new PdfDocument(writer))
+            using (var document = new iText.Layout.Document(pdf))
+            {
+                // Cabeçalho
+                document.Add(new Paragraph($"Ordem de Serviço - {cmb_placa.Text}").SetFontSize(18).SimulateBold().SetTextAlignment(TextAlignment.CENTER));
+                document.Add(new Paragraph($"Cliente: {txt_cliente.Text} \nDocumento: {doc_cliente} \nTelefone: {txt_telefone.Text}"));
+                document.Add(new Paragraph($"Veículo: {txt_marca.Text} {txt_modelo.Text} {txt_ano.Text} - KM: {txt_km.Text}"));
+                document.Add(new Paragraph($"Data Cadastro: {dtp_cadastro.Value:dd/MM/yyyy} - Saída: {dtp_saida.Value:dd/MM/yyyy}"));
+                document.Add(new Paragraph($"Observações: {txt_observacao.Text}"));
+
+                // Tabela de Peças
+                document.Add(new Paragraph("\nPeças").SetFontSize(14).SimulateBold());
+                Table tablePecas = new Table(3).UseAllAvailableWidth();
+                tablePecas.AddHeaderCell("Nome");
+                tablePecas.AddHeaderCell("Qtd");
+                tablePecas.AddHeaderCell("Valor");
+
+                for (int i = 0; i < lst_pecas.Items.Count; i++)
+                {
+                    tablePecas.AddCell(lst_pecas.Items[i].ToString());
+                    tablePecas.AddCell(lst_pecas_qtd.Items[i].ToString());
+                    tablePecas.AddCell(lst_peca_total.Items[i].ToString());
+                }
+                document.Add(tablePecas);
+
+                document.Add(new Paragraph($"\nTotal Peças: R$ {txt_total_pecas.Text}")
+                    .SimulateBold().SetTextAlignment(TextAlignment.RIGHT));
+
+                // Tabela de Serviços
+                document.Add(new Paragraph("\nServiços").SetFontSize(14).SimulateBold());
+                Table tableServicos = new Table(3).UseAllAvailableWidth();
+                tableServicos.AddHeaderCell("Nome");
+                tableServicos.AddHeaderCell("Qtd");
+                tableServicos.AddHeaderCell("Valor");
+
+                for (int i = 0; i < lst_servicos.Items.Count; i++)
+                {
+                    tableServicos.AddCell(lst_servicos.Items[i].ToString());
+                    tableServicos.AddCell(lst_servicos_qtd.Items[i].ToString());
+                    tableServicos.AddCell(lst_servico_total.Items[i].ToString());
+                }
+                document.Add(tableServicos);
+
+                document.Add(new Paragraph($"\nTotal Serviços: R$ {txt_total_servico.Text}")
+                    .SimulateBold().SetTextAlignment(TextAlignment.RIGHT));
+
+                // Totais
+                document.Add(new Paragraph($"\nTotal Geral: R$ {txt_total.Text}")
+                    .SimulateBold().SetTextAlignment(TextAlignment.RIGHT));
+            }
+
+            MessageBox.Show("PDF gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void imprimirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gerarPDF();
         }
     }
 }

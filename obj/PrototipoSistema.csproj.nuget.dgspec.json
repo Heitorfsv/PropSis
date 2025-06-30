@@ -88,10 +88,6 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
-            "QuestPDF": {
-              "target": "Package",
-              "version": "[2025.5.1, )"
-            },
             "Refit": {
               "target": "Package",
               "version": "[7.0.0, )"
@@ -131,6 +127,14 @@
             "ZstdSharp.Port": {
               "target": "Package",
               "version": "[0.7.5, )"
+            },
+            "itext": {
+              "target": "Package",
+              "version": "[9.2.0, )"
+            },
+            "itext7.bouncy-castle-adapter": {
+              "target": "Package",
+              "version": "[9.2.0, )"
             }
           }
         }

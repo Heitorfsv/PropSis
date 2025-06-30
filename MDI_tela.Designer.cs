@@ -60,12 +60,12 @@
             this.consultaFichasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultaServiçosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultarMotoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultarOrçamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aniversáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calendarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trocaDeOleoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.consultarOrçamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,12 +131,12 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(193, 6);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(193, 6);
             // 
             // printToolStripMenuItem
             // 
@@ -144,7 +144,7 @@
             this.printToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(196, 30);
             this.printToolStripMenuItem.Text = "Im&primir";
             // 
             // printPreviewToolStripMenuItem
@@ -152,24 +152,25 @@
             this.printPreviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("printPreviewToolStripMenuItem.Image")));
             this.printPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(196, 30);
             this.printPreviewToolStripMenuItem.Text = "&Vizualizar impressão";
+            this.printPreviewToolStripMenuItem.Click += new System.EventHandler(this.printPreviewToolStripMenuItem_Click);
             // 
             // printSetupToolStripMenuItem
             // 
             this.printSetupToolStripMenuItem.Name = "printSetupToolStripMenuItem";
-            this.printSetupToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.printSetupToolStripMenuItem.Size = new System.Drawing.Size(196, 30);
             this.printSetupToolStripMenuItem.Text = "Configurar Impressão";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(193, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(196, 30);
             this.exitToolStripMenuItem.Text = "Sai&r";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
             // 
@@ -210,7 +211,7 @@
             this.cadastrarMotoToolStripMenuItem,
             this.cadastroOrçamentoToolStripMenuItem});
             this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
-            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.newWindowToolStripMenuItem.Text = "Cadastro";
             // 
             // cadastroClienteToolStripMenuItem
@@ -265,7 +266,7 @@
             this.consultarMotoToolStripMenuItem,
             this.consultarOrçamentosToolStripMenuItem});
             this.consultaToolStripMenuItem.Name = "consultaToolStripMenuItem";
-            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.consultaToolStripMenuItem.Text = "Consulta";
             // 
             // consultaDeClienteToolStripMenuItem
@@ -303,24 +304,31 @@
             this.consultarMotoToolStripMenuItem.Text = "Consultar moto";
             this.consultarMotoToolStripMenuItem.Click += new System.EventHandler(this.consultarMotoToolStripMenuItem_Click);
             // 
+            // consultarOrçamentosToolStripMenuItem
+            // 
+            this.consultarOrçamentosToolStripMenuItem.Name = "consultarOrçamentosToolStripMenuItem";
+            this.consultarOrçamentosToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.consultarOrçamentosToolStripMenuItem.Text = "Consultar orçamentos";
+            this.consultarOrçamentosToolStripMenuItem.Click += new System.EventHandler(this.consultarOrçamentosToolStripMenuItem_Click);
+            // 
             // aniversáriosToolStripMenuItem
             // 
             this.aniversáriosToolStripMenuItem.Name = "aniversáriosToolStripMenuItem";
-            this.aniversáriosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aniversáriosToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.aniversáriosToolStripMenuItem.Text = "Aniversários";
             this.aniversáriosToolStripMenuItem.Click += new System.EventHandler(this.aniversáriosToolStripMenuItem_Click);
             // 
             // calendarioToolStripMenuItem
             // 
             this.calendarioToolStripMenuItem.Name = "calendarioToolStripMenuItem";
-            this.calendarioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.calendarioToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.calendarioToolStripMenuItem.Text = "Calendário ";
             this.calendarioToolStripMenuItem.Click += new System.EventHandler(this.calendarioToolStripMenuItem_Click);
             // 
             // trocaDeOleoToolStripMenuItem
             // 
             this.trocaDeOleoToolStripMenuItem.Name = "trocaDeOleoToolStripMenuItem";
-            this.trocaDeOleoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.trocaDeOleoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.trocaDeOleoToolStripMenuItem.Text = "Troca de oleo";
             this.trocaDeOleoToolStripMenuItem.Click += new System.EventHandler(this.trocaDeOleoToolStripMenuItem_Click);
             // 
@@ -345,13 +353,6 @@
             this.menuStrip.Size = new System.Drawing.Size(1149, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
-            // 
-            // consultarOrçamentosToolStripMenuItem
-            // 
-            this.consultarOrçamentosToolStripMenuItem.Name = "consultarOrçamentosToolStripMenuItem";
-            this.consultarOrçamentosToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.consultarOrçamentosToolStripMenuItem.Text = "Consultar orçamentos";
-            this.consultarOrçamentosToolStripMenuItem.Click += new System.EventHandler(this.consultarOrçamentosToolStripMenuItem_Click);
             // 
             // MDI_tela
             // 
