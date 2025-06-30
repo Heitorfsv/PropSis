@@ -25,6 +25,9 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
+using System.Diagnostics;
 
 
 namespace PrototipoSistema
@@ -474,76 +477,129 @@ namespace PrototipoSistema
             }
         }
 
-
-        public void gerarPDF()
-        {
-            SaveFileDialog salvar = new SaveFileDialog
-            {
-                Filter = "PDF files (*.pdf)|*.pdf",
-                FileName = $"OS_{static_class.controle_os}.pdf"
-            };
-
-            if (salvar.ShowDialog() != DialogResult.OK)
-                return;
-
-            using (var writer = new PdfWriter(salvar.FileName))
-            using (var pdf = new PdfDocument(writer))
-            using (var document = new iText.Layout.Document(pdf))
-            {
-                // Cabeçalho
-                document.Add(new Paragraph($"Ordem de Serviço - {cmb_placa.Text}").SetFontSize(18).SimulateBold().SetTextAlignment(TextAlignment.CENTER));
-                document.Add(new Paragraph($"Cliente: {txt_cliente.Text} \nDocumento: {doc_cliente} \nTelefone: {txt_telefone.Text}"));
-                document.Add(new Paragraph($"Veículo: {txt_marca.Text} {txt_modelo.Text} {txt_ano.Text} - KM: {txt_km.Text}"));
-                document.Add(new Paragraph($"Data Cadastro: {dtp_cadastro.Value:dd/MM/yyyy} - Saída: {dtp_saida.Value:dd/MM/yyyy}"));
-                document.Add(new Paragraph($"Observações: {txt_observacao.Text}"));
-
-                // Tabela de Peças
-                document.Add(new Paragraph("\nPeças").SetFontSize(14).SimulateBold());
-                Table tablePecas = new Table(3).UseAllAvailableWidth();
-                tablePecas.AddHeaderCell("Nome");
-                tablePecas.AddHeaderCell("Qtd");
-                tablePecas.AddHeaderCell("Valor");
-
-                for (int i = 0; i < lst_pecas.Items.Count; i++)
-                {
-                    tablePecas.AddCell(lst_pecas.Items[i].ToString());
-                    tablePecas.AddCell(lst_pecas_qtd.Items[i].ToString());
-                    tablePecas.AddCell(lst_peca_total.Items[i].ToString());
-                }
-                document.Add(tablePecas);
-
-                document.Add(new Paragraph($"\nTotal Peças: R$ {txt_total_pecas.Text}")
-                    .SimulateBold().SetTextAlignment(TextAlignment.RIGHT));
-
-                // Tabela de Serviços
-                document.Add(new Paragraph("\nServiços").SetFontSize(14).SimulateBold());
-                Table tableServicos = new Table(3).UseAllAvailableWidth();
-                tableServicos.AddHeaderCell("Nome");
-                tableServicos.AddHeaderCell("Qtd");
-                tableServicos.AddHeaderCell("Valor");
-
-                for (int i = 0; i < lst_servicos.Items.Count; i++)
-                {
-                    tableServicos.AddCell(lst_servicos.Items[i].ToString());
-                    tableServicos.AddCell(lst_servicos_qtd.Items[i].ToString());
-                    tableServicos.AddCell(lst_servico_total.Items[i].ToString());
-                }
-                document.Add(tableServicos);
-
-                document.Add(new Paragraph($"\nTotal Serviços: R$ {txt_total_servico.Text}")
-                    .SimulateBold().SetTextAlignment(TextAlignment.RIGHT));
-
-                // Totais
-                document.Add(new Paragraph($"\nTotal Geral: R$ {txt_total.Text}")
-                    .SimulateBold().SetTextAlignment(TextAlignment.RIGHT));
-            }
-
-            MessageBox.Show("PDF gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void imprimirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            gerarPDF();
+
+        }
+
+        private void visualizarImpressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            var doc = new osPdf
+            {
+                Cliente = txt_cliente.Text,
+                Documento = doc_cliente,
+                Telefone = txt_telefone.Text,
+                Placa = cmb_placa.Text,
+                Marca = txt_marca.Text,
+                Modelo = txt_modelo.Text,
+                Ano = txt_ano.Text,
+                Km = txt_km.Text,
+                Observacao = txt_observacao.Text,
+                DtCadastro = dtp_cadastro.Value,
+                DtSaida = dtp_saida.Value,
+                Pago = cb_pago.Checked,
+                Total = decimal.Parse(txt_total.Text),
+                TotalPecas = decimal.Parse(txt_total_pecas.Text),
+                TotalServicos = decimal.Parse(txt_total_servico.Text),
+                Pecas = new List<(string, string, string)>(),
+                Servicos = new List<(string, string, string)>()
+            };
+
+            for (int i = 0; i < lst_pecas.Items.Count; i++)
+            {
+                doc.Pecas.Add((
+                    lst_pecas.Items[i].ToString(),
+                    lst_pecas_qtd.Items[i].ToString(),
+                    lst_peca_total.Items[i].ToString()
+                ));
+            }
+
+            for (int i = 0; i < lst_servicos.Items.Count; i++)
+            {
+                doc.Servicos.Add((
+                    lst_servicos.Items[i].ToString(),
+                    lst_servicos_qtd.Items[i].ToString(),
+                    lst_servico_total.Items[i].ToString()
+                ));
+            }
+
+           // Gerar arquivo temporário
+            string tempPath = Path.Combine(Path.GetTempPath(), $"preview_{Guid.NewGuid()}.pdf");
+
+            // Gerar PDF e salvar no arquivo temporário
+            doc.GeneratePdf(tempPath);
+
+            // Abrir no visualizador padrão do Windows
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = tempPath,
+                UseShellExecute = true
+            });
+        }
+
+        private void imprimirToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            var doc = new osPdf
+            {
+                Cliente = txt_cliente.Text,
+                Documento = doc_cliente,
+                Telefone = txt_telefone.Text,
+                Placa = cmb_placa.Text,
+                Marca = txt_marca.Text,
+                Modelo = txt_modelo.Text,
+                Ano = txt_ano.Text,
+                Km = txt_km.Text,
+                Observacao = txt_observacao.Text,
+                DtCadastro = dtp_cadastro.Value,
+                DtSaida = dtp_saida.Value,
+                Pago = cb_pago.Checked,
+                Total = decimal.Parse(txt_total.Text),
+                TotalPecas = decimal.Parse(txt_total_pecas.Text),
+                TotalServicos = decimal.Parse(txt_total_servico.Text),
+                Pecas = new List<(string, string, string)>(),
+                Servicos = new List<(string, string, string)>()
+            };
+
+            for (int i = 0; i < lst_pecas.Items.Count; i++)
+            {
+                doc.Pecas.Add((
+                    lst_pecas.Items[i].ToString(),
+                    lst_pecas_qtd.Items[i].ToString(),
+                    lst_peca_total.Items[i].ToString()
+                ));
+            }
+
+            for (int i = 0; i < lst_servicos.Items.Count; i++)
+            {
+                doc.Servicos.Add((
+                    lst_servicos.Items[i].ToString(),
+                    lst_servicos_qtd.Items[i].ToString(),
+                    lst_servico_total.Items[i].ToString()
+                ));
+            }
+
+            using (var salvar = new SaveFileDialog())
+            {
+                salvar.Filter = "PDF files (*.pdf)|*.pdf";
+                salvar.FileName = $"OS_{static_class.controle_os}.pdf";
+
+                if (salvar.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        doc.GeneratePdf(salvar.FileName);
+                        MessageBox.Show("PDF gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

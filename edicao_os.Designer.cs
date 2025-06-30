@@ -99,6 +99,8 @@
             this.label27 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visualizarImpressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imprimirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -809,10 +811,27 @@
             // 
             // imprimirToolStripMenuItem
             // 
+            this.imprimirToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.visualizarImpressToolStripMenuItem,
+            this.imprimirToolStripMenuItem1});
             this.imprimirToolStripMenuItem.Name = "imprimirToolStripMenuItem";
-            this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.imprimirToolStripMenuItem.Text = "Imprimir";
+            this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.imprimirToolStripMenuItem.Text = "Impressão";
             this.imprimirToolStripMenuItem.Click += new System.EventHandler(this.imprimirToolStripMenuItem_Click);
+            // 
+            // visualizarImpressToolStripMenuItem
+            // 
+            this.visualizarImpressToolStripMenuItem.Name = "visualizarImpressToolStripMenuItem";
+            this.visualizarImpressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.visualizarImpressToolStripMenuItem.Text = "Visualizar impressão";
+            this.visualizarImpressToolStripMenuItem.Click += new System.EventHandler(this.visualizarImpressToolStripMenuItem_Click);
+            // 
+            // imprimirToolStripMenuItem1
+            // 
+            this.imprimirToolStripMenuItem1.Name = "imprimirToolStripMenuItem1";
+            this.imprimirToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.imprimirToolStripMenuItem1.Text = "Imprimir";
+            this.imprimirToolStripMenuItem1.Click += new System.EventHandler(this.imprimirToolStripMenuItem1_Click);
             // 
             // edicao_os
             // 
@@ -946,5 +965,7 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem visualizarImpressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem1;
     }
 }

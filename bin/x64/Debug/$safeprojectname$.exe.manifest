@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="$safeprojectname$.exe" size="276960">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="$safeprojectname$.exe" size="284640">
       <assemblyIdentity name="$safeprojectname$" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jL2cJ0W4MyKONVGmKQBGrC7CqmQyHseHPkvsi0kW17Q=</dsig:DigestValue>
+        <dsig:DigestValue>kiqjPAGj++axn2GBRu1UDcdBkNGpCcqMllQfQvgSa6o=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -486,6 +486,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="QuestPDF.dll" size="419328">
+      <assemblyIdentity name="QuestPDF" version="2025.5.1.0" publicKeyToken="0F3C2B2315FF52C8" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>TYADS06J5i4QvpNrJk04PiJmjd2FAwhrPirsmNr20u8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Refit.dll" size="137744">
       <assemblyIdentity name="Refit" version="7.0.0.0" publicKeyToken="2F9B1262776509F5" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -665,13 +677,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="$safeprojectname$.exe.config" size="3068">
+  <file name="$safeprojectname$.exe.config" size="3403">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>EKC8jrY1N6fv05xVsEU5zN8NxGW95jf/xi+uRTJuBaw=</dsig:DigestValue>
+      <dsig:DigestValue>FffDEUPWb6jRMgJBVy5AoaeQSqISavEmglhXweFHviE=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
