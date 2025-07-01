@@ -1,4 +1,5 @@
-﻿using QuestPDF.Fluent;
+﻿using PrototipoSistema;
+using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System;
@@ -36,17 +37,137 @@ public class osPdf : IDocument
             page.Size(PageSizes.A4);
             page.PageColor(Colors.White);
 
-            page.Header().Text("Ordem de Serviço").FontSize(20).Bold().AlignCenter();
+            page.Header().Column(header =>
+            {
+                header.Item().Row(row =>
+                {
+                    // Esquerda - Dados da empresa
+                    row.RelativeColumn().Column(col =>
+                    {
+                        col.Item().Text("JC MOTORSPORT").Bold().FontSize(14).AlignLeft();
+                        col.Item().Text("End.: AV. LUIZ GONZAGA MARTINS GUIMARÃES, 164 - JD. CAMPOS ELÍSEOS").FontSize(9);
+                        col.Item().Text("JUNDIAÍ - SP | CEP: 13209770 | CNPJ: 08.481.0150001-20").FontSize(9);
+                        col.Item().Text("Fone: (11) 2709-5420 | Email: JCMOTORS2020@GMAIL.COM").FontSize(9);
+                    });
+
+                    // Direita - Dados da O.S.
+                    row.ConstantColumn(110).Column(col =>
+                    {
+                        col.Item().Row(r =>
+                        {
+                            r.RelativeColumn().Text("O.S.:").SemiBold().FontSize(9);
+                            r.ConstantColumn(60).Text(static_class.controle_os).Bold().FontSize(9);
+                        });
+                        col.Item().Row(r =>
+                        {
+                            r.RelativeColumn().Text("Data:").SemiBold().FontSize(9);
+                            r.ConstantColumn(60).Text(DateTime.Now.ToString("dd/MM/yyyy")).FontSize(9);
+                        });
+                        col.Item().Row(r =>
+                        {
+                            r.RelativeColumn().Text("Hora:").SemiBold().FontSize(9);
+                            r.ConstantColumn(60).Text(DateTime.Now.ToString("hh:mm")).FontSize(9);
+                        });
+                        col.Item().Row(r =>
+                        {
+                            r.RelativeColumn().Text("Pág.:").SemiBold().FontSize(9);
+                            r.ConstantColumn(60).Text("1").FontSize(9);
+                        });
+                    });
+                });
+            });
+
 
             page.Content().Column(col =>
             {
                 col.Spacing(10);
 
-                col.Item().Text($"Cliente: {Cliente} | Documento: {Documento} | Telefone: {Telefone}");
-                col.Item().Text($"Veículo: {Marca} {Modelo} {Ano} | KM: {Km}");
-                col.Item().Text($"Placa: {Placa}").Bold();
-                col.Item().Text($"Data Cadastro: {DtCadastro:dd/MM/yyyy} | Saída: {DtSaida:dd/MM/yyyy}");
-                col.Item().Text($"Observações: {Observacao}");
+                // Dados do Cliente e Veículo
+                col.Item().PaddingTop(10).Row(row =>
+                {
+                    // Coluna Esquerda - Cliente
+                    row.RelativeColumn().Column(c =>
+                    {
+                        c.Item().Text("Dados do Cliente:").Bold();
+                        c.Item().Text(txt =>
+                        {
+                            txt.Span("Nome: ").Italic().FontSize(9);
+                            txt.Span(Cliente).NormalWeight().FontSize(9);
+                        });
+                        c.Item().Text(txt =>
+                        {
+                            txt.Span("Endereço: ").Italic().FontSize(9);
+                            txt.Span("RUA WALDEMAR GUIDO DA COSTA, 162").NormalWeight().FontSize(9); // Substituir se desejar
+                        });
+                        c.Item().Text(txt =>
+                        {
+                            txt.Span("Cidade: ").Italic().FontSize(9);
+                            txt.Span("JUNDIAÍ").NormalWeight().FontSize(9); // Substituir se desejar
+                        });
+                    });
+
+                    // Coluna Direita - UF e CEP
+                    row.ConstantColumn(280).Column(c =>
+                    {
+                        c.Item().Text("");
+                        c.Item().Text(txt =>
+                        {
+                            txt.Span("Bairro: ").Italic().FontSize(9);
+                            txt.Span("13214-082").NormalWeight().FontSize(9); // Substituir se desejar
+                        });
+                        c.Item().Text(txt =>
+                        {
+                            txt.Span("UF: ").Italic().FontSize(9);
+                            txt.Span("SP").NormalWeight().FontSize(9); // Substituir se desejar
+                        });
+                        c.Item().Text(txt =>
+                        {
+                            txt.Span("CEP: ").Italic().FontSize(9);
+                            txt.Span("13214-082").NormalWeight().FontSize(9); // Substituir se desejar
+                        });
+                    });
+                });
+
+                col.Item().PaddingTop(10).Row(row =>
+                {
+                    row.RelativeColumn().Text(txt =>
+                    {
+                        txt.Span("Dados do Veículo:").Bold();
+                    });
+                });
+
+                col.Item().Row(row =>
+                {
+                    row.RelativeColumn().Text(txt =>
+                    {
+                        txt.Span("Placa: ").Italic().FontSize(10);
+                        txt.Span(Placa).NormalWeight().FontSize(10);
+                        txt.Span("   Modelo: ").Italic().FontSize(10);
+                        txt.Span(Modelo).NormalWeight().FontSize(10);
+                        txt.Span("   Fabric.: ").Italic().FontSize(10);
+                        txt.Span(Marca).NormalWeight().FontSize(10);
+                        txt.Span("   Ano/Mod: ").Italic().FontSize(10);
+                        txt.Span(Ano).NormalWeight().FontSize(10);
+                        txt.Span("   Chassi: ").Italic().FontSize(10);
+                    });
+                });
+
+                col.Item().Row(row =>
+                {
+                    row.RelativeColumn().Text(txt =>
+                    {
+                        txt.Span("Cor: ").Italic().FontSize(10);
+                        txt.Span("VERMELHA").NormalWeight().FontSize(10); // Substituir se desejar
+                        txt.Span("   KM: ").Italic().FontSize(10);
+                        txt.Span(Km).NormalWeight().FontSize(10);
+                        txt.Span("   Dt. Ent: ").Italic().FontSize(10);
+                        txt.Span(DtCadastro.ToString("dd/MM/yyyy")).NormalWeight().FontSize(10);
+                        txt.Span("   Dt. Saída: ").Italic().FontSize(10);
+                        txt.Span(DtSaida.ToString("dd/MM/yyyy")).NormalWeight().FontSize(10);
+                    });
+                });
+
+                col.Item().PaddingTop(10).Text("Peças e Serviços").Bold().FontSize(14).AlignCenter();
 
                 // Peças
                 col.Item().PaddingTop(10).Text("Peças").Bold().FontSize(12);

@@ -511,7 +511,7 @@ namespace PrototipoSistema
             {
                 doc.Pecas.Add((
                     lst_pecas.Items[i].ToString(),
-                    lst_pecas_qtd.Items[i].ToString(),
+                    lst_pecas_qtd.Items[i].ToString().Replace(".", ","),
                     lst_peca_total.Items[i].ToString()
                 ));
             }
@@ -520,7 +520,7 @@ namespace PrototipoSistema
             {
                 doc.Servicos.Add((
                     lst_servicos.Items[i].ToString(),
-                    lst_servicos_qtd.Items[i].ToString(),
+                    lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
                     lst_servico_total.Items[i].ToString()
                 ));
             }
@@ -568,7 +568,7 @@ namespace PrototipoSistema
             {
                 doc.Pecas.Add((
                     lst_pecas.Items[i].ToString(),
-                    lst_pecas_qtd.Items[i].ToString(),
+                    lst_pecas_qtd.Items[i].ToString().Replace(".",","),
                     lst_peca_total.Items[i].ToString()
                 ));
             }
@@ -577,7 +577,7 @@ namespace PrototipoSistema
             {
                 doc.Servicos.Add((
                     lst_servicos.Items[i].ToString(),
-                    lst_servicos_qtd.Items[i].ToString(),
+                    lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
                     lst_servico_total.Items[i].ToString()
                 ));
             }
