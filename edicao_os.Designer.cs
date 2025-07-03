@@ -628,6 +628,7 @@
             this.cb_pago.TabIndex = 58;
             this.cb_pago.Text = "Pago?";
             this.cb_pago.UseVisualStyleBackColor = true;
+            this.cb_pago.CheckedChanged += new System.EventHandler(this.cb_pago_CheckedChanged);
             // 
             // cb_saida
             // 
@@ -873,6 +874,7 @@
             this.Name = "edicao_os";
             this.Text = "Edição OS";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.edicao_os_FormClosing);
             this.Load += new System.EventHandler(this.edicao_os2_Load);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();

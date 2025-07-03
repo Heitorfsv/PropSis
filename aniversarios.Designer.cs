@@ -37,7 +37,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(138, 10);
+            this.label1.Location = new System.Drawing.Point(284, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(167, 13);
             this.label1.TabIndex = 0;
@@ -46,9 +46,9 @@
             // lst_15dias
             // 
             this.lst_15dias.FormattingEnabled = true;
-            this.lst_15dias.Location = new System.Drawing.Point(141, 26);
+            this.lst_15dias.Location = new System.Drawing.Point(287, 26);
             this.lst_15dias.Name = "lst_15dias";
-            this.lst_15dias.Size = new System.Drawing.Size(164, 316);
+            this.lst_15dias.Size = new System.Drawing.Size(266, 316);
             this.lst_15dias.TabIndex = 1;
             // 
             // label2
@@ -65,21 +65,20 @@
             this.lst_hoje.FormattingEnabled = true;
             this.lst_hoje.Location = new System.Drawing.Point(15, 26);
             this.lst_hoje.Name = "lst_hoje";
-            this.lst_hoje.Size = new System.Drawing.Size(120, 316);
+            this.lst_hoje.Size = new System.Drawing.Size(266, 316);
             this.lst_hoje.TabIndex = 3;
             // 
             // aniversarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 361);
+            this.ClientSize = new System.Drawing.Size(569, 361);
             this.Controls.Add(this.lst_hoje);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lst_15dias);
             this.Controls.Add(this.label1);
             this.Name = "aniversarios";
             this.Text = "aniversarios";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.aniversarios_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

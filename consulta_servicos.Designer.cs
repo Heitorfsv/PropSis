@@ -103,7 +103,7 @@
             this.lst_nome.Location = new System.Drawing.Point(5, 52);
             this.lst_nome.Margin = new System.Windows.Forms.Padding(2);
             this.lst_nome.Name = "lst_nome";
-            this.lst_nome.Size = new System.Drawing.Size(282, 212);
+            this.lst_nome.Size = new System.Drawing.Size(282, 303);
             this.lst_nome.TabIndex = 0;
             this.lst_nome.SelectedIndexChanged += new System.EventHandler(this.lst_nome_SelectedIndexChanged);
             this.lst_nome.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -115,7 +115,7 @@
             this.lst_valor.Location = new System.Drawing.Point(293, 52);
             this.lst_valor.Margin = new System.Windows.Forms.Padding(2);
             this.lst_valor.Name = "lst_valor";
-            this.lst_valor.Size = new System.Drawing.Size(234, 212);
+            this.lst_valor.Size = new System.Drawing.Size(234, 303);
             this.lst_valor.TabIndex = 20;
             this.lst_valor.SelectedIndexChanged += new System.EventHandler(this.lst_status_SelectedIndexChanged);
             this.lst_valor.DoubleClick += new System.EventHandler(this.lst_status_DoubleClick);
@@ -149,7 +149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 292);
+            this.ClientSize = new System.Drawing.Size(533, 383);
             this.Controls.Add(this.bnt_add);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lst_valor);

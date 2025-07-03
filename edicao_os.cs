@@ -28,6 +28,7 @@ using iText.Layout.Properties;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 
 
 namespace PrototipoSistema
@@ -47,159 +48,175 @@ namespace PrototipoSistema
 
         private void edicao_os2_Load(object sender, EventArgs e)
         {
-            gb_troca.Visible = false;
-
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{static_class.controle_os}'", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            if (this.Text == "Cadastro OS")
             {
-                os.index = reader.GetInt32("controle");
-                cmb_placa.Text = reader.GetString("placa");
-                txt_km.Text = reader.GetInt32("km").ToString();
-                dtp_cadastro.Value = DateTime.Parse(reader.GetString("dt_cadastro"));
-                txt_observacao.Text = reader.GetString("observacao");
-                txt_doc.Text = reader.GetString("doc");
+                bnt_editar.Text = "Cadastrar";
 
-                try
+                dtp_saida.Enabled = false;
+                dtp_cadastro.Value = DateTime.Now;
+
+                os.ultimo_index();
+                os.index++;
+                static_class.controle_os = os.index;
+            }
+            else if (this.Text == "Edição OS")
+            {
+                bnt_editar.Text = "Salvar";
+
+                gb_troca.Visible = false;
+
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
+
+                var cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{static_class.controle_os}'", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    dtp_saida.Value = DateTime.Parse(reader.GetString("dt_saida"));
-                    dtp_saida.Enabled = true;
-                    cb_saida.Checked = true;
+                    os.index = reader.GetInt32("controle");
+                    cmb_placa.Text = reader.GetString("placa");
+                    txt_km.Text = reader.GetInt32("km").ToString();
+                    dtp_cadastro.Value = DateTime.Parse(reader.GetString("dt_cadastro"));
+                    txt_observacao.Text = reader.GetString("observacao");
+                    txt_doc.Text = reader.GetString("doc");
+
+                    try
+                    {
+                        dtp_saida.Value = DateTime.Parse(reader.GetString("dt_saida"));
+                        dtp_saida.Enabled = true;
+                        cb_saida.Checked = true;
+                    }
+                    catch
+                    {
+                        dtp_saida.Enabled = false;
+                        cb_saida.Checked = false;
+                    }
+
+                    try
+                    {
+                        dtp_troca_filtro.Value = DateTime.ParseExact(reader.GetString("aviso_filtro_dt"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                        cb_filtro.Checked = true;
+                    }
+                    catch { }
+
+                    try
+                    {
+                        dtp_troca_oleo.Value = DateTime.ParseExact(reader.GetString("aviso_oleo_dt"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                        cb_oleo.Checked = true;
+                    }
+                    catch { }
+
+
+                    if (reader.GetInt32("pago") == 1)
+                    { cb_pago.Checked = true; }
+                    else
+                    { cb_pago.Checked = false; }
                 }
-                catch 
+                conexao.Close();
+
+                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    dtp_saida.Enabled = false;
-                    cb_saida.Checked = false;
+                    txt_marca.Text = reader.GetString("marca");
+                    txt_modelo.Text = reader.GetString("modelo");
+                    txt_ano.Text = reader.GetString("ano");
+                    doc_cliente = reader.GetString("doc_dono");
                 }
+                conexao.Close();
 
-                try
+                cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{doc_cliente}'", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    dtp_troca_filtro.Value = DateTime.ParseExact(reader.GetString("aviso_filtro_dt"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                    cb_filtro.Checked = true;
+                    txt_cliente.Text = reader.GetString("nome");
+                    txt_telefone.Text = reader.GetString("telefone");
                 }
-                catch{}
+                conexao.Close();
 
-                try
+                cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+                decimal total_servico = 0;
+                string total = "";
+
+                while (reader.Read())
                 {
-                    dtp_troca_oleo.Value = DateTime.ParseExact(reader.GetString("aviso_oleo_dt"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                    cb_oleo.Checked = true;
+                    lst_servicos.Items.Add(reader.GetString("nome"));
+                    lst_servicos_qtd.Items.Add(reader.GetString("qtd"));
+                    total = reader.GetString("valor");
+                    lst_servico_total.Items.Add(total);
+
+                    string qtd = reader.GetString("qtd");
+                    qtd = qtd.Replace(".", ",");
+
+                    total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd));
                 }
-                catch{}
+                txt_total_servico.Text = total_servico.ToString("N2");
+                conexao.Close();
 
+                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
 
-                if (reader.GetInt32("pago") == 1)
-                { cb_pago.Checked = true; }
-                else
-                { cb_pago.Checked = false; }
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+                decimal total_peca = 0;
+
+                while (reader.Read())
+                {
+                    lst_pecas.Items.Add(reader.GetString("nome"));
+                    lst_pecas_qtd.Items.Add(reader.GetString("qtd"));
+                    total = reader.GetString("valor");
+                    lst_peca_total.Items.Add(total);
+
+                    string qtd = reader.GetString("qtd");
+                    qtd = qtd.Replace(".", ",");
+
+                    try
+                    { total_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
+                    catch { }
+                }
+                txt_total_pecas.Text = total_peca.ToString("N2");
+                conexao.Close();
+
+                txt_total.Text = (total_peca + total_servico).ToString("N2");
+
+                /////////////////////////////////////////
+
+                // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
+                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle_os} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    txt_oleo_dt.Text = reader.GetString("dt_cadastro");
+                    txt_oleo_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
+                }
+                conexao.Close();
+
+                // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
+                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_filtro_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle_os} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
+
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    txt_filtro_dt.Text = reader.GetString("dt_cadastro");
+                    txt_filtro_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
+                }
+                conexao.Close();
             }
-            conexao.Close();
-
-            cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                txt_marca.Text = reader.GetString("marca");
-                txt_modelo.Text = reader.GetString("modelo");
-                txt_ano.Text = reader.GetString("ano");
-                doc_cliente = reader.GetString("doc_dono");
-            }
-            conexao.Close();
-
-            cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{doc_cliente}'", conexao);
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                txt_cliente.Text = reader.GetString("nome");
-                txt_telefone.Text = reader.GetString("telefone");
-            }
-            conexao.Close();
-
-            cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-            decimal total_servico = 0;
-            string total = "";
-
-            while (reader.Read())
-            {
-                lst_servicos.Items.Add(reader.GetString("nome"));
-                lst_servicos_qtd.Items.Add(reader.GetString("qtd"));
-                total = reader.GetString("valor");
-                lst_servico_total.Items.Add(total);
-
-                string qtd = reader.GetString("qtd");
-                qtd = qtd.Replace(".", ",");
-
-                total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd));
-            }
-            txt_total_servico.Text = total_servico.ToString("N2");
-            conexao.Close();
-
-            cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-            decimal total_peca = 0;
-
-            while (reader.Read())
-            {
-                lst_pecas.Items.Add(reader.GetString("nome"));
-                lst_pecas_qtd.Items.Add(reader.GetString("qtd"));
-                total = reader.GetString("valor");
-                lst_peca_total.Items.Add(total);
-
-                string qtd = reader.GetString("qtd");
-                qtd = qtd.Replace(".", ",");
-
-                try
-                { total_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
-                catch { }
-            }
-            txt_total_pecas.Text = total_peca.ToString("N2");
-            conexao.Close();
-
-            txt_total.Text = (total_peca + total_servico).ToString("N2");
-
-            /////////////////////////////////////////
-
-            // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
-            cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle_os} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao); 
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-
-            if (reader.Read())
-            {
-                txt_oleo_dt.Text = reader.GetString("dt_cadastro"); 
-                txt_oleo_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
-            }
-            conexao.Close();
-
-            // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
-            cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_filtro_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle_os} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-
-            if (reader.Read())
-            {
-                txt_filtro_dt.Text = reader.GetString("dt_cadastro");
-                txt_filtro_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
-            }
-            conexao.Close();
         }
 
         private void cmb_placa_TextChanged(object sender, EventArgs e)
@@ -248,56 +265,111 @@ namespace PrototipoSistema
 
         private void bnt_editar_Click(object sender, EventArgs e)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            cliente cliente = new cliente();
-
-            if (reader.Read())
+            if (this.Text == "Cadastro OS")
             {
-                os.placa = cmb_placa.Text;
-                os.cliente = txt_cliente.Text;
-                os.doc = txt_doc.Text;
-                os.km = int.Parse(txt_km.Text);
-                os.observacao = txt_observacao.Text;
-                os.total = txt_total.Text;
-                os.dt_cadastro = dtp_cadastro.Value.ToString();
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
 
-    
-                if (cb_oleo.Checked) os.aviso_oleo_dt = dtp_troca_oleo.Value.ToString();
-                else os.aviso_oleo_dt = "";
-                
-                if (cb_filtro.Checked) os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
-                else os.aviso_filtro_dt = "";
+                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
 
-                if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
-                else os.dt_saida = null;
+                conexao.Open();
 
-                if (cb_pago.Checked == true) os.pago = 1;
-                else os.pago = 0;
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                cliente cliente = new cliente();
+
+                if (reader.Read())
+                {
+                    os.placa = cmb_placa.Text;
+                    os.km = int.Parse(txt_km.Text);
+                    os.cliente = txt_cliente.Text;
+
+                    os.doc = doc_cliente;
+                    os.observacao = txt_observacao.Text;
+
+                    if (txt_total.Text != "")
+                    { os.total = txt_total.Text; }
+                    else
+                    { os.total = "0,00"; }
+
+                    if (cb_pago.Checked == true)
+                    { os.pago = 1; }
+                    else
+                    { os.pago = 0; }
+
+                    os.dt_cadastro = dtp_cadastro.Value.ToString();
+
+                    if (cb_saida.Checked == true)
+                    { os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); }
+                    else
+                    { os.dt_saida = null; }
+
+                    os.cadastrar_os();
+
+                    MessageBox.Show("OS Cadastrada");
+
+                    cliente.doc = txt_doc.Text;
+                    cliente.quitado();
+
+                    os.index++;
+                }
+                else
+                { MessageBox.Show("Não foi possível achar a placa digitada", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                conexao.Close();
             }
-            else
-            { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-            conexao.Close();
-
-            try
+            else if (this.Text == "Edição OS")
             {
-                MessageBox.Show(os.aviso_filtro_dt + "\n" + os.aviso_oleo_dt ); 
-                os.alterar_os();
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
 
-                cliente.doc = txt_doc.Text;
-                cliente.quitado();
+                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
 
-                MessageBox.Show("OS Alterada!", "JCMotorsport", MessageBoxButtons.OK);
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                cliente cliente = new cliente();
+
+                if (reader.Read())
+                {
+                    os.placa = cmb_placa.Text;
+                    os.cliente = txt_cliente.Text;
+                    os.doc = txt_doc.Text;
+                    os.km = int.Parse(txt_km.Text);
+                    os.observacao = txt_observacao.Text;
+                    os.total = txt_total.Text;
+                    os.dt_cadastro = dtp_cadastro.Value.ToString();
+
+
+                    if (cb_oleo.Checked) os.aviso_oleo_dt = dtp_troca_oleo.Value.ToString();
+                    else os.aviso_oleo_dt = "";
+
+                    if (cb_filtro.Checked) os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
+                    else os.aviso_filtro_dt = "";
+
+                    if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
+                    else os.dt_saida = null;
+
+                    if (cb_pago.Checked == true) os.pago = 1;
+                    else os.pago = 0;
+                }
+                else
+                { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                conexao.Close();
+
+                try
+                {
+                    MessageBox.Show(os.aviso_filtro_dt + "\n" + os.aviso_oleo_dt);
+                    os.alterar_os();
+
+                    cliente.doc = txt_doc.Text;
+                    cliente.quitado();
+
+                    MessageBox.Show("OS Alterada!", "JCMotorsport", MessageBoxButtons.OK);
+                }
+                catch (Exception a) { MessageBox.Show(a.ToString()); }
+
+                conexao_calendario();
             }
-            catch (Exception a) { MessageBox.Show(a.ToString()); }
-
-            conexao_calendario();
         }
 
         private void bnt_add_peca_Click(object sender, EventArgs e)
@@ -485,121 +557,171 @@ namespace PrototipoSistema
         private void visualizarImpressToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QuestPDF.Settings.License = LicenseType.Community;
-
-            var doc = new osPdf
+            try
             {
-                Cliente = txt_cliente.Text,
-                Documento = doc_cliente,
-                Telefone = txt_telefone.Text,
-                Placa = cmb_placa.Text,
-                Marca = txt_marca.Text,
-                Modelo = txt_modelo.Text,
-                Ano = txt_ano.Text,
-                Km = txt_km.Text,
-                Observacao = txt_observacao.Text,
-                DtCadastro = dtp_cadastro.Value,
-                DtSaida = dtp_saida.Value,
-                Pago = cb_pago.Checked,
-                Total = decimal.Parse(txt_total.Text),
-                TotalPecas = decimal.Parse(txt_total_pecas.Text),
-                TotalServicos = decimal.Parse(txt_total_servico.Text),
-                Pecas = new List<(string, string, string)>(),
-                Servicos = new List<(string, string, string)>()
-            };
+                var doc = new osPdf
+                {
+                    Cliente = txt_cliente.Text,
+                    Documento = doc_cliente,
+                    Telefone = txt_telefone.Text,
+                    Placa = cmb_placa.Text,
+                    Marca = txt_marca.Text,
+                    Modelo = txt_modelo.Text,
+                    Ano = txt_ano.Text,
+                    Km = txt_km.Text,
+                    Observacao = txt_observacao.Text,
+                    DtCadastro = dtp_cadastro.Value,
+                    DtSaida = dtp_saida.Value,
+                    Total = decimal.Parse(txt_total.Text),
+                    TotalPecas = decimal.Parse(txt_total_pecas.Text),
+                    TotalServicos = decimal.Parse(txt_total_servico.Text),
+                    Pecas = new List<(string, string, string)>(),
+                    Servicos = new List<(string, string, string)>()
+                };
 
-            for (int i = 0; i < lst_pecas.Items.Count; i++)
-            {
-                doc.Pecas.Add((
-                    lst_pecas.Items[i].ToString(),
-                    lst_pecas_qtd.Items[i].ToString().Replace(".", ","),
-                    lst_peca_total.Items[i].ToString()
-                ));
+                for (int i = 0; i < lst_pecas.Items.Count; i++)
+                {
+                    doc.Pecas.Add((
+                        lst_pecas.Items[i].ToString(),
+                        lst_pecas_qtd.Items[i].ToString().Replace(".", ","),
+                        lst_peca_total.Items[i].ToString()
+                    ));
+                }
+
+                for (int i = 0; i < lst_servicos.Items.Count; i++)
+                {
+                    doc.Servicos.Add((
+                        lst_servicos.Items[i].ToString(),
+                        lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
+                        lst_servico_total.Items[i].ToString()
+                    ));
+                }
+
+                // Gerar arquivo temporário
+                string tempPath = Path.Combine(Path.GetTempPath(), $"preview_{Guid.NewGuid()}.pdf");
+
+                // Gerar PDF e salvar no arquivo temporário
+                doc.GeneratePdf(tempPath);
+
+                // Abrir no visualizador padrão do Windows
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = tempPath,
+                    UseShellExecute = true
+                });
             }
-
-            for (int i = 0; i < lst_servicos.Items.Count; i++)
+            catch (Exception ex)
             {
-                doc.Servicos.Add((
-                    lst_servicos.Items[i].ToString(),
-                    lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
-                    lst_servico_total.Items[i].ToString()
-                ));
+                MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-           // Gerar arquivo temporário
-            string tempPath = Path.Combine(Path.GetTempPath(), $"preview_{Guid.NewGuid()}.pdf");
-
-            // Gerar PDF e salvar no arquivo temporário
-            doc.GeneratePdf(tempPath);
-
-            // Abrir no visualizador padrão do Windows
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = tempPath,
-                UseShellExecute = true
-            });
         }
 
         private void imprimirToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             QuestPDF.Settings.License = LicenseType.Community;
 
-            var doc = new osPdf
+            try
             {
-                Cliente = txt_cliente.Text,
-                Documento = doc_cliente,
-                Telefone = txt_telefone.Text,
-                Placa = cmb_placa.Text,
-                Marca = txt_marca.Text,
-                Modelo = txt_modelo.Text,
-                Ano = txt_ano.Text,
-                Km = txt_km.Text,
-                Observacao = txt_observacao.Text,
-                DtCadastro = dtp_cadastro.Value,
-                DtSaida = dtp_saida.Value,
-                Pago = cb_pago.Checked,
-                Total = decimal.Parse(txt_total.Text),
-                TotalPecas = decimal.Parse(txt_total_pecas.Text),
-                TotalServicos = decimal.Parse(txt_total_servico.Text),
-                Pecas = new List<(string, string, string)>(),
-                Servicos = new List<(string, string, string)>()
-            };
-
-            for (int i = 0; i < lst_pecas.Items.Count; i++)
-            {
-                doc.Pecas.Add((
-                    lst_pecas.Items[i].ToString(),
-                    lst_pecas_qtd.Items[i].ToString().Replace(".",","),
-                    lst_peca_total.Items[i].ToString()
-                ));
-            }
-
-            for (int i = 0; i < lst_servicos.Items.Count; i++)
-            {
-                doc.Servicos.Add((
-                    lst_servicos.Items[i].ToString(),
-                    lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
-                    lst_servico_total.Items[i].ToString()
-                ));
-            }
-
-            using (var salvar = new SaveFileDialog())
-            {
-                salvar.Filter = "PDF files (*.pdf)|*.pdf";
-                salvar.FileName = $"OS_{static_class.controle_os}.pdf";
-
-                if (salvar.ShowDialog() == DialogResult.OK)
+                var doc = new osPdf
                 {
-                    try
+                    Cliente = txt_cliente.Text,
+                    Documento = doc_cliente,
+                    Telefone = txt_telefone.Text,
+                    Placa = cmb_placa.Text,
+                    Marca = txt_marca.Text,
+                    Modelo = txt_modelo.Text,
+                    Ano = txt_ano.Text,
+                    Km = txt_km.Text,
+                    Observacao = txt_observacao.Text,
+                    DtCadastro = dtp_cadastro.Value,
+                    DtSaida = dtp_saida.Value,
+                    Total = decimal.Parse(txt_total.Text),
+                    TotalPecas = decimal.Parse(txt_total_pecas.Text),
+                    TotalServicos = decimal.Parse(txt_total_servico.Text),
+                    Pecas = new List<(string, string, string)>(),
+                    Servicos = new List<(string, string, string)>()
+                };
+
+                for (int i = 0; i < lst_pecas.Items.Count; i++)
+                {
+                    doc.Pecas.Add((
+                        lst_pecas.Items[i].ToString(),
+                        lst_pecas_qtd.Items[i].ToString().Replace(".", ","),
+                        lst_peca_total.Items[i].ToString()
+                    ));
+                }
+
+                for (int i = 0; i < lst_servicos.Items.Count; i++)
+                {
+                    doc.Servicos.Add((
+                        lst_servicos.Items[i].ToString(),
+                        lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
+                        lst_servico_total.Items[i].ToString()
+                    ));
+                }
+
+                using (var salvar = new SaveFileDialog())
+                {
+                    salvar.Filter = "PDF files (*.pdf)|*.pdf";
+                    salvar.FileName = $"OS_{static_class.controle_os}.pdf";
+
+                    if (salvar.ShowDialog() == DialogResult.OK)
                     {
-                        doc.GeneratePdf(salvar.FileName);
-                        MessageBox.Show("PDF gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        try
+                        {
+                            doc.GeneratePdf(salvar.FileName);
+                            MessageBox.Show("PDF gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void edicao_os_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.Text == "Cadastro OS")
+            {
+                int delete = 0;
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
+
+                var cmd = new MySqlCommand($"SELECT controle FROM os WHERE controle = '{os.index}'", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                { }
+                else
+                { delete = 1; }
+                conexao.Close();
+
+                if (delete == 1)
+                {
+                    cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE os = '{os.index}'", conexao);
+                    conexao.Open();
+                    cmd.ExecuteReader();
+                    conexao.Close();
+
+                    cmd = new MySqlCommand($"DELETE FROM servicos_os WHERE os = '{os.index}'", conexao);
+                    conexao.Open();
+                    cmd.ExecuteReader();
+                    conexao.Close();
+                }
+            }
+        }
+
+        private void cb_pago_CheckedChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

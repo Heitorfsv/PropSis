@@ -18,7 +18,6 @@ public class osPdf : IDocument
     public string Observacao { get; set; }
     public DateTime DtCadastro { get; set; }
     public DateTime DtSaida { get; set; }
-    public bool Pago { get; set; }
     public decimal Total { get; set; }
     public decimal TotalPecas { get; set; }
     public decimal TotalServicos { get; set; }

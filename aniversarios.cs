@@ -36,10 +36,10 @@ namespace PrototipoSistema
                     TimeSpan dif = aniversario - DateTime.Now;
 
                     if (dif.TotalDays < 15 && dif.TotalDays > 0)
-                    { lst_15dias.Items.Add(reader.GetString("nome")); }
+                    { lst_15dias.Items.Add(reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")"); }
 
                     if (dif.TotalDays > -1 && dif.TotalDays < 0.1)
-                    { lst_hoje.Items.Add(reader.GetString("nome")); }
+                    { lst_hoje.Items.Add(reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")"); }
                 }
                 catch { }
 

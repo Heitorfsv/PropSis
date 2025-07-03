@@ -103,7 +103,7 @@ namespace PrototipoSistema
 
                     if (dif.TotalDays < 15 && dif.TotalDays > 0) lista_aniversarios_futuros = lista_aniversarios_futuros + "- " + reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")" + "\r\n";
                     
-                    if (dif.TotalDays > -0.1 && dif.TotalDays < 0.1) lista_aniversarios = lista_aniversarios + "- " + reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")" + "\r\n";
+                    if (dif.TotalDays > -1 && dif.TotalDays < 0.1) lista_aniversarios = lista_aniversarios + "- " + reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")" + "\r\n";
                 }
                 catch { }
             }
@@ -172,7 +172,9 @@ namespace PrototipoSistema
 
         private void cadastrarFichaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cadastro_os cadastro_os = new cadastro_os();
+            edicao_os cadastro_os = new edicao_os();
+            cadastro_os.Text = "Cadastro OS";
+
             cadastro_os.MdiParent = this;
             cadastro_os.Show();
         }

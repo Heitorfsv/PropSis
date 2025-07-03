@@ -104,7 +104,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(120, 43);
+            this.label5.Location = new System.Drawing.Point(165, 43);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 16);
@@ -117,10 +117,10 @@
             this.lst_placa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_placa.FormattingEnabled = true;
             this.lst_placa.ItemHeight = 16;
-            this.lst_placa.Location = new System.Drawing.Point(123, 64);
+            this.lst_placa.Location = new System.Drawing.Point(168, 64);
             this.lst_placa.Margin = new System.Windows.Forms.Padding(2);
             this.lst_placa.Name = "lst_placa";
-            this.lst_placa.Size = new System.Drawing.Size(108, 324);
+            this.lst_placa.Size = new System.Drawing.Size(123, 404);
             this.lst_placa.TabIndex = 21;
             this.lst_placa.SelectedIndexChanged += new System.EventHandler(this.lst_placa_SelectedIndexChanged);
             this.lst_placa.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -130,10 +130,10 @@
             this.lst_cor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_cor.FormattingEnabled = true;
             this.lst_cor.ItemHeight = 16;
-            this.lst_cor.Location = new System.Drawing.Point(459, 64);
+            this.lst_cor.Location = new System.Drawing.Point(549, 64);
             this.lst_cor.Margin = new System.Windows.Forms.Padding(2);
             this.lst_cor.Name = "lst_cor";
-            this.lst_cor.Size = new System.Drawing.Size(108, 324);
+            this.lst_cor.Size = new System.Drawing.Size(123, 404);
             this.lst_cor.TabIndex = 17;
             this.lst_cor.Click += new System.EventHandler(this.lst_cor_Click);
             this.lst_cor.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -143,10 +143,10 @@
             this.lst_modelo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_modelo.FormattingEnabled = true;
             this.lst_modelo.ItemHeight = 16;
-            this.lst_modelo.Location = new System.Drawing.Point(347, 64);
+            this.lst_modelo.Location = new System.Drawing.Point(422, 64);
             this.lst_modelo.Margin = new System.Windows.Forms.Padding(2);
             this.lst_modelo.Name = "lst_modelo";
-            this.lst_modelo.Size = new System.Drawing.Size(108, 324);
+            this.lst_modelo.Size = new System.Drawing.Size(123, 404);
             this.lst_modelo.TabIndex = 16;
             this.lst_modelo.Click += new System.EventHandler(this.lst_modelo_Click);
             this.lst_modelo.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -157,10 +157,10 @@
             this.lst_marca.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_marca.FormattingEnabled = true;
             this.lst_marca.ItemHeight = 16;
-            this.lst_marca.Location = new System.Drawing.Point(235, 64);
+            this.lst_marca.Location = new System.Drawing.Point(295, 64);
             this.lst_marca.Margin = new System.Windows.Forms.Padding(2);
             this.lst_marca.Name = "lst_marca";
-            this.lst_marca.Size = new System.Drawing.Size(108, 324);
+            this.lst_marca.Size = new System.Drawing.Size(123, 404);
             this.lst_marca.TabIndex = 15;
             this.lst_marca.Click += new System.EventHandler(this.lst_marca_Click);
             this.lst_marca.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -169,7 +169,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(456, 46);
+            this.label3.Location = new System.Drawing.Point(546, 46);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 16);
@@ -180,7 +180,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(344, 46);
+            this.label2.Location = new System.Drawing.Point(419, 46);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 16);
@@ -191,7 +191,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(232, 46);
+            this.label1.Location = new System.Drawing.Point(292, 46);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 16);
@@ -203,10 +203,10 @@
             this.lst_ano.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_ano.FormattingEnabled = true;
             this.lst_ano.ItemHeight = 16;
-            this.lst_ano.Location = new System.Drawing.Point(571, 64);
+            this.lst_ano.Location = new System.Drawing.Point(676, 64);
             this.lst_ano.Margin = new System.Windows.Forms.Padding(2);
             this.lst_ano.Name = "lst_ano";
-            this.lst_ano.Size = new System.Drawing.Size(108, 324);
+            this.lst_ano.Size = new System.Drawing.Size(123, 404);
             this.lst_ano.TabIndex = 23;
             this.lst_ano.Click += new System.EventHandler(this.lst_ano_Click);
             this.lst_ano.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -215,7 +215,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(568, 46);
+            this.label4.Location = new System.Drawing.Point(673, 46);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 16);
@@ -258,7 +258,7 @@
             this.lst_nome.Location = new System.Drawing.Point(11, 64);
             this.lst_nome.Margin = new System.Windows.Forms.Padding(2);
             this.lst_nome.Name = "lst_nome";
-            this.lst_nome.Size = new System.Drawing.Size(108, 324);
+            this.lst_nome.Size = new System.Drawing.Size(153, 404);
             this.lst_nome.TabIndex = 28;
             this.lst_nome.Click += new System.EventHandler(this.lst_nome_Click);
             this.lst_nome.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -292,7 +292,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 486);
+            this.ClientSize = new System.Drawing.Size(849, 486);
             this.Controls.Add(this.bnt_add);
             this.Controls.Add(this.lst_nome);
             this.Controls.Add(this.label7);

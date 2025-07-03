@@ -51,7 +51,7 @@
             this.lst_nome.Location = new System.Drawing.Point(5, 59);
             this.lst_nome.Margin = new System.Windows.Forms.Padding(2);
             this.lst_nome.Name = "lst_nome";
-            this.lst_nome.Size = new System.Drawing.Size(151, 212);
+            this.lst_nome.Size = new System.Drawing.Size(151, 407);
             this.lst_nome.TabIndex = 22;
             this.lst_nome.SelectedIndexChanged += new System.EventHandler(this.lst_nome_SelectedIndexChanged);
             this.lst_nome.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -122,7 +122,7 @@
             this.lst_marca.Location = new System.Drawing.Point(160, 59);
             this.lst_marca.Margin = new System.Windows.Forms.Padding(2);
             this.lst_marca.Name = "lst_marca";
-            this.lst_marca.Size = new System.Drawing.Size(151, 212);
+            this.lst_marca.Size = new System.Drawing.Size(151, 407);
             this.lst_marca.TabIndex = 30;
             this.lst_marca.SelectedIndexChanged += new System.EventHandler(this.lst_marca_SelectedIndexChanged);
             this.lst_marca.DoubleClick += new System.EventHandler(this.lst_marca_DoubleClick);
@@ -145,7 +145,7 @@
             this.lst_modelo.Location = new System.Drawing.Point(315, 59);
             this.lst_modelo.Margin = new System.Windows.Forms.Padding(2);
             this.lst_modelo.Name = "lst_modelo";
-            this.lst_modelo.Size = new System.Drawing.Size(151, 212);
+            this.lst_modelo.Size = new System.Drawing.Size(151, 407);
             this.lst_modelo.TabIndex = 32;
             this.lst_modelo.SelectedIndexChanged += new System.EventHandler(this.lst_modelo_SelectedIndexChanged);
             this.lst_modelo.DoubleClick += new System.EventHandler(this.lst_modelo_DoubleClick);
@@ -168,7 +168,7 @@
             this.lst_fornecedor.Location = new System.Drawing.Point(470, 59);
             this.lst_fornecedor.Margin = new System.Windows.Forms.Padding(2);
             this.lst_fornecedor.Name = "lst_fornecedor";
-            this.lst_fornecedor.Size = new System.Drawing.Size(151, 212);
+            this.lst_fornecedor.Size = new System.Drawing.Size(151, 407);
             this.lst_fornecedor.TabIndex = 34;
             this.lst_fornecedor.SelectedIndexChanged += new System.EventHandler(this.lst_fornecedor_SelectedIndexChanged);
             this.lst_fornecedor.DoubleClick += new System.EventHandler(this.lst_fornecedor_DoubleClick);

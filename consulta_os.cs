@@ -374,8 +374,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+                edicao_os.Text = "Edição OS";
 
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
                 edicao_os.Show();
             }
             catch { }
@@ -386,8 +387,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+                edicao_os.Text = "Edição OS";
 
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
                 edicao_os.Show();
             }
             catch { }
@@ -398,8 +400,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+                edicao_os.Text = "Edição OS";
 
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
                 edicao_os.Show();
             }
             catch { }
@@ -410,8 +413,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+                edicao_os.Text = "Edição OS";
 
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
                 edicao_os.Show();
             }
             catch { }
@@ -422,8 +426,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+                edicao_os.Text = "Edição OS";
 
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
                 edicao_os.Show();
             }
             catch { }
@@ -434,8 +439,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+                edicao_os.Text = "Edição OS";
 
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
                 edicao_os.Show();
             }
             catch { }
@@ -446,8 +452,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+                edicao_os.Text = "Edição OS";
 
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
                 edicao_os.Show();
             }
             catch { }
@@ -458,8 +465,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+                edicao_os.Text = "Edição OS";
 
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
                 edicao_os.Show();
             }
             catch { }
@@ -733,8 +741,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
-                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
+                edicao_os.Text = "Edição OS";
 
+                static_class.controle_os = lista_os[lst_placa.SelectedIndex];
                 edicao_os.Show();
             }
             catch { }
@@ -908,7 +917,9 @@ namespace PrototipoSistema
 
         private void bnt_add_Click(object sender, EventArgs e)
         {
-            cadastro_os cadastro = new cadastro_os();
+            edicao_os cadastro = new edicao_os();
+            cadastro.Text = "Cadastro OS";
+
             cadastro.Show();
         }
 
@@ -922,9 +933,9 @@ namespace PrototipoSistema
             try
             {
                 edicao_os edicao_os = new edicao_os();
+                edicao_os.Text = "Edição OS";
 
                 static_class.controle_os = lista_os[lst_placa.SelectedIndex];
-
                 edicao_os.Show();
             }
             catch { }
