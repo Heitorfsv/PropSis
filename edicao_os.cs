@@ -40,6 +40,13 @@ namespace PrototipoSistema
 
         string doc_cliente;
 
+        //Variaveis para o PDF
+        string rua = "";
+        string bairro = "";
+        string cidade = "";
+        string cep = "";
+        string cor = "";
+
         OS os = new OS();
         public edicao_os()
         {
@@ -48,6 +55,8 @@ namespace PrototipoSistema
 
         private void edicao_os2_Load(object sender, EventArgs e)
         {
+            cmb_pago.Visible = false;
+
             if (this.Text == "Cadastro OS")
             {
                 bnt_editar.Text = "Cadastrar";
@@ -110,9 +119,16 @@ namespace PrototipoSistema
 
 
                     if (reader.GetInt32("pago") == 1)
-                    { cb_pago.Checked = true; }
+                    {
+                        cb_pago.Checked = true;
+                        cmb_pago.Visible = true;
+                        //cmb_pago.Text = reader.GetString("metodo_pag");
+                    }
                     else
-                    { cb_pago.Checked = false; }
+                    { 
+                        cb_pago.Checked = false;
+                        cmb_pago.Visible = false;
+                    }
                 }
                 conexao.Close();
 
@@ -126,6 +142,7 @@ namespace PrototipoSistema
                     txt_marca.Text = reader.GetString("marca");
                     txt_modelo.Text = reader.GetString("modelo");
                     txt_ano.Text = reader.GetString("ano");
+                    cor = reader.GetString("cor");
                     doc_cliente = reader.GetString("doc_dono");
                 }
                 conexao.Close();
@@ -139,6 +156,10 @@ namespace PrototipoSistema
                 {
                     txt_cliente.Text = reader.GetString("nome");
                     txt_telefone.Text = reader.GetString("telefone");
+                    rua = reader.GetString("rua");
+                    bairro = reader.GetString("bairro");
+                    cidade = reader.GetString("cidade");
+                    cep = reader.GetString("cep");
                 }
                 conexao.Close();
 
@@ -293,9 +314,11 @@ namespace PrototipoSistema
                     { os.total = "0,00"; }
 
                     if (cb_pago.Checked == true)
-                    { os.pago = 1; }
-                    else
-                    { os.pago = 0; }
+                    { 
+                        os.pago = 1; 
+                        os.metodo = cmb_pago.Text; 
+                    }
+                    else os.pago = 0; os.metodo = null;
 
                     os.dt_cadastro = dtp_cadastro.Value.ToString();
 
@@ -349,8 +372,12 @@ namespace PrototipoSistema
                     if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
                     else os.dt_saida = null;
 
-                    if (cb_pago.Checked == true) os.pago = 1;
-                    else os.pago = 0;
+                    if (cb_pago.Checked == true)
+                    {
+                        os.pago = 1;
+                        os.metodo = cmb_pago.Text;
+                    }
+                    else os.pago = 0; os.metodo = null;
                 }
                 else
                 { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -558,7 +585,7 @@ namespace PrototipoSistema
         {
             QuestPDF.Settings.License = LicenseType.Community;
             try
-            {
+            { 
                 var doc = new osPdf
                 {
                     Cliente = txt_cliente.Text,
@@ -568,7 +595,12 @@ namespace PrototipoSistema
                     Marca = txt_marca.Text,
                     Modelo = txt_modelo.Text,
                     Ano = txt_ano.Text,
+                    Cor = cor,
                     Km = txt_km.Text,
+                    Rua = rua,
+                    Bairro = bairro,
+                    Cidade = cidade,
+                    CEP = cep,
                     Observacao = txt_observacao.Text,
                     DtCadastro = dtp_cadastro.Value,
                     DtSaida = dtp_saida.Value,
@@ -631,7 +663,12 @@ namespace PrototipoSistema
                     Marca = txt_marca.Text,
                     Modelo = txt_modelo.Text,
                     Ano = txt_ano.Text,
+                    Cor = cor,
                     Km = txt_km.Text,
+                    Rua = rua,
+                    Bairro = bairro,
+                    Cidade = cidade,
+                    CEP = cep,
                     Observacao = txt_observacao.Text,
                     DtCadastro = dtp_cadastro.Value,
                     DtSaida = dtp_saida.Value,
@@ -721,7 +758,8 @@ namespace PrototipoSistema
 
         private void cb_pago_CheckedChanged(object sender, EventArgs e)
         {
-            
+            if (cb_pago.Checked) cmb_pago.Visible = true;
+            else cmb_pago.Visible = false;
         }
     }
 }

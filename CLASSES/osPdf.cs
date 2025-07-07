@@ -10,9 +10,15 @@ public class osPdf : IDocument
     public string Cliente { get; set; }
     public string Documento { get; set; }
     public string Telefone { get; set; }
+    public string Rua { get; set; }
+    public string Bairro { get; set; }
+    public string Cidade { get; set; }
+    public string UF { get; set; }
+    public string CEP { get; set; }
     public string Placa { get; set; }
     public string Marca { get; set; }
     public string Modelo { get; set; }
+    public string Cor { get; set; }
     public string Ano { get; set; }
     public string Km { get; set; }
     public string Observacao { get; set; }
@@ -96,12 +102,12 @@ public class osPdf : IDocument
                         c.Item().Text(txt =>
                         {
                             txt.Span("Endereço: ").Italic().FontSize(9);
-                            txt.Span("RUA WALDEMAR GUIDO DA COSTA, 162").NormalWeight().FontSize(9); // Substituir se desejar
+                            txt.Span(Rua).NormalWeight().FontSize(9); // Substituir se desejar
                         });
                         c.Item().Text(txt =>
                         {
                             txt.Span("Cidade: ").Italic().FontSize(9);
-                            txt.Span("JUNDIAÍ").NormalWeight().FontSize(9); // Substituir se desejar
+                            txt.Span(Cidade).NormalWeight().FontSize(9); // Substituir se desejar
                         });
                     });
 
@@ -112,17 +118,17 @@ public class osPdf : IDocument
                         c.Item().Text(txt =>
                         {
                             txt.Span("Bairro: ").Italic().FontSize(9);
-                            txt.Span("13214-082").NormalWeight().FontSize(9); // Substituir se desejar
+                            txt.Span(Bairro).NormalWeight().FontSize(9); // Substituir se desejar
                         });
                         c.Item().Text(txt =>
                         {
                             txt.Span("UF: ").Italic().FontSize(9);
-                            txt.Span("SP").NormalWeight().FontSize(9); // Substituir se desejar
+                            txt.Span(UF).NormalWeight().FontSize(9); // Substituir se desejar
                         });
                         c.Item().Text(txt =>
                         {
                             txt.Span("CEP: ").Italic().FontSize(9);
-                            txt.Span("13214-082").NormalWeight().FontSize(9); // Substituir se desejar
+                            txt.Span(CEP).NormalWeight().FontSize(9); // Substituir se desejar
                         });
                     });
                 });
@@ -156,7 +162,7 @@ public class osPdf : IDocument
                     row.RelativeColumn().Text(txt =>
                     {
                         txt.Span("Cor: ").Italic().FontSize(10);
-                        txt.Span("VERMELHA").NormalWeight().FontSize(10); // Substituir se desejar
+                        txt.Span(Cor).NormalWeight().FontSize(10); // Substituir se desejar
                         txt.Span("   KM: ").Italic().FontSize(10);
                         txt.Span(Km).NormalWeight().FontSize(10);
                         txt.Span("   Dt. Ent: ").Italic().FontSize(10);

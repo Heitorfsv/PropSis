@@ -51,7 +51,7 @@
             this.lst_nome.Location = new System.Drawing.Point(5, 59);
             this.lst_nome.Margin = new System.Windows.Forms.Padding(2);
             this.lst_nome.Name = "lst_nome";
-            this.lst_nome.Size = new System.Drawing.Size(151, 407);
+            this.lst_nome.Size = new System.Drawing.Size(217, 407);
             this.lst_nome.TabIndex = 22;
             this.lst_nome.SelectedIndexChanged += new System.EventHandler(this.lst_nome_SelectedIndexChanged);
             this.lst_nome.DoubleClick += new System.EventHandler(this.lst_nome_DoubleClick);
@@ -61,7 +61,7 @@
             this.bnt_atualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
-            this.bnt_atualizar.Location = new System.Drawing.Point(601, 13);
+            this.bnt_atualizar.Location = new System.Drawing.Point(666, 13);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_atualizar.Name = "bnt_atualizar";
             this.bnt_atualizar.Size = new System.Drawing.Size(21, 20);
@@ -119,7 +119,7 @@
             // 
             this.lst_marca.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_marca.FormattingEnabled = true;
-            this.lst_marca.Location = new System.Drawing.Point(160, 59);
+            this.lst_marca.Location = new System.Drawing.Point(226, 59);
             this.lst_marca.Margin = new System.Windows.Forms.Padding(2);
             this.lst_marca.Name = "lst_marca";
             this.lst_marca.Size = new System.Drawing.Size(151, 407);
@@ -131,7 +131,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(157, 41);
+            this.label3.Location = new System.Drawing.Point(223, 41);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 16);
@@ -142,7 +142,7 @@
             // 
             this.lst_modelo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_modelo.FormattingEnabled = true;
-            this.lst_modelo.Location = new System.Drawing.Point(315, 59);
+            this.lst_modelo.Location = new System.Drawing.Point(381, 59);
             this.lst_modelo.Margin = new System.Windows.Forms.Padding(2);
             this.lst_modelo.Name = "lst_modelo";
             this.lst_modelo.Size = new System.Drawing.Size(151, 407);
@@ -154,7 +154,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(312, 41);
+            this.label4.Location = new System.Drawing.Point(378, 41);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 16);
@@ -165,7 +165,7 @@
             // 
             this.lst_fornecedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_fornecedor.FormattingEnabled = true;
-            this.lst_fornecedor.Location = new System.Drawing.Point(470, 59);
+            this.lst_fornecedor.Location = new System.Drawing.Point(536, 59);
             this.lst_fornecedor.Margin = new System.Windows.Forms.Padding(2);
             this.lst_fornecedor.Name = "lst_fornecedor";
             this.lst_fornecedor.Size = new System.Drawing.Size(151, 407);
@@ -177,7 +177,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(467, 41);
+            this.label5.Location = new System.Drawing.Point(533, 41);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 16);
@@ -189,7 +189,7 @@
             this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
-            this.bnt_add.Location = new System.Drawing.Point(576, 13);
+            this.bnt_add.Location = new System.Drawing.Point(641, 13);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_add.Name = "bnt_add";
             this.bnt_add.Size = new System.Drawing.Size(21, 20);
@@ -202,7 +202,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 480);
+            this.ClientSize = new System.Drawing.Size(849, 480);
             this.Controls.Add(this.bnt_add);
             this.Controls.Add(this.lst_fornecedor);
             this.Controls.Add(this.label5);

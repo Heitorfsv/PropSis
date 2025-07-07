@@ -101,6 +101,7 @@
             this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visualizarImpressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imprimirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmb_pago = new System.Windows.Forms.ComboBox();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -834,11 +835,21 @@
             this.imprimirToolStripMenuItem1.Text = "Imprimir";
             this.imprimirToolStripMenuItem1.Click += new System.EventHandler(this.imprimirToolStripMenuItem1_Click);
             // 
+            // cmb_pago
+            // 
+            this.cmb_pago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_pago.FormattingEnabled = true;
+            this.cmb_pago.Location = new System.Drawing.Point(710, 547);
+            this.cmb_pago.Name = "cmb_pago";
+            this.cmb_pago.Size = new System.Drawing.Size(117, 21);
+            this.cmb_pago.TabIndex = 79;
+            // 
             // edicao_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1158, 584);
+            this.Controls.Add(this.cmb_pago);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.txt_filtro_km);
@@ -969,5 +980,6 @@
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visualizarImpressToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem1;
+        private System.Windows.Forms.ComboBox cmb_pago;
     }
 }
