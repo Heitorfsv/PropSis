@@ -167,30 +167,6 @@
     <Compile Include="cadastro_or.Designer.cs">
       <DependentUpon>cadastro_or.cs</DependentUpon>
     </Compile>
-    <Compile Include="cadastro_os.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="cadastro_os.Designer.cs">
-      <DependentUpon>cadastro_os.cs</DependentUpon>
-    </Compile>
-    <Compile Include="cadastro_moto.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="cadastro_moto.Designer.cs">
-      <DependentUpon>cadastro_moto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="cadastro_pecas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="cadastro_pecas.Designer.cs">
-      <DependentUpon>cadastro_pecas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="cadastro_servico.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="cadastro_servico.Designer.cs">
-      <DependentUpon>cadastro_servico.cs</DependentUpon>
-    </Compile>
     <Compile Include="calendar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,12 +197,6 @@
     </Compile>
     <Compile Include="consulta_cliente.Designer.cs">
       <DependentUpon>consulta_cliente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="cadastro_cliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="cadastro_cliente.Designer.cs">
-      <DependentUpon>cadastro_cliente.cs</DependentUpon>
     </Compile>
     <Compile Include="consulta_motos.cs">
       <SubType>Form</SubType>
@@ -345,23 +315,8 @@
     <EmbeddedResource Include="blankdays.resx">
       <DependentUpon>blankdays.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="cadastro_cliente.resx">
-      <DependentUpon>cadastro_cliente.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="cadastro_or.resx">
       <DependentUpon>cadastro_or.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="cadastro_os.resx">
-      <DependentUpon>cadastro_os.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="cadastro_moto.resx">
-      <DependentUpon>cadastro_moto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="cadastro_pecas.resx">
-      <DependentUpon>cadastro_pecas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="cadastro_servico.resx">
-      <DependentUpon>cadastro_servico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="calendar.resx">
       <DependentUpon>calendar.cs</DependentUpon>
