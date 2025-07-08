@@ -152,7 +152,7 @@
             // 
             // txt_cep
             // 
-            this.txt_cep.Location = new System.Drawing.Point(237, 75);
+            this.txt_cep.Location = new System.Drawing.Point(236, 76);
             this.txt_cep.Margin = new System.Windows.Forms.Padding(2);
             this.txt_cep.Mask = "00000-000";
             this.txt_cep.Name = "txt_cep";

@@ -96,6 +96,7 @@
             this.Controls.Add(this.label1);
             this.Name = "cadastro_servicos";
             this.Text = "Cadastro de Serviços";
+            this.Load += new System.EventHandler(this.cadastro_servicos_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

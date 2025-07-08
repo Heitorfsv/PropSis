@@ -73,5 +73,10 @@ namespace PrototipoSistema
 
             conexao.Close();
         }
+
+        private void cadastro_moto_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

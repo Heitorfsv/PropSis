@@ -231,6 +231,7 @@
             this.Controls.Add(this.label1);
             this.Name = "cadastro_moto";
             this.Text = "Cadastro de moto";
+            this.Load += new System.EventHandler(this.cadastro_moto_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -22,69 +22,133 @@ namespace PrototipoSistema
 
         private void edicao_pecas_Load(object sender, EventArgs e)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand($"SELECT * FROM pecas WHERE nome LIKE '{static_class.doc_consultar}'", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            if (this.Text == "Edição peças")
             {
-                txt_nome.Text = reader.GetString("nome");
-                txt_marca.Text = reader.GetString("marca");
-                txt_modelo.Text = reader.GetString("modelo");
-                txt_valor.Text = reader.GetDecimal("valor_pago").ToString("N2");
-                txt_impostos.Text = reader.GetDecimal("impostos").ToString("N2");
-                txt_preco.Text = reader.GetDecimal("valor_sugerido").ToString("N2");
-                txt_fornecedor.Text = reader.GetString("fornecedor");
-                txt_contato.Text = reader.GetString("contato");
-                txt_local.Text = reader.GetString("local");
-                txt_estoque.Text = reader.GetString("estoque");
+                bnt_deletar.Visible = true;
+                bnt_historico.Visible = true;
+                bnt_editar.Text = "Salvar";
+
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
+
+                var cmd = new MySqlCommand($"SELECT * FROM pecas WHERE nome LIKE '{static_class.doc_consultar}'", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    txt_nome.Text = reader.GetString("nome");
+                    txt_marca.Text = reader.GetString("marca");
+                    txt_modelo.Text = reader.GetString("modelo");
+                    txt_valor.Text = reader.GetDecimal("valor_pago").ToString("N2");
+                    txt_impostos.Text = reader.GetDecimal("impostos").ToString("N2");
+                    txt_preco.Text = reader.GetDecimal("valor_sugerido").ToString("N2");
+                    txt_fornecedor.Text = reader.GetString("fornecedor");
+                    txt_contato.Text = reader.GetString("contato");
+                    txt_local.Text = reader.GetString("local");
+                    txt_estoque.Text = reader.GetString("estoque");
+                }
+
+                reader.Close();
+
+                if (txt_valor.Text != "" && txt_impostos.Text != "")
+                {
+                    decimal valor_pago = decimal.Parse(txt_valor.Text);
+                    decimal imposto = decimal.Parse(txt_impostos.Text);
+
+                    txt_total.Text = (valor_pago + imposto).ToString("N2");
+                }
+                else
+                { txt_total.Text = ""; }
             }
-
-            reader.Close();
-
-            if (txt_valor.Text != "" && txt_impostos.Text != "")
+            else if (this.Text == "Cadastro peças")
             {
-                decimal valor_pago = decimal.Parse(txt_valor.Text);
-                decimal imposto = decimal.Parse(txt_impostos.Text);
-
-                txt_total.Text = (valor_pago + imposto).ToString("N2");
+                bnt_deletar.Visible = false;
+                bnt_historico.Visible = false;
+                bnt_editar.Text = "Cadastrar";
             }
-            else
-            { txt_total.Text = ""; }
         }
 
         private void bnt_editar_Click(object sender, EventArgs e)
         {
-            pecas.nome = txt_nome.Text;
-            pecas.marca = txt_marca.Text;
-            pecas.modelo = txt_modelo.Text;
-
-            try
+            if (this.Text == "Edição peças")
             {
-                pecas.valor_pago = decimal.Parse(txt_valor.Text);
-                pecas.impostos = decimal.Parse(txt_impostos.Text);
-                pecas.valor_sugerido = decimal.Parse(txt_preco.Text);
+                pecas.nome = txt_nome.Text;
+                pecas.marca = txt_marca.Text;
+                pecas.modelo = txt_modelo.Text;
+
+                try
+                {
+                    pecas.valor_pago = decimal.Parse(txt_valor.Text);
+                    pecas.impostos = decimal.Parse(txt_impostos.Text);
+                    pecas.valor_sugerido = decimal.Parse(txt_preco.Text);
+                }
+                catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+
+                pecas.fornecedor = txt_fornecedor.Text;
+                pecas.contato = txt_contato.Text;
+                pecas.estoque = txt_estoque.Text.Trim();
+
+                pecas.local = txt_local.Text;
+
+                if (txt_nome.Text == string.Empty && txt_nome.Text == " ")
+                {
+                    MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Peça Alterada!", "JCMotorsport", MessageBoxButtons.OK);
+                    pecas.alterar_pecas();
+                }
             }
-            catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-
-            pecas.fornecedor = txt_fornecedor.Text;
-            pecas.contato = txt_contato.Text;
-            pecas.estoque = txt_estoque.Text.Trim();
-
-            pecas.local = txt_local.Text;
-
-            if (txt_nome.Text == string.Empty && txt_nome.Text == " ")
+            else if (this.Text == "Cadastro peças")
             {
-                 MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                MessageBox.Show("Peça Alterada!", "JCMotorsport", MessageBoxButtons.OK);
-                pecas.alterar_pecas();
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
+
+                var cmd = new MySqlCommand($"SELECT * FROM pecas WHERE nome = '{txt_nome.Text}'", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    MessageBox.Show("Peça já cadastrada", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    pecas.ultimo_index();
+                    pecas.index++;
+
+                    pecas.nome = txt_nome.Text;
+                    pecas.marca = txt_marca.Text;
+                    pecas.modelo = txt_modelo.Text;
+
+                    try
+                    {
+                        pecas.valor_pago = decimal.Parse(txt_valor.Text);
+                        pecas.impostos = decimal.Parse(txt_impostos.Text);
+                        pecas.valor_sugerido = decimal.Parse(txt_preco.Text);
+                    }
+                    catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+
+                    pecas.fornecedor = txt_fornecedor.Text;
+                    pecas.contato = txt_contato.Text;
+                    pecas.estoque = txt_estoque.Text.Trim();
+
+                    pecas.local = txt_local.Text;
+
+                    if (txt_nome.Text == string.Empty)
+                    {
+                        MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        pecas.cadastrar_pecas();
+                    }
+                }
+                conexao.Close();
             }
         }
 

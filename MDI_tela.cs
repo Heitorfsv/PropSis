@@ -117,20 +117,24 @@ namespace PrototipoSistema
 
         private void cadastroPeçaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cadastro_pecas cadastro_peca = new cadastro_pecas();
+            edicao_pecas cadastro_peca = new edicao_pecas();
+            cadastro_peca.Text = "Cadastro peças";
+
             cadastro_peca.MdiParent = this;
             cadastro_peca.Show();
         }
 
         private void cadastroClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cadastro_cliente cadastro_cliente = new cadastro_cliente();
+            edicao_cliente cadastro_cliente = new edicao_cliente();
+            cadastro_cliente.Text = "Cadastro Cliente";
             cadastro_cliente.MdiParent = this;
             cadastro_cliente.Show();
         }
         private void cadastrarServiçoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cadastro_servicos cadastro_servico = new cadastro_servicos();
+            edicao_servicos cadastro_servico = new edicao_servicos();
+            cadastro_servico.Text = "Cadastro Serviço";
             cadastro_servico.MdiParent = this;
             cadastro_servico.Show();
         }
@@ -158,7 +162,9 @@ namespace PrototipoSistema
 
         private void cadastrarMotoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cadastro_moto cadastro_moto = new cadastro_moto();
+            edicao_motos cadastro_moto = new edicao_motos();
+            cadastro_moto.Text = "Cadastro Moto";
+
             cadastro_moto.MdiParent = this;
             cadastro_moto.Show();
         }

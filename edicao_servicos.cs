@@ -21,35 +21,88 @@ namespace PrototipoSistema
 
         private void edicao_servicos_Load(object sender, EventArgs e)
         {
-
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand($"SELECT * FROM servicos WHERE nome LIKE '{static_class.doc_consultar}'", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            if (this.Text == "Edição serviços")
             {
-                txt_nome.Text = reader.GetString("nome");
-                txt_valor.Text = reader.GetDecimal("valor").ToString("N2");
-            }
+                bnt_deletar.Visible = true;
+                bnt_historico.Visible = true;
+                bnt_editar.Text = "Salvar";
 
-            conexao.Close();
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
+
+                var cmd = new MySqlCommand($"SELECT * FROM servicos WHERE nome LIKE '{static_class.doc_consultar}'", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    txt_nome.Text = reader.GetString("nome");
+                    txt_valor.Text = reader.GetDecimal("valor").ToString("N2");
+                }
+
+                conexao.Close();
+            }
+            else if (this.Text == "Cadastro serviços")
+            {
+                bnt_deletar.Visible = false;
+                bnt_historico.Visible = false;
+                bnt_editar.Text = "Cadastrar";
+            }
         }
 
         private void bnt_editar_Click(object sender, EventArgs e)
         {
-            servicos.nome = txt_nome.Text;
-            servicos.valor = decimal.Parse(txt_valor.Text);
-
-            try
+            if (this.Text == "Edição serviços")
             {
-                MessageBox.Show("Serviço Alterado!", "JCMotorsport", MessageBoxButtons.OK);
-                servicos.alterar_servico();
+                servicos.nome = txt_nome.Text;
+                servicos.valor = decimal.Parse(txt_valor.Text);
+
+                try
+                {
+                    MessageBox.Show("Serviço Alterado!", "JCMotorsport", MessageBoxButtons.OK);
+                    servicos.alterar_servico();
+                }
+                catch { }
             }
-            catch { }
+            else if (this.Text == "Cadastro serviços")
+            {
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
+
+                var cmd = new MySqlCommand($"SELECT * FROM servicos WHERE nome = '{txt_nome.Text}'", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    MessageBox.Show("Serviço já cadastrada", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    servicos.ultimo_index();
+                    servicos.index++;
+
+                    servicos.nome = txt_nome.Text;
+                    try
+                    {
+                        servicos.valor = decimal.Parse(txt_valor.Text);
+                    }
+                    catch (Exception) { MessageBox.Show("Preencha o campo Valor com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+
+                    if (txt_nome.Text == string.Empty)
+                    {
+                        MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        servicos.cadastrar_servicos();
+                        MessageBox.Show("Serviço cadastrado!", "JCMotorsport", MessageBoxButtons.OK);
+                    }
+                }
+                conexao.Close();
+            }
         }
 
         private void bnt_deletar_Click(object sender, EventArgs e)

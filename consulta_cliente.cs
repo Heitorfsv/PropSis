@@ -165,6 +165,7 @@ namespace PrototipoSistema
             if (lst_telefone.SelectedIndex != -1)
             {
                 edicao_cliente tela_cliente = new edicao_cliente();
+                tela_cliente.Text = "Edição Cliente";
 
                 static_class.doc_consultar = lst_doc.SelectedItem.ToString();
                 tela_cliente.Show();
@@ -176,6 +177,7 @@ namespace PrototipoSistema
             if (lst_nome.SelectedIndex != -1)
             {
                 edicao_cliente tela_cliente = new edicao_cliente();
+                tela_cliente.Text = "Edição Cliente";
 
                 static_class.doc_consultar = lst_doc.SelectedItem.ToString();
                 tela_cliente.Show();
@@ -187,6 +189,7 @@ namespace PrototipoSistema
             if (lst_doc.SelectedIndex != -1)
             {
                 edicao_cliente tela_cliente = new edicao_cliente();
+                tela_cliente.Text = "Edição Cliente";
 
                 static_class.doc_consultar = lst_doc.SelectedItem.ToString();
                 tela_cliente.Show();
@@ -198,6 +201,7 @@ namespace PrototipoSistema
             if (lst_dt_nascimento.SelectedIndex != -1)
             {
                 edicao_cliente tela_cliente = new edicao_cliente();
+                tela_cliente.Text = "Edição Cliente";
 
                 static_class.doc_consultar = lst_doc.SelectedItem.ToString();
                 tela_cliente.Show();
@@ -233,6 +237,7 @@ namespace PrototipoSistema
             if (lst_dt_cadastro.SelectedIndex != -1)
             {
                 edicao_cliente tela_cliente = new edicao_cliente();
+                tela_cliente.Text = "Edição Cliente";
 
                 static_class.doc_consultar = lst_doc.SelectedItem.ToString();
                 tela_cliente.Show();
@@ -243,8 +248,8 @@ namespace PrototipoSistema
         {
             if (lst_endereco.SelectedIndex != -1)
             {
-                edicao_cliente tela_cliente = new edicao_cliente()
-                    ;
+                edicao_cliente tela_cliente = new edicao_cliente();
+                tela_cliente.Text = "Edição Cliente";
 
                 static_class.doc_consultar = lst_doc.SelectedItem.ToString();
                 tela_cliente.Show();
@@ -261,7 +266,8 @@ namespace PrototipoSistema
 
         private void bnt_add_Click(object sender, EventArgs e)
         {
-            cadastro_cliente cadastro = new cadastro_cliente();
+            edicao_cliente cadastro = new edicao_cliente();
+            cadastro.Text = "Cadastro Cliente";
             cadastro.Show();
         } 
     }

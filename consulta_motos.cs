@@ -223,6 +223,7 @@ namespace PrototipoSistema
             try
             {
                 edicao_motos edicao_motos = new edicao_motos();
+                edicao_motos.Text = "Edição motos";
 
                 static_class.doc_consultar = lst_placa.SelectedItem.ToString();
                 static_class.doc_dono = doc_dono[lst_placa.SelectedIndex];
@@ -233,7 +234,8 @@ namespace PrototipoSistema
 
         private void bnt_add_Click(object sender, EventArgs e)
         {
-            cadastro_moto cadastro = new cadastro_moto();
+            edicao_motos cadastro = new edicao_motos();
+            cadastro.Text = "Cadastro motos";
             cadastro.Show();
         }
     }

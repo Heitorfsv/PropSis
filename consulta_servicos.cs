@@ -75,6 +75,7 @@ namespace PrototipoSistema
         private void lst_nome_DoubleClick(object sender, EventArgs e)
         {
             edicao_servicos tela_servico = new edicao_servicos();
+            tela_servico.Text = "Edição serviços";
 
             static_class.doc_consultar = lst_nome.SelectedItem.ToString();
             tela_servico.Show();
@@ -93,6 +94,7 @@ namespace PrototipoSistema
         private void lst_status_DoubleClick(object sender, EventArgs e)
         {
             edicao_servicos tela_servico = new edicao_servicos();
+            tela_servico.Text = "Edição serviços";
 
             static_class.doc_consultar = lst_nome.SelectedItem.ToString();
             tela_servico.Show();
@@ -100,7 +102,8 @@ namespace PrototipoSistema
 
         private void bnt_add_Click(object sender, EventArgs e)
         {
-            cadastro_servicos cadastro = new cadastro_servicos();
+            edicao_servicos cadastro = new edicao_servicos();
+            cadastro.Text = "Cadastro serviços";
             cadastro.Show();
         }
     }

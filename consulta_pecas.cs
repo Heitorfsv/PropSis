@@ -93,6 +93,7 @@ namespace PrototipoSistema
         private void lst_nome_DoubleClick(object sender, EventArgs e)
         {
             edicao_pecas tela_peca = new edicao_pecas();
+            tela_peca.Text = "Edição peças";
 
             static_class.doc_consultar = lst_nome.SelectedItem.ToString();
             tela_peca.Show();
@@ -101,6 +102,7 @@ namespace PrototipoSistema
         private void lst_status_DoubleClick(object sender, EventArgs e)
         {
             edicao_pecas tela_peca = new edicao_pecas();
+            tela_peca.Text = "Edição peças";
 
             static_class.doc_consultar = lst_nome.SelectedItem.ToString();
             tela_peca.Show();
@@ -124,6 +126,7 @@ namespace PrototipoSistema
         private void lst_marca_DoubleClick(object sender, EventArgs e)
         {
             edicao_pecas tela_peca = new edicao_pecas();
+            tela_peca.Text = "Edição peças";
 
             static_class.doc_consultar = lst_nome.SelectedItem.ToString();
             tela_peca.Show();
@@ -132,6 +135,7 @@ namespace PrototipoSistema
         private void lst_modelo_DoubleClick(object sender, EventArgs e)
         {
             edicao_pecas tela_peca = new edicao_pecas();
+            tela_peca.Text = "Edição peças";
 
             static_class.doc_consultar = lst_nome.SelectedItem.ToString();
             tela_peca.Show();
@@ -140,6 +144,7 @@ namespace PrototipoSistema
         private void lst_fornecedor_DoubleClick(object sender, EventArgs e)
         {
             edicao_pecas tela_peca = new edicao_pecas();
+            tela_peca.Text = "Edição peças";
 
             static_class.doc_consultar = lst_nome.SelectedItem.ToString();
             tela_peca.Show();
@@ -147,7 +152,8 @@ namespace PrototipoSistema
 
         private void bnt_add_Click(object sender, EventArgs e)
         {
-            cadastro_pecas cadastro = new cadastro_pecas();
+            edicao_pecas cadastro = new edicao_pecas();
+            cadastro.Text = "Cadastro peças";
             cadastro.Show();
         }
     }
