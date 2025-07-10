@@ -30,6 +30,7 @@ namespace PrototipoSistema
             if (this.Text == "Cadastro orçamento")
             {
                 bnt_cadastro.Text = "Cadastrar";
+                bnt_deletar.Visible = false;
                 dtp_cadastro.Value = DateTime.Now;
 
                 orcamento.ultimo_index();
@@ -39,6 +40,7 @@ namespace PrototipoSistema
             else if (this.Text == "Edição orçamento")
             {
                 bnt_cadastro.Text = "Editar";
+                bnt_deletar.Visible = true;
 
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
@@ -367,6 +369,19 @@ namespace PrototipoSistema
                 txt_ano.Text = reader.GetString("ano");
             }
             conexao.Close();
+        }
+
+        private void bnt_deletar_Click(object sender, EventArgs e)
+        {
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            var cmd = new MySqlCommand($"DELETE FROM orcamentos WHERE controle = '{static_class.controle_os}'", conexao);
+
+            conexao.Open();
+            cmd.ExecuteReader();
+            conexao.Close();
+            Close();
         }
     }
 }

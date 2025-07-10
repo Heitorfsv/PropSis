@@ -69,6 +69,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.bnt_deletar = new System.Windows.Forms.Button();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -85,7 +86,7 @@
             // 
             // bnt_cadastro
             // 
-            this.bnt_cadastro.Location = new System.Drawing.Point(738, 518);
+            this.bnt_cadastro.Location = new System.Drawing.Point(829, 519);
             this.bnt_cadastro.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_cadastro.Name = "bnt_cadastro";
             this.bnt_cadastro.Size = new System.Drawing.Size(86, 23);
@@ -496,11 +497,23 @@
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // bnt_deletar
+            // 
+            this.bnt_deletar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.bnt_deletar.Location = new System.Drawing.Point(829, 493);
+            this.bnt_deletar.Name = "bnt_deletar";
+            this.bnt_deletar.Size = new System.Drawing.Size(86, 23);
+            this.bnt_deletar.TabIndex = 107;
+            this.bnt_deletar.Text = "Deletar";
+            this.bnt_deletar.UseVisualStyleBackColor = true;
+            this.bnt_deletar.Click += new System.EventHandler(this.bnt_deletar_Click);
+            // 
             // cadastro_or
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1022, 597);
+            this.Controls.Add(this.bnt_deletar);
             this.Controls.Add(this.dtp_cadastro);
             this.Controls.Add(this.bnt_cadastro);
             this.Controls.Add(this.label9);
@@ -569,5 +582,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Button bnt_deletar;
     }
 }

@@ -131,10 +131,10 @@
             // 
             // bnt_editar
             // 
-            this.bnt_editar.Location = new System.Drawing.Point(832, 554);
+            this.bnt_editar.Location = new System.Drawing.Point(832, 547);
             this.bnt_editar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar.Name = "bnt_editar";
-            this.bnt_editar.Size = new System.Drawing.Size(86, 28);
+            this.bnt_editar.Size = new System.Drawing.Size(86, 23);
             this.bnt_editar.TabIndex = 51;
             this.bnt_editar.Text = "Salvar";
             this.bnt_editar.UseVisualStyleBackColor = true;
@@ -586,9 +586,9 @@
             // bnt_deletar
             // 
             this.bnt_deletar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bnt_deletar.Location = new System.Drawing.Point(832, 521);
+            this.bnt_deletar.Location = new System.Drawing.Point(832, 520);
             this.bnt_deletar.Name = "bnt_deletar";
-            this.bnt_deletar.Size = new System.Drawing.Size(86, 28);
+            this.bnt_deletar.Size = new System.Drawing.Size(86, 22);
             this.bnt_deletar.TabIndex = 54;
             this.bnt_deletar.Text = "Deletar";
             this.bnt_deletar.UseVisualStyleBackColor = true;
