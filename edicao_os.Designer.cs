@@ -124,7 +124,7 @@
             // dtp_saida
             // 
             this.dtp_saida.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_saida.Location = new System.Drawing.Point(627, 51);
+            this.dtp_saida.Location = new System.Drawing.Point(627, 47);
             this.dtp_saida.Name = "dtp_saida";
             this.dtp_saida.Size = new System.Drawing.Size(200, 20);
             this.dtp_saida.TabIndex = 52;
@@ -570,7 +570,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 36);
+            this.label1.Location = new System.Drawing.Point(8, 31);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 13);
@@ -634,7 +634,7 @@
             // cb_saida
             // 
             this.cb_saida.AutoSize = true;
-            this.cb_saida.Location = new System.Drawing.Point(606, 54);
+            this.cb_saida.Location = new System.Drawing.Point(606, 51);
             this.cb_saida.Name = "cb_saida";
             this.cb_saida.Size = new System.Drawing.Size(15, 14);
             this.cb_saida.TabIndex = 59;
@@ -644,7 +644,7 @@
             // dtp_cadastro
             // 
             this.dtp_cadastro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_cadastro.Location = new System.Drawing.Point(11, 52);
+            this.dtp_cadastro.Location = new System.Drawing.Point(11, 47);
             this.dtp_cadastro.Name = "dtp_cadastro";
             this.dtp_cadastro.Size = new System.Drawing.Size(200, 20);
             this.dtp_cadastro.TabIndex = 60;
@@ -819,7 +819,6 @@
             this.imprimirToolStripMenuItem.Name = "imprimirToolStripMenuItem";
             this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.imprimirToolStripMenuItem.Text = "Impressão";
-            this.imprimirToolStripMenuItem.Click += new System.EventHandler(this.imprimirToolStripMenuItem_Click);
             // 
             // visualizarImpressToolStripMenuItem
             // 
@@ -832,7 +831,7 @@
             // 
             this.imprimirToolStripMenuItem1.Name = "imprimirToolStripMenuItem1";
             this.imprimirToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.imprimirToolStripMenuItem1.Text = "Imprimir";
+            this.imprimirToolStripMenuItem1.Text = "Salvar ";
             this.imprimirToolStripMenuItem1.Click += new System.EventHandler(this.imprimirToolStripMenuItem1_Click);
             // 
             // cmb_pago

@@ -55,6 +55,19 @@ namespace PrototipoSistema
 
         private void edicao_os2_Load(object sender, EventArgs e)
         {
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            var cmd = new MySqlCommand($"SELECT * FROM metodo_pag", conexao);
+
+            conexao.Open();
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            { cmb_pago.Items.Add(reader.GetString("metodo"));}
+
+            conexao.Close();
+
             cmb_pago.Visible = false;
 
             if (this.Text == "Cadastro OS")
@@ -74,13 +87,10 @@ namespace PrototipoSistema
 
                 gb_troca.Visible = false;
 
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
-
-                var cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{static_class.controle_os}'", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{static_class.controle_os}'", conexao);
 
                 conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
+                reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -122,7 +132,9 @@ namespace PrototipoSistema
                     {
                         cb_pago.Checked = true;
                         cmb_pago.Visible = true;
-                        //cmb_pago.Text = reader.GetString("metodo_pag");
+                        try
+                        { cmb_pago.Text = reader.GetString("metodo_pag"); }
+                        catch { MessageBox.Show("Nenhum metodo de pagamento cadastrado"); }
                     }
                     else
                     { 
@@ -318,7 +330,7 @@ namespace PrototipoSistema
                         os.pago = 1; 
                         os.metodo = cmb_pago.Text; 
                     }
-                    else os.pago = 0; os.metodo = null;
+                    else os.pago = 0; os.metodo = "";
 
                     os.dt_cadastro = dtp_cadastro.Value.ToString();
 
@@ -377,12 +389,12 @@ namespace PrototipoSistema
                         os.pago = 1;
                         os.metodo = cmb_pago.Text;
                     }
-                    else os.pago = 0; os.metodo = null;
+                    else os.pago = 0; os.metodo = "";
                 }
                 else
                 { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
                 conexao.Close();
-
+                 
                 try
                 {
                     MessageBox.Show(os.aviso_filtro_dt + "\n" + os.aviso_oleo_dt);
@@ -546,39 +558,61 @@ namespace PrototipoSistema
                 });
 
                 // Define the new event
-
-                Event newEvent = new Event()
+                if (dtp_troca_oleo.Enabled)
                 {
-                    Summary = "Próxima troca de óleo " + txt_cliente.Text,
-                    Description = "...",
-                    Start = new EventDateTime()
+                    Event newEvent = new Event()
                     {
-                        DateTime = dtp_troca_oleo.Value,
-                        TimeZone = "America/Sao_Paulo",
-                    },
-                    End = new EventDateTime()
-                    {
-                        DateTime = dtp_troca_oleo.Value,
-                        TimeZone = "America/Sao_Paulo",
-                    },
-                    Attendees = new EventAttendee[]
-                    {
+                        Summary = "Próxima troca de óleo " + txt_cliente.Text,
+                        Description = "...",
+                        Start = new EventDateTime()
+                        {
+                            DateTime = dtp_troca_oleo.Value,
+                            TimeZone = "America/Sao_Paulo",
+                        },
+                        End = new EventDateTime()
+                        {
+                            DateTime = dtp_troca_oleo.Value,
+                            TimeZone = "America/Sao_Paulo",
+                        },
+                        Attendees = new EventAttendee[]
+                        {
                     new EventAttendee() { Email = "heitorfsv@gmail.com" }
-                    },
-                };
+                        },
+                    };
 
+                    // Insert the event into the user's calendar
+                    EventsResource.InsertRequest request = service.Events.Insert(newEvent, "primary");
+                    Event createdEvent = request.Execute();
+                }
 
-                // Insert the event into the user's calendar
-                EventsResource.InsertRequest request = service.Events.Insert(newEvent, "primary");
-                Event createdEvent = request.Execute();
+                if (dtp_troca_filtro.Enabled)
+                {
+                    Event newEvent = new Event()
+                    {
+                        Summary = "Próxima troca de filtro " + txt_cliente.Text,
+                        Description = "...",
+                        Start = new EventDateTime()
+                        {
+                            DateTime = dtp_troca_filtro.Value,
+                            TimeZone = "America/Sao_Paulo",
+                        },
+                        End = new EventDateTime()
+                        {
+                            DateTime = dtp_troca_filtro.Value,
+                            TimeZone = "America/Sao_Paulo",
+                        },
+                        Attendees = new EventAttendee[]
+                        {
+                    new EventAttendee() { Email = "heitorfsv@gmail.com" }
+                        },
+                    };
 
+                    // Insert the event into the user's calendar
+                    EventsResource.InsertRequest request = service.Events.Insert(newEvent, "primary");
+                    Event createdEvent = request.Execute();
+                }
                 this.Close();
             }
-        }
-
-        private void imprimirToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void visualizarImpressToolStripMenuItem_Click(object sender, EventArgs e)
