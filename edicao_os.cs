@@ -127,7 +127,6 @@ namespace PrototipoSistema
                     }
                     catch { }
 
-
                     if (reader.GetInt32("pago") == 1)
                     {
                         cb_pago.Checked = true;
@@ -192,7 +191,7 @@ namespace PrototipoSistema
                     string qtd = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
-                    total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd));
+                    total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
                 }
                 txt_total_servico.Text = total_servico.ToString("N2");
                 conexao.Close();
