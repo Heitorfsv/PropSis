@@ -85,6 +85,10 @@ namespace PrototipoSistema
                 item.SubItems.Add(""); // preço serviço - preencher depois
                 item.SubItems.Add(reader.GetString("total").ToString());
 
+                bool sujo = reader.GetInt32("pago") == 1;
+
+                if (sujo == false) item.ForeColor = Color.Red;
+
                 listView1.Items.Add(item);
 
                 count++;
@@ -236,6 +240,10 @@ namespace PrototipoSistema
                     item.SubItems.Add(""); // preço serviço
                     item.SubItems.Add(reader.GetString("total").ToString());
 
+                    bool sujo = reader.GetInt32("pago") == 1;
+
+                    if (sujo == false) item.ForeColor = Color.Red;
+
                     listView1.Items.Add(item);
                 }
                 conexao.Close();
@@ -344,6 +352,10 @@ namespace PrototipoSistema
                         item.SubItems.Add(""); // preço peça
                         item.SubItems.Add(""); // preço serviço
                         item.SubItems.Add(reader.GetString("total").ToString());
+
+                        bool sujo = reader.GetInt32("pago") == 1;
+
+                        if (sujo == false) item.ForeColor = Color.Red;
 
                         listView1.Items.Add(item);
                     }
@@ -479,6 +491,10 @@ namespace PrototipoSistema
                     item.SubItems.Add(""); // preço peça
                     item.SubItems.Add(""); // preço serviço
                     item.SubItems.Add(reader.GetString("total").ToString());
+
+                    bool sujo = reader.GetInt32("pago") == 1;
+
+                    if (sujo == false) item.ForeColor = Color.Red;              
 
                     listView1.Items.Add(item);
                     doc_dono.Add(reader.GetString("doc"));
