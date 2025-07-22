@@ -1,13 +1,18 @@
 ﻿using classes;
 using MySql.Data.MySqlClient;
 using PrototipoSistema.classes;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,6 +24,13 @@ namespace PrototipoSistema
         orcamento orcamento = new orcamento();
         string doc_cliente;
         OS os = new OS();
+
+        //Variaveis para o PDF
+        string rua = "";
+        string bairro = "";
+        string cidade = "";
+        string cep = "";
+        string cor = "";
 
         public cadastro_or()
         {
@@ -70,6 +82,7 @@ namespace PrototipoSistema
                     txt_modelo.Text = reader.GetString("modelo");
                     txt_ano.Text = reader.GetString("ano");
                     doc_cliente = reader.GetString("doc_dono");
+                    cor = reader.GetString("cor");
                 }
                 conexao.Close();
 
@@ -82,6 +95,10 @@ namespace PrototipoSistema
                 {
                     cmb_cliente.Text = reader.GetString("nome");
                     txt_telefone.Text = reader.GetString("telefone");
+                    rua = reader.GetString("rua");
+                    bairro = reader.GetString("bairro");
+                    cidade = reader.GetString("cidade");
+                    cep = reader.GetString("cep");
                 }
                 conexao.Close();
 
@@ -382,6 +399,143 @@ namespace PrototipoSistema
             cmd.ExecuteReader();
             conexao.Close();
             Close();
+        }
+
+        private void visualizarImpressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QuestPDF.Settings.License = LicenseType.Community;
+            try
+            {
+                var doc = new osPdf
+                {
+                    tipo = "O.R: ",
+                    Cliente = cmb_cliente.Text,
+                    Documento = doc_cliente,
+                    Telefone = txt_telefone.Text,
+                    Placa = cmb_placa.Text,
+                    Marca = txt_marca.Text,
+                    Modelo = txt_modelo.Text,
+                    Ano = txt_ano.Text,
+                    Cor = cor,
+                    Rua = rua,
+                    Bairro = bairro,
+                    Cidade = cidade,
+                    CEP = cep,
+                    DtCadastro = dtp_cadastro.Value,
+                    Total = decimal.Parse(txt_total.Text),
+                    TotalPecas = decimal.Parse(txt_total_pecas.Text),
+                    TotalServicos = decimal.Parse(txt_total_servico.Text),
+                    Pecas = new List<(string, string, string)>(),
+                    Servicos = new List<(string, string, string)>()
+                };
+
+                for (int i = 0; i < lst_pecas.Items.Count; i++)
+                {
+                    doc.Pecas.Add((
+                        lst_pecas.Items[i].ToString(),
+                        lst_pecas_qtd.Items[i].ToString().Replace(".", ","),
+                        lst_peca_total.Items[i].ToString()
+                    ));
+                }
+
+                for (int i = 0; i < lst_servicos.Items.Count; i++)
+                {
+                    doc.Servicos.Add((
+                        lst_servicos.Items[i].ToString(),
+                        lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
+                        lst_servico_total.Items[i].ToString()
+                    ));
+                }
+
+                // Gerar arquivo temporário
+                string tempPath = Path.Combine(Path.GetTempPath(), $"preview_{Guid.NewGuid()}.pdf");
+
+                // Gerar PDF e salvar no arquivo temporário
+                doc.GeneratePdf(tempPath);
+
+                // Abrir no visualizador padrão do Windows
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = tempPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void imprimirToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            try
+            {
+                var doc = new osPdf
+                {
+                    tipo = "O.R: ",
+                    Cliente = cmb_cliente.Text,
+                    Documento = doc_cliente,
+                    Telefone = txt_telefone.Text,
+                    Placa = cmb_placa.Text,
+                    Marca = txt_marca.Text,
+                    Modelo = txt_modelo.Text,
+                    Ano = txt_ano.Text,
+                    Cor = cor,
+                    Rua = rua,
+                    Bairro = bairro,
+                    Cidade = cidade,
+                    CEP = cep,
+                    DtCadastro = dtp_cadastro.Value,
+                    Total = decimal.Parse(txt_total.Text),
+                    TotalPecas = decimal.Parse(txt_total_pecas.Text),
+                    TotalServicos = decimal.Parse(txt_total_servico.Text),
+                    Pecas = new List<(string, string, string)>(),
+                    Servicos = new List<(string, string, string)>()
+                };
+
+                for (int i = 0; i < lst_pecas.Items.Count; i++)
+                {
+                    doc.Pecas.Add((
+                        lst_pecas.Items[i].ToString(),
+                        lst_pecas_qtd.Items[i].ToString().Replace(".", ","),
+                        lst_peca_total.Items[i].ToString()
+                    ));
+                }
+
+                for (int i = 0; i < lst_servicos.Items.Count; i++)
+                {
+                    doc.Servicos.Add((
+                        lst_servicos.Items[i].ToString(),
+                        lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
+                        lst_servico_total.Items[i].ToString()
+                    ));
+                }
+
+                using (var salvar = new SaveFileDialog())
+                {
+                    salvar.Filter = "PDF files (*.pdf)|*.pdf";
+                    salvar.FileName = $"OS_{static_class.controle_os}.pdf";
+
+                    if (salvar.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            doc.GeneratePdf(salvar.FileName);
+                            MessageBox.Show("PDF gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ public class osPdf : IDocument
     public decimal TotalServicos { get; set; }
     public List<(string Nome, string Qtd, string Valor)> Pecas { get; set; }
     public List<(string Nome, string Qtd, string Valor)> Servicos { get; set; }
+    public string tipo { get; set; } = "O.S: ";
 
     public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
 
@@ -60,7 +61,7 @@ public class osPdf : IDocument
                     {
                         col2.Item().Row(r =>
                         {
-                            r.RelativeColumn().Text("O.S.:").SemiBold().FontSize(9);
+                            r.RelativeColumn().Text(tipo).SemiBold().FontSize(9);
                             r.ConstantColumn(60).Text(static_class.controle_os).Bold().FontSize(9);
                         });
                         col2.Item().Row(r =>

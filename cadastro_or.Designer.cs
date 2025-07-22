@@ -70,23 +70,28 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.bnt_deletar = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visualizarImpressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imprimirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dtp_cadastro
             // 
             this.dtp_cadastro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_cadastro.Location = new System.Drawing.Point(11, 26);
+            this.dtp_cadastro.Location = new System.Drawing.Point(13, 50);
             this.dtp_cadastro.Name = "dtp_cadastro";
             this.dtp_cadastro.Size = new System.Drawing.Size(200, 20);
             this.dtp_cadastro.TabIndex = 75;
             // 
             // bnt_cadastro
             // 
-            this.bnt_cadastro.Location = new System.Drawing.Point(829, 519);
+            this.bnt_cadastro.Location = new System.Drawing.Point(831, 543);
             this.bnt_cadastro.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_cadastro.Name = "bnt_cadastro";
             this.bnt_cadastro.Size = new System.Drawing.Size(86, 23);
@@ -98,7 +103,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(704, 479);
+            this.label9.Location = new System.Drawing.Point(706, 503);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
@@ -107,7 +112,7 @@
             // 
             // txt_total
             // 
-            this.txt_total.Location = new System.Drawing.Point(707, 494);
+            this.txt_total.Location = new System.Drawing.Point(709, 518);
             this.txt_total.Margin = new System.Windows.Forms.Padding(2);
             this.txt_total.Name = "txt_total";
             this.txt_total.ReadOnly = true;
@@ -124,7 +129,7 @@
             this.groupBox6.Controls.Add(this.label21);
             this.groupBox6.Controls.Add(this.txt_total_servico);
             this.groupBox6.Controls.Add(this.lst_servicos);
-            this.groupBox6.Location = new System.Drawing.Point(420, 170);
+            this.groupBox6.Location = new System.Drawing.Point(422, 194);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
@@ -220,7 +225,7 @@
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.txt_total_pecas);
             this.groupBox4.Controls.Add(this.lst_pecas);
-            this.groupBox4.Location = new System.Drawing.Point(12, 170);
+            this.groupBox4.Location = new System.Drawing.Point(14, 194);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
@@ -314,7 +319,7 @@
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txt_telefone);
-            this.groupBox2.Location = new System.Drawing.Point(11, 51);
+            this.groupBox2.Location = new System.Drawing.Point(13, 75);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -392,7 +397,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txt_marca);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 112);
+            this.groupBox1.Location = new System.Drawing.Point(14, 136);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -484,7 +489,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 10);
+            this.label1.Location = new System.Drawing.Point(11, 34);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 13);
@@ -500,7 +505,7 @@
             // bnt_deletar
             // 
             this.bnt_deletar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bnt_deletar.Location = new System.Drawing.Point(829, 493);
+            this.bnt_deletar.Location = new System.Drawing.Point(831, 517);
             this.bnt_deletar.Name = "bnt_deletar";
             this.bnt_deletar.Size = new System.Drawing.Size(86, 23);
             this.bnt_deletar.TabIndex = 107;
@@ -508,11 +513,45 @@
             this.bnt_deletar.UseVisualStyleBackColor = true;
             this.bnt_deletar.Click += new System.EventHandler(this.bnt_deletar_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imprimirToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1022, 24);
+            this.menuStrip1.TabIndex = 108;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // imprimirToolStripMenuItem
+            // 
+            this.imprimirToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.visualizarImpressToolStripMenuItem,
+            this.imprimirToolStripMenuItem1});
+            this.imprimirToolStripMenuItem.Name = "imprimirToolStripMenuItem";
+            this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.imprimirToolStripMenuItem.Text = "Impressão";
+            // 
+            // visualizarImpressToolStripMenuItem
+            // 
+            this.visualizarImpressToolStripMenuItem.Name = "visualizarImpressToolStripMenuItem";
+            this.visualizarImpressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.visualizarImpressToolStripMenuItem.Text = "Visualizar impressão";
+            this.visualizarImpressToolStripMenuItem.Click += new System.EventHandler(this.visualizarImpressToolStripMenuItem_Click);
+            // 
+            // imprimirToolStripMenuItem1
+            // 
+            this.imprimirToolStripMenuItem1.Name = "imprimirToolStripMenuItem1";
+            this.imprimirToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.imprimirToolStripMenuItem1.Text = "Salvar ";
+            this.imprimirToolStripMenuItem1.Click += new System.EventHandler(this.imprimirToolStripMenuItem1_Click);
+            // 
             // cadastro_or
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1022, 597);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.bnt_deletar);
             this.Controls.Add(this.dtp_cadastro);
             this.Controls.Add(this.bnt_cadastro);
@@ -535,6 +574,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -583,5 +624,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Button bnt_deletar;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem visualizarImpressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem1;
     }
 }

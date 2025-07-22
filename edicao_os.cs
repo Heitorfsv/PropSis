@@ -621,6 +621,7 @@ namespace PrototipoSistema
             { 
                 var doc = new osPdf
                 {
+                    tipo = "O.S: ",
                     Cliente = txt_cliente.Text,
                     Documento = doc_cliente,
                     Telefone = txt_telefone.Text,
@@ -689,6 +690,7 @@ namespace PrototipoSistema
             {
                 var doc = new osPdf
                 {
+                    tipo = "O.S: ",
                     Cliente = txt_cliente.Text,
                     Documento = doc_cliente,
                     Telefone = txt_telefone.Text,
@@ -710,7 +712,7 @@ namespace PrototipoSistema
                     TotalServicos = decimal.Parse(txt_total_servico.Text),
                     Pecas = new List<(string, string, string)>(),
                     Servicos = new List<(string, string, string)>()
-                };
+                }; 
 
                 for (int i = 0; i < lst_pecas.Items.Count; i++)
                 {
