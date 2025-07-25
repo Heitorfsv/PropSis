@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="$safeprojectname$.exe" size="246752">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="$safeprojectname$.exe" size="247264">
       <assemblyIdentity name="$safeprojectname$" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>2BFxU9jxdiBm7feqZiwvwVk0qW3Wp5Vjjv0fWAzMhTo=</dsig:DigestValue>
+        <dsig:DigestValue>dMC5TRjqjBTfrdhPKSwGjAG1vTzmH7bS+bdYwwgh12M=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -684,6 +684,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>FffDEUPWb6jRMgJBVy5AoaeQSqISavEmglhXweFHviE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="img\logo.jpg" size="421767">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>jogW6Hp0Cq+wroRrp32SvD3r0Y4T4elJ9YyJ/43hlIg=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

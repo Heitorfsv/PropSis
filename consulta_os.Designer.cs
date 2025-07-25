@@ -93,7 +93,7 @@
             this.bnt_atualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
-            this.bnt_atualizar.Location = new System.Drawing.Point(1271, 10);
+            this.bnt_atualizar.Location = new System.Drawing.Point(1836, 13);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_atualizar.Name = "bnt_atualizar";
             this.bnt_atualizar.Size = new System.Drawing.Size(21, 20);
@@ -150,7 +150,7 @@
             this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
-            this.bnt_add.Location = new System.Drawing.Point(1245, 10);
+            this.bnt_add.Location = new System.Drawing.Point(1810, 13);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_add.Name = "bnt_add";
             this.bnt_add.Size = new System.Drawing.Size(21, 20);
@@ -163,7 +163,7 @@
             // 
             this.lbl_order.AutoSize = true;
             this.lbl_order.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_order.Location = new System.Drawing.Point(1298, 38);
+            this.lbl_order.Location = new System.Drawing.Point(1863, 35);
             this.lbl_order.Name = "lbl_order";
             this.lbl_order.Size = new System.Drawing.Size(18, 20);
             this.lbl_order.TabIndex = 38;
@@ -241,14 +241,14 @@
             // 
             // listView1
             // 
-            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(14, 38);
+            this.listView1.Location = new System.Drawing.Point(14, 35);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1278, 572);
+            this.listView1.Size = new System.Drawing.Size(1843, 572);
             this.listView1.TabIndex = 72;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -258,7 +258,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1827, 914);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.label12);

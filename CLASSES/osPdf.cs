@@ -39,46 +39,25 @@ public class osPdf : IDocument
     {
         container.Page(page =>
         {
-            page.Margin(30);
+            page.Margin(15);
             page.Size(PageSizes.A4);
             page.PageColor(Colors.White);
 
-            // Tudo (header + conteúdo) dentro da moldura
-            page.Content().Border(1).BorderColor(Colors.Black).Padding(20).Column(col =>
+            page.Content().Border(1).BorderColor(Colors.Black).Padding(10).Column(col =>
             {
-                // Cabeçalho dentro da moldura
                 col.Item().Row(row =>
                 {
-                    row.RelativeColumn().Column(col1 =>
+                    row.RelativeItem().Column(col1 =>
                     {
-                        col1.Item().Text("JC MOTORSPORT").Bold().FontSize(14).AlignLeft();
+                        col1.Item().AlignLeft().Height(50).Image("C:\\Users\\jpmot\\OneDrive\\Documents\\PrototipoSistema\\img\\logo.jpg", ImageScaling.FitHeight);
+                    });
+
+                    row.RelativeItem().Column(col1 =>
+                    {
+                        col1.Item().Text("JC MOTORSPORT").Bold().FontSize(12).AlignLeft();
                         col1.Item().Text("End.: AV. LUIZ GONZAGA MARTINS GUIMARÃES, 164 - JD. CAMPOS ELÍSEOS").FontSize(9);
                         col1.Item().Text("JUNDIAÍ - SP | CEP: 13209770 | CNPJ: 08.481.0150001-20").FontSize(9);
                         col1.Item().Text("Fone: (11) 2709-5420 | Email: JCMOTORS2020@GMAIL.COM").FontSize(9);
-                    });
-
-                    row.ConstantColumn(110).Column(col2 =>
-                    {
-                        col2.Item().Row(r =>
-                        {
-                            r.RelativeColumn().Text(tipo).SemiBold().FontSize(9);
-                            r.ConstantColumn(60).Text(static_class.controle_os).Bold().FontSize(9);
-                        });
-                        col2.Item().Row(r =>
-                        {
-                            r.RelativeColumn().Text("Data:").SemiBold().FontSize(9);
-                            r.ConstantColumn(60).Text(DateTime.Now.ToString("dd/MM/yyyy")).FontSize(9);
-                        });
-                        col2.Item().Row(r =>
-                        {
-                            r.RelativeColumn().Text("Hora:").SemiBold().FontSize(9);
-                            r.ConstantColumn(60).Text(DateTime.Now.ToString("HH:mm")).FontSize(9);
-                        });
-                        col2.Item().Row(r =>
-                        {
-                            r.RelativeColumn().Text("Pág.:").SemiBold().FontSize(9);
-                            r.ConstantColumn(60).Text("1").FontSize(9);
-                        });
                     });
                 });
 
@@ -105,7 +84,7 @@ public class osPdf : IDocument
                         });
                     });
 
-                    row.ConstantColumn(280).Column(c =>
+                    row.ConstantColumn(200).Column(c =>
                     {
                         c.Item().Text("");
                         c.Item().Text(txt =>
@@ -122,6 +101,30 @@ public class osPdf : IDocument
                         {
                             txt.Span("CEP: ").Italic().FontSize(9);
                             txt.Span(CEP).NormalWeight().FontSize(9);
+                        });
+                    });
+
+                    row.ConstantColumn(90).Column(c =>
+                    {
+                        c.Item().Row(r =>
+                        {
+                            r.RelativeColumn().Text(tipo).SemiBold().FontSize(9);
+                            r.ConstantColumn(60).Text(static_class.controle_os).Bold().FontSize(9);
+                        });
+                        c.Item().Row(r =>
+                        {
+                            r.RelativeColumn().Text("Data:").SemiBold().FontSize(9);
+                            r.ConstantColumn(60).Text(DateTime.Now.ToString("dd/MM/yyyy")).FontSize(9);
+                        });
+                        c.Item().Row(r =>
+                        {
+                            r.RelativeColumn().Text("Hora:").SemiBold().FontSize(9);
+                            r.ConstantColumn(60).Text(DateTime.Now.ToString("HH:mm")).FontSize(9);
+                        });
+                        c.Item().Row(r =>
+                        {
+                            r.RelativeColumn().Text("Pág.:").SemiBold().FontSize(9);
+                            r.ConstantColumn(60).Text("1").FontSize(9);
                         });
                     });
                 });
