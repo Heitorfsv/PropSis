@@ -35,23 +35,13 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txt_total = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.lst_servico_total = new System.Windows.Forms.ListBox();
-            this.lst_servicos_qtd = new System.Windows.Forms.ListBox();
             this.bnt_editar_servico = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.txt_total_servico = new System.Windows.Forms.TextBox();
-            this.lst_servicos = new System.Windows.Forms.ListBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.lst_peca_total = new System.Windows.Forms.ListBox();
-            this.lst_pecas_qtd = new System.Windows.Forms.ListBox();
             this.bnt_editar_peca = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.txt_total_pecas = new System.Windows.Forms.TextBox();
-            this.lst_pecas = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txt_observacao = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -102,6 +92,8 @@
             this.visualizarImpressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imprimirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmb_pago = new System.Windows.Forms.ComboBox();
+            this.lst_servicos = new System.Windows.Forms.ListView();
+            this.lst_pecas = new System.Windows.Forms.ListView();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -161,14 +153,10 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.label14);
-            this.groupBox6.Controls.Add(this.label12);
-            this.groupBox6.Controls.Add(this.lst_servico_total);
-            this.groupBox6.Controls.Add(this.lst_servicos_qtd);
+            this.groupBox6.Controls.Add(this.lst_servicos);
             this.groupBox6.Controls.Add(this.bnt_editar_servico);
             this.groupBox6.Controls.Add(this.label21);
             this.groupBox6.Controls.Add(this.txt_total_servico);
-            this.groupBox6.Controls.Add(this.lst_servicos);
             this.groupBox6.Location = new System.Drawing.Point(421, 193);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
@@ -177,44 +165,6 @@
             this.groupBox6.TabIndex = 49;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Serviços";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(295, 28);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(42, 13);
-            this.label14.TabIndex = 24;
-            this.label14.Text = "Valores";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(236, 28);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(27, 13);
-            this.label12.TabIndex = 23;
-            this.label12.Text = "Qtd.";
-            // 
-            // lst_servico_total
-            // 
-            this.lst_servico_total.FormattingEnabled = true;
-            this.lst_servico_total.Location = new System.Drawing.Point(299, 42);
-            this.lst_servico_total.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_servico_total.Name = "lst_servico_total";
-            this.lst_servico_total.Size = new System.Drawing.Size(76, 199);
-            this.lst_servico_total.TabIndex = 22;
-            // 
-            // lst_servicos_qtd
-            // 
-            this.lst_servicos_qtd.FormattingEnabled = true;
-            this.lst_servicos_qtd.Location = new System.Drawing.Point(240, 42);
-            this.lst_servicos_qtd.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_servicos_qtd.Name = "lst_servicos_qtd";
-            this.lst_servicos_qtd.Size = new System.Drawing.Size(55, 199);
-            this.lst_servicos_qtd.TabIndex = 20;
             // 
             // bnt_editar_servico
             // 
@@ -246,25 +196,12 @@
             this.txt_total_servico.Size = new System.Drawing.Size(103, 20);
             this.txt_total_servico.TabIndex = 13;
             // 
-            // lst_servicos
-            // 
-            this.lst_servicos.FormattingEnabled = true;
-            this.lst_servicos.Location = new System.Drawing.Point(5, 42);
-            this.lst_servicos.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_servicos.Name = "lst_servicos";
-            this.lst_servicos.Size = new System.Drawing.Size(231, 199);
-            this.lst_servicos.TabIndex = 0;
-            // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Controls.Add(this.lst_peca_total);
-            this.groupBox4.Controls.Add(this.lst_pecas_qtd);
+            this.groupBox4.Controls.Add(this.lst_pecas);
             this.groupBox4.Controls.Add(this.bnt_editar_peca);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.txt_total_pecas);
-            this.groupBox4.Controls.Add(this.lst_pecas);
             this.groupBox4.Location = new System.Drawing.Point(11, 193);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
@@ -273,44 +210,6 @@
             this.groupBox4.TabIndex = 47;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Peças";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(296, 28);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(42, 13);
-            this.label13.TabIndex = 23;
-            this.label13.Text = "Valores";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(237, 28);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(27, 13);
-            this.label11.TabIndex = 22;
-            this.label11.Text = "Qtd.";
-            // 
-            // lst_peca_total
-            // 
-            this.lst_peca_total.FormattingEnabled = true;
-            this.lst_peca_total.Location = new System.Drawing.Point(298, 42);
-            this.lst_peca_total.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_peca_total.Name = "lst_peca_total";
-            this.lst_peca_total.Size = new System.Drawing.Size(76, 199);
-            this.lst_peca_total.TabIndex = 21;
-            // 
-            // lst_pecas_qtd
-            // 
-            this.lst_pecas_qtd.FormattingEnabled = true;
-            this.lst_pecas_qtd.Location = new System.Drawing.Point(240, 42);
-            this.lst_pecas_qtd.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_pecas_qtd.Name = "lst_pecas_qtd";
-            this.lst_pecas_qtd.Size = new System.Drawing.Size(55, 199);
-            this.lst_pecas_qtd.TabIndex = 20;
             // 
             // bnt_editar_peca
             // 
@@ -341,15 +240,6 @@
             this.txt_total_pecas.ReadOnly = true;
             this.txt_total_pecas.Size = new System.Drawing.Size(103, 20);
             this.txt_total_pecas.TabIndex = 13;
-            // 
-            // lst_pecas
-            // 
-            this.lst_pecas.FormattingEnabled = true;
-            this.lst_pecas.Location = new System.Drawing.Point(5, 42);
-            this.lst_pecas.Margin = new System.Windows.Forms.Padding(2);
-            this.lst_pecas.Name = "lst_pecas";
-            this.lst_pecas.Size = new System.Drawing.Size(231, 199);
-            this.lst_pecas.TabIndex = 0;
             // 
             // groupBox3
             // 
@@ -843,6 +733,28 @@
             this.cmb_pago.Size = new System.Drawing.Size(117, 21);
             this.cmb_pago.TabIndex = 79;
             // 
+            // lst_servicos
+            // 
+            this.lst_servicos.FullRowSelect = true;
+            this.lst_servicos.HideSelection = false;
+            this.lst_servicos.Location = new System.Drawing.Point(6, 18);
+            this.lst_servicos.MultiSelect = false;
+            this.lst_servicos.Name = "lst_servicos";
+            this.lst_servicos.Size = new System.Drawing.Size(369, 240);
+            this.lst_servicos.TabIndex = 25;
+            this.lst_servicos.UseCompatibleStateImageBehavior = false;
+            // 
+            // lst_pecas
+            // 
+            this.lst_pecas.FullRowSelect = true;
+            this.lst_pecas.HideSelection = false;
+            this.lst_pecas.Location = new System.Drawing.Point(7, 18);
+            this.lst_pecas.MultiSelect = false;
+            this.lst_pecas.Name = "lst_pecas";
+            this.lst_pecas.Size = new System.Drawing.Size(369, 240);
+            this.lst_pecas.TabIndex = 26;
+            this.lst_pecas.UseCompatibleStateImageBehavior = false;
+            // 
             // edicao_os
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -913,23 +825,13 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txt_total;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ListBox lst_servico_total;
-        private System.Windows.Forms.ListBox lst_servicos_qtd;
         private System.Windows.Forms.Button bnt_editar_servico;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox txt_total_servico;
-        private System.Windows.Forms.ListBox lst_servicos;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ListBox lst_peca_total;
-        private System.Windows.Forms.ListBox lst_pecas_qtd;
         private System.Windows.Forms.Button bnt_editar_peca;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txt_total_pecas;
-        private System.Windows.Forms.ListBox lst_pecas;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txt_observacao;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -980,5 +882,7 @@
         private System.Windows.Forms.ToolStripMenuItem visualizarImpressToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem1;
         private System.Windows.Forms.ComboBox cmb_pago;
+        private System.Windows.Forms.ListView lst_servicos;
+        private System.Windows.Forms.ListView lst_pecas;
     }
 }

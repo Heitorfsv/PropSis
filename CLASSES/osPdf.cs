@@ -47,7 +47,7 @@ public class osPdf : IDocument
             {
                 col.Item().Row(row =>
                 {
-                    row.RelativeItem().Column(col1 =>
+                    row.ConstantColumn(200).Column(col1 =>
                     {
                         col1.Item().AlignLeft().Height(50).Image("C:\\Users\\jpmot\\OneDrive\\Documents\\PrototipoSistema\\img\\logo.jpg", ImageScaling.FitHeight);
                     });
@@ -64,7 +64,7 @@ public class osPdf : IDocument
                 // Dados do Cliente e Veículo
                 col.Item().PaddingTop(10).Row(row =>
                 {
-                    row.RelativeColumn().Column(c =>
+                    row.ConstantColumn(200).Column(c =>
                     {
                         c.Item().Text("Dados do Cliente:").Bold();
                         c.Item().Text(txt =>
@@ -106,6 +106,7 @@ public class osPdf : IDocument
 
                     row.ConstantColumn(90).Column(c =>
                     {
+                        c.Item().Text("");
                         c.Item().Row(r =>
                         {
                             r.RelativeColumn().Text(tipo).SemiBold().FontSize(9);
@@ -120,11 +121,6 @@ public class osPdf : IDocument
                         {
                             r.RelativeColumn().Text("Hora:").SemiBold().FontSize(9);
                             r.ConstantColumn(60).Text(DateTime.Now.ToString("HH:mm")).FontSize(9);
-                        });
-                        c.Item().Row(r =>
-                        {
-                            r.RelativeColumn().Text("Pág.:").SemiBold().FontSize(9);
-                            r.ConstantColumn(60).Text("1").FontSize(9);
                         });
                     });
                 });

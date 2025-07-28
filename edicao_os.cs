@@ -55,6 +55,16 @@ namespace PrototipoSistema
 
         private void edicao_os2_Load(object sender, EventArgs e)
         {
+            lst_servicos.View = View.Details;
+            lst_servicos.Columns.Add("Nome", 250);
+            lst_servicos.Columns.Add("Qtd", 50);
+            lst_servicos.Columns.Add("Valor", 80);
+
+            lst_pecas.View = View.Details;
+            lst_pecas.Columns.Add("Nome", 250);
+            lst_pecas.Columns.Add("Qtd", 50);
+            lst_pecas.Columns.Add("Valor", 80);
+
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
@@ -183,12 +193,16 @@ namespace PrototipoSistema
 
                 while (reader.Read())
                 {
-                    lst_servicos.Items.Add(reader.GetString("nome"));
-                    lst_servicos_qtd.Items.Add(reader.GetString("qtd"));
-                    total = reader.GetString("valor");
-                    lst_servico_total.Items.Add(total);
+                    string nome = reader.GetString("nome");
+                    string qtd = reader.GetString("qtd").Replace(".", ",");
+                    string valor = reader.GetString("valor");
 
-                    string qtd = reader.GetString("qtd");
+                    var item = new ListViewItem(nome);
+                    item.SubItems.Add(qtd);
+                    item.SubItems.Add(valor);
+                    lst_servicos.Items.Add(item);
+
+                    string qtd_formatado = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
                     total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
@@ -204,12 +218,16 @@ namespace PrototipoSistema
 
                 while (reader.Read())
                 {
-                    lst_pecas.Items.Add(reader.GetString("nome"));
-                    lst_pecas_qtd.Items.Add(reader.GetString("qtd"));
-                    total = reader.GetString("valor");
-                    lst_peca_total.Items.Add(total);
+                    string nome = reader.GetString("nome");
+                    string qtd = reader.GetString("qtd").Replace(".", ",");
+                    string valor = reader.GetString("valor");
 
-                    string qtd = reader.GetString("qtd");
+                    var item = new ListViewItem(nome);
+                    item.SubItems.Add(qtd);
+                    item.SubItems.Add(valor);
+                    lst_pecas.Items.Add(item);
+
+                    string qtd_formatado = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
                     try
@@ -433,12 +451,7 @@ namespace PrototipoSistema
             if (static_class.close == 1)
             {
                 lst_servicos.Items.Clear();
-                lst_servicos_qtd.Items.Clear();
-                lst_servico_total.Items.Clear();
-
                 lst_pecas.Items.Clear();
-                lst_pecas_qtd.Items.Clear();
-                lst_peca_total.Items.Clear();
 
                 decimal servico_total = 0;
                 decimal peca_total = 0;
@@ -453,11 +466,16 @@ namespace PrototipoSistema
 
                 while (reader.Read())
                 {
-                    lst_servicos.Items.Add(reader.GetString("nome"));
-                    lst_servicos_qtd.Items.Add(reader.GetString("qtd"));
-                    lst_servico_total.Items.Add(reader.GetString("valor"));
+                    string nome = reader.GetString("nome");
+                    string qtd = reader.GetString("qtd").Replace(".", ",");
+                    string valor = reader.GetString("valor");
 
-                    string qtd = reader.GetString("qtd");
+                    var item = new ListViewItem(nome);
+                    item.SubItems.Add(qtd);
+                    item.SubItems.Add(valor);
+                    lst_servicos.Items.Add(item);
+
+                    string qtd_formatado = reader.GetString("qtd");
                     qtd = qtd.Replace(".",",");
 
                     try
@@ -473,11 +491,16 @@ namespace PrototipoSistema
 
                 while (reader.Read())
                 {
-                    lst_pecas.Items.Add(reader.GetString("nome"));
-                    lst_pecas_qtd.Items.Add(reader.GetString("qtd"));
-                    lst_peca_total.Items.Add(reader.GetString("valor"));
+                    string nome = reader.GetString("nome");
+                    string qtd = reader.GetString("qtd").Replace(".", ",");
+                    string valor = reader.GetString("valor");
 
-                    string qtd = reader.GetString("qtd");
+                    var item = new ListViewItem(nome);
+                    item.SubItems.Add(qtd);
+                    item.SubItems.Add(valor);
+                    lst_pecas.Items.Add(item);
+
+                    string qtd_formatado = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
                     try
@@ -645,22 +668,21 @@ namespace PrototipoSistema
                     Servicos = new List<(string, string, string)>()
                 };
 
-                for (int i = 0; i < lst_pecas.Items.Count; i++)
+                foreach (ListViewItem item in lst_pecas.Items)
                 {
-                    doc.Pecas.Add((
-                        lst_pecas.Items[i].ToString(),
-                        lst_pecas_qtd.Items[i].ToString().Replace(".", ","),
-                        lst_peca_total.Items[i].ToString()
-                    ));
+                    string nome = item.SubItems[0].Text;
+                    string qtd = item.SubItems[1].Text.Replace(".", ",");
+                    string valor = item.SubItems[2].Text;
+                    doc.Pecas.Add((nome, qtd, valor));
                 }
 
-                for (int i = 0; i < lst_servicos.Items.Count; i++)
+                // Adaptado para ListView de serviços
+                foreach (ListViewItem item in lst_servicos.Items)
                 {
-                    doc.Servicos.Add((
-                        lst_servicos.Items[i].ToString(),
-                        lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
-                        lst_servico_total.Items[i].ToString()
-                    ));
+                    string nome = item.SubItems[0].Text;
+                    string qtd = item.SubItems[1].Text.Replace(".", ",");
+                    string valor = item.SubItems[2].Text;
+                    doc.Servicos.Add((nome, qtd, valor));
                 }
 
                 // Gerar arquivo temporário
@@ -712,25 +734,25 @@ namespace PrototipoSistema
                     TotalServicos = decimal.Parse(txt_total_servico.Text),
                     Pecas = new List<(string, string, string)>(),
                     Servicos = new List<(string, string, string)>()
-                }; 
+                };
 
-                for (int i = 0; i < lst_pecas.Items.Count; i++)
+                foreach (ListViewItem item in lst_pecas.Items)
                 {
-                    doc.Pecas.Add((
-                        lst_pecas.Items[i].ToString(),
-                        lst_pecas_qtd.Items[i].ToString().Replace(".", ","),
-                        lst_peca_total.Items[i].ToString()
-                    ));
+                    string nome = item.SubItems[0].Text;
+                    string qtd = item.SubItems[1].Text.Replace(".", ",");
+                    string valor = item.SubItems[2].Text;
+                    doc.Pecas.Add((nome, qtd, valor));
                 }
 
-                for (int i = 0; i < lst_servicos.Items.Count; i++)
+                // Adaptado para ListView de serviços
+                foreach (ListViewItem item in lst_servicos.Items)
                 {
-                    doc.Servicos.Add((
-                        lst_servicos.Items[i].ToString(),
-                        lst_servicos_qtd.Items[i].ToString().Replace(".", ","),
-                        lst_servico_total.Items[i].ToString()
-                    ));
+                    string nome = item.SubItems[0].Text;
+                    string qtd = item.SubItems[1].Text.Replace(".", ",");
+                    string valor = item.SubItems[2].Text;
+                    doc.Servicos.Add((nome, qtd, valor));
                 }
+
 
                 using (var salvar = new SaveFileDialog())
                 {
