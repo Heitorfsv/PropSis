@@ -112,7 +112,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_cliente.SelectedIndex];
+                static_class.controle = lista_os[lst_cliente.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -125,7 +125,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_cliente.SelectedIndex];
+                static_class.controle = lista_os[lst_cliente.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -138,7 +138,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_cliente.SelectedIndex];
+                static_class.controle = lista_os[lst_cliente.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -151,7 +151,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_cliente.SelectedIndex];
+                static_class.controle = lista_os[lst_cliente.SelectedIndex];
 
                 edicao_os.Show();
             }

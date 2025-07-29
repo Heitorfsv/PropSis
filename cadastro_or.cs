@@ -57,7 +57,7 @@ namespace PrototipoSistema
 
                 orcamento.ultimo_index();
                 orcamento.index++;
-                static_class.controle_os = orcamento.index;
+                static_class.controle = orcamento.index;
             }
             else if (this.Text == "Edição orçamento")
             {
@@ -67,7 +67,7 @@ namespace PrototipoSistema
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"SELECT * FROM orcamentos WHERE controle = '{static_class.controle_os}'", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM orcamentos WHERE controle = '{static_class.controle}'", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -112,7 +112,7 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -138,7 +138,7 @@ namespace PrototipoSistema
                 txt_total_servico.Text = total_servico.ToString("N2");
                 conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -332,7 +332,7 @@ namespace PrototipoSistema
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -357,7 +357,7 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -414,7 +414,7 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"DELETE FROM orcamentos WHERE controle = '{static_class.controle_os}'", conexao);
+            var cmd = new MySqlCommand($"DELETE FROM orcamentos WHERE controle = '{static_class.controle}'", conexao);
 
             conexao.Open();
             cmd.ExecuteReader();
@@ -535,7 +535,7 @@ namespace PrototipoSistema
                 using (var salvar = new SaveFileDialog())
                 {
                     salvar.Filter = "PDF files (*.pdf)|*.pdf";
-                    salvar.FileName = $"OS_{static_class.controle_os}.pdf";
+                    salvar.FileName = $"OS_{static_class.controle}.pdf";
 
                     if (salvar.ShowDialog() == DialogResult.OK)
                     {

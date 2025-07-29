@@ -229,5 +229,13 @@ namespace PrototipoSistema
         private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
+
+        private void cToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cadastro_pagamento cadastro = new cadastro_pagamento();
+            cadastro.Text = "Cadastro metodo de pagamento";
+            cadastro.MdiParent = this;
+            cadastro.Show();
+        }
     }
 }

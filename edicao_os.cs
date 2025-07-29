@@ -89,7 +89,7 @@ namespace PrototipoSistema
 
                 os.ultimo_index();
                 os.index++;
-                static_class.controle_os = os.index;
+                static_class.controle = os.index;
             }
             else if (this.Text == "Edição OS")
             {
@@ -97,7 +97,7 @@ namespace PrototipoSistema
 
                 gb_troca.Visible = false;
 
-                cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{static_class.controle_os}'", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{static_class.controle}'", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -184,7 +184,7 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -210,7 +210,7 @@ namespace PrototipoSistema
                 txt_total_servico.Text = total_servico.ToString("N2");
                 conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -242,7 +242,7 @@ namespace PrototipoSistema
                 /////////////////////////////////////////
 
                 // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
-                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle_os} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -255,7 +255,7 @@ namespace PrototipoSistema
                 conexao.Close();
 
                 // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
-                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_filtro_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle_os} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_filtro_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -459,7 +459,7 @@ namespace PrototipoSistema
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -484,7 +484,7 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -522,7 +522,7 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"DELETE FROM os WHERE controle = '{static_class.controle_os}'", conexao);
+            var cmd = new MySqlCommand($"DELETE FROM os WHERE controle = '{static_class.controle}'", conexao);
 
             conexao.Open();
             cmd.ExecuteReader();
@@ -757,7 +757,7 @@ namespace PrototipoSistema
                 using (var salvar = new SaveFileDialog())
                 {
                     salvar.Filter = "PDF files (*.pdf)|*.pdf";
-                    salvar.FileName = $"OS_{static_class.controle_os}.pdf";
+                    salvar.FileName = $"OS_{static_class.controle}.pdf";
 
                     if (salvar.ShowDialog() == DialogResult.OK)
                     {

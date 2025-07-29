@@ -12,7 +12,7 @@ namespace PrototipoSistema
         public static string doc_consultar { get; set; }
         public static string doc_dono { get; set; }
         public static string historico { get; set; }
-        public static int controle_os {  get; set; }
+        public static int controle {  get; set; }
         public static int close {  get; set; }
     }
 }

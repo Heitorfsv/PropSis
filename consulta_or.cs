@@ -164,7 +164,7 @@ namespace PrototipoSistema
                 cadastro_or cadastro_or = new cadastro_or();
                 cadastro_or.Text = "Edição orçamento";
 
-                static_class.controle_os = lista_or[index];
+                static_class.controle = lista_or[index];
 
                 cadastro_or.Show();
             }

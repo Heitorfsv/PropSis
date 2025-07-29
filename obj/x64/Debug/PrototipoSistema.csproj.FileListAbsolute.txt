@@ -141,3 +141,4 @@ C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\x64\Debug\libstdc++-6.dll
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\x64\Debug\libwinpthread-1.dll
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\x64\Debug\qpdf.dll
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\x64\Debug\QuestPDF.dll
+C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.cadastro_pagamento.resources

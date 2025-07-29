@@ -110,7 +110,7 @@ public class osPdf : IDocument
                         c.Item().Row(r =>
                         {
                             r.RelativeColumn().Text(tipo).SemiBold().FontSize(9);
-                            r.ConstantColumn(60).Text(static_class.controle_os).Bold().FontSize(9);
+                            r.ConstantColumn(60).Text(static_class.controle).Bold().FontSize(9);
                         });
                         c.Item().Row(r =>
                         {
@@ -168,7 +168,7 @@ public class osPdf : IDocument
                     {
                         columns.RelativeColumn();
                         columns.ConstantColumn(40);
-                        columns.ConstantColumn(60);
+                        columns.ConstantColumn(70);
                         columns.ConstantColumn(80);
                     });
 

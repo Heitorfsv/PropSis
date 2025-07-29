@@ -251,7 +251,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
+                static_class.controle = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -264,7 +264,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
+                static_class.controle = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -277,7 +277,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
+                static_class.controle = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -290,7 +290,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
+                static_class.controle = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -303,7 +303,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
+                static_class.controle = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -316,7 +316,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
+                static_class.controle = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -329,7 +329,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
+                static_class.controle = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -342,7 +342,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
+                static_class.controle = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -355,7 +355,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_nome_O.SelectedIndex];
+                static_class.controle = lista_os[lst_nome_O.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -368,7 +368,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_nome_O.SelectedIndex];
+                static_class.controle = lista_os[lst_nome_O.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -381,7 +381,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_nome_O.SelectedIndex];
+                static_class.controle = lista_os[lst_nome_O.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -394,7 +394,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_nome_O.SelectedIndex];
+                static_class.controle = lista_os[lst_nome_O.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -407,7 +407,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_nome_F.SelectedIndex];
+                static_class.controle = lista_os[lst_nome_F.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -420,7 +420,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_nome_F.SelectedIndex];
+                static_class.controle = lista_os[lst_nome_F.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -433,7 +433,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_nome_F.SelectedIndex];
+                static_class.controle = lista_os[lst_nome_F.SelectedIndex];
 
                 edicao_os.Show();
             }
@@ -446,7 +446,7 @@ namespace PrototipoSistema
             {
                 edicao_os edicao_os = new edicao_os();
 
-                static_class.controle_os = lista_os[lst_nome_F.SelectedIndex];
+                static_class.controle = lista_os[lst_nome_F.SelectedIndex];
 
                 edicao_os.Show();
             }

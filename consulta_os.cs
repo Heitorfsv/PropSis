@@ -183,7 +183,7 @@ namespace PrototipoSistema
                 edicao_os os = new edicao_os();
                 os.Text = "Edição OS";
                 
-                static_class.controle_os = lista_os[index];
+                static_class.controle = lista_os[index];
 
                 os.Show();
             }

@@ -129,7 +129,7 @@ namespace PrototipoSistema
                 pecas_os.index++;
                 pecas_os.modo = modo;
                 //os serve tanto pra orçamento quando pra ordem de serviço nesse contexto
-                pecas_os.os_or = static_class.controle_os;
+                pecas_os.os_or = static_class.controle;
 
                 pecas_os.nome = peca.ToString();
                 pecas_os.valor = valor;
@@ -167,7 +167,7 @@ namespace PrototipoSistema
             }
             conexao.Close();
 
-            cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE {modo} = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+            cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE {modo} = '{static_class.controle}' ORDER BY pos ASC", conexao);
             conexao.Open();
             reader = cmd.ExecuteReader();
 
@@ -217,7 +217,7 @@ namespace PrototipoSistema
 
                 while (lst_pecas.SelectedIndex < lst_pecas.Items.Count)
                 {
-                    var cmd = new MySqlCommand($"UPDATE pecas_os SET pos = '{lst_pecas.SelectedIndex}' WHERE {modo} = {static_class.controle_os} AND nome = '{lst_pecas.SelectedItem}'", conexao);
+                    var cmd = new MySqlCommand($"UPDATE pecas_os SET pos = '{lst_pecas.SelectedIndex}' WHERE {modo} = {static_class.controle} AND nome = '{lst_pecas.SelectedItem}'", conexao);
                     conexao.Open();
                     cmd.ExecuteReader();
                     conexao.Close();
@@ -236,7 +236,7 @@ namespace PrototipoSistema
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE nome = '{lst_pecas.SelectedItem}' AND {modo} = {static_class.controle_os}", conexao);
+                var cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE nome = '{lst_pecas.SelectedItem}' AND {modo} = {static_class.controle}", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();

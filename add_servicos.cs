@@ -43,7 +43,7 @@ namespace PrototipoSistema
             }
             conexao.Close();
 
-            cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE {modo} = '{static_class.controle_os}' ORDER BY pos ASC", conexao);
+            cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE {modo} = '{static_class.controle}' ORDER BY pos ASC", conexao);
             conexao.Open();
             reader = cmd.ExecuteReader();
 
@@ -188,7 +188,7 @@ namespace PrototipoSistema
                     servicos_os.index++;
                     servicos_os.modo = modo;
                     //os serve tanto pra orçamento quando pra ordem de serviço nesse contexto
-                    servicos_os.os_or = static_class.controle_os;
+                    servicos_os.os_or = static_class.controle;
 
                     servicos_os.nome = servico.ToString();
                     servicos_os.valor = valor;
@@ -214,7 +214,7 @@ namespace PrototipoSistema
 
                 while (lst_servicos.SelectedIndex < lst_servicos.Items.Count)
                 {
-                    var cmd = new MySqlCommand($"UPDATE servicos_os SET pos = '{lst_servicos.SelectedIndex}' WHERE {modo} = {static_class.controle_os} AND nome = '{lst_servicos.SelectedItem}'", conexao);
+                    var cmd = new MySqlCommand($"UPDATE servicos_os SET pos = '{lst_servicos.SelectedIndex}' WHERE {modo} = {static_class.controle} AND nome = '{lst_servicos.SelectedItem}'", conexao);
                     conexao.Open();
                     cmd.ExecuteReader();
                     conexao.Close();
@@ -233,7 +233,7 @@ namespace PrototipoSistema
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"DELETE FROM servicos_os WHERE nome = '{lst_servicos.SelectedItem}' AND {modo} = {static_class.controle_os}", conexao);
+                var cmd = new MySqlCommand($"DELETE FROM servicos_os WHERE nome = '{lst_servicos.SelectedItem}' AND {modo} = {static_class.controle}", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
