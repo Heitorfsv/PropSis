@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace classes
 {
@@ -41,6 +42,8 @@ namespace classes
             conexao.Open();
             cmd.ExecuteReader();
             conexao.Close();
+
+            MessageBox.Show("Método de pagamento cadastrado com sucesso!", "Cadastro", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public void alterar_metodo()
@@ -53,6 +56,8 @@ namespace classes
             conexao.Open();
             cmd.ExecuteReader();
             conexao.Close();
+
+            MessageBox.Show("Método de pagamento alterado com sucesso!", "Edição", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

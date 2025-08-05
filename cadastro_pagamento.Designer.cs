@@ -105,6 +105,7 @@
             this.listView1.Size = new System.Drawing.Size(317, 130);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
             // bnt_cadastro
             // 
@@ -150,6 +151,7 @@
             this.bnt_add.TabIndex = 36;
             this.bnt_add.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.bnt_add.UseVisualStyleBackColor = false;
+            this.bnt_add.Click += new System.EventHandler(this.bnt_add_Click);
             // 
             // txt_pesquisa
             // 

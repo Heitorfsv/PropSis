@@ -43,7 +43,7 @@ public class osPdf : IDocument
             page.Size(PageSizes.A4);
             page.PageColor(Colors.White);
 
-            page.Content().Border(1).BorderColor(Colors.Black).Padding(10).Column(col =>
+            page.Content().Border(1, Unit.Point).BorderColor(Colors.Black).Padding(10).Column(col =>
             {
                 col.Item().Row(row =>
                 {

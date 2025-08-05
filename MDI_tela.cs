@@ -88,7 +88,7 @@ namespace PrototipoSistema
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
-
+            
             var cmd = new MySqlCommand("SELECT * FROM clientes", conexao);
 
             conexao.Open();

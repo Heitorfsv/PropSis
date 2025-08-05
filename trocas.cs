@@ -1,25 +1,18 @@
 ﻿using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PrototipoSistema
 {
     public partial class trocas : Form
     {
-        List<string> placa = new List<string>();
-        List<string> placa_atrasado = new List<string>();
+        private List<int> lista_oleo = new List<int>();
+        private List<int> lista_Oatrasado = new List<int>();
 
-        List<int> lista_os = new List<int>();
-        List<int> lista_atrasado = new List<int>();
+        private List<int> lista_filtro = new List<int>();
+        private List<int> lista_Fatrasado = new List<int>();
 
         public trocas()
         {
@@ -28,427 +21,195 @@ namespace PrototipoSistema
 
         private void trocas_Load(object sender, EventArgs e)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            ConfigurarListView(lst_oleo);
+            ConfigurarListView(lst_oleo_atrasado);
+            ConfigurarListView(lst_filtro);
+            ConfigurarListView(lst_filtro_atrasado);
 
-            var cmd = new MySqlCommand($"SELECT * FROM os WHERE aviso_oleo_dt REGEXP '[A-Za-z0-9]'", conexao);
+            CarregarDados();
+        }
 
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
+        private void ConfigurarListView(ListView lv)
+        {
+            lv.View = View.Details;
+            lv.FullRowSelect = true;
+            lv.Columns.Clear();
+            lv.Columns.Add("Cliente", 150);
+            lv.Columns.Add("Placa", 100);
+            lv.Columns.Add("Marca", 100);
+            lv.Columns.Add("Modelo", 100);
+            lv.Columns.Add("Previsão de troca", 150);
+        }
 
-            while (reader.Read())
+        private void CarregarDados()
+        {
+            string connStr = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            using (var conn = new MySqlConnection(connStr))
             {
-                if (DateTime.Parse(reader.GetString("aviso_oleo_dt")) > DateTime.Now)
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT * FROM os WHERE aviso_oleo_dt REGEXP '[A-Za-z0-9]' ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC", conn))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    lista_os.Add(reader.GetInt32("controle"));
-                    lst_nome_O.Items.Add(reader.GetString("cliente"));
-                    lst_oleo.Items.Add(DateTime.Parse(reader.GetString("aviso_oleo_dt")).ToString("dd/MM/yyyy"));
-                    placa.Add(reader.GetString("placa"));
-                }
-                else if (DateTime.Parse(reader.GetString("aviso_oleo_dt")) < DateTime.Now)
-                {
-                    lista_atrasado.Add(reader.GetInt32("controle"));
-                    lst_nome_Oatrasado.Items.Add(reader.GetString("cliente"));
-                    lst_oleo_atrasado.Items.Add(DateTime.Parse(reader.GetString("aviso_oleo_dt")).ToString("dd/MM/yyyy"));
-                    placa_atrasado.Add(reader.GetString("placa"));
-                }
-            }
-            conexao.Close();
+                    HashSet<string> placasAdicionadas = new HashSet<string>();
 
-            int count = 0;
+                    while (reader.Read())
+                    {
+                        DateTime data = DateTime.Parse(reader.GetString("aviso_oleo_dt"));
+                        string placa = reader.GetString("placa");
+                        int controle = reader.GetInt32("controle");
+                        string cliente = reader.GetString("cliente");
 
-            while (count < placa.Count)
-            {   
-                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{placa[count]}'", conexao);
+                        // Verifica se a placa já foi adicionada
+                        if (placasAdicionadas.Contains(placa))
+                            continue;
 
-                conexao.Open();
-                reader = cmd.ExecuteReader();
+                        // Marca essa placa como já adicionada
+                        placasAdicionadas.Add(placa);
 
-                if (reader.Read()) 
-                {
-                    lst_marca_O.Items.Add(reader.GetString("marca"));
-                    lst_moto_O.Items.Add(reader.GetString("modelo"));
-                }
+                        var moto = ObterMoto(placa);
+                        ListViewItem item = new ListViewItem(new[] { cliente, moto.placa, moto.marca, moto.modelo, data.ToString("dd/MM/yyyy") });
 
-                conexao.Close();
-                count++;
-            }
-
-            count = 0;
-
-            while (count < placa_atrasado.Count)
-            {
-                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{placa_atrasado[count]}'", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    lst_marca_Oatrasado.Items.Add(reader.GetString("marca"));
-                    lst_moto_Oatrasado.Items.Add(reader.GetString("modelo"));
-                }
-
-                conexao.Close();
-                count++;
-            }
-
-            placa.Clear();
-            placa_atrasado.Clear();
-
-            cmd = new MySqlCommand($"SELECT * FROM os WHERE aviso_filtro_dt REGEXP '[A-Za-z0-9]'", conexao);
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                if (DateTime.Parse(reader.GetString("aviso_filtro_dt")) > DateTime.Now)
-                {
-                    lst_nome_F.Items.Add(reader.GetString("cliente"));
-                    lst_filtro.Items.Add(DateTime.Parse(reader.GetString("aviso_filtro_dt")).ToString("dd/MM/yyyy"));
-                    placa.Add(reader.GetString("placa"));
-                }
-                else if (DateTime.Parse(reader.GetString("aviso_filtro_dt")) < DateTime.Now)
-                {
-                    lst_nome_Fatrasado.Items.Add(reader.GetString("cliente"));
-                    lst_filtro_atrasado.Items.Add(DateTime.Parse(reader.GetString("aviso_filtro_dt")).ToString("dd/MM/yyyy"));
-                    placa_atrasado.Add(reader.GetString("placa"));
-                }
-            }
-            conexao.Close();
-
-            count = 0;
-
-            while (count < placa.Count)
-            {
-                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{placa[count]}'", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    lst_marca_F.Items.Add(reader.GetString("marca"));
-                    lst_moto_F.Items.Add(reader.GetString("modelo"));
+                        if (data > DateTime.Now)
+                        {
+                            lista_oleo.Add(controle);
+                            lst_oleo.Items.Add(item);
+                        }
+                        else
+                        {
+                            lista_Oatrasado.Add(controle);
+                            lst_oleo_atrasado.Items.Add(item);
+                        }
+                    }
                 }
 
-                conexao.Close();
-                count++;
-            }
-
-            count = 0;
-
-            while (count < placa_atrasado.Count)
-            {
-                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{placa_atrasado[count]}'", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (var cmd = new MySqlCommand("SELECT * FROM os WHERE aviso_filtro_dt REGEXP '[A-Za-z0-9]' ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC", conn))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    lst_marca_Fatrasado.Items.Add(reader.GetString("marca"));
-                    lst_moto_Fatrasado.Items.Add(reader.GetString("modelo"));
+                    HashSet<string> placasAdicionadas = new HashSet<string>();
+
+                    while (reader.Read())
+                    {
+                        DateTime data = DateTime.Parse(reader.GetString("aviso_filtro_dt"));
+                        string placa = reader.GetString("placa");
+                        int controle = reader.GetInt32("controle");
+                        string cliente = reader.GetString("cliente");
+
+                        // Verifica se a placa já foi adicionada
+                        if (placasAdicionadas.Contains(placa))
+                            continue;
+
+                        // Marca essa placa como já adicionada
+                        placasAdicionadas.Add(placa);
+
+                        var moto = ObterMoto(placa);
+                        ListViewItem item = new ListViewItem(new[] { cliente, moto.placa, moto.marca, moto.modelo, data.ToString("dd/MM/yyyy") });
+
+                        if (data > DateTime.Now)
+                        {
+                            lista_filtro.Add(controle);
+                            lst_filtro.Items.Add(item);
+                        }
+                        else
+                        {
+                            lista_Fatrasado.Add(controle);
+                            lst_filtro_atrasado.Items.Add(item);
+                        }
+                    }
                 }
-
-                conexao.Close();
-                count++;
             }
         }
 
-        private void lst_oleo_atrasado_SelectedIndexChanged(object sender, EventArgs e)
+        private (string placa, string marca, string modelo) ObterMoto(string placa)
         {
-            lst_nome_Oatrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
-            lst_marca_Oatrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
-            lst_moto_Oatrasado.SelectedIndex = lst_oleo_atrasado.SelectedIndex;
-        }
-
-        private void lst_nome_atrasado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_oleo_atrasado.SelectedIndex = lst_nome_Oatrasado.SelectedIndex;
-        }
-
-        private void lst_moto_atrasado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_oleo_atrasado.SelectedIndex = lst_moto_Oatrasado.SelectedIndex;
-        }
-
-        private void lst_oleo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_nome_O.SelectedIndex = lst_oleo.SelectedIndex;
-            lst_marca_O.SelectedIndex = lst_oleo.SelectedIndex;
-            lst_moto_O.SelectedIndex = lst_oleo.SelectedIndex;
-        }
-
-        private void lst_nome_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_oleo.SelectedIndex = lst_nome_O.SelectedIndex;
-        }
-
-        private void lst_moto_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_oleo.SelectedIndex = lst_moto_O.SelectedIndex;
-        }
-
-        private void lst_marca_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_oleo.SelectedIndex = lst_marca_O.SelectedIndex;
-        }
-
-        private void lst_marca_atrasado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_oleo_atrasado.SelectedIndex = lst_marca_Oatrasado.SelectedIndex;
-        }
-
-        private void lst_filtro_atrasado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_nome_Fatrasado.SelectedIndex = lst_filtro_atrasado.SelectedIndex;
-            lst_marca_Fatrasado.SelectedIndex = lst_filtro_atrasado.SelectedIndex;
-            lst_moto_Fatrasado.SelectedIndex = lst_filtro_atrasado.SelectedIndex;
-        }
-
-        private void lst_nome_Fatrasado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_filtro_atrasado.SelectedIndex = lst_nome_Fatrasado.SelectedIndex;
-        }
-
-        private void lst_marca_Fatrasado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_filtro_atrasado.SelectedIndex = lst_marca_Fatrasado.SelectedIndex;
-        }
-
-        private void lst_moto_Fatrasado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_filtro_atrasado.SelectedIndex = lst_moto_Fatrasado.SelectedIndex;
-        }
-
-        private void lst_filtro_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_nome_F.SelectedIndex = lst_filtro.SelectedIndex;
-            lst_marca_F.SelectedIndex = lst_filtro.SelectedIndex;
-            lst_moto_F.SelectedIndex = lst_filtro.SelectedIndex;
-        }
-
-        private void lst_nome_F_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_filtro.SelectedIndex = lst_nome_F.SelectedIndex;
-        }
-
-        private void lst_marca_F_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_filtro.SelectedIndex = lst_marca_F.SelectedIndex;
-        }
-
-        private void lst_moto_F_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lst_filtro.SelectedIndex = lst_moto_F.SelectedIndex;
-        }
-
-        private void lst_nome_Oatrasado_DoubleClick(object sender, EventArgs e)
-        {
-            try
+            string connStr = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            using (var conn = new MySqlConnection(connStr))
             {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
-
-                edicao_os.Show();
+                conn.Open();
+                using (var cmd = new MySqlCommand($"SELECT placa, marca, modelo FROM motos WHERE placa = @placa", conn))
+                {
+                    cmd.Parameters.AddWithValue("@placa", placa);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                            return (reader.GetString("placa"), reader.GetString("marca"), reader.GetString("modelo"));
+                    }
+                }
             }
-            catch { }
-        }
-
-        private void lst_marca_Oatrasado_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_moto_Oatrasado_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
+            return ("", "","");
         }
 
         private void lst_oleo_atrasado_DoubleClick(object sender, EventArgs e)
         {
+            if (lst_oleo_atrasado.SelectedIndices.Count == 0)
+                return;
+
+            int index = lst_oleo_atrasado.SelectedIndices[0];
+
             try
             {
-                edicao_os edicao_os = new edicao_os();
+                edicao_os os = new edicao_os();
+                os.Text = "Edição OS";
 
-                static_class.controle = lista_atrasado[lst_nome_Oatrasado.SelectedIndex];
+                static_class.controle = lista_Oatrasado[index];
 
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_filtro_atrasado_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_nome_Fatrasado_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_marca_Fatrasado_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_moto_Fatrasado_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_atrasado[lst_nome_Fatrasado.SelectedIndex];
-
-                edicao_os.Show();
+                os.Show();
             }
             catch { }
         }
 
         private void lst_oleo_DoubleClick(object sender, EventArgs e)
         {
+            if (lst_oleo.SelectedIndices.Count == 0)
+                return;
+
+            int index = lst_oleo.SelectedIndices[0];
+
             try
             {
-                edicao_os edicao_os = new edicao_os();
+                edicao_os os = new edicao_os();
+                os.Text = "Edição OS";
 
-                static_class.controle = lista_os[lst_nome_O.SelectedIndex];
+                static_class.controle = lista_oleo[index];
 
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_nome_O_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_os[lst_nome_O.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_marca_O_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_os[lst_nome_O.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_moto_O_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_os[lst_nome_O.SelectedIndex];
-
-                edicao_os.Show();
+                os.Show();
             }
             catch { }
         }
 
         private void lst_filtro_DoubleClick(object sender, EventArgs e)
         {
+            if (lst_filtro.SelectedIndices.Count == 0)
+                return;
+
+            int index = lst_filtro.SelectedIndices[0];
+
             try
             {
-                edicao_os edicao_os = new edicao_os();
+                edicao_os os = new edicao_os();
+                os.Text = "Edição OS";
 
-                static_class.controle = lista_os[lst_nome_F.SelectedIndex];
+                static_class.controle = lista_filtro[index];
 
-                edicao_os.Show();
+                os.Show();
             }
             catch { }
         }
 
-        private void lst_nome_F_DoubleClick(object sender, EventArgs e)
+        private void lst_filtro_atrasado_DoubleClick(object sender, EventArgs e)
         {
+            if (lst_filtro_atrasado.SelectedIndices.Count == 0)
+                return;
+
+            int index = lst_filtro_atrasado.SelectedIndices[0];
+
             try
             {
-                edicao_os edicao_os = new edicao_os();
+                edicao_os os = new edicao_os();
+                os.Text = "Edição OS";
 
-                static_class.controle = lista_os[lst_nome_F.SelectedIndex];
+                static_class.controle = lista_Fatrasado[index];
 
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_marca_F_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_os[lst_nome_F.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_moto_F_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_os[lst_nome_F.SelectedIndex];
-
-                edicao_os.Show();
+                os.Show();
             }
             catch { }
         }

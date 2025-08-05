@@ -1,6 +1,7 @@
 ﻿using classes;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace PrototipoSistema
@@ -8,6 +9,7 @@ namespace PrototipoSistema
     public partial class cadastro_pagamento : Form
     {
         metodo_pag metodo = new metodo_pag();
+        List<int> controle = new List<int>();
         public cadastro_pagamento()
         {
             InitializeComponent();
@@ -29,6 +31,7 @@ namespace PrototipoSistema
 
             while (reader.Read())
             {
+                controle.Add(reader.GetInt32("controle"));
                 string metodo = reader.GetString("metodo");
                 string agencia = reader.GetString("banco");
                 int parcelas = reader.GetInt32("parcelas");
@@ -62,6 +65,34 @@ namespace PrototipoSistema
             {
                 metodo.alterar_metodo();
             }
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count == 0)
+                return;
+
+            int index = listView1.SelectedIndices[0];
+            metodo.index = controle[index];
+
+            this.Text = "Edição metodo de pagamento";
+            bnt_cadastro.Text = "Salvar";
+
+            ListViewItem itemSelecionado = listView1.Items[index];
+
+            txt_metodo.Text = itemSelecionado.SubItems[0].Text;
+            txt_agencia.Text = itemSelecionado.SubItems[1].Text;
+            txt_parcelas.Text = itemSelecionado.SubItems[2].Text;
+        }
+
+        private void bnt_add_Click(object sender, EventArgs e)
+        {
+            txt_metodo.Text = "";
+            txt_agencia.Text = "";
+            txt_parcelas.Text = "";
+
+            this.Text = "Cadastro metodo de pagamento";
+            bnt_cadastro.Text = "Cadastrar";
         }
     }
 }

@@ -81,7 +81,7 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao );
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();

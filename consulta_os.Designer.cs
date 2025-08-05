@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(consulta_os));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.cmb_consulta = new System.Windows.Forms.ComboBox();
             this.bnt_pesquisar = new System.Windows.Forms.Button();
             this.txt_pequisa = new System.Windows.Forms.TextBox();
@@ -173,7 +173,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(11, 620);
+            this.label12.Location = new System.Drawing.Point(11, 695);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(139, 16);
             this.label12.TabIndex = 45;
@@ -182,7 +182,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(11, 664);
+            this.label13.Location = new System.Drawing.Point(11, 739);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(126, 16);
             this.label13.TabIndex = 44;
@@ -190,7 +190,7 @@
             // 
             // txt_total_servicos
             // 
-            this.txt_total_servicos.Location = new System.Drawing.Point(14, 639);
+            this.txt_total_servicos.Location = new System.Drawing.Point(14, 714);
             this.txt_total_servicos.Name = "txt_total_servicos";
             this.txt_total_servicos.ReadOnly = true;
             this.txt_total_servicos.Size = new System.Drawing.Size(115, 22);
@@ -198,7 +198,7 @@
             // 
             // txt_total_pecas
             // 
-            this.txt_total_pecas.Location = new System.Drawing.Point(14, 683);
+            this.txt_total_pecas.Location = new System.Drawing.Point(14, 758);
             this.txt_total_pecas.Name = "txt_total_pecas";
             this.txt_total_pecas.ReadOnly = true;
             this.txt_total_pecas.Size = new System.Drawing.Size(115, 22);
@@ -207,7 +207,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(11, 708);
+            this.label14.Location = new System.Drawing.Point(11, 783);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(113, 16);
             this.label14.TabIndex = 41;
@@ -215,7 +215,7 @@
             // 
             // txt_total
             // 
-            this.txt_total.Location = new System.Drawing.Point(14, 727);
+            this.txt_total.Location = new System.Drawing.Point(14, 802);
             this.txt_total.Name = "txt_total";
             this.txt_total.ReadOnly = true;
             this.txt_total.Size = new System.Drawing.Size(115, 22);
@@ -225,17 +225,17 @@
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.SteelBlue;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
-            this.chart1.Location = new System.Drawing.Point(156, 616);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(156, 691);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(682, 211);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(828, 211);
             this.chart1.TabIndex = 46;
             this.chart1.Text = "chart1";
             // 
@@ -248,7 +248,7 @@
             this.listView1.Location = new System.Drawing.Point(14, 35);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1843, 572);
+            this.listView1.Size = new System.Drawing.Size(1843, 650);
             this.listView1.TabIndex = 72;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
