@@ -125,29 +125,17 @@
     <Compile Include="add_calendar.Designer.cs">
       <DependentUpon>add_calendar.cs</DependentUpon>
     </Compile>
-    <Compile Include="add_pecas.cs">
+    <Compile Include="add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="add_pecas.Designer.cs">
-      <DependentUpon>add_pecas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="add_servicos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="add_servicos.Designer.cs">
-      <DependentUpon>add_servicos.cs</DependentUpon>
+    <Compile Include="add.Designer.cs">
+      <DependentUpon>add.cs</DependentUpon>
     </Compile>
     <Compile Include="aniversarios.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="aniversarios.Designer.cs">
       <DependentUpon>aniversarios.cs</DependentUpon>
-    </Compile>
-    <Compile Include="aviso.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="aviso.Designer.cs">
-      <DependentUpon>aviso.cs</DependentUpon>
     </Compile>
     <Compile Include="blank.cs">
       <SubType>UserControl</SubType>
@@ -304,17 +292,11 @@
       <DependentUpon>add_calendar.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="add_pecas.resx">
-      <DependentUpon>add_pecas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="add_servicos.resx">
-      <DependentUpon>add_servicos.cs</DependentUpon>
+    <EmbeddedResource Include="add.resx">
+      <DependentUpon>add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="aniversarios.resx">
       <DependentUpon>aniversarios.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="aviso.resx">
-      <DependentUpon>aviso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="blank.resx">
       <DependentUpon>blank.cs</DependentUpon>

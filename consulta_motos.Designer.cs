@@ -51,7 +51,7 @@
             this.bnt_atualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
-            this.bnt_atualizar.Location = new System.Drawing.Point(711, 10);
+            this.bnt_atualizar.Location = new System.Drawing.Point(980, 10);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_atualizar.Name = "bnt_atualizar";
             this.bnt_atualizar.Size = new System.Drawing.Size(21, 20);
@@ -96,7 +96,7 @@
             // 
             // bnt_pesquisar_nome
             // 
-            this.bnt_pesquisar_nome.Location = new System.Drawing.Point(545, 10);
+            this.bnt_pesquisar_nome.Location = new System.Drawing.Point(814, 10);
             this.bnt_pesquisar_nome.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_pesquisar_nome.Name = "bnt_pesquisar_nome";
             this.bnt_pesquisar_nome.Size = new System.Drawing.Size(65, 20);
@@ -107,7 +107,7 @@
             // 
             // txt_pesquisar_nome
             // 
-            this.txt_pesquisar_nome.Location = new System.Drawing.Point(413, 10);
+            this.txt_pesquisar_nome.Location = new System.Drawing.Point(682, 10);
             this.txt_pesquisar_nome.Margin = new System.Windows.Forms.Padding(2);
             this.txt_pesquisar_nome.Name = "txt_pesquisar_nome";
             this.txt_pesquisar_nome.Size = new System.Drawing.Size(128, 20);
@@ -116,7 +116,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(369, 14);
+            this.label6.Location = new System.Drawing.Point(638, 14);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(39, 13);
             this.label6.TabIndex = 27;
@@ -127,7 +127,7 @@
             this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
-            this.bnt_add.Location = new System.Drawing.Point(686, 10);
+            this.bnt_add.Location = new System.Drawing.Point(955, 10);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_add.Name = "bnt_add";
             this.bnt_add.Size = new System.Drawing.Size(21, 20);
@@ -146,11 +146,12 @@
             this.Cor,
             this.Ano});
             this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(11, 37);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(721, 412);
+            this.listView1.Size = new System.Drawing.Size(990, 496);
             this.listView1.TabIndex = 40;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -164,7 +165,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 486);
+            this.ClientSize = new System.Drawing.Size(1124, 664);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.bnt_add);
             this.Controls.Add(this.label6);

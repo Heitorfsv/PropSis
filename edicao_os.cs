@@ -4,31 +4,17 @@ using Google.Apis.Calendar.v3;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
-using Mysqlx.Cursor;
-using Org.BouncyCastle.Asn1.Ocsp;
 using PrototipoSistema.classes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Globalization;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
+using static QuestPDF.Helpers.Colors;
 
 
 namespace PrototipoSistema
@@ -56,14 +42,18 @@ namespace PrototipoSistema
         private void edicao_os2_Load(object sender, EventArgs e)
         {
             lst_servicos.View = View.Details;
-            lst_servicos.Columns.Add("Nome", 250);
+            lst_servicos.Columns.Add("Nome", 150);
             lst_servicos.Columns.Add("Qtd", 50);
-            lst_servicos.Columns.Add("Valor", 80);
+            lst_servicos.Columns.Add("Valor", 50);
+            lst_servicos.Columns.Add("Desc.", 50);
+            lst_servicos.Columns.Add("Total", 80);
 
             lst_pecas.View = View.Details;
-            lst_pecas.Columns.Add("Nome", 250);
+            lst_pecas.Columns.Add("Nome", 150);
             lst_pecas.Columns.Add("Qtd", 50);
-            lst_pecas.Columns.Add("Valor", 80);
+            lst_pecas.Columns.Add("Valor", 50);
+            lst_pecas.Columns.Add("Desc.", 50);
+            lst_pecas.Columns.Add("Total", 80);
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
@@ -196,10 +186,14 @@ namespace PrototipoSistema
                     string nome = reader.GetString("nome");
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
+                    string desco = reader.GetString("desco");
+                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
                     item.SubItems.Add(valor);
+                    item.SubItems.Add(desco);
+                    item.SubItems.Add(total);
                     lst_servicos.Items.Add(item);
 
                     string qtd_formatado = reader.GetString("qtd");
@@ -221,10 +215,14 @@ namespace PrototipoSistema
                     string nome = reader.GetString("nome");
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
+                    string desco = reader.GetString("desco");
+                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
                     item.SubItems.Add(valor);
+                    item.SubItems.Add(desco);
+                    item.SubItems.Add(total);
                     lst_pecas.Items.Add(item);
 
                     string qtd_formatado = reader.GetString("qtd");
@@ -432,7 +430,8 @@ namespace PrototipoSistema
         {
             lst_pecas.Items.Clear();
 
-            add_pecas add_pecas = new add_pecas();
+            add add_pecas = new add();
+            add_pecas.table = "pecas";
             add_pecas.modo = "os";
             add_pecas.Show();
         }
@@ -441,7 +440,8 @@ namespace PrototipoSistema
         {
             lst_servicos.Items.Clear();
 
-            add_servicos add_servicos = new add_servicos();
+            add add_servicos = new add();
+            add_servicos.table = "servicos";
             add_servicos.modo = "os";
             add_servicos.Show();
         }
@@ -469,10 +469,14 @@ namespace PrototipoSistema
                     string nome = reader.GetString("nome");
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
+                    string desco = reader.GetString("desco");
+                    string total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
                     item.SubItems.Add(valor);
+                    item.SubItems.Add(desco);
+                    item.SubItems.Add(total);
                     lst_servicos.Items.Add(item);
 
                     string qtd_formatado = reader.GetString("qtd");
@@ -494,10 +498,14 @@ namespace PrototipoSistema
                     string nome = reader.GetString("nome");
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
+                    string desco = reader.GetString("desco");
+                    string total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
                     item.SubItems.Add(valor);
+                    item.SubItems.Add(desco);
+                    item.SubItems.Add(total);
                     lst_pecas.Items.Add(item);
 
                     string qtd_formatado = reader.GetString("qtd");

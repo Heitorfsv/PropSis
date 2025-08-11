@@ -29,10 +29,10 @@ namespace PrototipoSistema
 
             // Adiciona colunas
             listView1.Columns.Add("Cadastro", 90);
-            listView1.Columns.Add("Nome", 150);
-            listView1.Columns.Add("Doc", 100);
-            listView1.Columns.Add("Telefone", 110);
-            listView1.Columns.Add("Endereço", 220);
+            listView1.Columns.Add("Nome", 350);
+            listView1.Columns.Add("Doc", 110);
+            listView1.Columns.Add("Telefone", 120);
+            listView1.Columns.Add("Endereço", 320);
             listView1.Columns.Add("Nascimento", 90);
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";

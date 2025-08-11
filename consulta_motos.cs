@@ -21,11 +21,11 @@ namespace PrototipoSistema
 
             // Colunas
             listView1.Columns.Add("Placa", 100);
-            listView1.Columns.Add("Marca", 100);
-            listView1.Columns.Add("Modelo", 100);
+            listView1.Columns.Add("Marca", 120);
+            listView1.Columns.Add("Modelo", 130);
             listView1.Columns.Add("Cor", 100);
             listView1.Columns.Add("Ano", 60);
-            listView1.Columns.Add("Proprietário", 180);
+            listView1.Columns.Add("Proprietário", 300);
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);

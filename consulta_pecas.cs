@@ -26,7 +26,7 @@ namespace PrototipoSistema
             listView1.Columns.Clear();
 
             // Adiciona colunas ao ListView
-            listView1.Columns.Add("Nome", 150);
+            listView1.Columns.Add("Nome", 260);
             listView1.Columns.Add("Marca", 100);
             listView1.Columns.Add("Modelo", 100);
             listView1.Columns.Add("Fornecedor", 150);

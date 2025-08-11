@@ -30,13 +30,13 @@ namespace PrototipoSistema
             listView1.MultiSelect = false;
 
             listView1.Columns.Add("Placa", 100);
-            listView1.Columns.Add("Cliente", 150);
+            listView1.Columns.Add("Cliente", 370);
             listView1.Columns.Add("Data Cadastro", 100);
-            listView1.Columns.Add("Telefone", 100);
-            listView1.Columns.Add("Marca", 100);
-            listView1.Columns.Add("Modelo", 100);
+            listView1.Columns.Add("Telefone", 110);
+            listView1.Columns.Add("Marca", 150);
+            listView1.Columns.Add("Modelo", 150);
             listView1.Columns.Add("Preço Peça", 90);
-            listView1.Columns.Add("Preço Serviço", 90);
+            listView1.Columns.Add("Preço Serviço", 100);
             listView1.Columns.Add("Total", 90);
         }
 
@@ -96,6 +96,7 @@ namespace PrototipoSistema
                 reader = cmd.ExecuteReader();
                 if (reader.Read())
                     listView1.Items[i].SubItems[3].Text = reader.GetString("telefone");
+
                 conexao.Close();
 
                 // Marca e modelo

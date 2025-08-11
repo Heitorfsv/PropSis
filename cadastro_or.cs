@@ -40,14 +40,18 @@ namespace PrototipoSistema
         private void cadastro_or_Load(object sender, EventArgs e)
         {
             lst_servicos.View = View.Details;
-            lst_servicos.Columns.Add("Nome", 250);
+            lst_servicos.Columns.Add("Nome", 150);
             lst_servicos.Columns.Add("Qtd", 50);
-            lst_servicos.Columns.Add("Valor", 80);
+            lst_servicos.Columns.Add("Valor", 50);
+            lst_servicos.Columns.Add("Desc.", 50);
+            lst_servicos.Columns.Add("Total", 80);
 
             lst_pecas.View = View.Details;
-            lst_pecas.Columns.Add("Nome", 250);
+            lst_pecas.Columns.Add("Nome", 150);
             lst_pecas.Columns.Add("Qtd", 50);
-            lst_pecas.Columns.Add("Valor", 80);
+            lst_pecas.Columns.Add("Valor", 50);
+            lst_pecas.Columns.Add("Desc.", 50);
+            lst_pecas.Columns.Add("Total", 80);
 
             if (this.Text == "Cadastro orçamento")
             {
@@ -124,10 +128,14 @@ namespace PrototipoSistema
                     string nome = reader.GetString("nome");
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
+                    string desco = reader.GetString("desco");
+                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
                     item.SubItems.Add(valor);
+                    item.SubItems.Add(desco);
+                    item.SubItems.Add(total);
                     lst_servicos.Items.Add(item);
 
                     string qtd_formatado = reader.GetString("qtd");
@@ -149,10 +157,14 @@ namespace PrototipoSistema
                     string nome = reader.GetString("nome");
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
+                    string desco = reader.GetString("desco");
+                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
                     item.SubItems.Add(valor);
+                    item.SubItems.Add(desco);
+                    item.SubItems.Add(total);
                     lst_pecas.Items.Add(item);
 
                     string qtd_formatado = reader.GetString("qtd");
@@ -241,7 +253,8 @@ namespace PrototipoSistema
         {
             lst_servicos.Items.Clear();
 
-            add_servicos add_servicos = new add_servicos();
+            add add_servicos = new add();
+            add_servicos.table = "servicos";
             add_servicos.modo = "orca";
             add_servicos.Show();
         }
@@ -250,7 +263,8 @@ namespace PrototipoSistema
         {
             lst_pecas.Items.Clear();
 
-            add_pecas add_pecas = new add_pecas();
+            add add_pecas = new add();
+            add_pecas.table = "pecas";
             add_pecas.modo = "orca";
             add_pecas.Show();
         }
@@ -342,10 +356,14 @@ namespace PrototipoSistema
                     string nome = reader.GetString("nome");
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
+                    string desco = reader.GetString("desco");
+                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
                     item.SubItems.Add(valor);
+                    item.SubItems.Add(desco);
+                    item.SubItems.Add(total);
                     lst_servicos.Items.Add(item);
 
                     string qtd_formatado = reader.GetString("qtd");
@@ -367,11 +385,15 @@ namespace PrototipoSistema
                     string nome = reader.GetString("nome");
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
+                    string desco = reader.GetString("desco");
+                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
                     item.SubItems.Add(valor);
-                    lst_servicos.Items.Add(item);
+                    item.SubItems.Add(desco);
+                    item.SubItems.Add(total);
+                    lst_pecas.Items.Add(item);
 
                     string qtd_formatado = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");

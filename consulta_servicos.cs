@@ -48,7 +48,7 @@ namespace PrototipoSistema
             listView1.Columns.Clear();
 
             // Colunas do ListView
-            listView1.Columns.Add("Nome", 200);
+            listView1.Columns.Add("Nome", 350);
             listView1.Columns.Add("Valor", 100);
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";

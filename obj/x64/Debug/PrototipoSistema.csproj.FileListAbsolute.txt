@@ -53,10 +53,7 @@ C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistem
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.csproj.SuggestedBindingRedirects.cache
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\$safeprojectname$.exe.config
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.add_calendar.resources
-C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.add_pecas.resources
-C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.add_servicos.resources
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.aniversarios.resources
-C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.aviso.resources
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.blank.resources
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.blankdays.resources
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.cadastro_or.resources
@@ -142,3 +139,4 @@ C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\x64\Debug\libwinpthread-1
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\x64\Debug\qpdf.dll
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\x64\Debug\QuestPDF.dll
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.cadastro_pagamento.resources
+C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.add.resources
