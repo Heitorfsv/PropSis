@@ -37,35 +37,41 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(284, 10);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(281, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(167, 13);
+            this.label1.Size = new System.Drawing.Size(226, 15);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Aníversarios dos próximos 15 dias";
+            this.label1.Text = "Aniversários dos próximos 15 dias";
             // 
             // lst_15dias
             // 
+            this.lst_15dias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_15dias.FormattingEnabled = true;
-            this.lst_15dias.Location = new System.Drawing.Point(287, 26);
+            this.lst_15dias.ItemHeight = 15;
+            this.lst_15dias.Location = new System.Drawing.Point(284, 28);
             this.lst_15dias.Name = "lst_15dias";
-            this.lst_15dias.Size = new System.Drawing.Size(266, 316);
+            this.lst_15dias.Size = new System.Drawing.Size(266, 304);
             this.lst_15dias.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 13);
+            this.label2.Size = new System.Drawing.Size(137, 15);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Aníversarios de hoje";
+            this.label2.Text = "Aniversários de hoje";
             // 
             // lst_hoje
             // 
+            this.lst_hoje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_hoje.FormattingEnabled = true;
-            this.lst_hoje.Location = new System.Drawing.Point(15, 26);
+            this.lst_hoje.ItemHeight = 15;
+            this.lst_hoje.Location = new System.Drawing.Point(12, 27);
             this.lst_hoje.Name = "lst_hoje";
-            this.lst_hoje.Size = new System.Drawing.Size(266, 316);
+            this.lst_hoje.Size = new System.Drawing.Size(266, 304);
             this.lst_hoje.TabIndex = 3;
             // 
             // aniversarios
@@ -78,7 +84,7 @@
             this.Controls.Add(this.lst_15dias);
             this.Controls.Add(this.label1);
             this.Name = "aniversarios";
-            this.Text = "aniversarios";
+            this.Text = "Aniversários";
             this.Load += new System.EventHandler(this.aniversarios_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

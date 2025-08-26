@@ -18,6 +18,13 @@ namespace PrototipoSistema
         public historico()
         {
             InitializeComponent();
+
+            listView1.Columns.Clear();
+            listView1.Columns.Add("Data Saída", 100);
+            listView1.Columns.Add("Cliente", 150);
+            listView1.Columns.Add("Placa", 80);
+            listView1.Columns.Add("Marca", 120);
+            listView1.Columns.Add("Modelo", 150);
         }
 
         private void historico_Load(object sender, EventArgs e)
@@ -48,111 +55,63 @@ namespace PrototipoSistema
             txt_total.Text = total.ToString("N2");
             conexao.Close();
 
-            int count = 0;
             List<string> lista_placa = new List<string>();
 
-            while (count < lista_os.Count)
+            for (int i = 0; i < lista_os.Count; i++)
             {
-                cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{lista_os[count]}'", conexao);
+                string dt_saida = "";
+                string cliente = "";
+                string placa = "";
+                string marca = "";
+                string modelo = "";
+
+                cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{lista_os[i]}'", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    try { lst_dt_saida.Items.Add(reader.GetString("dt_saida")); }
-                    catch { }
+                    try { dt_saida = reader.GetString("dt_saida"); } catch { }
 
-                    lst_cliente.Items.Add(reader.GetString("cliente"));
-                    lista_placa.Add(reader.GetString("placa"));
+                    cliente = reader.GetString("cliente");
+                    placa = reader.GetString("placa");
                 }
                 conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{lista_placa[count]}'", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{placa}'", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {
-                    lst_marca.Items.Add(reader.GetString("marca"));
-                    lst_modelo.Items.Add(reader.GetString("modelo"));
+                    marca = reader.GetString("marca");
+                    modelo = reader.GetString("modelo");
                 }
                 conexao.Close();
 
-                count++;
+                var item = new ListViewItem(dt_saida);
+                item.SubItems.Add(cliente);
+                item.SubItems.Add(placa);
+                item.SubItems.Add(marca);
+                item.SubItems.Add(modelo);
+
+                listView1.Items.Add(item);
             }
         }
 
-        private void lst_dt_saida_SelectedIndexChanged(object sender, EventArgs e)
+        private void listView1_DoubleClick(object sender, EventArgs e)
         {
-            lst_cliente.SelectedIndex = lst_dt_saida.SelectedIndex;
-        }
+            if (listView1.SelectedIndices.Count == 0)
+                return;
 
-        private void lst_cliente_Click(object sender, EventArgs e)
-        {
-            try { lst_dt_saida.SelectedIndex = lst_cliente.SelectedIndex; } catch { }
-            lst_marca.SelectedIndex = lst_cliente.SelectedIndex;
-            lst_modelo.SelectedIndex = lst_cliente.SelectedIndex;
-        }
-
-        private void lst_marca_Click(object sender, EventArgs e)
-        {
-            lst_cliente.SelectedIndex = lst_marca.SelectedIndex;
-        }
-
-        private void lst_modelo_Click(object sender, EventArgs e)
-        {
-            lst_cliente.SelectedIndex = lst_modelo.SelectedIndex;
-        }
-
-        private void lst_dt_saida_DoubleClick(object sender, EventArgs e)
-        {
+            int index = listView1.SelectedIndices[0];
             try
             {
                 edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_os[lst_cliente.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_cliente_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_os[lst_cliente.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_marca_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_os[lst_cliente.SelectedIndex];
-
-                edicao_os.Show();
-            }
-            catch { }
-        }
-
-        private void lst_modelo_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                edicao_os edicao_os = new edicao_os();
-
-                static_class.controle = lista_os[lst_cliente.SelectedIndex];
-
+                static_class.controle = lista_os[index];
+                edicao_os.Text = "Edição OS";
                 edicao_os.Show();
             }
             catch { }

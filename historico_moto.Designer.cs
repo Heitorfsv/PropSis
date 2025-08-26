@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lst_clientes = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txt_placa = new System.Windows.Forms.TextBox();
             this.txt_modelo = new System.Windows.Forms.TextBox();
@@ -37,18 +36,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txt_ano = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.lst_dt_registro = new System.Windows.Forms.ListBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
-            // 
-            // lst_clientes
-            // 
-            this.lst_clientes.FormattingEnabled = true;
-            this.lst_clientes.Location = new System.Drawing.Point(12, 98);
-            this.lst_clientes.Name = "lst_clientes";
-            this.lst_clientes.Size = new System.Drawing.Size(143, 251);
-            this.lst_clientes.TabIndex = 0;
             // 
             // label1
             // 
@@ -118,40 +107,24 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Ano:";
             // 
-            // lst_dt_registro
+            // listView1
             // 
-            this.lst_dt_registro.FormattingEnabled = true;
-            this.lst_dt_registro.Location = new System.Drawing.Point(161, 98);
-            this.lst_dt_registro.Name = "lst_dt_registro";
-            this.lst_dt_registro.Size = new System.Drawing.Size(143, 251);
-            this.lst_dt_registro.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 82);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Histórico de donos";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(178, 82);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(82, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Data de registro";
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(12, 61);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(292, 288);
+            this.listView1.TabIndex = 9;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
             // 
             // historico_moto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(318, 361);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.lst_dt_registro);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.txt_ano);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txt_marca);
@@ -160,7 +133,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txt_placa);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lst_clientes);
             this.Name = "historico_moto";
             this.Text = "Histórico da moto";
             this.Load += new System.EventHandler(this.historico_moto_Load);
@@ -170,8 +142,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox lst_clientes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_placa;
         private System.Windows.Forms.TextBox txt_modelo;
@@ -180,8 +150,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt_ano;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListBox lst_dt_registro;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ListView listView1;
     }
 }

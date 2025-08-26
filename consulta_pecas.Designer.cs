@@ -45,6 +45,7 @@
             // 
             this.bnt_atualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_atualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
             this.bnt_atualizar.Location = new System.Drawing.Point(931, 11);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(2);
@@ -57,10 +58,11 @@
             // 
             // bnt_pesquisar
             // 
-            this.bnt_pesquisar.Location = new System.Drawing.Point(223, 11);
+            this.bnt_pesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_pesquisar.Location = new System.Drawing.Point(343, 11);
             this.bnt_pesquisar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_pesquisar.Name = "bnt_pesquisar";
-            this.bnt_pesquisar.Size = new System.Drawing.Size(65, 22);
+            this.bnt_pesquisar.Size = new System.Drawing.Size(90, 23);
             this.bnt_pesquisar.TabIndex = 25;
             this.bnt_pesquisar.Text = "Pesquisar";
             this.bnt_pesquisar.UseVisualStyleBackColor = true;
@@ -69,30 +71,33 @@
             // cmb_consulta
             // 
             this.cmb_consulta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_consulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_consulta.FormattingEnabled = true;
             this.cmb_consulta.Items.AddRange(new object[] {
             "nome",
             "marca",
             "modelo",
             "fornecedor"});
-            this.cmb_consulta.Location = new System.Drawing.Point(9, 12);
+            this.cmb_consulta.Location = new System.Drawing.Point(12, 12);
             this.cmb_consulta.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_consulta.Name = "cmb_consulta";
-            this.cmb_consulta.Size = new System.Drawing.Size(82, 21);
+            this.cmb_consulta.Size = new System.Drawing.Size(127, 21);
             this.cmb_consulta.TabIndex = 24;
             // 
             // txt_pesquisa
             // 
-            this.txt_pesquisa.Location = new System.Drawing.Point(94, 12);
+            this.txt_pesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_pesquisa.Location = new System.Drawing.Point(143, 12);
             this.txt_pesquisa.Margin = new System.Windows.Forms.Padding(2);
             this.txt_pesquisa.Name = "txt_pesquisa";
-            this.txt_pesquisa.Size = new System.Drawing.Size(128, 20);
+            this.txt_pesquisa.Size = new System.Drawing.Size(196, 21);
             this.txt_pesquisa.TabIndex = 23;
             // 
             // bnt_add
             // 
             this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
             this.bnt_add.Location = new System.Drawing.Point(906, 11);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
@@ -110,6 +115,7 @@
             this.Marca,
             this.Modelo,
             this.Fornecedor});
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;

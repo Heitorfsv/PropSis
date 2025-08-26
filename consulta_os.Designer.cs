@@ -56,6 +56,7 @@
             // cmb_consulta
             // 
             this.cmb_consulta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_consulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_consulta.FormattingEnabled = true;
             this.cmb_consulta.Items.AddRange(new object[] {
             "dt_cadastro",
@@ -66,12 +67,13 @@
             this.cmb_consulta.Location = new System.Drawing.Point(14, 9);
             this.cmb_consulta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmb_consulta.Name = "cmb_consulta";
-            this.cmb_consulta.Size = new System.Drawing.Size(108, 24);
+            this.cmb_consulta.Size = new System.Drawing.Size(132, 21);
             this.cmb_consulta.TabIndex = 5;
             // 
             // bnt_pesquisar
             // 
-            this.bnt_pesquisar.Location = new System.Drawing.Point(253, 9);
+            this.bnt_pesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_pesquisar.Location = new System.Drawing.Point(299, 8);
             this.bnt_pesquisar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_pesquisar.Name = "bnt_pesquisar";
             this.bnt_pesquisar.Size = new System.Drawing.Size(87, 23);
@@ -82,16 +84,18 @@
             // 
             // txt_pequisa
             // 
-            this.txt_pequisa.Location = new System.Drawing.Point(128, 10);
+            this.txt_pequisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_pequisa.Location = new System.Drawing.Point(152, 9);
             this.txt_pequisa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_pequisa.Name = "txt_pequisa";
-            this.txt_pequisa.Size = new System.Drawing.Size(119, 22);
+            this.txt_pequisa.Size = new System.Drawing.Size(141, 21);
             this.txt_pequisa.TabIndex = 7;
             // 
             // bnt_atualizar
             // 
             this.bnt_atualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_atualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
             this.bnt_atualizar.Location = new System.Drawing.Point(1836, 13);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -105,38 +109,41 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(582, 13);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(583, 12);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(120, 16);
+            this.label9.Size = new System.Drawing.Size(92, 15);
             this.label9.TabIndex = 29;
             this.label9.Text = "Peças / Seviços";
             // 
             // txt_ps
             // 
-            this.txt_ps.Location = new System.Drawing.Point(808, 10);
+            this.txt_ps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_ps.Location = new System.Drawing.Point(790, 9);
             this.txt_ps.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_ps.Name = "txt_ps";
-            this.txt_ps.Size = new System.Drawing.Size(119, 22);
+            this.txt_ps.Size = new System.Drawing.Size(119, 21);
             this.txt_ps.TabIndex = 31;
             // 
             // cmb_ps
             // 
             this.cmb_ps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_ps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_ps.FormattingEnabled = true;
             this.cmb_ps.Items.AddRange(new object[] {
             "Peças",
             "Serviços"});
-            this.cmb_ps.Location = new System.Drawing.Point(708, 9);
+            this.cmb_ps.Location = new System.Drawing.Point(682, 9);
             this.cmb_ps.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmb_ps.Name = "cmb_ps";
-            this.cmb_ps.Size = new System.Drawing.Size(94, 24);
+            this.cmb_ps.Size = new System.Drawing.Size(102, 21);
             this.cmb_ps.TabIndex = 30;
             // 
             // bnt_pesquisar_ps
             // 
-            this.bnt_pesquisar_ps.Location = new System.Drawing.Point(933, 9);
+            this.bnt_pesquisar_ps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_pesquisar_ps.Location = new System.Drawing.Point(915, 8);
             this.bnt_pesquisar_ps.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_pesquisar_ps.Name = "bnt_pesquisar_ps";
             this.bnt_pesquisar_ps.Size = new System.Drawing.Size(87, 23);
@@ -149,6 +156,7 @@
             // 
             this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
             this.bnt_add.Location = new System.Drawing.Point(1810, 13);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
@@ -173,52 +181,58 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(11, 695);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(139, 16);
+            this.label12.Size = new System.Drawing.Size(127, 15);
             this.label12.TabIndex = 45;
             this.label12.Text = "Faturamento serviços:";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(11, 739);
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(12, 737);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(126, 16);
+            this.label13.Size = new System.Drawing.Size(116, 15);
             this.label13.TabIndex = 44;
             this.label13.Text = "Faturamento peças:";
             // 
             // txt_total_servicos
             // 
-            this.txt_total_servicos.Location = new System.Drawing.Point(14, 714);
+            this.txt_total_servicos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_total_servicos.Location = new System.Drawing.Point(14, 713);
             this.txt_total_servicos.Name = "txt_total_servicos";
             this.txt_total_servicos.ReadOnly = true;
-            this.txt_total_servicos.Size = new System.Drawing.Size(115, 22);
+            this.txt_total_servicos.Size = new System.Drawing.Size(115, 21);
             this.txt_total_servicos.TabIndex = 43;
             // 
             // txt_total_pecas
             // 
-            this.txt_total_pecas.Location = new System.Drawing.Point(14, 758);
+            this.txt_total_pecas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_total_pecas.Location = new System.Drawing.Point(14, 755);
             this.txt_total_pecas.Name = "txt_total_pecas";
             this.txt_total_pecas.ReadOnly = true;
-            this.txt_total_pecas.Size = new System.Drawing.Size(115, 22);
+            this.txt_total_pecas.Size = new System.Drawing.Size(115, 21);
             this.txt_total_pecas.TabIndex = 42;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(11, 783);
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(12, 779);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(113, 16);
+            this.label14.Size = new System.Drawing.Size(124, 15);
             this.label14.TabIndex = 41;
             this.label14.Text = "Faturamento total:";
             // 
             // txt_total
             // 
-            this.txt_total.Location = new System.Drawing.Point(14, 802);
+            this.txt_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_total.Location = new System.Drawing.Point(15, 797);
             this.txt_total.Name = "txt_total";
             this.txt_total.ReadOnly = true;
-            this.txt_total.Size = new System.Drawing.Size(115, 22);
+            this.txt_total.Size = new System.Drawing.Size(115, 21);
             this.txt_total.TabIndex = 40;
             // 
             // chart1
@@ -241,7 +255,7 @@
             // 
             // listView1
             // 
-            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;

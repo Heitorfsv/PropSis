@@ -54,7 +54,7 @@
             // txt_agencia
             // 
             this.txt_agencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_agencia.Location = new System.Drawing.Point(12, 67);
+            this.txt_agencia.Location = new System.Drawing.Point(12, 69);
             this.txt_agencia.Name = "txt_agencia";
             this.txt_agencia.Size = new System.Drawing.Size(172, 21);
             this.txt_agencia.TabIndex = 1;
@@ -62,7 +62,7 @@
             // txt_parcelas
             // 
             this.txt_parcelas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_parcelas.Location = new System.Drawing.Point(12, 107);
+            this.txt_parcelas.Location = new System.Drawing.Point(12, 111);
             this.txt_parcelas.Name = "txt_parcelas";
             this.txt_parcelas.Size = new System.Drawing.Size(82, 21);
             this.txt_parcelas.TabIndex = 2;
@@ -80,18 +80,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(12, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(54, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "Agência:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 91);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(12, 93);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 13);
+            this.label3.Size = new System.Drawing.Size(58, 15);
             this.label3.TabIndex = 5;
             this.label3.Text = "Parcelas:";
             // 
@@ -110,7 +112,7 @@
             // bnt_cadastro
             // 
             this.bnt_cadastro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bnt_cadastro.Location = new System.Drawing.Point(12, 163);
+            this.bnt_cadastro.Location = new System.Drawing.Point(12, 167);
             this.bnt_cadastro.Name = "bnt_cadastro";
             this.bnt_cadastro.Size = new System.Drawing.Size(82, 23);
             this.bnt_cadastro.TabIndex = 7;
@@ -122,7 +124,7 @@
             // 
             this.bnt_excluir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_excluir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bnt_excluir.Location = new System.Drawing.Point(12, 134);
+            this.bnt_excluir.Location = new System.Drawing.Point(12, 138);
             this.bnt_excluir.Name = "bnt_excluir";
             this.bnt_excluir.Size = new System.Drawing.Size(82, 23);
             this.bnt_excluir.TabIndex = 8;
@@ -133,7 +135,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(278, 9);
+            this.label4.Location = new System.Drawing.Point(278, 7);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(131, 15);
             this.label4.TabIndex = 9;
@@ -143,6 +145,7 @@
             // 
             this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
             this.bnt_add.Location = new System.Drawing.Point(577, 7);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
@@ -155,9 +158,10 @@
             // 
             // txt_pesquisa
             // 
-            this.txt_pesquisa.Location = new System.Drawing.Point(281, 165);
+            this.txt_pesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_pesquisa.Location = new System.Drawing.Point(281, 167);
             this.txt_pesquisa.Name = "txt_pesquisa";
-            this.txt_pesquisa.Size = new System.Drawing.Size(151, 20);
+            this.txt_pesquisa.Size = new System.Drawing.Size(151, 21);
             this.txt_pesquisa.TabIndex = 37;
             // 
             // cadastro_pagamento

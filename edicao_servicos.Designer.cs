@@ -39,8 +39,8 @@
             // 
             // bnt_editar
             // 
-            this.bnt_editar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bnt_editar.Location = new System.Drawing.Point(201, 108);
+            this.bnt_editar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_editar.Location = new System.Drawing.Point(196, 108);
             this.bnt_editar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar.Name = "bnt_editar";
             this.bnt_editar.Size = new System.Drawing.Size(122, 31);
@@ -52,46 +52,49 @@
             // txt_nome
             // 
             this.txt_nome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txt_nome.Location = new System.Drawing.Point(19, 31);
+            this.txt_nome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_nome.Location = new System.Drawing.Point(14, 26);
             this.txt_nome.Margin = new System.Windows.Forms.Padding(2);
             this.txt_nome.Name = "txt_nome";
-            this.txt_nome.Size = new System.Drawing.Size(304, 20);
+            this.txt_nome.Size = new System.Drawing.Size(304, 21);
             this.txt_nome.TabIndex = 53;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 13);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 17);
+            this.label1.Size = new System.Drawing.Size(41, 15);
             this.label1.TabIndex = 52;
             this.label1.Text = "Nome";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 58);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 49);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 16);
+            this.label2.Size = new System.Drawing.Size(35, 15);
             this.label2.TabIndex = 56;
             this.label2.Text = "Valor";
             // 
             // txt_valor
             // 
-            this.txt_valor.Location = new System.Drawing.Point(18, 75);
+            this.txt_valor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_valor.Location = new System.Drawing.Point(14, 67);
             this.txt_valor.Name = "txt_valor";
-            this.txt_valor.Size = new System.Drawing.Size(100, 20);
+            this.txt_valor.Size = new System.Drawing.Size(100, 21);
             this.txt_valor.TabIndex = 55;
             // 
             // bnt_deletar
             // 
+            this.bnt_deletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_deletar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bnt_deletar.Location = new System.Drawing.Point(167, 74);
+            this.bnt_deletar.Location = new System.Drawing.Point(162, 64);
             this.bnt_deletar.Name = "bnt_deletar";
-            this.bnt_deletar.Size = new System.Drawing.Size(75, 20);
+            this.bnt_deletar.Size = new System.Drawing.Size(75, 24);
             this.bnt_deletar.TabIndex = 57;
             this.bnt_deletar.Text = "Deletar";
             this.bnt_deletar.UseVisualStyleBackColor = true;
@@ -99,10 +102,11 @@
             // 
             // bnt_historico
             // 
+            this.bnt_historico.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_historico.ForeColor = System.Drawing.Color.Black;
-            this.bnt_historico.Location = new System.Drawing.Point(248, 75);
+            this.bnt_historico.Location = new System.Drawing.Point(243, 64);
             this.bnt_historico.Name = "bnt_historico";
-            this.bnt_historico.Size = new System.Drawing.Size(75, 20);
+            this.bnt_historico.Size = new System.Drawing.Size(75, 24);
             this.bnt_historico.TabIndex = 108;
             this.bnt_historico.Text = "Histórico";
             this.bnt_historico.UseVisualStyleBackColor = true;

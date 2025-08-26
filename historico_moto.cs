@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PrototipoSistema
 {
@@ -20,6 +21,10 @@ namespace PrototipoSistema
         public historico_moto()
         {
             InitializeComponent();
+
+            listView1.Columns.Clear();
+            listView1.Columns.Add("Cliente", 200);
+            listView1.Columns.Add("Data de Registro", 120);
         }
 
         private void historico_moto_Load(object sender, EventArgs e)
@@ -38,7 +43,7 @@ namespace PrototipoSistema
             var cmd = new MySqlCommand($"SELECT doc_dono, dt_registro FROM motos WHERE placa = '{txt_placa.Text}'", conexao);
 
             conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();   
+            MySqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {   
@@ -47,23 +52,25 @@ namespace PrototipoSistema
             }
             conexao.Close();
 
-            int count = 0;
-
-            while (count <  doc.Count)
+            for (int i = 0; i < doc.Count; i++)
             {
-                cmd = new MySqlCommand($"SELECT nome FROM clientes WHERE doc = '{doc[count]}'", conexao);
+                string nome = "", datas = dt_registro[i];
+                
+
+                cmd = new MySqlCommand($"SELECT nome FROM clientes WHERE doc = '{doc[i]}'", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    lst_clientes.Items.Add(reader.GetString("nome"));
-                    lst_dt_registro.Items.Add(dt_registro[count].ToString());
-                }
+                    nome = reader.GetString("nome");
+                } 
                 conexao.Close();
 
-                count++;
+                var item = new ListViewItem(nome);
+                item.SubItems.Add(datas);
+                listView1.Items.Add(item);
             }
         }
     }

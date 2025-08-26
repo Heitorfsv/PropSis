@@ -50,6 +50,7 @@
             // 
             this.bnt_atualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_atualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
             this.bnt_atualizar.Location = new System.Drawing.Point(980, 10);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(2);
@@ -61,10 +62,11 @@
             // 
             // bnt_pesquisar
             // 
-            this.bnt_pesquisar.Location = new System.Drawing.Point(226, 11);
+            this.bnt_pesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_pesquisar.Location = new System.Drawing.Point(288, 10);
             this.bnt_pesquisar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_pesquisar.Name = "bnt_pesquisar";
-            this.bnt_pesquisar.Size = new System.Drawing.Size(65, 20);
+            this.bnt_pesquisar.Size = new System.Drawing.Size(81, 23);
             this.bnt_pesquisar.TabIndex = 13;
             this.bnt_pesquisar.Text = "Pesquisar";
             this.bnt_pesquisar.UseVisualStyleBackColor = true;
@@ -73,6 +75,7 @@
             // cmb_consulta
             // 
             this.cmb_consulta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_consulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_consulta.FormattingEnabled = true;
             this.cmb_consulta.Items.AddRange(new object[] {
             "placa",
@@ -83,23 +86,25 @@
             this.cmb_consulta.Location = new System.Drawing.Point(11, 11);
             this.cmb_consulta.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_consulta.Name = "cmb_consulta";
-            this.cmb_consulta.Size = new System.Drawing.Size(82, 21);
+            this.cmb_consulta.Size = new System.Drawing.Size(117, 21);
             this.cmb_consulta.TabIndex = 12;
             // 
             // txt_pesquisa
             // 
-            this.txt_pesquisa.Location = new System.Drawing.Point(96, 11);
+            this.txt_pesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_pesquisa.Location = new System.Drawing.Point(132, 11);
             this.txt_pesquisa.Margin = new System.Windows.Forms.Padding(2);
             this.txt_pesquisa.Name = "txt_pesquisa";
-            this.txt_pesquisa.Size = new System.Drawing.Size(128, 20);
+            this.txt_pesquisa.Size = new System.Drawing.Size(152, 21);
             this.txt_pesquisa.TabIndex = 11;
             // 
             // bnt_pesquisar_nome
             // 
-            this.bnt_pesquisar_nome.Location = new System.Drawing.Point(814, 10);
+            this.bnt_pesquisar_nome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_pesquisar_nome.Location = new System.Drawing.Point(832, 9);
             this.bnt_pesquisar_nome.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_pesquisar_nome.Name = "bnt_pesquisar_nome";
-            this.bnt_pesquisar_nome.Size = new System.Drawing.Size(65, 20);
+            this.bnt_pesquisar_nome.Size = new System.Drawing.Size(82, 23);
             this.bnt_pesquisar_nome.TabIndex = 26;
             this.bnt_pesquisar_nome.Text = "Pesquisar";
             this.bnt_pesquisar_nome.UseVisualStyleBackColor = true;
@@ -107,18 +112,20 @@
             // 
             // txt_pesquisar_nome
             // 
+            this.txt_pesquisar_nome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_pesquisar_nome.Location = new System.Drawing.Point(682, 10);
             this.txt_pesquisar_nome.Margin = new System.Windows.Forms.Padding(2);
             this.txt_pesquisar_nome.Name = "txt_pesquisar_nome";
-            this.txt_pesquisar_nome.Size = new System.Drawing.Size(128, 20);
+            this.txt_pesquisar_nome.Size = new System.Drawing.Size(146, 21);
             this.txt_pesquisar_nome.TabIndex = 25;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(638, 14);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(632, 13);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 13);
+            this.label6.Size = new System.Drawing.Size(45, 15);
             this.label6.TabIndex = 27;
             this.label6.Text = "Cliente";
             // 
@@ -126,6 +133,7 @@
             // 
             this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
             this.bnt_add.Location = new System.Drawing.Point(955, 10);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
@@ -145,6 +153,7 @@
             this.Modelo,
             this.Cor,
             this.Ano});
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;

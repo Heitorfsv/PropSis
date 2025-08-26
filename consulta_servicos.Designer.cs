@@ -43,6 +43,7 @@
             // 
             this.bnt_atualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_atualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
             this.bnt_atualizar.Location = new System.Drawing.Point(714, 7);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(2);
@@ -55,10 +56,11 @@
             // 
             // bnt_pesquisar
             // 
-            this.bnt_pesquisar.Location = new System.Drawing.Point(223, 8);
+            this.bnt_pesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_pesquisar.Location = new System.Drawing.Point(324, 7);
             this.bnt_pesquisar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_pesquisar.Name = "bnt_pesquisar";
-            this.bnt_pesquisar.Size = new System.Drawing.Size(65, 20);
+            this.bnt_pesquisar.Size = new System.Drawing.Size(81, 23);
             this.bnt_pesquisar.TabIndex = 13;
             this.bnt_pesquisar.Text = "Pesquisar";
             this.bnt_pesquisar.UseVisualStyleBackColor = true;
@@ -73,21 +75,23 @@
             this.cmb_consulta.Location = new System.Drawing.Point(9, 8);
             this.cmb_consulta.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_consulta.Name = "cmb_consulta";
-            this.cmb_consulta.Size = new System.Drawing.Size(82, 21);
+            this.cmb_consulta.Size = new System.Drawing.Size(125, 21);
             this.cmb_consulta.TabIndex = 12;
             // 
             // txt_pesquisa
             // 
-            this.txt_pesquisa.Location = new System.Drawing.Point(94, 8);
+            this.txt_pesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_pesquisa.Location = new System.Drawing.Point(138, 8);
             this.txt_pesquisa.Margin = new System.Windows.Forms.Padding(2);
             this.txt_pesquisa.Name = "txt_pesquisa";
-            this.txt_pesquisa.Size = new System.Drawing.Size(128, 20);
+            this.txt_pesquisa.Size = new System.Drawing.Size(182, 21);
             this.txt_pesquisa.TabIndex = 11;
             // 
             // bnt_add
             // 
             this.bnt_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bnt_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
             this.bnt_add.Location = new System.Drawing.Point(689, 6);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
@@ -103,6 +107,7 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Nome,
             this.Valor});
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;

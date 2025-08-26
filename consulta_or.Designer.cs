@@ -54,10 +54,10 @@
             // lbl_order
             // 
             this.lbl_order.AutoSize = true;
-            this.lbl_order.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_order.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_order.Location = new System.Drawing.Point(1258, 37);
             this.lbl_order.Name = "lbl_order";
-            this.lbl_order.Size = new System.Drawing.Size(18, 20);
+            this.lbl_order.Size = new System.Drawing.Size(13, 15);
             this.lbl_order.TabIndex = 69;
             this.lbl_order.Text = "↑";
             this.lbl_order.Click += new System.EventHandler(this.lbl_order_Click);
@@ -78,10 +78,11 @@
             // 
             // bnt_pesquisar_ps
             // 
-            this.bnt_pesquisar_ps.Location = new System.Drawing.Point(936, 10);
+            this.bnt_pesquisar_ps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_pesquisar_ps.Location = new System.Drawing.Point(929, 10);
             this.bnt_pesquisar_ps.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_pesquisar_ps.Name = "bnt_pesquisar_ps";
-            this.bnt_pesquisar_ps.Size = new System.Drawing.Size(87, 22);
+            this.bnt_pesquisar_ps.Size = new System.Drawing.Size(87, 23);
             this.bnt_pesquisar_ps.TabIndex = 63;
             this.bnt_pesquisar_ps.Text = "Pesquisar";
             this.bnt_pesquisar_ps.UseVisualStyleBackColor = true;
@@ -89,33 +90,35 @@
             // 
             // txt_ps
             // 
-            this.txt_ps.Location = new System.Drawing.Point(811, 11);
+            this.txt_ps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_ps.Location = new System.Drawing.Point(804, 11);
             this.txt_ps.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_ps.Name = "txt_ps";
-            this.txt_ps.Size = new System.Drawing.Size(119, 20);
+            this.txt_ps.Size = new System.Drawing.Size(119, 21);
             this.txt_ps.TabIndex = 62;
             // 
             // cmb_ps
             // 
             this.cmb_ps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_ps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_ps.FormattingEnabled = true;
             this.cmb_ps.Items.AddRange(new object[] {
             "Peças",
             "Serviços"});
-            this.cmb_ps.Location = new System.Drawing.Point(711, 10);
+            this.cmb_ps.Location = new System.Drawing.Point(688, 11);
             this.cmb_ps.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmb_ps.Name = "cmb_ps";
-            this.cmb_ps.Size = new System.Drawing.Size(94, 21);
+            this.cmb_ps.Size = new System.Drawing.Size(110, 21);
             this.cmb_ps.TabIndex = 61;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(589, 14);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(120, 16);
+            this.label9.Size = new System.Drawing.Size(92, 15);
             this.label9.TabIndex = 60;
             this.label9.Text = "Peças / Seviços";
             // 
@@ -135,18 +138,20 @@
             // 
             // txt_pequisa
             // 
-            this.txt_pequisa.Location = new System.Drawing.Point(132, 11);
+            this.txt_pequisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_pequisa.Location = new System.Drawing.Point(161, 11);
             this.txt_pequisa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_pequisa.Name = "txt_pequisa";
-            this.txt_pequisa.Size = new System.Drawing.Size(119, 20);
+            this.txt_pequisa.Size = new System.Drawing.Size(119, 21);
             this.txt_pequisa.TabIndex = 47;
             // 
             // bnt_pesquisar
             // 
-            this.bnt_pesquisar.Location = new System.Drawing.Point(256, 10);
+            this.bnt_pesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_pesquisar.Location = new System.Drawing.Point(286, 10);
             this.bnt_pesquisar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_pesquisar.Name = "bnt_pesquisar";
-            this.bnt_pesquisar.Size = new System.Drawing.Size(87, 22);
+            this.bnt_pesquisar.Size = new System.Drawing.Size(87, 23);
             this.bnt_pesquisar.TabIndex = 46;
             this.bnt_pesquisar.Text = "Pesquisar";
             this.bnt_pesquisar.UseVisualStyleBackColor = true;
@@ -155,6 +160,7 @@
             // cmb_consulta
             // 
             this.cmb_consulta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_consulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_consulta.FormattingEnabled = true;
             this.cmb_consulta.Items.AddRange(new object[] {
             "dt_cadastro",
@@ -165,7 +171,7 @@
             this.cmb_consulta.Location = new System.Drawing.Point(19, 11);
             this.cmb_consulta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmb_consulta.Name = "cmb_consulta";
-            this.cmb_consulta.Size = new System.Drawing.Size(108, 21);
+            this.cmb_consulta.Size = new System.Drawing.Size(136, 21);
             this.cmb_consulta.TabIndex = 45;
             // 
             // listView1
@@ -201,7 +207,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 632);
+            this.ClientSize = new System.Drawing.Size(1924, 768);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.lbl_order);
             this.Controls.Add(this.bnt_add);

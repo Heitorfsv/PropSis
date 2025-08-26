@@ -51,14 +51,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txt_telefone = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmb_placa = new System.Windows.Forms.ComboBox();
-            this.txt_ano = new System.Windows.Forms.MaskedTextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txt_modelo = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txt_marca = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.bnt_deletar = new System.Windows.Forms.Button();
@@ -66,6 +58,14 @@
             this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visualizarImpressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imprimirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.txt_ano = new System.Windows.Forms.MaskedTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txt_modelo = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txt_marca = new System.Windows.Forms.TextBox();
+            this.cmb_placa = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -85,7 +85,7 @@
             // bnt_cadastro
             // 
             this.bnt_cadastro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bnt_cadastro.Location = new System.Drawing.Point(831, 548);
+            this.bnt_cadastro.Location = new System.Drawing.Point(831, 546);
             this.bnt_cadastro.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_cadastro.Name = "bnt_cadastro";
             this.bnt_cadastro.Size = new System.Drawing.Size(86, 23);
@@ -134,17 +134,18 @@
             // lst_servicos
             // 
             this.lst_servicos.FullRowSelect = true;
+            this.lst_servicos.GridLines = true;
             this.lst_servicos.HideSelection = false;
             this.lst_servicos.Location = new System.Drawing.Point(4, 18);
             this.lst_servicos.MultiSelect = false;
             this.lst_servicos.Name = "lst_servicos";
-            this.lst_servicos.Size = new System.Drawing.Size(369, 240);
+            this.lst_servicos.Size = new System.Drawing.Size(395, 240);
             this.lst_servicos.TabIndex = 26;
             this.lst_servicos.UseCompatibleStateImageBehavior = false;
             // 
             // bnt_editar_servico
             // 
-            this.bnt_editar_servico.Location = new System.Drawing.Point(308, 273);
+            this.bnt_editar_servico.Location = new System.Drawing.Point(334, 276);
             this.bnt_editar_servico.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar_servico.Name = "bnt_editar_servico";
             this.bnt_editar_servico.Size = new System.Drawing.Size(65, 23);
@@ -191,17 +192,18 @@
             // lst_pecas
             // 
             this.lst_pecas.FullRowSelect = true;
+            this.lst_pecas.GridLines = true;
             this.lst_pecas.HideSelection = false;
             this.lst_pecas.Location = new System.Drawing.Point(5, 18);
             this.lst_pecas.MultiSelect = false;
             this.lst_pecas.Name = "lst_pecas";
-            this.lst_pecas.Size = new System.Drawing.Size(369, 240);
+            this.lst_pecas.Size = new System.Drawing.Size(394, 240);
             this.lst_pecas.TabIndex = 27;
             this.lst_pecas.UseCompatibleStateImageBehavior = false;
             // 
             // bnt_editar_peca
             // 
-            this.bnt_editar_peca.Location = new System.Drawing.Point(309, 273);
+            this.bnt_editar_peca.Location = new System.Drawing.Point(333, 277);
             this.bnt_editar_peca.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_editar_peca.Name = "bnt_editar_peca";
             this.bnt_editar_peca.Size = new System.Drawing.Size(65, 23);
@@ -262,7 +264,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(196, 14);
+            this.label22.Location = new System.Drawing.Point(198, 14);
             this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(71, 15);
@@ -271,7 +273,7 @@
             // 
             // txt_doc
             // 
-            this.txt_doc.Location = new System.Drawing.Point(199, 31);
+            this.txt_doc.Location = new System.Drawing.Point(201, 31);
             this.txt_doc.Margin = new System.Windows.Forms.Padding(2);
             this.txt_doc.Name = "txt_doc";
             this.txt_doc.ReadOnly = true;
@@ -291,7 +293,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(319, 14);
+            this.label10.Location = new System.Drawing.Point(321, 14);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 15);
@@ -300,7 +302,7 @@
             // 
             // txt_telefone
             // 
-            this.txt_telefone.Location = new System.Drawing.Point(322, 31);
+            this.txt_telefone.Location = new System.Drawing.Point(324, 31);
             this.txt_telefone.Margin = new System.Windows.Forms.Padding(2);
             this.txt_telefone.Name = "txt_telefone";
             this.txt_telefone.ReadOnly = true;
@@ -309,13 +311,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cmb_placa);
             this.groupBox1.Controls.Add(this.txt_ano);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txt_modelo);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txt_marca);
+            this.groupBox1.Controls.Add(this.cmb_placa);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(11, 136);
@@ -326,88 +328,6 @@
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dados do veículo";
-            // 
-            // cmb_placa
-            // 
-            this.cmb_placa.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmb_placa.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmb_placa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_placa.FormattingEnabled = true;
-            this.cmb_placa.ItemHeight = 13;
-            this.cmb_placa.Location = new System.Drawing.Point(8, 30);
-            this.cmb_placa.Name = "cmb_placa";
-            this.cmb_placa.Size = new System.Drawing.Size(82, 21);
-            this.cmb_placa.TabIndex = 13;
-            this.cmb_placa.TextChanged += new System.EventHandler(this.cmb_placa_TextChanged);
-            // 
-            // txt_ano
-            // 
-            this.txt_ano.Location = new System.Drawing.Point(336, 30);
-            this.txt_ano.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_ano.Mask = "00/00";
-            this.txt_ano.Name = "txt_ano";
-            this.txt_ano.ReadOnly = true;
-            this.txt_ano.Size = new System.Drawing.Size(68, 21);
-            this.txt_ano.TabIndex = 12;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(333, 13);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(28, 15);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Ano";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(220, 13);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 15);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Modelo";
-            // 
-            // txt_modelo
-            // 
-            this.txt_modelo.Location = new System.Drawing.Point(224, 30);
-            this.txt_modelo.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_modelo.Name = "txt_modelo";
-            this.txt_modelo.ReadOnly = true;
-            this.txt_modelo.Size = new System.Drawing.Size(109, 21);
-            this.txt_modelo.TabIndex = 8;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(92, 13);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 15);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Marca";
-            // 
-            // txt_marca
-            // 
-            this.txt_marca.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txt_marca.Location = new System.Drawing.Point(95, 30);
-            this.txt_marca.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_marca.Name = "txt_marca";
-            this.txt_marca.ReadOnly = true;
-            this.txt_marca.Size = new System.Drawing.Size(125, 21);
-            this.txt_marca.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 13);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 15);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Placa";
             // 
             // label1
             // 
@@ -430,7 +350,7 @@
             // 
             this.bnt_deletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_deletar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bnt_deletar.Location = new System.Drawing.Point(831, 520);
+            this.bnt_deletar.Location = new System.Drawing.Point(831, 518);
             this.bnt_deletar.Name = "bnt_deletar";
             this.bnt_deletar.Size = new System.Drawing.Size(86, 23);
             this.bnt_deletar.TabIndex = 107;
@@ -470,6 +390,93 @@
             this.imprimirToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.imprimirToolStripMenuItem1.Text = "Salvar ";
             this.imprimirToolStripMenuItem1.Click += new System.EventHandler(this.imprimirToolStripMenuItem1_Click);
+            // 
+            // txt_ano
+            // 
+            this.txt_ano.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_ano.Location = new System.Drawing.Point(446, 33);
+            this.txt_ano.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_ano.Mask = "00/00";
+            this.txt_ano.Name = "txt_ano";
+            this.txt_ano.ReadOnly = true;
+            this.txt_ano.Size = new System.Drawing.Size(60, 21);
+            this.txt_ano.TabIndex = 22;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(443, 15);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(28, 15);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Ano";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(280, 15);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(49, 15);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Modelo";
+            // 
+            // txt_modelo
+            // 
+            this.txt_modelo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_modelo.Location = new System.Drawing.Point(283, 33);
+            this.txt_modelo.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_modelo.Name = "txt_modelo";
+            this.txt_modelo.ReadOnly = true;
+            this.txt_modelo.Size = new System.Drawing.Size(159, 21);
+            this.txt_modelo.TabIndex = 19;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(117, 15);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 15);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Marca";
+            // 
+            // txt_marca
+            // 
+            this.txt_marca.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_marca.Location = new System.Drawing.Point(120, 33);
+            this.txt_marca.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_marca.Name = "txt_marca";
+            this.txt_marca.ReadOnly = true;
+            this.txt_marca.Size = new System.Drawing.Size(159, 21);
+            this.txt_marca.TabIndex = 15;
+            // 
+            // cmb_placa
+            // 
+            this.cmb_placa.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmb_placa.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_placa.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_placa.FormattingEnabled = true;
+            this.cmb_placa.Location = new System.Drawing.Point(7, 33);
+            this.cmb_placa.Margin = new System.Windows.Forms.Padding(2);
+            this.cmb_placa.Name = "cmb_placa";
+            this.cmb_placa.Size = new System.Drawing.Size(109, 21);
+            this.cmb_placa.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(4, 16);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 15);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Placa";
             // 
             // cadastro_or
             // 
@@ -528,14 +535,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txt_telefone;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cmb_placa;
-        private System.Windows.Forms.MaskedTextBox txt_ano;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txt_modelo;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txt_marca;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Button bnt_deletar;
@@ -545,5 +544,13 @@
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem1;
         private System.Windows.Forms.ListView lst_servicos;
         private System.Windows.Forms.ListView lst_pecas;
+        private System.Windows.Forms.MaskedTextBox txt_ano;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txt_modelo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txt_marca;
+        private System.Windows.Forms.ComboBox cmb_placa;
+        private System.Windows.Forms.Label label2;
     }
 }
