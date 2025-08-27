@@ -49,7 +49,8 @@ namespace PrototipoSistema
         }
         private void bnt_add_Click(object sender, EventArgs e)
         {
-            add_calendar add_calendar = new add_calendar(); 
+            edicao_calendar add_calendar = new edicao_calendar();
+            add_calendar.Text = "Cadastro de evento";
             add_calendar.carregar_data(day, month, year);
 
             add_calendar.FormClosed += (s, args) =>
@@ -117,6 +118,7 @@ namespace PrototipoSistema
                                 : eventItem.End.Date;
 
                             edicao_calendar edicao_calendar = new edicao_calendar();
+                            edicao_calendar.Text = "Consulta de evento";
                             edicao_calendar.carregar_info(eventItem.Summary, year, month, day, inicio, fim);
 
                             edicao_calendar.FormClosed += (s, args) =>

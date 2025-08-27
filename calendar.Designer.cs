@@ -123,9 +123,10 @@
             // 
             // bnt_anterior
             // 
+            this.bnt_anterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_anterior.Location = new System.Drawing.Point(1735, 949);
             this.bnt_anterior.Name = "bnt_anterior";
-            this.bnt_anterior.Size = new System.Drawing.Size(75, 23);
+            this.bnt_anterior.Size = new System.Drawing.Size(75, 33);
             this.bnt_anterior.TabIndex = 9;
             this.bnt_anterior.Text = "Anterior";
             this.bnt_anterior.UseVisualStyleBackColor = true;
@@ -133,9 +134,10 @@
             // 
             // bnt_proximo
             // 
+            this.bnt_proximo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_proximo.Location = new System.Drawing.Point(1828, 950);
             this.bnt_proximo.Name = "bnt_proximo";
-            this.bnt_proximo.Size = new System.Drawing.Size(75, 23);
+            this.bnt_proximo.Size = new System.Drawing.Size(75, 33);
             this.bnt_proximo.TabIndex = 10;
             this.bnt_proximo.Text = "Próximo";
             this.bnt_proximo.UseVisualStyleBackColor = true;
