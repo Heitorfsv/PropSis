@@ -232,7 +232,7 @@ public class osPdf : IDocument
                     table.Cell().Element(CellStyle).Text(TotalPecas.ToString("C")).Bold();
                 });
 
-                col.Item().PaddingTop(10).Text($"Total Geral: {Total:C}").FontSize(12).Bold();
+                col.Item().AlignRight().Border(1, Unit.Point).BorderColor(Colors.Black).Padding(10).Text($"Total Geral: {Total:C}").FontSize(12).Bold();
             });
         });
     }

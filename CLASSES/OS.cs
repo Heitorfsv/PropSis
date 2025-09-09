@@ -61,7 +61,7 @@ namespace PrototipoSistema.classes
                 cmd.Parameters.AddWithValue("@dt_cadastro", dt_cadastro);
                 cmd.Parameters.AddWithValue("@dt_saida", dt_saida);
                 cmd.Parameters.AddWithValue("@pago", pago);
-                cmd.Parameters.AddWithValue("@metodo_pag", metodo);
+                cmd.Parameters.AddWithValue("@metodo_pag", metodo) ;
 
             conexao.Open();
             cmd.ExecuteReader();

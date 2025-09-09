@@ -62,7 +62,7 @@
             // 
             this.bnt_delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_delete.ForeColor = System.Drawing.Color.DarkRed;
-            this.bnt_delete.Location = new System.Drawing.Point(8, 282);
+            this.bnt_delete.Location = new System.Drawing.Point(11, 282);
             this.bnt_delete.Name = "bnt_delete";
             this.bnt_delete.Size = new System.Drawing.Size(66, 22);
             this.bnt_delete.TabIndex = 12;

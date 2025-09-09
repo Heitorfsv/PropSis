@@ -42,14 +42,14 @@ namespace PrototipoSistema
         private void edicao_os2_Load(object sender, EventArgs e)
         {
             lst_servicos.View = View.Details;
-            lst_servicos.Columns.Add("Nome", 150);
+            lst_servicos.Columns.Add("Nome", 230);
             lst_servicos.Columns.Add("Qtd", 50);
             lst_servicos.Columns.Add("Valor", 50);
             lst_servicos.Columns.Add("Desc.", 50);
             lst_servicos.Columns.Add("Total", 80);
 
             lst_pecas.View = View.Details;
-            lst_pecas.Columns.Add("Nome", 150);
+            lst_pecas.Columns.Add("Nome", 230);
             lst_pecas.Columns.Add("Qtd", 50);
             lst_pecas.Columns.Add("Valor", 50);
             lst_pecas.Columns.Add("Desc.", 50);

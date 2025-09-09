@@ -6,8 +6,7 @@ namespace PrototipoSistema
 {
     public partial class add : Form
     {
-        public string modo;
-        public string table;
+        public string modo, table;
 
         servicos_os servicos_os = new servicos_os();
         pecas_os pecas_os = new pecas_os();
@@ -18,7 +17,7 @@ namespace PrototipoSistema
 
             listView1.View = View.Details;
             listView1.FullRowSelect = true;
-            listView1.Columns.Add("Serviço", 150);
+            listView1.Columns.Add("Serviço", 170);
             listView1.Columns.Add("Qtd", 50);
             listView1.Columns.Add("Valor", 80);
             listView1.Columns.Add("Total", 80);
@@ -66,7 +65,6 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
             }
-
             AtualizarTotal();
         }
 
@@ -98,8 +96,7 @@ namespace PrototipoSistema
             try
             {
                 object servico = lst_pesquisa.SelectedItem;
-                string valor = "";
-                string desc = "";
+                string valor = "", desc = "";
 
                 using (var conexao = new MySqlConnection("server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport"))
                 {

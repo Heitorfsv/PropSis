@@ -325,9 +325,9 @@
             // 
             this.bnt_deletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_deletar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bnt_deletar.Location = new System.Drawing.Point(346, 132);
+            this.bnt_deletar.Location = new System.Drawing.Point(346, 131);
             this.bnt_deletar.Name = "bnt_deletar";
-            this.bnt_deletar.Size = new System.Drawing.Size(75, 21);
+            this.bnt_deletar.Size = new System.Drawing.Size(75, 22);
             this.bnt_deletar.TabIndex = 106;
             this.bnt_deletar.Text = "Deletar";
             this.bnt_deletar.UseVisualStyleBackColor = true;
@@ -337,9 +337,9 @@
             // 
             this.bnt_historico.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_historico.ForeColor = System.Drawing.Color.Black;
-            this.bnt_historico.Location = new System.Drawing.Point(427, 132);
+            this.bnt_historico.Location = new System.Drawing.Point(427, 131);
             this.bnt_historico.Name = "bnt_historico";
-            this.bnt_historico.Size = new System.Drawing.Size(75, 21);
+            this.bnt_historico.Size = new System.Drawing.Size(75, 22);
             this.bnt_historico.TabIndex = 107;
             this.bnt_historico.Text = "Histórico";
             this.bnt_historico.UseVisualStyleBackColor = true;

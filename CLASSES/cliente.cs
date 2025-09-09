@@ -14,6 +14,7 @@ namespace PrototipoSistema
     {
         public int index { get; set; }
         public string nome { get; set; }
+        public string fantasia { get; set; }
         public string rua { get; set; }
         public string bairro { get; set; }
         public string cidade { get; set; }
@@ -60,9 +61,10 @@ namespace PrototipoSistema
 
             if (pesquisa_doc == null)
             {
-                var cmd2 = new MySqlCommand("INSERT INTO clientes (controle, nome, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo) values (@controle,@nome,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo)", conexao);
+                var cmd2 = new MySqlCommand("INSERT INTO clientes (controle, nome, fantasia, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo) values (@controle,@nome,@fantasia,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo)", conexao);
                 cmd2.Parameters.AddWithValue("@controle", index);
                 cmd2.Parameters.AddWithValue("@nome", nome);
+                cmd2.Parameters.AddWithValue("@fantasia", fantasia);
                 cmd2.Parameters.AddWithValue("@doc", doc);
                 cmd2.Parameters.AddWithValue("@inscricao", inscricao);
                 cmd2.Parameters.AddWithValue("@dt_nascimento", dt_nascimento);
@@ -88,7 +90,7 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"UPDATE clientes SET nome = '{nome}', doc = '{doc}', inscricao = '{inscricao}', dt_nascimento = '{dt_nascimento}', telefone = '{telefone}', telefone2 = '{telefone2}', email = '{email}', rua = '{rua}', bairro = '{bairro}', cidade = '{cidade}', cep = '{cep}' WHERE controle = {index}", conexao);
+            var cmd = new MySqlCommand($"UPDATE clientes SET nome = '{nome}', fantasia = '{fantasia}', doc = '{doc}', inscricao = '{inscricao}', dt_nascimento = '{dt_nascimento}', telefone = '{telefone}', telefone2 = '{telefone2}', email = '{email}', rua = '{rua}', bairro = '{bairro}', cidade = '{cidade}', cep = '{cep}' WHERE controle = {index}", conexao);
 
             conexao.Open();
             cmd.ExecuteReader();

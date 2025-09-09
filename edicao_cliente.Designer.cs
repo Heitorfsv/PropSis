@@ -57,6 +57,8 @@
             this.cb_dt_nascimento = new System.Windows.Forms.CheckBox();
             this.txt_dt_registro = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.txt_fantasia = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // bnt_editar
@@ -74,7 +76,7 @@
             // txt_inscricao
             // 
             this.txt_inscricao.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_inscricao.Location = new System.Drawing.Point(16, 222);
+            this.txt_inscricao.Location = new System.Drawing.Point(16, 262);
             this.txt_inscricao.Margin = new System.Windows.Forms.Padding(2);
             this.txt_inscricao.Mask = "000000000";
             this.txt_inscricao.Name = "txt_inscricao";
@@ -85,7 +87,7 @@
             // 
             this.lbl_inscricao.AutoSize = true;
             this.lbl_inscricao.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_inscricao.Location = new System.Drawing.Point(13, 205);
+            this.lbl_inscricao.Location = new System.Drawing.Point(13, 245);
             this.lbl_inscricao.Name = "lbl_inscricao";
             this.lbl_inscricao.Size = new System.Drawing.Size(107, 15);
             this.lbl_inscricao.TabIndex = 67;
@@ -94,7 +96,7 @@
             // txt_telefone2
             // 
             this.txt_telefone2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_telefone2.Location = new System.Drawing.Point(115, 66);
+            this.txt_telefone2.Location = new System.Drawing.Point(115, 106);
             this.txt_telefone2.Margin = new System.Windows.Forms.Padding(2);
             this.txt_telefone2.Mask = "(00)00000-0000";
             this.txt_telefone2.Name = "txt_telefone2";
@@ -105,7 +107,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(11, 49);
+            this.label9.Location = new System.Drawing.Point(11, 89);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(55, 15);
@@ -202,7 +204,7 @@
             this.rb_fisica.AutoSize = true;
             this.rb_fisica.Checked = true;
             this.rb_fisica.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rb_fisica.Location = new System.Drawing.Point(14, 184);
+            this.rb_fisica.Location = new System.Drawing.Point(14, 224);
             this.rb_fisica.Margin = new System.Windows.Forms.Padding(2);
             this.rb_fisica.Name = "rb_fisica";
             this.rb_fisica.Size = new System.Drawing.Size(57, 19);
@@ -216,7 +218,7 @@
             // 
             this.rb_juridica.AutoSize = true;
             this.rb_juridica.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rb_juridica.Location = new System.Drawing.Point(72, 184);
+            this.rb_juridica.Location = new System.Drawing.Point(72, 224);
             this.rb_juridica.Margin = new System.Windows.Forms.Padding(2);
             this.rb_juridica.Name = "rb_juridica";
             this.rb_juridica.Size = new System.Drawing.Size(68, 19);
@@ -227,7 +229,7 @@
             // txt_telefone
             // 
             this.txt_telefone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_telefone.Location = new System.Drawing.Point(14, 66);
+            this.txt_telefone.Location = new System.Drawing.Point(14, 106);
             this.txt_telefone.Margin = new System.Windows.Forms.Padding(2);
             this.txt_telefone.Mask = "(00)00000-0000";
             this.txt_telefone.Name = "txt_telefone";
@@ -237,7 +239,7 @@
             // txt_doc
             // 
             this.txt_doc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_doc.Location = new System.Drawing.Point(14, 146);
+            this.txt_doc.Location = new System.Drawing.Point(14, 186);
             this.txt_doc.Margin = new System.Windows.Forms.Padding(2);
             this.txt_doc.Name = "txt_doc";
             this.txt_doc.Size = new System.Drawing.Size(106, 21);
@@ -247,7 +249,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(11, 169);
+            this.label7.Location = new System.Drawing.Point(11, 209);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 15);
@@ -258,7 +260,7 @@
             // 
             this.txt_email.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_email.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_email.Location = new System.Drawing.Point(14, 106);
+            this.txt_email.Location = new System.Drawing.Point(14, 146);
             this.txt_email.Margin = new System.Windows.Forms.Padding(2);
             this.txt_email.Name = "txt_email";
             this.txt_email.Size = new System.Drawing.Size(203, 21);
@@ -268,7 +270,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 89);
+            this.label2.Location = new System.Drawing.Point(13, 129);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 15);
@@ -279,7 +281,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(121, 129);
+            this.label4.Location = new System.Drawing.Point(121, 169);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(117, 15);
@@ -290,7 +292,7 @@
             // 
             this.dtp_nascimento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtp_nascimento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_nascimento.Location = new System.Drawing.Point(124, 146);
+            this.dtp_nascimento.Location = new System.Drawing.Point(124, 186);
             this.dtp_nascimento.Margin = new System.Windows.Forms.Padding(2);
             this.dtp_nascimento.Name = "dtp_nascimento";
             this.dtp_nascimento.Size = new System.Drawing.Size(93, 21);
@@ -301,7 +303,7 @@
             // 
             this.lbl_cpf.AutoSize = true;
             this.lbl_cpf.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_cpf.Location = new System.Drawing.Point(13, 129);
+            this.lbl_cpf.Location = new System.Drawing.Point(13, 169);
             this.lbl_cpf.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_cpf.Name = "lbl_cpf";
             this.lbl_cpf.Size = new System.Drawing.Size(30, 15);
@@ -345,7 +347,7 @@
             // 
             this.cb_dt_nascimento.AutoSize = true;
             this.cb_dt_nascimento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_dt_nascimento.Location = new System.Drawing.Point(222, 150);
+            this.cb_dt_nascimento.Location = new System.Drawing.Point(222, 190);
             this.cb_dt_nascimento.Name = "cb_dt_nascimento";
             this.cb_dt_nascimento.Size = new System.Drawing.Size(15, 14);
             this.cb_dt_nascimento.TabIndex = 70;
@@ -371,11 +373,34 @@
             this.label15.TabIndex = 71;
             this.label15.Text = "Data de registro";
             // 
+            // txt_fantasia
+            // 
+            this.txt_fantasia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txt_fantasia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_fantasia.Location = new System.Drawing.Point(14, 66);
+            this.txt_fantasia.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_fantasia.Name = "txt_fantasia";
+            this.txt_fantasia.Size = new System.Drawing.Size(203, 21);
+            this.txt_fantasia.TabIndex = 74;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(11, 49);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 15);
+            this.label10.TabIndex = 73;
+            this.label10.Text = "Nome Fantasia";
+            // 
             // edicao_cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(728, 353);
+            this.Controls.Add(this.txt_fantasia);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.txt_dt_registro);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.cb_dt_nascimento);
@@ -444,5 +469,7 @@
         private System.Windows.Forms.CheckBox cb_dt_nascimento;
         private System.Windows.Forms.TextBox txt_dt_registro;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txt_fantasia;
+        private System.Windows.Forms.Label label10;
     }
 }
