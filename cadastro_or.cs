@@ -82,6 +82,7 @@ namespace PrototipoSistema
                     cmb_placa.Text = reader.GetString("placa");
                     dtp_cadastro.Value = DateTime.Parse(reader.GetString("dt_cadastro"));
                     txt_doc.Text = reader.GetString("doc");
+                    try { txt_observacao.Text = reader.GetString("observacao"); } catch { }
                 }
                 conexao.Close();
 
@@ -183,12 +184,19 @@ namespace PrototipoSistema
 
         private void bnt_cadastro_Click(object sender, EventArgs e)
         {
+            orcamento.cliente = cmb_cliente.Text;
+            orcamento.doc = txt_doc.Text;
+            orcamento.placa = cmb_placa.Text;
+            orcamento.total = txt_total.Text;
+            orcamento.dt_cadastro = dtp_cadastro.Value.ToString("dd/MM/yyyy");
+            orcamento.observacao = txt_observacao.Text;
+
             if (this.Text == "Cadastro orçamento")
             {
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
                 var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{txt_doc.Text}'", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
 
                 conexao.Open();
 
@@ -196,16 +204,8 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    orcamento.cliente = cmb_cliente.Text;
-                    orcamento.doc = txt_doc.Text;
-                    orcamento.placa = cmb_placa.Text;
-                    orcamento.total = txt_total.Text;
-                    orcamento.dt_cadastro = dtp_cadastro.Value.ToString("dd/MM/yyyy");
-
-                    if (txt_total.Text != "")
-                    { orcamento.total = txt_total.Text; }
-                    else
-                    { orcamento.total = "0,00"; }
+                    if (txt_total.Text != "") orcamento.total = txt_total.Text; 
+                    else orcamento.total = "0,00"; 
 
                     orcamento.cadastrar_or();
 
@@ -229,11 +229,7 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    orcamento.placa = cmb_placa.Text;
-                    orcamento.cliente = cmb_cliente.Text;
-                    orcamento.doc = txt_doc.Text;
-                    orcamento.total = txt_total.Text;
-                    orcamento.dt_cadastro = dtp_cadastro.Value.ToString();
+
                 }
                 else
                 { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
