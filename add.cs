@@ -54,13 +54,25 @@ namespace PrototipoSistema
                     string qtdStr = reader.GetString("qtd").Replace(".", ",");
                     string valorStr = reader.GetString("valor");
                     decimal qtd = decimal.Parse(qtdStr);
-                    decimal valor = decimal.Parse(valorStr);
-                    decimal totalItem = valor * qtd;
+                    decimal valor, totalItem;
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd.ToString());
-                    item.SubItems.Add(valor.ToString("N2"));
-                    item.SubItems.Add(totalItem.ToString("N2"));
+
+                    try
+                    {
+                        valor = decimal.Parse(valorStr);
+                        totalItem = valor * qtd;
+
+                        item.SubItems.Add(valor.ToString("N2"));
+                        item.SubItems.Add(totalItem.ToString("N2")); 
+                    }
+                    catch
+                    {
+                        item.SubItems.Add(valorStr);
+                        item.SubItems.Add(valorStr);
+                    }
+
                     listView1.Items.Add(item);
                 }
                 conexao.Close();
@@ -118,15 +130,25 @@ namespace PrototipoSistema
                 if (qtd_tela.quantidade > 0)
                 {
                     decimal qtd = qtd_tela.quantidade;
+                    // valor pode ser letra ou numero
                     valor = qtd_tela.valor;
                     desc = qtd_tela.desc;
 
-                    decimal totalItem = (decimal.Parse(valor) * qtd) - decimal.Parse(desc);
+                    string total;
+                    decimal totalItem;
+
+                    //try catch para aceitar letras nos valores ( try -> numero | catch -> letras )
+                    try
+                    { 
+                        totalItem = (decimal.Parse(valor) * qtd) - decimal.Parse(desc);
+                        total = totalItem.ToString("N2"); 
+                    }
+                    catch { total = valor; }
 
                     var item = new ListViewItem(servico.ToString());
                     item.SubItems.Add(qtd.ToString());
                     item.SubItems.Add(valor);
-                    item.SubItems.Add(totalItem.ToString("N2"));
+                    item.SubItems.Add(total);
                     listView1.Items.Add(item);
 
                     AtualizarTotal();
@@ -137,7 +159,7 @@ namespace PrototipoSistema
                         servicos_os.index++;
                         servicos_os.modo = modo;
 
-                        //os serve tanto pra orçamento quando pra ordem de serviço nesse contexto
+                        //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
                         servicos_os.os_or = static_class.controle;
 
                         servicos_os.nome = servico.ToString();
@@ -153,7 +175,7 @@ namespace PrototipoSistema
                         pecas_os.index++;
                         pecas_os.modo = modo;
 
-                        //os serve tanto pra orçamento quando pra ordem de serviço nesse contexto
+                        //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
                         pecas_os.os_or = static_class.controle;
 
                         pecas_os.nome = servico.ToString();
@@ -214,7 +236,7 @@ namespace PrototipoSistema
             decimal total = 0;
             foreach (ListViewItem item in listView1.Items)
             {
-                total += decimal.Parse(item.SubItems[3].Text);
+                try { total += decimal.Parse(item.SubItems[3].Text); } catch { }
             }
             txt_total.Text = total.ToString("N2");
         }

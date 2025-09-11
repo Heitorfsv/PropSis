@@ -61,7 +61,7 @@ namespace PrototipoSistema
 
             if (pesquisa_doc == null)
             {
-                var cmd2 = new MySqlCommand("INSERT INTO clientes (controle, nome, fantasia, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo) values (@controle,@nome,@fantasia,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo)", conexao);
+                var cmd2 = new MySqlCommand("INSERT INTO clientes (controle, nome, nome_fantasia, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo) values (@controle,@nome,@fantasia,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo)", conexao);
                 cmd2.Parameters.AddWithValue("@controle", index);
                 cmd2.Parameters.AddWithValue("@nome", nome);
                 cmd2.Parameters.AddWithValue("@fantasia", fantasia);
@@ -90,7 +90,7 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"UPDATE clientes SET nome = '{nome}', fantasia = '{fantasia}', doc = '{doc}', inscricao = '{inscricao}', dt_nascimento = '{dt_nascimento}', telefone = '{telefone}', telefone2 = '{telefone2}', email = '{email}', rua = '{rua}', bairro = '{bairro}', cidade = '{cidade}', cep = '{cep}' WHERE controle = {index}", conexao);
+            var cmd = new MySqlCommand($"UPDATE clientes SET nome = '{nome}', nome_fantasia = '{fantasia}', doc = '{doc}', inscricao = '{inscricao}', dt_nascimento = '{dt_nascimento}', telefone = '{telefone}', telefone2 = '{telefone2}', email = '{email}', rua = '{rua}', bairro = '{bairro}', cidade = '{cidade}', cep = '{cep}' WHERE controle = {index}", conexao);
 
             conexao.Open();
             cmd.ExecuteReader();

@@ -41,6 +41,8 @@ namespace PrototipoSistema
                 {
                     txt_nome.Text = reader.GetString("nome");
 
+                    try { txt_fantasia.Text = reader.GetString("nome_fantasia"); } catch { }
+
                     string doc = reader.GetString("doc");
 
                     if (doc.Length == 14)
@@ -117,6 +119,7 @@ namespace PrototipoSistema
         private void bnt_editar_Click(object sender, EventArgs e)
         {
             cliente.nome = txt_nome.Text;
+            cliente.fantasia = txt_fantasia.Text;   
             cliente.rua = txt_rua.Text;
             cliente.bairro = txt_bairro.Text;
             cliente.cidade = txt_cidade.Text;

@@ -41,6 +41,7 @@ namespace PrototipoSistema
                 if (decimal.TryParse(txt_qtd.Text, out decimal number))
                 {
                     quantidade = decimal.Parse(txt_qtd.Text);
+                    // valor pode ser letra ou numero
                     valor = txt_valor.Text;
                     desc = txt_desc.Text;
                     Close();
@@ -51,29 +52,20 @@ namespace PrototipoSistema
         }
         private void txt_qtd_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                txt_total.Text = ((decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)) - decimal.Parse(txt_desc.Text)).ToString();
-            }
-            catch { txt_total.Text = ""; }
+            //try catch para aceitar letras nos valores ( try -> numero | catch -> letras )
+            try { txt_total.Text = ((decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)) - decimal.Parse(txt_desc.Text)).ToString(); } catch { txt_total.Text = txt_valor.Text; }
         }
 
         private void txt_valor_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                txt_total.Text = ((decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)) - decimal.Parse(txt_desc.Text)).ToString();
-            }
-            catch { txt_total.Text = ""; }
+            //try catch para aceitar letras nos valores ( try -> numero | catch -> letras )
+            try { txt_total.Text = ((decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)) - decimal.Parse(txt_desc.Text)).ToString(); } catch { txt_total.Text = txt_valor.Text; }
         }
 
         private void txt_desc_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                txt_total.Text = ((decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)) - decimal.Parse(txt_desc.Text)).ToString();
-            }
-            catch { txt_total.Text = ""; }
+            //try catch para aceitar letras nos valores ( try -> numero | catch -> letras )
+            try { txt_total.Text = ((decimal.Parse(txt_valor.Text) * decimal.Parse(txt_qtd.Text)) - decimal.Parse(txt_desc.Text)).ToString(); } catch { txt_total.Text = txt_valor.Text; }
         }
     }
 }

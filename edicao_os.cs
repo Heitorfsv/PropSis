@@ -1,19 +1,21 @@
 ﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Calendar.v3;
+using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using MySql.Data.MySqlClient;
 using PrototipoSistema.classes;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Windows.Forms;
-using System.Globalization;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Threading;
+using System.Web.UI.WebControls.WebParts;
+using System.Windows.Forms;
+using static iText.Svg.SvgConstants;
 using static QuestPDF.Helpers.Colors;
 
 
@@ -96,10 +98,11 @@ namespace PrototipoSistema
                 {
                     os.index = reader.GetInt32("controle");
                     cmb_placa.Text = reader.GetString("placa");
+                    txt_doc.Text = reader.GetString("doc");
                     txt_km.Text = reader.GetInt32("km").ToString();
                     dtp_cadastro.Value = DateTime.Parse(reader.GetString("dt_cadastro"));
                     txt_observacao.Text = reader.GetString("observacao");
-                    txt_doc.Text = reader.GetString("doc");
+                    txt_descricao.Text = reader.GetString("descricao");
 
                     try
                     {
@@ -154,6 +157,7 @@ namespace PrototipoSistema
                     txt_modelo.Text = reader.GetString("modelo");
                     txt_ano.Text = reader.GetString("ano");
                     cor = reader.GetString("cor");
+                    txt_chassi.Text = reader.GetString("chassi");
                     doc_cliente = reader.GetString("doc_dono");
                 }
                 conexao.Close();
@@ -187,7 +191,8 @@ namespace PrototipoSistema
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
                     string desco = reader.GetString("desco");
-                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
+                    //try catch para aceitar letras no campo valor ( try -> numero | catch -> letras )
+                    try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
@@ -199,7 +204,8 @@ namespace PrototipoSistema
                     string qtd_formatado = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
-                    total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
+                    //try catch para ignorar valores com letras na soma do total
+                    try { total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
                 }
                 txt_total_servico.Text = total_servico.ToString("N2");
                 conexao.Close();
@@ -216,7 +222,8 @@ namespace PrototipoSistema
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
                     string desco = reader.GetString("desco");
-                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
+                    //try catch para aceitar letras no campo valor ( try -> numero | catch -> letras )
+                    try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
@@ -228,9 +235,8 @@ namespace PrototipoSistema
                     string qtd_formatado = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
-                    try
-                    { total_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
-                    catch { }
+                    //try catch para ignorar valores com letras na soma do total 
+                    try { total_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
                 }
                 txt_total_pecas.Text = total_peca.ToString("N2");
                 conexao.Close();
@@ -313,6 +319,24 @@ namespace PrototipoSistema
 
         private void bnt_editar_Click(object sender, EventArgs e)
         {
+            os.placa = cmb_placa.Text;
+            os.cliente = txt_cliente.Text;
+            os.doc = txt_doc.Text;
+            os.km = int.Parse(txt_km.Text);
+            os.observacao = txt_observacao.Text;
+            os.descricao = txt_descricao.Text;
+            os.dt_cadastro = dtp_cadastro.Value.ToString();
+
+            if (cb_pago.Checked == true)
+            {
+                os.pago = 1;
+                os.metodo = cmb_pago.Text;
+            }
+            else os.pago = 0; os.metodo = "";
+
+            if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
+            else os.dt_saida = null;
+
             if (this.Text == "Cadastro OS")
             {
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
@@ -328,31 +352,12 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    os.placa = cmb_placa.Text;
-                    os.km = int.Parse(txt_km.Text);
-                    os.cliente = txt_cliente.Text;
-
-                    os.doc = doc_cliente;
-                    os.observacao = txt_observacao.Text;
-
                     if (txt_total.Text != "")
                     { os.total = txt_total.Text; }
                     else
                     { os.total = "0,00"; }
 
-                    if (cb_pago.Checked == true)
-                    { 
-                        os.pago = 1; 
-                        os.metodo = cmb_pago.Text; 
-                    }
-                    else os.pago = 0; os.metodo = "";
-
                     os.dt_cadastro = dtp_cadastro.Value.ToString();
-
-                    if (cb_saida.Checked == true)
-                    { os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy"); }
-                    else
-                    { os.dt_saida = null; }
 
                     os.cadastrar_os();
 
@@ -381,30 +386,13 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    os.placa = cmb_placa.Text;
-                    os.cliente = txt_cliente.Text;
-                    os.doc = txt_doc.Text;
-                    os.km = int.Parse(txt_km.Text);
-                    os.observacao = txt_observacao.Text;
                     os.total = txt_total.Text;
-                    os.dt_cadastro = dtp_cadastro.Value.ToString();
-
 
                     if (cb_oleo.Checked) os.aviso_oleo_dt = dtp_troca_oleo.Value.ToString();
                     else os.aviso_oleo_dt = "";
 
                     if (cb_filtro.Checked) os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
                     else os.aviso_filtro_dt = "";
-
-                    if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
-                    else os.dt_saida = null;
-
-                    if (cb_pago.Checked == true)
-                    {
-                        os.pago = 1;
-                        os.metodo = cmb_pago.Text;
-                    }
-                    else os.pago = 0; os.metodo = "";
                 }
                 else
                 { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -499,7 +487,8 @@ namespace PrototipoSistema
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
                     string desco = reader.GetString("desco");
-                    string total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
+                    string total;
+                    try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);

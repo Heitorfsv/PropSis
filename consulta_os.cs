@@ -627,7 +627,7 @@ namespace PrototipoSistema
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
 
-                        total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
+                        try { total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
                     }
                     conexao.Close();
 
@@ -646,7 +646,7 @@ namespace PrototipoSistema
                         string qtd = reader.GetString("qtd");
                         qtd = qtd.Replace(".", ",");
 
-                        total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
+                        try { total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
                     }
                     conexao.Close();
 
