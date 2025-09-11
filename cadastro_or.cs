@@ -427,6 +427,7 @@ namespace PrototipoSistema
                 txt_marca.Text = reader.GetString("marca");
                 txt_modelo.Text = reader.GetString("modelo");
                 txt_ano.Text = reader.GetString("ano");
+                txt_chassi.Text = reader.GetString("chassi");
             }
             conexao.Close();
         }

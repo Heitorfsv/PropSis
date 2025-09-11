@@ -16,6 +16,7 @@ namespace classes
         public string doc { get; set; }
         public string total { get; set; }
         public string dt_cadastro { get; set; }
+        public string observacao { get; set; }
 
         public void ultimo_index()
         {
@@ -34,13 +35,14 @@ namespace classes
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand("INSERT INTO orcamentos (controle, cliente, doc, placa, dt_cadastro, total) values (@controle,@cliente,@doc,@placa,@dt_cadastro,@total)", conexao);
+            var cmd = new MySqlCommand("INSERT INTO orcamentos (controle, cliente, doc, placa, dt_cadastro, total, observacao) values (@controle,@cliente,@doc,@placa,@dt_cadastro,@total,@observacao)", conexao);
             cmd.Parameters.AddWithValue("@controle", index);
             cmd.Parameters.AddWithValue("@cliente", cliente);
             cmd.Parameters.AddWithValue("@doc", doc);
             cmd.Parameters.AddWithValue("@placa", placa);
             cmd.Parameters.AddWithValue("@dt_cadastro", dt_cadastro);
             cmd.Parameters.AddWithValue("@total", total);
+            cmd.Parameters.AddWithValue("@observacao", observacao);
 
             conexao.Open();
             cmd.ExecuteReader();
@@ -52,7 +54,7 @@ namespace classes
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"UPDATE orcamentos SET cliente = '{cliente}', doc = '{doc}', placa = '{placa}', dt_cadastro = '{dt_cadastro}', total = '{total}' WHERE controle = {index}", conexao);
+            var cmd = new MySqlCommand($"UPDATE orcamentos SET cliente = '{cliente}', doc = '{doc}', placa = '{placa}', dt_cadastro = '{dt_cadastro}', total = '{total}', observacao = '{observacao}' WHERE controle = {index}", conexao);
 
             conexao.Open();
             cmd.ExecuteReader();
