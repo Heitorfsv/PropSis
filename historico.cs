@@ -1,13 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
 
 namespace PrototipoSistema
@@ -15,6 +8,7 @@ namespace PrototipoSistema
     public partial class historico : Form
     {
         List<int> lista_os = new List<int>();
+        List<int> lista_total = new List<int>();
         public historico()
         {
             InitializeComponent();
@@ -31,14 +25,15 @@ namespace PrototipoSistema
         {
             if (static_class.historico == "pecas_os") lbl_titulo.Text = "Faturamento da peça";
             else lbl_titulo.Text = "Faturamento do serviço";
+            listView1.Columns.Add(lbl_titulo.Text, 150);
             //////////////////////
 
-            decimal total = 0;
+            decimal total = 0, totalitem = 0;
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"SELECT * FROM {static_class.historico} WHERE nome = '{static_class.doc_consultar}'", conexao);
+            var cmd = new MySqlCommand($"SELECT * FROM {static_class.historico} WHERE nome = '{static_class.doc_consultar}' ORDER BY os ASC", conexao);
 
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -50,12 +45,15 @@ namespace PrototipoSistema
                 string qtd = reader.GetString("qtd");
                 qtd = qtd.Replace(".", ",");
                 total += decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd);
+
+                totalitem = 0;
+                totalitem += decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd);
+                lista_total.Add(int.Parse(totalitem.ToString()));
+               
             }
 
             txt_total.Text = total.ToString("N2");
             conexao.Close();
-
-            List<string> lista_placa = new List<string>();
 
             for (int i = 0; i < lista_os.Count; i++)
             {
@@ -96,6 +94,7 @@ namespace PrototipoSistema
                 item.SubItems.Add(placa);
                 item.SubItems.Add(marca);
                 item.SubItems.Add(modelo);
+                item.SubItems.Add(lista_total[i].ToString("N2"));
 
                 listView1.Items.Add(item);
             }

@@ -46,14 +46,14 @@ namespace PrototipoSistema
             using (var conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("SELECT * FROM os WHERE aviso_oleo_dt REGEXP '[A-Za-z0-9]' ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC", conn))
+                using (var cmd = new MySqlCommand("SELECT * FROM os WHERE aviso_oleo REGEXP '[A-Za-z0-9]' ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC", conn))
                 using (var reader = cmd.ExecuteReader())
                 {
                     HashSet<string> placasAdicionadas = new HashSet<string>();
 
                     while (reader.Read())
                     {
-                        DateTime data = DateTime.Parse(reader.GetString("aviso_oleo_dt"));
+                        DateTime data = DateTime.Parse(reader.GetString("aviso_oleo"));
                         string placa = reader.GetString("placa");
                         int controle = reader.GetInt32("controle");
                         string cliente = reader.GetString("cliente");
@@ -81,14 +81,14 @@ namespace PrototipoSistema
                     }
                 }
 
-                using (var cmd = new MySqlCommand("SELECT * FROM os WHERE aviso_filtro_dt REGEXP '[A-Za-z0-9]' ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC", conn))
+                using (var cmd = new MySqlCommand("SELECT * FROM os WHERE aviso REGEXP '[A-Za-z0-9]' ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC", conn))
                 using (var reader = cmd.ExecuteReader())
                 {
                     HashSet<string> placasAdicionadas = new HashSet<string>();
 
                     while (reader.Read())
                     {
-                        DateTime data = DateTime.Parse(reader.GetString("aviso_filtro_dt"));
+                        DateTime data = DateTime.Parse(reader.GetString("aviso_revisao"));
                         string placa = reader.GetString("placa");
                         int controle = reader.GetInt32("controle");
                         string cliente = reader.GetString("cliente");

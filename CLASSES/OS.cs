@@ -27,9 +27,9 @@ namespace PrototipoSistema.classes
         public string dt_cadastro { get; set; }
         public string dt_saida { get; set; }
         public string aviso_oleo_km { get; set; }
-        public string aviso_oleo_dt {  get; set; }
+        public string aviso_oleo {  get; set; }
         public string aviso_filtro_km { get; set; }
-        public string aviso_filtro_dt { get; set; }
+        public string aviso_revisao { get; set; }
         public int pago { get; set; }
         public string metodo { get; set; } 
 
@@ -77,7 +77,7 @@ namespace PrototipoSistema.classes
 
             MessageBox.Show(dt_cadastro.ToString());
 
-            var cmd = new MySqlCommand($"UPDATE os SET placa = '{placa}', cliente = '{cliente}', km = '{km}', observacao = '{observacao}', descricao = '{descricao}', total = '{total}', dt_cadastro = '{dt_cadastro}', dt_saida = '{dt_saida}', aviso_oleo_dt = '{aviso_oleo_dt}', aviso_filtro_dt = '{aviso_filtro_dt}', pago = '{pago}', metodo_pag = '{metodo}' WHERE controle = {index}", conexao);
+            var cmd = new MySqlCommand($"UPDATE os SET placa = '{placa}', cliente = '{cliente}', km = '{km}', observacao = '{observacao}', descricao = '{descricao}', total = '{total}', dt_cadastro = '{dt_cadastro}', dt_saida = '{dt_saida}', aviso_oleo = '{aviso_oleo}', aviso_revisao = '{aviso_revisao}', pago = '{pago}', metodo_pag = '{metodo}' WHERE controle = {index}", conexao);
 
             conexao.Open();
             cmd.ExecuteReader();

@@ -102,7 +102,7 @@ namespace PrototipoSistema
                     txt_km.Text = reader.GetInt32("km").ToString();
                     dtp_cadastro.Value = DateTime.Parse(reader.GetString("dt_cadastro"));
                     txt_observacao.Text = reader.GetString("observacao");
-                    txt_descricao.Text = reader.GetString("descricao");
+                    try { txt_descricao.Text = reader.GetString("descricao"); } catch { }
 
                     try
                     {
@@ -118,14 +118,14 @@ namespace PrototipoSistema
 
                     try
                     {
-                        dtp_troca_filtro.Value = DateTime.ParseExact(reader.GetString("aviso_filtro_dt"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                        dtp_troca_filtro.Value = DateTime.ParseExact(reader.GetString("aviso_revisao"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                         cb_filtro.Checked = true;
                     }
                     catch { }
 
                     try
                     {
-                        dtp_troca_oleo.Value = DateTime.ParseExact(reader.GetString("aviso_oleo_dt"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                        dtp_troca_oleo.Value = DateTime.ParseExact(reader.GetString("aviso_oleo"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                         cb_oleo.Checked = true;
                     }
                     catch { }
@@ -246,7 +246,7 @@ namespace PrototipoSistema
                 /////////////////////////////////////////
 
                 // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
-                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -259,7 +259,7 @@ namespace PrototipoSistema
                 conexao.Close();
 
                 // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
-                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_filtro_dt REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_revisao REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
 
                 conexao.Open();
                 reader = cmd.ExecuteReader();
@@ -388,11 +388,11 @@ namespace PrototipoSistema
                 {
                     os.total = txt_total.Text;
 
-                    if (cb_oleo.Checked) os.aviso_oleo_dt = dtp_troca_oleo.Value.ToString();
-                    else os.aviso_oleo_dt = "";
+                    if (cb_oleo.Checked) os.aviso_oleo = dtp_troca_oleo.Value.ToString();
+                    else os.aviso_oleo = "";
 
-                    if (cb_filtro.Checked) os.aviso_filtro_dt = dtp_troca_filtro.Value.ToString();
-                    else os.aviso_filtro_dt = "";
+                    if (cb_filtro.Checked) os.aviso_revisao = dtp_troca_filtro.Value.ToString();
+                    else os.aviso_revisao = "";
                 }
                 else
                 { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -400,7 +400,7 @@ namespace PrototipoSistema
                  
                 try
                 {
-                    MessageBox.Show(os.aviso_filtro_dt + "\n" + os.aviso_oleo_dt);
+                    MessageBox.Show(os.aviso_revisao + "\n" + os.aviso_oleo);
                     os.alterar_os();
 
                     cliente.doc = txt_doc.Text;
