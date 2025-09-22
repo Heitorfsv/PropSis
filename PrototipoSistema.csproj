@@ -125,6 +125,12 @@
     <Compile Include="add.Designer.cs">
       <DependentUpon>add.cs</DependentUpon>
     </Compile>
+    <Compile Include="add_troca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="add_troca.Designer.cs">
+      <DependentUpon>add_troca.cs</DependentUpon>
+    </Compile>
     <Compile Include="aniversarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,6 +290,9 @@
     </Compile>
     <EmbeddedResource Include="add.resx">
       <DependentUpon>add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="add_troca.resx">
+      <DependentUpon>add_troca.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="aniversarios.resx">
       <DependentUpon>aniversarios.cs</DependentUpon>

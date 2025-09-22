@@ -139,3 +139,4 @@ C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\x64\Debug\qpdf.dll
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\x64\Debug\QuestPDF.dll
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.cadastro_pagamento.resources
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.add.resources
+C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\x64\Debug\PrototipoSistema.add_troca.resources

@@ -75,21 +75,12 @@
             this.cb_pago = new System.Windows.Forms.CheckBox();
             this.cb_saida = new System.Windows.Forms.CheckBox();
             this.dtp_cadastro = new System.Windows.Forms.DateTimePicker();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.dtp_troca_oleo = new System.Windows.Forms.DateTimePicker();
-            this.dtp_troca_filtro = new System.Windows.Forms.DateTimePicker();
-            this.gb_troca = new System.Windows.Forms.GroupBox();
-            this.cb_filtro = new System.Windows.Forms.CheckBox();
-            this.cb_oleo = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.txt_filtro_km = new System.Windows.Forms.TextBox();
-            this.txt_filtro_dt = new System.Windows.Forms.TextBox();
+            this.txt_revisao = new System.Windows.Forms.TextBox();
+            this.txt_revisao_dt = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,7 +94,6 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.gb_troca.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
@@ -613,82 +603,6 @@
             this.dtp_cadastro.Size = new System.Drawing.Size(233, 21);
             this.dtp_cadastro.TabIndex = 60;
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(9, 68);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(155, 13);
-            this.label16.TabIndex = 66;
-            this.label16.Text = "Proxima troca de filtro em:";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(9, 21);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(154, 13);
-            this.label17.TabIndex = 65;
-            this.label17.Text = "Proxima troca de oleo em:";
-            // 
-            // dtp_troca_oleo
-            // 
-            this.dtp_troca_oleo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_troca_oleo.Location = new System.Drawing.Point(12, 37);
-            this.dtp_troca_oleo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.dtp_troca_oleo.Name = "dtp_troca_oleo";
-            this.dtp_troca_oleo.Size = new System.Drawing.Size(116, 21);
-            this.dtp_troca_oleo.TabIndex = 60;
-            // 
-            // dtp_troca_filtro
-            // 
-            this.dtp_troca_filtro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_troca_filtro.Location = new System.Drawing.Point(12, 84);
-            this.dtp_troca_filtro.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.dtp_troca_filtro.Name = "dtp_troca_filtro";
-            this.dtp_troca_filtro.Size = new System.Drawing.Size(116, 21);
-            this.dtp_troca_filtro.TabIndex = 60;
-            // 
-            // gb_troca
-            // 
-            this.gb_troca.Controls.Add(this.label17);
-            this.gb_troca.Controls.Add(this.dtp_troca_filtro);
-            this.gb_troca.Controls.Add(this.label16);
-            this.gb_troca.Controls.Add(this.dtp_troca_oleo);
-            this.gb_troca.Location = new System.Drawing.Point(984, 320);
-            this.gb_troca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gb_troca.Name = "gb_troca";
-            this.gb_troca.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gb_troca.Size = new System.Drawing.Size(192, 121);
-            this.gb_troca.TabIndex = 70;
-            this.gb_troca.TabStop = false;
-            // 
-            // cb_filtro
-            // 
-            this.cb_filtro.AutoSize = true;
-            this.cb_filtro.Location = new System.Drawing.Point(984, 297);
-            this.cb_filtro.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cb_filtro.Name = "cb_filtro";
-            this.cb_filtro.Size = new System.Drawing.Size(15, 14);
-            this.cb_filtro.TabIndex = 71;
-            this.cb_filtro.UseVisualStyleBackColor = true;
-            this.cb_filtro.CheckedChanged += new System.EventHandler(this.cb_filtro_CheckedChanged);
-            // 
-            // cb_oleo
-            // 
-            this.cb_oleo.AutoSize = true;
-            this.cb_oleo.Location = new System.Drawing.Point(984, 277);
-            this.cb_oleo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cb_oleo.Name = "cb_oleo";
-            this.cb_oleo.Size = new System.Drawing.Size(15, 14);
-            this.cb_oleo.TabIndex = 70;
-            this.cb_oleo.UseVisualStyleBackColor = true;
-            this.cb_oleo.CheckedChanged += new System.EventHandler(this.cb_oleo_CheckedChanged);
-            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -698,28 +612,6 @@
             this.label20.Size = new System.Drawing.Size(24, 15);
             this.label20.TabIndex = 70;
             this.label20.Text = "km";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(1007, 277);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(87, 13);
-            this.label18.TabIndex = 67;
-            this.label18.Text = "Óleo trocado?";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(1007, 298);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(89, 13);
-            this.label19.TabIndex = 67;
-            this.label19.Text = "Filtro trocado?";
             // 
             // label24
             // 
@@ -753,23 +645,23 @@
             this.label26.TabIndex = 76;
             this.label26.Text = "km";
             // 
-            // txt_filtro_km
+            // txt_revisao
             // 
-            this.txt_filtro_km.Enabled = false;
-            this.txt_filtro_km.Location = new System.Drawing.Point(1172, 103);
-            this.txt_filtro_km.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txt_filtro_km.Name = "txt_filtro_km";
-            this.txt_filtro_km.Size = new System.Drawing.Size(116, 21);
-            this.txt_filtro_km.TabIndex = 75;
+            this.txt_revisao.Enabled = false;
+            this.txt_revisao.Location = new System.Drawing.Point(1172, 103);
+            this.txt_revisao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txt_revisao.Name = "txt_revisao";
+            this.txt_revisao.Size = new System.Drawing.Size(116, 21);
+            this.txt_revisao.TabIndex = 75;
             // 
-            // txt_filtro_dt
+            // txt_revisao_dt
             // 
-            this.txt_filtro_dt.Enabled = false;
-            this.txt_filtro_dt.Location = new System.Drawing.Point(1172, 152);
-            this.txt_filtro_dt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txt_filtro_dt.Name = "txt_filtro_dt";
-            this.txt_filtro_dt.Size = new System.Drawing.Size(116, 21);
-            this.txt_filtro_dt.TabIndex = 74;
+            this.txt_revisao_dt.Enabled = false;
+            this.txt_revisao_dt.Location = new System.Drawing.Point(1172, 152);
+            this.txt_revisao_dt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txt_revisao_dt.Name = "txt_revisao_dt";
+            this.txt_revisao_dt.Size = new System.Drawing.Size(116, 21);
+            this.txt_revisao_dt.TabIndex = 74;
             // 
             // label27
             // 
@@ -778,9 +670,9 @@
             this.label27.Location = new System.Drawing.Point(1169, 84);
             this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(137, 13);
+            this.label27.Size = new System.Drawing.Size(92, 13);
             this.label27.TabIndex = 73;
-            this.label27.Text = "Última troca de filtro a:";
+            this.label27.Text = "Última Revisão";
             // 
             // menuStrip1
             // 
@@ -858,16 +750,11 @@
             this.Controls.Add(this.cmb_pago);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label26);
-            this.Controls.Add(this.txt_filtro_km);
-            this.Controls.Add(this.txt_filtro_dt);
+            this.Controls.Add(this.txt_revisao);
+            this.Controls.Add(this.txt_revisao_dt);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.label24);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.cb_filtro);
             this.Controls.Add(this.label20);
-            this.Controls.Add(this.cb_oleo);
-            this.Controls.Add(this.gb_troca);
             this.Controls.Add(this.dtp_cadastro);
             this.Controls.Add(this.cb_saida);
             this.Controls.Add(this.cb_pago);
@@ -905,8 +792,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.gb_troca.ResumeLayout(false);
-            this.gb_troca.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -959,21 +844,12 @@
         private System.Windows.Forms.CheckBox cb_pago;
         private System.Windows.Forms.CheckBox cb_saida;
         private System.Windows.Forms.DateTimePicker dtp_cadastro;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.DateTimePicker dtp_troca_oleo;
-        private System.Windows.Forms.DateTimePicker dtp_troca_filtro;
-        private System.Windows.Forms.GroupBox gb_troca;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.CheckBox cb_filtro;
-        private System.Windows.Forms.CheckBox cb_oleo;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox txt_filtro_km;
-        private System.Windows.Forms.TextBox txt_filtro_dt;
+        private System.Windows.Forms.TextBox txt_revisao;
+        private System.Windows.Forms.TextBox txt_revisao_dt;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;

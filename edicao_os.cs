@@ -27,6 +27,8 @@ namespace PrototipoSistema
         static string ApplicationName = "CalendarioApp";
 
         string doc_cliente;
+        int troca_oleo, revisao;
+        DateTime prox_oleo, prox_revisao;
 
         //Variaveis para o PDF
         string rua = "";
@@ -87,8 +89,6 @@ namespace PrototipoSistema
             {
                 bnt_editar.Text = "Salvar";
 
-                gb_troca.Visible = false;
-
                 cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{static_class.controle}'", conexao);
 
                 conexao.Open();
@@ -115,20 +115,6 @@ namespace PrototipoSistema
                         dtp_saida.Enabled = false;
                         cb_saida.Checked = false;
                     }
-
-                    try
-                    {
-                        dtp_troca_filtro.Value = DateTime.ParseExact(reader.GetString("aviso_revisao"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                        cb_filtro.Checked = true;
-                    }
-                    catch { }
-
-                    try
-                    {
-                        dtp_troca_oleo.Value = DateTime.ParseExact(reader.GetString("aviso_oleo"), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                        cb_oleo.Checked = true;
-                    }
-                    catch { }
 
                     if (reader.GetInt32("pago") == 1)
                     {
@@ -266,8 +252,8 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    txt_filtro_dt.Text = reader.GetString("dt_cadastro");
-                    txt_filtro_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
+                    txt_revisao_dt.Text = reader.GetString("dt_cadastro");
+                    txt_revisao.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
                 }
                 conexao.Close();
             }
@@ -337,11 +323,39 @@ namespace PrototipoSistema
             if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
             else os.dt_saida = null;
 
+            //verifica se foi feita troca de oleo e revisão
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            add_troca troca = new add_troca();
+            foreach (ListViewItem item in lst_pecas.Items)
+            {
+                var cmd = new MySqlCommand($"SELECT * FROM pecas WHERE nome = '{item.Text}' AND troca_oleo = 1", conexao); 
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    troca_oleo = 1;
+                    prox_oleo = troca.oleo;
+                    os.aviso_oleo = prox_oleo.ToString();
+                }
+                conexao.Close();
+            }
+            foreach (ListViewItem item in lst_servicos.Items)
+            {
+                if (item.Text.Contains("REVISÃO"))
+                {
+                    revisao = 1;
+                    prox_revisao = troca.revisao;
+                    os.aviso_revisao = prox_revisao.ToString();
+                }
+            }
+            if (troca_oleo == 1 || revisao == 1) troca.ShowDialog();
+
             if (this.Text == "Cadastro OS")
             {
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
-
                 var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
 
                 conexao.Open();
@@ -374,9 +388,6 @@ namespace PrototipoSistema
             }
             else if (this.Text == "Edição OS")
             {
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
-
                 var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
 
                 conexao.Open();
@@ -387,12 +398,6 @@ namespace PrototipoSistema
                 if (reader.Read())
                 {
                     os.total = txt_total.Text;
-
-                    if (cb_oleo.Checked) os.aviso_oleo = dtp_troca_oleo.Value.ToString();
-                    else os.aviso_oleo = "";
-
-                    if (cb_filtro.Checked) os.aviso_revisao = dtp_troca_filtro.Value.ToString();
-                    else os.aviso_revisao = "";
                 }
                 else
                 { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -400,7 +405,6 @@ namespace PrototipoSistema
                  
                 try
                 {
-                    MessageBox.Show(os.aviso_revisao + "\n" + os.aviso_oleo);
                     os.alterar_os();
 
                     cliente.doc = txt_doc.Text;
@@ -529,109 +533,78 @@ namespace PrototipoSistema
 
         private void cb_saida_CheckedChanged(object sender, EventArgs e)
         {
-            if (cb_saida.Checked == true)
-            { 
-                dtp_saida.Enabled = true;
-                gb_troca.Visible = true;
-                dtp_troca_oleo.Enabled = false;
-                dtp_troca_filtro.Enabled = false;
-            }
-            else
-            { 
-                dtp_saida.Enabled = false;
-                gb_troca.Visible = false;
-            }
-        }
-
-        private void cb_oleo_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cb_oleo.Checked == true) dtp_troca_oleo.Enabled = true;
-            else dtp_troca_oleo.Enabled = false;
-        }
-
-        private void cb_filtro_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cb_filtro.Checked == true) dtp_troca_filtro.Enabled = true;
-            else dtp_troca_filtro.Enabled = false;
+            if (cb_saida.Checked == true) dtp_saida.Enabled = true;
+            else dtp_saida.Enabled = false;
         }
 
         public void conexao_calendario()
         {
-            if (cb_oleo.Checked)
+            UserCredential credential;
+
+            using (var stream = new FileStream("C:\\credentials\\credentials.json", FileMode.Open, FileAccess.Read))
             {
-                UserCredential credential;
-
-                using (var stream = new FileStream("C:\\credentials\\credentials.json", FileMode.Open, FileAccess.Read))
-                {
-                    // Path to the token storage directory.
-                    string credPath = "token.json";
-                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.FromStream(stream).Secrets, Scopes, "user", CancellationToken.None, new FileDataStore(credPath, true)).Result;
-                }
-
-                // Create Google Calendar API service.
-                var service = new CalendarService(new BaseClientService.Initializer()
-                {
-                    HttpClientInitializer = credential,
-                    ApplicationName = ApplicationName,
-                });
-
-                // Define the new event
-                if (dtp_troca_oleo.Enabled)
-                {
-                    Event newEvent = new Event()
-                    {
-                        Summary = "Próxima troca de óleo " + txt_cliente.Text,
-                        Description = "...",
-                        Start = new EventDateTime()
-                        {
-                            DateTime = dtp_troca_oleo.Value,
-                            TimeZone = "America/Sao_Paulo",
-                        },
-                        End = new EventDateTime()
-                        {
-                            DateTime = dtp_troca_oleo.Value,
-                            TimeZone = "America/Sao_Paulo",
-                        },
-                        Attendees = new EventAttendee[]
-                        {
-                    new EventAttendee() { Email = "heitorfsv@gmail.com" }
-                        },
-                    };
-
-                    // Insert the event into the user's calendar
-                    EventsResource.InsertRequest request = service.Events.Insert(newEvent, "primary");
-                    Event createdEvent = request.Execute();
-                }
-
-                if (dtp_troca_filtro.Enabled)
-                {
-                    Event newEvent = new Event()
-                    {
-                        Summary = "Próxima troca de filtro " + txt_cliente.Text,
-                        Description = "...",
-                        Start = new EventDateTime()
-                        {
-                            DateTime = dtp_troca_filtro.Value,
-                            TimeZone = "America/Sao_Paulo",
-                        },
-                        End = new EventDateTime()
-                        {
-                            DateTime = dtp_troca_filtro.Value,
-                            TimeZone = "America/Sao_Paulo",
-                        },
-                        Attendees = new EventAttendee[]
-                        {
-                    new EventAttendee() { Email = "heitorfsv@gmail.com" }
-                        },
-                    };
-
-                    // Insert the event into the user's calendar
-                    EventsResource.InsertRequest request = service.Events.Insert(newEvent, "primary");
-                    Event createdEvent = request.Execute();
-                }
-                this.Close();
+                // Path to the token storage directory.
+                string credPath = "token.json";
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                GoogleClientSecrets.FromStream(stream).Secrets, Scopes, "user", CancellationToken.None, new FileDataStore(credPath, true)).Result;
             }
+
+            // Create Google Calendar API service.
+            var service = new CalendarService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+
+            // Define the new event
+            if (troca_oleo == 1)
+            {
+                Event event_troca = new Event()
+                {
+                    Summary = "Próxima troca de óleo " + txt_cliente.Text,
+                    Description = "...",
+                    Start = new EventDateTime()
+                    {
+                        DateTime = prox_oleo,
+                        TimeZone = "America/Sao_Paulo",
+                    },
+                    End = new EventDateTime()
+                    {
+                        DateTime = prox_oleo,
+                        TimeZone = "America/Sao_Paulo",
+                    },
+                    //Attendees = new EventAttendee[] { new EventAttendee() { Email = "jcmotors2020@gmail.com" } },
+                };
+
+                //    // Insert the event into the user's calendar
+                EventsResource.InsertRequest request = service.Events.Insert(event_troca, "956ab706496289c001ca9563d240163c1f4c1f4383cd54fc48b28a0db742a186@group.calendar.google.com");
+            Event createdEvent = request.Execute();
+        }
+
+            if (revisao == 1)
+            {
+                Event event_revisao = new Event()
+                {
+                    Summary = "Próxima revisão " + txt_cliente.Text,
+                    Description = "...",
+                    Start = new EventDateTime()
+                    {
+                        DateTime = prox_revisao,
+                        TimeZone = "America/Sao_Paulo",
+                    },
+                    End = new EventDateTime()
+                    {
+                        DateTime = prox_revisao,
+                        TimeZone = "America/Sao_Paulo",
+                    },
+                    //Attendees = new EventAttendee[] { new EventAttendee() { Email = "jcmotors2020@gmail.com" } },
+                };
+
+                // Insert the event into the user's calendar
+                EventsResource.InsertRequest request = service.Events.Insert(event_revisao, "58e9d765620bb76b062a943bc01eae7de7b49875dd31e8e944557d05f30b1c86@group.calendar.google.com");
+                Event createdEvent = request.Execute();
+            }
+            this.Close();
         }
 
         private void visualizarImpressToolStripMenuItem_Click(object sender, EventArgs e)
