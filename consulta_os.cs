@@ -41,7 +41,8 @@ namespace PrototipoSistema
 
             listView1.Columns.Add("Placa", 100);
             listView1.Columns.Add("Cliente", 370);
-            listView1.Columns.Add("Data Cadastro", 100);
+            listView1.Columns.Add("Data de cadastro", 100);
+            listView1.Columns.Add("Data de saída", 100);
             listView1.Columns.Add("Telefone", 110);
             listView1.Columns.Add("Marca", 150);
             listView1.Columns.Add("Modelo", 150);
@@ -78,6 +79,7 @@ namespace PrototipoSistema
                 var item = new ListViewItem(reader.GetString("placa"));
                 item.SubItems.Add(reader.GetString("cliente"));
                 item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
+                try { item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy")); } catch { item.SubItems.Add(""); }
                 item.SubItems.Add(""); // telefone - preencher depois
                 item.SubItems.Add(""); // marca - preencher depois
                 item.SubItems.Add(""); // modelo - preencher depois
@@ -110,7 +112,7 @@ namespace PrototipoSistema
                 conexao.Open();
                 reader = cmd.ExecuteReader();
                 if (reader.Read())
-                    listView1.Items[i].SubItems[3].Text = reader.GetString("telefone");
+                    listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
                 conexao.Close();
 
                 // Marca e modelo
@@ -119,8 +121,8 @@ namespace PrototipoSistema
                 reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    listView1.Items[i].SubItems[4].Text = reader.GetString("marca");
-                    listView1.Items[i].SubItems[5].Text = reader.GetString("modelo");
+                    listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
+                    listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
                 }
                 conexao.Close();
 
@@ -139,7 +141,7 @@ namespace PrototipoSistema
                     catch { }
                 }
                 conexao.Close();
-                listView1.Items[i].SubItems[7].Text = soma_servico.ToString("N2");
+                listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
                 total_servicos += soma_servico;
 
                 // Preço peça
@@ -157,7 +159,7 @@ namespace PrototipoSistema
                     catch { }
                 }
                 conexao.Close();
-                listView1.Items[i].SubItems[6].Text = soma_peca.ToString("N2");
+                listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
                 total_pecas += soma_peca;
             }
 
@@ -233,6 +235,7 @@ namespace PrototipoSistema
                     var item = new ListViewItem(placas.Last());
                     item.SubItems.Add(reader.GetString("cliente"));
                     item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
+                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy"));
                     item.SubItems.Add(""); // telefone
                     item.SubItems.Add(""); // marca
                     item.SubItems.Add(""); // modelo
@@ -260,7 +263,7 @@ namespace PrototipoSistema
                     conexao.Open();
                     reader = cmd.ExecuteReader();
                     if (reader.Read())
-                        listView1.Items[i].SubItems[3].Text = reader.GetString("telefone");
+                        listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
                     conexao.Close();
 
                     // Marca e modelo
@@ -269,8 +272,8 @@ namespace PrototipoSistema
                     reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        listView1.Items[i].SubItems[4].Text = reader.GetString("marca");
-                        listView1.Items[i].SubItems[5].Text = reader.GetString("modelo");
+                        listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
+                        listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
                     }
                     conexao.Close();
 
@@ -290,7 +293,7 @@ namespace PrototipoSistema
                     }
                     conexao.Close();
                     total_servicos += soma_servico;
-                    listView1.Items[i].SubItems[7].Text = soma_servico.ToString("N2");
+                    listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
 
                     // Preço peça
                     decimal soma_peca = 0;
@@ -308,7 +311,7 @@ namespace PrototipoSistema
                     }
                     conexao.Close();
                     total_pecas += soma_peca;
-                    listView1.Items[i].SubItems[6].Text = soma_peca.ToString("N2");
+                    listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
                 }
 
                 txt_total_pecas.Text = total_pecas.ToString("N2");
@@ -346,6 +349,7 @@ namespace PrototipoSistema
                         var item = new ListViewItem(reader.GetString("placa"));
                         item.SubItems.Add(reader.GetString("cliente"));
                         item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
+                        item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy"));
                         item.SubItems.Add(""); // telefone
                         item.SubItems.Add(""); // marca
                         item.SubItems.Add(""); // modelo
@@ -375,8 +379,8 @@ namespace PrototipoSistema
                     reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        listView1.Items[i].SubItems[4].Text = reader.GetString("marca");
-                        listView1.Items[i].SubItems[5].Text = reader.GetString("modelo");
+                        listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
+                        listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
                     }
                     conexao.Close();
 
@@ -387,13 +391,10 @@ namespace PrototipoSistema
                         conexao.Open();
                         reader = cmd.ExecuteReader();
                         if (reader.Read())
-                            listView1.Items[i].SubItems[3].Text = reader.GetString("telefone");
+                            listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
                         conexao.Close();
                     }
-                    catch
-                    {
-                        listView1.Items[i].SubItems[3].Text = " ";
-                    }
+                    catch { listView1.Items[i].SubItems[4].Text = " "; }
 
                     // Preço serviço
                     decimal soma_servico = 0;
@@ -410,7 +411,7 @@ namespace PrototipoSistema
                         catch { }
                     }
                     conexao.Close();
-                    listView1.Items[i].SubItems[7].Text = soma_servico.ToString("N2");
+                    listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
 
                     // Preço peça
                     decimal soma_peca = 0;
@@ -427,7 +428,7 @@ namespace PrototipoSistema
                         catch { }
                     }
                     conexao.Close();
-                    listView1.Items[i].SubItems[6].Text = soma_peca.ToString("N2");
+                    listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
                 }
 
                 txt_total_pecas.Text = total_pecas.ToString("N2");
@@ -485,6 +486,7 @@ namespace PrototipoSistema
                     var item = new ListViewItem(reader.GetString("placa"));
                     item.SubItems.Add(reader.GetString("cliente"));
                     item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
+                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy"));
                     item.SubItems.Add(""); // telefone
                     item.SubItems.Add(""); // marca
                     item.SubItems.Add(""); // modelo
@@ -513,8 +515,8 @@ namespace PrototipoSistema
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    listView1.Items[i].SubItems[4].Text = reader.GetString("marca");
-                    listView1.Items[i].SubItems[5].Text = reader.GetString("modelo");
+                    listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
+                    listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
                 }
                 conexao.Close();
 
@@ -524,12 +526,12 @@ namespace PrototipoSistema
                     conexao.Open();
                     reader = cmd.ExecuteReader();
                     if (reader.Read())
-                        listView1.Items[i].SubItems[3].Text = reader.GetString("telefone");
+                        listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
                     conexao.Close();
                 }
                 catch
                 {
-                    listView1.Items[i].SubItems[3].Text = " ";
+                    listView1.Items[i].SubItems[4].Text = " ";
                 }
 
                 cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM servicos_os WHERE os = '{os}'", conexao);
@@ -543,7 +545,7 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
                 total_servicos += soma_servico;
-                listView1.Items[i].SubItems[7].Text = soma_servico.ToString("N2");
+                listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
 
                 cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM pecas_os WHERE os = '{os}'", conexao);
                 conexao.Open();
@@ -556,7 +558,7 @@ namespace PrototipoSistema
                 }
                 conexao.Close();
                 total_pecas += soma_peca;
-                listView1.Items[i].SubItems[6].Text = soma_peca.ToString("N2");
+                listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
             }
 
             txt_total_pecas.Text = total_pecas.ToString("N2");

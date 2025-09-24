@@ -192,8 +192,7 @@ public class osPdf : IDocument
                         table.Cell().Element(CellStyle).Text(total.ToString("C"));
                     }
 
-                    table.Cell().ColumnSpan(3).AlignRight().Padding(5).Text("Total Serviços:").Bold();
-                    table.Cell().Element(CellStyle).Text(TotalServicos.ToString("C")).Bold();
+                    table.Cell().ColumnSpan(4).AlignRight().Padding(5).Text($"Total Serviços: {TotalServicos.ToString("C")}").Bold();
                 });
 
                 // Peças
@@ -228,11 +227,20 @@ public class osPdf : IDocument
                         table.Cell().Element(CellStyle).Text(total.ToString("C"));
                     }
 
-                    table.Cell().ColumnSpan(3).AlignRight().Padding(5).Text("Total Peças:").Bold();
-                    table.Cell().Element(CellStyle).Text(TotalPecas.ToString("C")).Bold();
+                    table.Cell().ColumnSpan(4).AlignRight().Padding(5).Text($"Total Peças: {TotalPecas.ToString("C")}").Bold();
                 });
 
-                col.Item().AlignRight().Border(1, Unit.Point).BorderColor(Colors.Black).Padding(10).Text($"Total Geral: {Total:C}").FontSize(12).Bold();
+                col.Item().AlignRight().Border(1, Unit.Point).BorderColor(Colors.Black).Padding(5).Text($"Total Geral: {Total:C}").FontSize(12).Bold();
+
+                col.Item().PaddingTop(10).Text("Observação").Bold();
+
+                col.Item().Row(row =>
+                {
+                    row.RelativeItem().Width(400).Text(txt =>
+                    {
+                        txt.Span(Observacao).FontSize(10);
+                    });
+                });
             });
         });
     }

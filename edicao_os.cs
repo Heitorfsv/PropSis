@@ -239,7 +239,7 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    txt_oleo_dt.Text = reader.GetString("dt_cadastro");
+                    try { txt_oleo_dt.Text = reader.GetString("dt_saida"); } catch { }
                     txt_oleo_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
                 }
                 conexao.Close();
@@ -252,7 +252,7 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    txt_revisao_dt.Text = reader.GetString("dt_cadastro");
+                    try { txt_revisao_dt.Text = reader.GetString("dt_saida"); } catch { }
                     txt_revisao.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
                 }
                 conexao.Close();

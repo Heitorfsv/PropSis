@@ -26,9 +26,7 @@ namespace PrototipoSistema.classes
         public string total { get; set; }
         public string dt_cadastro { get; set; }
         public string dt_saida { get; set; }
-        public string aviso_oleo_km { get; set; }
         public string aviso_oleo {  get; set; }
-        public string aviso_revisao_km { get; set; }
         public string aviso_revisao { get; set; }
         public int pago { get; set; }
         public string metodo { get; set; } 
