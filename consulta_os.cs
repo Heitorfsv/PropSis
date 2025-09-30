@@ -1,16 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
-using PrototipoSistema.classes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -22,7 +14,7 @@ namespace PrototipoSistema
         public List<int> lista_os = new List<int>();
 
         int count;
-        string order = "DESC";
+        string order = "DESC", filtro = "STR_TO_DATE(dt_cadastro, '%d/%m/%y')";
 
         public consulta_os()
         {
@@ -64,7 +56,7 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"SELECT * FROM os ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') {order}", conexao);
+            var cmd = new MySqlCommand($"SELECT * FROM os ORDER BY {filtro} {order}", conexao);
 
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -194,6 +186,7 @@ namespace PrototipoSistema
 
         private void bnt_atualizar_Click(object sender, EventArgs e)
         {
+            filtro = "STR_TO_DATE(dt_cadastro, '%d/%m/%y')";
             consulta_os_Load(sender, e);
         }
 
@@ -571,6 +564,12 @@ namespace PrototipoSistema
             edicao_os os = new edicao_os();
             os.Text = "Cadastro OS";
             os.Show();
+        }
+
+        private void bnt_pag_Click(object sender, EventArgs e)
+        {
+            filtro = "pago";
+            consulta_os_Load(sender, e);
         }
 
         public void CarregarGrafico(string parametro)

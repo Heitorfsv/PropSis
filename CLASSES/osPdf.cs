@@ -231,7 +231,6 @@ public class osPdf : IDocument
                 });
 
                 col.Item().AlignRight().Border(1, Unit.Point).BorderColor(Colors.Black).Padding(5).Text($"Total Geral: {Total:C}").FontSize(12).Bold();
-
                 col.Item().PaddingTop(10).Text("Observação").Bold();
 
                 col.Item().Row(row =>
