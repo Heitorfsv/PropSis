@@ -10,6 +10,7 @@ using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -335,24 +336,23 @@ namespace PrototipoSistema
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read())
-                {
-                    troca_oleo = 1;
-                    prox_oleo = troca.oleo;
-                    os.aviso_oleo = prox_oleo.ToString();
-                }
+                if (reader.Read()) troca_oleo = 1;
                 conexao.Close();
             }
             foreach (ListViewItem item in lst_servicos.Items)
             {
-                if (item.Text.Contains("REVISÃO"))
-                {
-                    revisao = 1;
-                    prox_revisao = troca.revisao;
-                    os.aviso_revisao = prox_revisao.ToString();
-                }
+                if (item.Text.Contains("REVISÃO"))  revisao = 1;
             }
-            if (troca_oleo == 1 || revisao == 1) troca.ShowDialog();
+            if (troca_oleo == 1 || revisao == 1)
+            {
+                troca.ShowDialog();
+
+                prox_oleo = troca.oleo;
+                os.aviso_oleo = prox_oleo.ToString();
+
+                prox_revisao = troca.revisao;
+                os.aviso_revisao = prox_revisao.ToString();
+            }
 
             if (this.Text == "Cadastro OS")
             {
@@ -375,7 +375,7 @@ namespace PrototipoSistema
 
                     os.cadastrar_os();
 
-                    MessageBox.Show("OS Cadastrada");
+                    MessageBox.Show("OS Cadastrada", "JCMotorsport", MessageBoxButtons.OK);
 
                     cliente.doc = txt_doc.Text;
                     cliente.quitado();
@@ -406,6 +406,7 @@ namespace PrototipoSistema
                 try
                 {
                     os.alterar_os();
+                    verificar_itens();
 
                     cliente.doc = txt_doc.Text;
                     cliente.quitado();
@@ -414,108 +415,239 @@ namespace PrototipoSistema
                 }
                 catch (Exception a) { MessageBox.Show(a.ToString()); }
 
-                conexao_calendario();
+             //  conexao_calendario();
             }
+            atualizar_posicoes();
+        }
+
+        public void verificar_itens()
+        {
+            string table = "pecas_os";
+            var lista = lst_pecas;
+            pecas_os pecas_os = new pecas_os();
+            servicos_os servicos_os = new servicos_os();
+
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            for (int i = 0; i <= 1; i++)
+            {
+                foreach (ListViewItem item in lista.Items)
+                {
+                    var cmd = new MySqlCommand($"SELECT * FROM {table} WHERE nome = '{item.Text}' AND os = {static_class.controle}", conexao);
+                    conexao.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read()) { }
+                    else
+                    {
+                        if (table == "pecas_os")
+                        {
+                            pecas_os.ultimo_index();
+                            pecas_os.index++;
+                            pecas_os.modo = "os";
+
+                            //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
+                            pecas_os.os_or = static_class.controle;
+
+                            pecas_os.nome = item.Text;
+                            pecas_os.qtd = decimal.Parse(item.SubItems[1].Text);
+                            pecas_os.valor = item.SubItems[2].Text;
+                            pecas_os.desc = item.SubItems[3].Text;
+                            pecas_os.pos = lista.Items.IndexOf(item) - 1;
+
+                            pecas_os.cadastrar_peca_os();
+                        }
+                        else if (table == "servicos_os")
+                        {
+                            servicos_os.ultimo_index();
+                            servicos_os.index++;
+                            servicos_os.modo = "os";
+
+                            //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
+                            servicos_os.os_or = static_class.controle;
+
+                            servicos_os.nome = item.Text;
+                            servicos_os.qtd = decimal.Parse(item.SubItems[1].Text);
+                            servicos_os.valor = item.SubItems[2].Text;
+                            servicos_os.desc = item.SubItems[3].Text;
+                            servicos_os.pos = lista.Items.IndexOf(item) - 1;
+
+                            servicos_os.cadastrar_servico_os();
+                        }
+                    }
+                    conexao.Close();
+                }
+                table = "servicos_os";
+                lista = lst_servicos;
+            }
+        }
+
+        public void atualizar_posicoes()
+        {
+            try
+            {
+                using (var conexao = new MySqlConnection("server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport"))
+                {
+                    for (int i = 0; i < lst_pecas.Items.Count; i++)
+                    {
+                        var cmd = new MySqlCommand(
+                            $"UPDATE pecas_os SET pos = '{i}' WHERE os = {static_class.controle} AND nome = '{lst_pecas.Items[i].Text}'",
+                            conexao);
+                        conexao.Open();
+                        cmd.ExecuteNonQuery();
+                        conexao.Close();
+                    }
+                    for (int i = 0; i < lst_servicos.Items.Count; i++)
+                    {
+                        var cmd = new MySqlCommand(
+                            $"UPDATE servicos_os SET pos = '{i}' WHERE os = {static_class.controle} AND nome = '{lst_servicos.Items[i].Text}'",
+                            conexao);
+                        conexao.Open();
+                        cmd.ExecuteNonQuery();
+                        conexao.Close();
+                    }
+                }
+            }
+            catch { }
         }
 
         private void bnt_add_peca_Click(object sender, EventArgs e)
         {
+            add add_pecas = new add();
+
+            foreach (ListViewItem item in lst_pecas.Items)
+            {
+                // Clona o item antes de adicionar (evita referência duplicada)
+                add_pecas.itens_pecas.Add((ListViewItem)item.Clone());
+            }
             lst_pecas.Items.Clear();
 
-            add add_pecas = new add();
             add_pecas.table = "pecas";
             add_pecas.modo = "os";
-            add_pecas.Show();
+            add_pecas.ShowDialog();
+
+            decimal total = 0;
+            foreach (ListViewItem item in add_pecas.itens_pecas)
+            {
+                item.BackColor = lst_pecas.BackColor;
+                // Clona o item antes de adicionar (evita referência duplicada)
+                lst_pecas.Items.Add((ListViewItem)item.Clone());
+
+                try { total += decimal.Parse(item.SubItems[4].Text); }
+                catch { var a = item.SubItems[4]; MessageBox.Show(a.ToString()); }
+            }
+            txt_total_pecas.Text = total.ToString("N2");
+            txt_total.Text = (decimal.Parse(txt_total_pecas.Text) + decimal.Parse(txt_total_servico.Text)).ToString("N2");
         }
 
         private void bnt_add_servico_Click(object sender, EventArgs e)
         {
+            add add_servicos = new add();
+
+            foreach (ListViewItem item in lst_servicos.Items)
+            {
+                // Clona o item antes de adicionar (evita referência duplicada)
+                add_servicos.itens_servicos.Add((ListViewItem)item.Clone());
+            }
             lst_servicos.Items.Clear();
 
-            add add_servicos = new add();
             add_servicos.table = "servicos";
             add_servicos.modo = "os";
-            add_servicos.Show();
+            add_servicos.ShowDialog();
+
+            decimal total = 0;
+            foreach (ListViewItem item in add_servicos.itens_servicos)
+            {
+                item.BackColor = lst_servicos.BackColor;
+                // Clona o item antes de adicionar (evita referência duplicada)
+                lst_servicos.Items.Add((ListViewItem)item.Clone());
+
+                try { total += decimal.Parse(item.SubItems[4].Text); }
+                catch { var a = item.SubItems[4]; MessageBox.Show(a.ToString()); }
+            }
+            txt_total_servico.Text = total.ToString("N2");
+            txt_total.Text = (decimal.Parse(txt_total_pecas.Text) + decimal.Parse(txt_total_servico.Text)).ToString("N2");
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (static_class.close == 1)
-            {
-                lst_servicos.Items.Clear();
-                lst_pecas.Items.Clear();
+            //if (static_class.close == 1)
+            //{
+            //    lst_servicos.Items.Clear();
+            //    lst_pecas.Items.Clear();
 
-                decimal servico_total = 0;
-                decimal peca_total = 0;
+            //    decimal servico_total = 0;
+            //    decimal peca_total = 0;
 
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
+            //    var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            //    var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
+            //    var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
+            //    conexao.Open();
+            //    MySqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    string nome = reader.GetString("nome");
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    string valor = reader.GetString("valor");
-                    string desco = reader.GetString("desco");
-                    string total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
+            //    while (reader.Read())
+            //    {
+            //        string nome = reader.GetString("nome");
+            //        string qtd = reader.GetString("qtd").Replace(".", ",");
+            //        string valor = reader.GetString("valor");
+            //        string desco = reader.GetString("desco");
+            //        string total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
-                    var item = new ListViewItem(nome);
-                    item.SubItems.Add(qtd);
-                    item.SubItems.Add(valor);
-                    item.SubItems.Add(desco);
-                    item.SubItems.Add(total);
-                    lst_servicos.Items.Add(item);
+            //        var item = new ListViewItem(nome);
+            //        item.SubItems.Add(qtd);
+            //        item.SubItems.Add(valor);
+            //        item.SubItems.Add(desco);
+            //        item.SubItems.Add(total);
+            //        lst_servicos.Items.Add(item);
 
-                    string qtd_formatado = reader.GetString("qtd");
-                    qtd = qtd.Replace(".",",");
+            //        string qtd_formatado = reader.GetString("qtd");
+            //        qtd = qtd.Replace(".",",");
 
-                    try
-                    { servico_total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
-                    catch (Exception a) { MessageBox.Show(a.ToString()); }
-                }
-                conexao.Close();
+            //        try
+            //        { servico_total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
+            //        catch (Exception a) { MessageBox.Show(a.ToString()); }
+            //    }
+            //    conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
+            //    cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
-                conexao.Open();
-                reader = cmd.ExecuteReader();
+            //    conexao.Open();
+            //    reader = cmd.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    string nome = reader.GetString("nome");
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    string valor = reader.GetString("valor");
-                    string desco = reader.GetString("desco");
-                    string total;
-                    try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
+            //    while (reader.Read())
+            //    {
+            //        string nome = reader.GetString("nome");
+            //        string qtd = reader.GetString("qtd").Replace(".", ",");
+            //        string valor = reader.GetString("valor");
+            //        string desco = reader.GetString("desco");
+            //        string total;
+            //        try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
 
-                    var item = new ListViewItem(nome);
-                    item.SubItems.Add(qtd);
-                    item.SubItems.Add(valor);
-                    item.SubItems.Add(desco);
-                    item.SubItems.Add(total);
-                    lst_pecas.Items.Add(item);
+            //        var item = new ListViewItem(nome);
+            //        item.SubItems.Add(qtd);
+            //        item.SubItems.Add(valor);
+            //        item.SubItems.Add(desco);
+            //        item.SubItems.Add(total);
+            //        lst_pecas.Items.Add(item);
 
-                    string qtd_formatado = reader.GetString("qtd");
-                    qtd = qtd.Replace(".", ",");
+            //        string qtd_formatado = reader.GetString("qtd");
+            //        qtd = qtd.Replace(".", ",");
 
-                    try
-                    { peca_total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
-                    catch { }
-                }
-                conexao.Close();
+            //        try
+            //        { peca_total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
+            //        catch { }
+            //    }
+            //    conexao.Close();
 
-                txt_total_servico.Text = servico_total.ToString("N2");
-                txt_total_pecas.Text = peca_total.ToString("N2");
-                txt_total.Text = (peca_total + servico_total).ToString("N2");
+            //    txt_total_servico.Text = servico_total.ToString("N2");
+            //    txt_total_pecas.Text = peca_total.ToString("N2");
+            //    txt_total.Text = (peca_total + servico_total).ToString("N2");
 
-                static_class.close = 0;
-            }
+            //    static_class.close = 0;
+            //}
         }
 
         private void bnt_deletar_Click(object sender, EventArgs e)
@@ -607,36 +739,43 @@ namespace PrototipoSistema
             this.Close();
         }
 
+        private osPdf CriarDocumento()
+        {
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            return new osPdf
+            {
+                tipo = "O.S: ",
+                Cliente = txt_cliente.Text,
+                Documento = doc_cliente,
+                Telefone = txt_telefone.Text,
+                Placa = cmb_placa.Text,
+                Marca = txt_marca.Text,
+                Modelo = txt_modelo.Text,
+                Ano = txt_ano.Text,
+                Cor = cor,
+                Km = txt_km.Text,
+                Rua = rua,
+                Bairro = bairro,
+                Cidade = cidade,
+                CEP = cep,
+                Observacao = txt_observacao.Text,
+                DtCadastro = dtp_cadastro.Value,
+                DtSaida = dtp_saida.Value,
+                Total = decimal.Parse(txt_total.Text),
+                TotalPecas = decimal.Parse(txt_total_pecas.Text),
+                TotalServicos = decimal.Parse(txt_total_servico.Text),
+                Pecas = new List<(string, string, string)>(),
+                Servicos = new List<(string, string, string)>()
+            };
+        }
+
         private void visualizarImpressToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QuestPDF.Settings.License = LicenseType.Community;
             try
-            { 
-                var doc = new osPdf
-                {
-                    tipo = "O.S: ",
-                    Cliente = txt_cliente.Text,
-                    Documento = doc_cliente,
-                    Telefone = txt_telefone.Text,
-                    Placa = cmb_placa.Text,
-                    Marca = txt_marca.Text,
-                    Modelo = txt_modelo.Text,
-                    Ano = txt_ano.Text,
-                    Cor = cor,
-                    Km = txt_km.Text,
-                    Rua = rua,
-                    Bairro = bairro,
-                    Cidade = cidade,
-                    CEP = cep,
-                    Observacao = txt_observacao.Text,
-                    DtCadastro = dtp_cadastro.Value,
-                    DtSaida = dtp_saida.Value,
-                    Total = decimal.Parse(txt_total.Text),
-                    TotalPecas = decimal.Parse(txt_total_pecas.Text),
-                    TotalServicos = decimal.Parse(txt_total_servico.Text),
-                    Pecas = new List<(string, string, string)>(),
-                    Servicos = new List<(string, string, string)>()
-                };
+            {
+                var doc = CriarDocumento();
 
                 foreach (ListViewItem item in lst_pecas.Items)
                 {
@@ -680,31 +819,7 @@ namespace PrototipoSistema
 
             try
             {
-                var doc = new osPdf
-                {
-                    tipo = "O.S: ",
-                    Cliente = txt_cliente.Text,
-                    Documento = doc_cliente,
-                    Telefone = txt_telefone.Text,
-                    Placa = cmb_placa.Text,
-                    Marca = txt_marca.Text,
-                    Modelo = txt_modelo.Text,
-                    Ano = txt_ano.Text,
-                    Cor = cor,
-                    Km = txt_km.Text,
-                    Rua = rua,
-                    Bairro = bairro,
-                    Cidade = cidade,
-                    CEP = cep,
-                    Observacao = txt_observacao.Text,
-                    DtCadastro = dtp_cadastro.Value,
-                    DtSaida = dtp_saida.Value,
-                    Total = decimal.Parse(txt_total.Text),
-                    TotalPecas = decimal.Parse(txt_total_pecas.Text),
-                    TotalServicos = decimal.Parse(txt_total_servico.Text),
-                    Pecas = new List<(string, string, string)>(),
-                    Servicos = new List<(string, string, string)>()
-                };
+                var doc = CriarDocumento();
 
                 foreach (ListViewItem item in lst_pecas.Items)
                 {
@@ -762,10 +877,8 @@ namespace PrototipoSistema
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read())
-                { }
-                else
-                { delete = 1; }
+                if (!reader.Read()) delete = 1; 
+
                 conexao.Close();
 
                 if (delete == 1)

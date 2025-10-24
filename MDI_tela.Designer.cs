@@ -155,7 +155,6 @@
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
             this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.printPreviewToolStripMenuItem.Text = "&Vizualizar impressão";
-            this.printPreviewToolStripMenuItem.Click += new System.EventHandler(this.printPreviewToolStripMenuItem_Click);
             // 
             // printSetupToolStripMenuItem
             // 
@@ -200,7 +199,6 @@
             this.windowsMenu.Name = "windowsMenu";
             this.windowsMenu.Size = new System.Drawing.Size(56, 22);
             this.windowsMenu.Text = "&Janelas";
-            this.windowsMenu.Click += new System.EventHandler(this.windowsMenu_Click);
             // 
             // newWindowToolStripMenuItem
             // 

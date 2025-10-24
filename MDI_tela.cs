@@ -96,15 +96,15 @@ namespace PrototipoSistema
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            while (reader.Read())
-            { 
+            while (reader.Read()) 
+            {
                 try
                 {
                     DateTime aniversario = DateTime.Parse(reader.GetString("dt_nascimento").Substring(0, 5));
                     TimeSpan dif = aniversario - DateTime.Now;
 
                     if (dif.TotalDays < 15 && dif.TotalDays > 0) lista_aniversarios_futuros = lista_aniversarios_futuros + "- " + reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")" + "\r\n";
-                    
+
                     if (dif.TotalDays > -1 && dif.TotalDays < 0.1) lista_aniversarios = lista_aniversarios + "- " + reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")" + "\r\n";
                 }
                 catch { }
@@ -201,11 +201,6 @@ namespace PrototipoSistema
             calendar.Show();
         }
 
-        private void windowsMenu_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void trocaDeOleoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             trocas trocas = new trocas();
@@ -226,10 +221,6 @@ namespace PrototipoSistema
             consulta_or consulta_or = new consulta_or();
             consulta_or.MdiParent = this;
             consulta_or.Show();
-        }
-
-        private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
-        {
         }
 
         private void cToolStripMenuItem_Click(object sender, EventArgs e)

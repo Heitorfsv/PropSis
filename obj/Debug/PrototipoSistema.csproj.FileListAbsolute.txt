@@ -118,3 +118,6 @@ C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\Debug\runtimes\win-x86\na
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\Debug\runtimes\win-x86\native\qpdf.dll
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\Debug\runtimes\win-x86\native\QuestPdfSkia.dll
 C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\bin\Debug\QuestPDF.dll
+C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.add.resources
+C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.add_troca.resources
+C:\Users\jpmot\OneDrive\Documents\PrototipoSistema\obj\Debug\PrototipoSistema.cadastro_pagamento.resources

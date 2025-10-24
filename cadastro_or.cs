@@ -212,7 +212,7 @@ namespace PrototipoSistema
                     orcamento.index++;
                 }
                 else
-                { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                { MessageBox.Show("Preencha os dados da moto", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
                 conexao.Close();
             }
             else if (this.Text == "Edição orçamento")
@@ -232,14 +232,14 @@ namespace PrototipoSistema
 
                 }
                 else
-                { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                { MessageBox.Show("Preencha os dados da moto", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
                 conexao.Close();
 
                 try
                 {
                     orcamento.alterar_or();
 
-                    MessageBox.Show("OS Alterada!", "JCMotorsport", MessageBoxButtons.OK);
+                    MessageBox.Show("OS Alterada!", "JC Motorsport", MessageBoxButtons.OK);
                 }
                 catch (Exception a) { MessageBox.Show(a.ToString()); }
             }

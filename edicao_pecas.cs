@@ -59,8 +59,7 @@ namespace PrototipoSistema
 
                     txt_total.Text = (valor_pago + imposto).ToString("N2");
                 }
-                else
-                { txt_total.Text = ""; }
+                else txt_total.Text = ""; 
             }
             else if (this.Text == "Cadastro peças")
             {
@@ -83,22 +82,18 @@ namespace PrototipoSistema
                     pecas.valor_pago = decimal.Parse(txt_valor.Text);
                     pecas.impostos = decimal.Parse(txt_impostos.Text);
                     pecas.valor_sugerido = decimal.Parse(txt_preco.Text);
+                    pecas.estoque = decimal.TryParse(txt_estoque.Text.Trim(), out _)? txt_estoque.Text.Trim() : "";
                 }
-                catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
 
                 pecas.fornecedor = txt_fornecedor.Text;
                 pecas.contato = txt_contato.Text;
-                pecas.estoque = txt_estoque.Text.Trim();
-
                 pecas.local = txt_local.Text;
 
-                if (txt_nome.Text == string.Empty && txt_nome.Text == " ")
-                {
-                    MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                if (txt_nome.Text == string.Empty && txt_nome.Text == " ") MessageBox.Show("Preencha o campo Nome", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 else
                 {
-                    MessageBox.Show("Peça Alterada!", "JCMotorsport", MessageBoxButtons.OK);
+                    MessageBox.Show("Peça Alterada!", "JC Motorsport", MessageBoxButtons.OK);
                     pecas.alterar_pecas();
                 }
             }
@@ -112,10 +107,7 @@ namespace PrototipoSistema
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read())
-                {
-                    MessageBox.Show("Peça já cadastrada", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                if (reader.Read()) MessageBox.Show("Peça já cadastrada", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 else
                 {
                     pecas.ultimo_index();
@@ -131,7 +123,7 @@ namespace PrototipoSistema
                         pecas.impostos = decimal.Parse(txt_impostos.Text);
                         pecas.valor_sugerido = decimal.Parse(txt_preco.Text);
                     }
-                    catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                    catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
 
                     pecas.fornecedor = txt_fornecedor.Text;
                     pecas.contato = txt_contato.Text;
@@ -139,14 +131,8 @@ namespace PrototipoSistema
 
                     pecas.local = txt_local.Text;
 
-                    if (txt_nome.Text == string.Empty)
-                    {
-                        MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        pecas.cadastrar_pecas();
-                    }
+                    if (txt_nome.Text == string.Empty) MessageBox.Show("Preencha o campo Nome", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    else pecas.cadastrar_pecas();
                 }
                 conexao.Close();
             }
@@ -163,10 +149,9 @@ namespace PrototipoSistema
 
                     txt_total.Text = (valor_pago + imposto).ToString("N2");
                 }
-                catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
             }
-            else
-            { txt_total.Text = ""; }
+            else txt_total.Text = ""; 
         }
 
         private void txt_valor_TextChanged(object sender, EventArgs e)
@@ -180,10 +165,9 @@ namespace PrototipoSistema
 
                     txt_total.Text = (valor_pago + imposto).ToString("N2");
                 }
-                catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                catch (Exception) { MessageBox.Show("Preencha os campos Valor e Impostos com caracteres numéricos", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
             }
-            else
-            { txt_total.Text = ""; }    
+            else txt_total.Text = ""; 
         }
 
         private void bnt_deletar_Click(object sender, EventArgs e)
