@@ -88,18 +88,18 @@ namespace PrototipoSistema
                     try
                     {
                         servicos.valor = decimal.Parse(txt_valor.Text);
+
+                        if (txt_nome.Text == string.Empty)
+                        {
+                            MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            servicos.cadastrar_servicos();
+                            MessageBox.Show("Serviço cadastrado!", "JCMotorsport", MessageBoxButtons.OK);
+                        }
                     }
                     catch (Exception) { MessageBox.Show("Preencha o campo Valor com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-
-                    if (txt_nome.Text == string.Empty)
-                    {
-                        MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        servicos.cadastrar_servicos();
-                        MessageBox.Show("Serviço cadastrado!", "JCMotorsport", MessageBoxButtons.OK);
-                    }
                 }
                 conexao.Close();
             }

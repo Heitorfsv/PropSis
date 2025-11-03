@@ -56,7 +56,7 @@ namespace PrototipoSistema.classes
             cmd.Parameters.AddWithValue("@dt_registro", dt_registro);
             cmd.Parameters.AddWithValue("@doc_dono", doc_dono);
             cmd.Parameters.AddWithValue("@observacao", observacao);
-
+                        
             conexao.Open();
             cmd.ExecuteReader();
             conexao.Close();

@@ -136,7 +136,7 @@ namespace PrototipoSistema
         private void cadastrarServiçoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             edicao_servicos cadastro_servico = new edicao_servicos();
-            cadastro_servico.Text = "Cadastro Serviço";
+            cadastro_servico.Text = "Cadastro serviços";
             cadastro_servico.MdiParent = this;
             cadastro_servico.Show();
         }

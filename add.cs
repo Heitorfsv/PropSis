@@ -169,7 +169,8 @@ namespace PrototipoSistema
 
                     var item = new ListViewItem(nome.ToString());
                     item.SubItems.Add(qtd.ToString());
-                    item.SubItems.Add(decimal.Parse(valor).ToString("N2"));
+                    try { item.SubItems.Add(decimal.Parse(valor).ToString("N2")); }
+                    catch { item.SubItems.Add(valor); }
                     item.SubItems.Add(desc);
                     item.SubItems.Add(total);
                     listView1.Items.Add(item);

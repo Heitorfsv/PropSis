@@ -23,7 +23,6 @@ namespace PrototipoSistema
     {
         orcamento orcamento = new orcamento();
         string doc_cliente;
-        OS os = new OS();
 
         //Variaveis para o PDF
         string rua = "";
@@ -40,14 +39,14 @@ namespace PrototipoSistema
         private void cadastro_or_Load(object sender, EventArgs e)
         {
             lst_servicos.View = View.Details;
-            lst_servicos.Columns.Add("Nome", 150);
+            lst_servicos.Columns.Add("Nome", 230);
             lst_servicos.Columns.Add("Qtd", 50);
             lst_servicos.Columns.Add("Valor", 50);
             lst_servicos.Columns.Add("Desc.", 50);
             lst_servicos.Columns.Add("Total", 80);
 
             lst_pecas.View = View.Details;
-            lst_pecas.Columns.Add("Nome", 150);
+            lst_pecas.Columns.Add("Nome", 230);
             lst_pecas.Columns.Add("Qtd", 50);
             lst_pecas.Columns.Add("Valor", 50);
             lst_pecas.Columns.Add("Desc.", 50);
@@ -55,7 +54,7 @@ namespace PrototipoSistema
 
             if (this.Text == "Cadastro orçamento")
             {
-                bnt_cadastro.Text = "Cadastrar";
+                bnt_editar.Text = "Cadastrar";
                 bnt_deletar.Visible = false;
                 dtp_cadastro.Value = DateTime.Now;
 
@@ -65,7 +64,7 @@ namespace PrototipoSistema
             }
             else if (this.Text == "Edição orçamento")
             {
-                bnt_cadastro.Text = "Editar";
+                bnt_editar.Text = "Editar";
                 bnt_deletar.Visible = true;
 
                 var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
@@ -82,6 +81,7 @@ namespace PrototipoSistema
                     cmb_placa.Text = reader.GetString("placa");
                     dtp_cadastro.Value = DateTime.Parse(reader.GetString("dt_cadastro"));
                     txt_doc.Text = reader.GetString("doc");
+                    txt_km.Text = reader.GetInt32("km").ToString();
                     try { txt_observacao.Text = reader.GetString("observacao"); } catch { }
                 }
                 conexao.Close();
@@ -97,6 +97,7 @@ namespace PrototipoSistema
                     txt_modelo.Text = reader.GetString("modelo");
                     txt_ano.Text = reader.GetString("ano");
                     doc_cliente = reader.GetString("doc_dono");
+                    txt_chassi.Text = reader.GetString("chassi");
                     cor = reader.GetString("cor");
                 }
                 conexao.Close();
@@ -108,7 +109,7 @@ namespace PrototipoSistema
 
                 while (reader.Read())
                 {
-                    cmb_cliente.Text = reader.GetString("nome");
+                    txt_cliente.Text = reader.GetString("nome");
                     txt_telefone.Text = reader.GetString("telefone");
                     rua = reader.GetString("rua");
                     bairro = reader.GetString("bairro");
@@ -130,7 +131,8 @@ namespace PrototipoSistema
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
                     string desco = reader.GetString("desco");
-                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
+                    //try catch para aceitar letras no campo valor ( try -> numero | catch -> letras )
+                    try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
@@ -142,7 +144,8 @@ namespace PrototipoSistema
                     string qtd_formatado = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
-                    total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd));
+                    //try catch para ignorar valores com letras na soma do total
+                    try { total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
                 }
                 txt_total_servico.Text = total_servico.ToString("N2");
                 conexao.Close();
@@ -159,7 +162,8 @@ namespace PrototipoSistema
                     string qtd = reader.GetString("qtd").Replace(".", ",");
                     string valor = reader.GetString("valor");
                     string desco = reader.GetString("desco");
-                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
+                    //try catch para aceitar letras no campo valor ( try -> numero | catch -> letras )
+                    try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
 
                     var item = new ListViewItem(nome);
                     item.SubItems.Add(qtd);
@@ -171,21 +175,114 @@ namespace PrototipoSistema
                     string qtd_formatado = reader.GetString("qtd");
                     qtd = qtd.Replace(".", ",");
 
-                    try
-                    { total_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
-                    catch { }
+                    //try catch para ignorar valores com letras na soma do total 
+                    try { total_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
                 }
                 txt_total_pecas.Text = total_peca.ToString("N2");
                 conexao.Close();
 
                 txt_total.Text = (total_peca + total_servico).ToString("N2");
+
             }
         }
 
-        private void bnt_cadastro_Click(object sender, EventArgs e)
+        public void verificar_itens()
         {
-            orcamento.cliente = cmb_cliente.Text;
+            string table = "pecas_os";
+            var lista = lst_pecas;
+            pecas_os pecas_os = new pecas_os();
+            servicos_os servicos_os = new servicos_os();
+
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            for (int i = 0; i <= 1; i++)
+            {
+                foreach (ListViewItem item in lista.Items)
+                {
+                    var cmd = new MySqlCommand($"SELECT * FROM {table} WHERE nome = '{item.Text}' AND orca = {static_class.controle}", conexao);
+                    conexao.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read()) { }
+                    else
+                    {
+                        if (table == "pecas_os")
+                        {
+                            pecas_os.ultimo_index();
+                            pecas_os.index++;
+                            pecas_os.modo = "orca";
+
+                            //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
+                            pecas_os.os_or = static_class.controle;
+
+                            pecas_os.nome = item.Text;
+                            pecas_os.qtd = decimal.Parse(item.SubItems[1].Text);
+                            pecas_os.valor = item.SubItems[2].Text;
+                            pecas_os.desc = item.SubItems[3].Text;
+                            pecas_os.pos = lista.Items.IndexOf(item) - 1;
+
+                            pecas_os.cadastrar_peca_os();
+                        }
+                        else if (table == "servicos_os")
+                        {
+                            servicos_os.ultimo_index();
+                            servicos_os.index++;
+                            servicos_os.modo = "orca";
+
+                            //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
+                            servicos_os.os_or = static_class.controle;
+
+                            servicos_os.nome = item.Text;
+                            servicos_os.qtd = decimal.Parse(item.SubItems[1].Text);
+                            servicos_os.valor = item.SubItems[2].Text;
+                            servicos_os.desc = item.SubItems[3].Text;
+                            servicos_os.pos = lista.Items.IndexOf(item) - 1;
+
+                            servicos_os.cadastrar_servico_os();
+                        }
+                    }
+                    conexao.Close();
+                }
+                table = "servicos_os";
+                lista = lst_servicos;
+            }
+        }
+
+        public void atualizar_posicoes()
+        {
+            try
+            {
+                using (var conexao = new MySqlConnection("server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport"))
+                {
+                    for (int i = 0; i < lst_pecas.Items.Count; i++)
+                    {
+                        var cmd = new MySqlCommand(
+                            $"UPDATE pecas_os SET pos = '{i}' WHERE orca = {static_class.controle} AND nome = '{lst_pecas.Items[i].Text}'",
+                            conexao);
+                        conexao.Open();
+                        cmd.ExecuteNonQuery();
+                        conexao.Close();
+                    }
+                    for (int i = 0; i < lst_servicos.Items.Count; i++)
+                    {
+                        var cmd = new MySqlCommand(
+                            $"UPDATE servicos_os SET pos = '{i}' WHERE orca = {static_class.controle} AND nome = '{lst_servicos.Items[i].Text}'",
+                            conexao);
+                        conexao.Open();
+                        cmd.ExecuteNonQuery();
+                        conexao.Close();
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void bnt_editar_Click(object sender, EventArgs e)
+        {
+            orcamento.cliente = txt_cliente.Text;
             orcamento.doc = txt_doc.Text;
+            orcamento.km = int.Parse(txt_km.Text);
             orcamento.placa = cmb_placa.Text;
             orcamento.total = txt_total.Text;
             orcamento.dt_cadastro = dtp_cadastro.Value.ToString("dd/MM/yyyy");
@@ -229,40 +326,85 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-
+                    orcamento.total = txt_total.Text;
                 }
                 else
-                { MessageBox.Show("Preencha os dados da moto", "JC Motorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
                 conexao.Close();
 
                 try
                 {
                     orcamento.alterar_or();
+                    verificar_itens();
 
-                    MessageBox.Show("OS Alterada!", "JC Motorsport", MessageBoxButtons.OK);
+                    cliente.doc = txt_doc.Text;
+                    cliente.quitado();
+
+                    MessageBox.Show("OS Alterada!", "JCMotorsport", MessageBoxButtons.OK);
                 }
                 catch (Exception a) { MessageBox.Show(a.ToString()); }
+
+                //  conexao_calendario();
             }
+            atualizar_posicoes();
         }
 
         private void bnt_editar_servico_Click(object sender, EventArgs e)
         {
+            add add_servicos = new add();
+
+            foreach (ListViewItem item in lst_servicos.Items)
+            {
+                // Clona o item antes de adicionar (evita referência duplicada)
+                add_servicos.itens_servicos.Add((ListViewItem)item.Clone());
+            }
             lst_servicos.Items.Clear();
 
-            add add_servicos = new add();
             add_servicos.table = "servicos";
             add_servicos.modo = "orca";
-            add_servicos.Show();
+            add_servicos.ShowDialog();
+
+            decimal total = 0;
+            foreach (ListViewItem item in add_servicos.itens_servicos)
+            {
+                item.BackColor = lst_servicos.BackColor;
+                // Clona o item antes de adicionar (evita referência duplicada)
+                lst_servicos.Items.Add((ListViewItem)item.Clone());
+
+                try { total += decimal.Parse(item.SubItems[4].Text); }
+                catch { var a = item.SubItems[4]; MessageBox.Show(a.ToString()); }
+            }
+            txt_total_servico.Text = total.ToString("N2");
+            txt_total.Text = (decimal.Parse(txt_total_pecas.Text) + decimal.Parse(txt_total_servico.Text)).ToString("N2");
         }
 
         private void bnt_editar_peca_Click(object sender, EventArgs e)
         {
+            add add_pecas = new add();
+
+            foreach (ListViewItem item in lst_pecas.Items)
+            {
+                // Clona o item antes de adicionar (evita referência duplicada)
+                add_pecas.itens_pecas.Add((ListViewItem)item.Clone());
+            }
             lst_pecas.Items.Clear();
 
-            add add_pecas = new add();
             add_pecas.table = "pecas";
             add_pecas.modo = "orca";
-            add_pecas.Show();
+            add_pecas.ShowDialog();
+
+            decimal total = 0;
+            foreach (ListViewItem item in add_pecas.itens_pecas)
+            {
+                item.BackColor = lst_pecas.BackColor;
+                // Clona o item antes de adicionar (evita referência duplicada)
+                lst_pecas.Items.Add((ListViewItem)item.Clone());
+
+                try { total += decimal.Parse(item.SubItems[4].Text); }
+                catch { var a = item.SubItems[4]; MessageBox.Show(a.ToString()); }
+            }
+            txt_total_pecas.Text = total.ToString("N2");
+            txt_total.Text = (decimal.Parse(txt_total_pecas.Text) + decimal.Parse(txt_total_servico.Text)).ToString("N2");
         }
 
         private void cadastro_or_FormClosing(object sender, FormClosingEventArgs e)
@@ -276,12 +418,10 @@ namespace PrototipoSistema
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            if (reader.Read())
-            { }
-            else
-            { delete = 1; }
+            if (!reader.Read()) delete = 1;
+
             conexao.Close();
-            
+
             if (delete == 1)
             {
                 cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE orca = '{orcamento.index}'", conexao);
@@ -298,136 +438,115 @@ namespace PrototipoSistema
 
         private void cmb_cliente_TextChanged(object sender, EventArgs e)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            //var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            //var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"SELECT * FROM clientes WHERE nome LIKE '%{cmb_cliente.Text}%'", conexao);
+            //var cmd = new MySqlCommand($"SELECT * FROM clientes WHERE nome LIKE '%{cmb_cliente.Text}%'", conexao);
 
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
+            //conexao.Open();
+            //MySqlDataReader reader = cmd.ExecuteReader();
 
-            while (reader.Read())
-            {
-                cmb_cliente.Items.Add(reader.GetString("nome"));
-                txt_doc.Text = reader.GetString("doc");
-            }
-            conexao.Close();
+            //while (reader.Read())
+            //{
+            //    txt_cliente.Items.Add(reader.GetString("nome"));
+            //    txt_doc.Text = reader.GetString("doc");
+            //}
+            //conexao.Close();
 
-            cmb_placa.Items.Clear();
+            //cmb_placa.Items.Clear();
 
-            cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{txt_doc.Text}'", conexao);
+            //cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{txt_doc.Text}'", conexao);
 
-            conexao.Open();
-            reader = cmd.ExecuteReader();
+            //conexao.Open();
+            //reader = cmd.ExecuteReader();
 
-            while (reader.Read())
-            {
-                cmb_placa.Items.Add(reader.GetString("placa"));
-            }
+            //while (reader.Read())
+            //{
+            //    cmb_placa.Items.Add(reader.GetString("placa"));
+            //}
 
-            conexao.Close();
+            //conexao.Close();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (static_class.close == 1)
-            {
-                lst_servicos.Items.Clear();
-                lst_pecas.Items.Clear();
+            //if (static_class.close == 1)
+            //{
+            //    lst_servicos.Items.Clear();
+            //    lst_pecas.Items.Clear();
 
-                decimal servico_total = 0;
-                decimal peca_total = 0;
-                string total = "";
+            //    decimal servico_total = 0;
+            //    decimal peca_total = 0;
+            //    string total = "";
 
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
+            //    var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            //    var conexao = new MySqlConnection(strConexao);
 
-                var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
+            //    var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
+            //    conexao.Open();
+            //    MySqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    string nome = reader.GetString("nome");
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    string valor = reader.GetString("valor");
-                    string desco = reader.GetString("desco");
-                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
+            //    while (reader.Read())
+            //    {
+            //        string nome = reader.GetString("nome");
+            //        string qtd = reader.GetString("qtd").Replace(".", ",");
+            //        string valor = reader.GetString("valor");
+            //        string desco = reader.GetString("desco");
+            //        total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
-                    var item = new ListViewItem(nome);
-                    item.SubItems.Add(qtd);
-                    item.SubItems.Add(valor);
-                    item.SubItems.Add(desco);
-                    item.SubItems.Add(total);
-                    lst_servicos.Items.Add(item);
+            //        var item = new ListViewItem(nome);
+            //        item.SubItems.Add(qtd);
+            //        item.SubItems.Add(valor);
+            //        item.SubItems.Add(desco);
+            //        item.SubItems.Add(total);
+            //        lst_servicos.Items.Add(item);
 
-                    string qtd_formatado = reader.GetString("qtd");
-                    qtd = qtd.Replace(".", ",");
+            //        string qtd_formatado = reader.GetString("qtd");
+            //        qtd = qtd.Replace(".", ",");
 
-                    try
-                    { servico_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
-                    catch { }
-                }
-                conexao.Close();
+            //        try
+            //        { servico_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
+            //        catch { }
+            //    }
+            //    conexao.Close();
 
-                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
+            //    cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
 
-                conexao.Open();
-                reader = cmd.ExecuteReader();
+            //    conexao.Open();
+            //    reader = cmd.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    string nome = reader.GetString("nome");
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    string valor = reader.GetString("valor");
-                    string desco = reader.GetString("desco");
-                    total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
+            //    while (reader.Read())
+            //    {
+            //        string nome = reader.GetString("nome");
+            //        string qtd = reader.GetString("qtd").Replace(".", ",");
+            //        string valor = reader.GetString("valor");
+            //        string desco = reader.GetString("desco");
+            //        total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
 
-                    var item = new ListViewItem(nome);
-                    item.SubItems.Add(qtd);
-                    item.SubItems.Add(valor);
-                    item.SubItems.Add(desco);
-                    item.SubItems.Add(total);
-                    lst_pecas.Items.Add(item);
+            //        var item = new ListViewItem(nome);
+            //        item.SubItems.Add(qtd);
+            //        item.SubItems.Add(valor);
+            //        item.SubItems.Add(desco);
+            //        item.SubItems.Add(total);
+            //        lst_pecas.Items.Add(item);
 
-                    string qtd_formatado = reader.GetString("qtd");
-                    qtd = qtd.Replace(".", ",");
+            //        string qtd_formatado = reader.GetString("qtd");
+            //        qtd = qtd.Replace(".", ",");
 
-                    try
-                    { peca_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
-                    catch { }
-                }
-                conexao.Close();
+            //        try
+            //        { peca_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
+            //        catch { }
+            //    }
+            //    conexao.Close();
 
-                txt_total_servico.Text = servico_total.ToString("N2");
-                txt_total_pecas.Text = peca_total.ToString("N2");
-                txt_total.Text = (peca_total + servico_total).ToString("N2");
+            //    txt_total_servico.Text = servico_total.ToString("N2");
+            //    txt_total_pecas.Text = peca_total.ToString("N2");
+            //    txt_total.Text = (peca_total + servico_total).ToString("N2");
 
-                static_class.close = 0;
-            }
+            //    static_class.close = 0;
+            //}
         }
-
-        private void cmb_placa_TextChanged(object sender, EventArgs e)
-        {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                txt_marca.Text = reader.GetString("marca");
-                txt_modelo.Text = reader.GetString("modelo");
-                txt_ano.Text = reader.GetString("ano");
-                txt_chassi.Text = reader.GetString("chassi");
-            }
-            conexao.Close();
-        }
-
         private void bnt_deletar_Click(object sender, EventArgs e)
         {
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
@@ -449,7 +568,7 @@ namespace PrototipoSistema
                 var doc = new osPdf
                 {
                     tipo = "O.R: ",
-                    Cliente = cmb_cliente.Text,
+                    Cliente = txt_cliente.Text,
                     Documento = doc_cliente,
                     Telefone = txt_telefone.Text,
                     Placa = cmb_placa.Text,
@@ -514,7 +633,7 @@ namespace PrototipoSistema
                 var doc = new osPdf
                 {
                     tipo = "O.R: ",
-                    Cliente = cmb_cliente.Text,
+                    Cliente = txt_cliente.Text,
                     Documento = doc_cliente,
                     Telefone = txt_telefone.Text,
                     Placa = cmb_placa.Text,
@@ -573,6 +692,50 @@ namespace PrototipoSistema
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmb_placa_TextChanged(object sender, EventArgs e)
+        {
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa LIKE '%{cmb_placa.Text}%'", conexao);
+
+            conexao.Open();
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                cmb_placa.Items.Add(reader.GetString("placa"));
+                txt_marca.Text = reader.GetString("marca");
+                txt_modelo.Text = reader.GetString("modelo");
+                txt_ano.Text = reader.GetString("ano");
+                doc_cliente = reader.GetString("doc_dono");
+            }
+            conexao.Close();
+
+            cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc LIKE '%{doc_cliente}%'", conexao);
+
+            conexao.Open();
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                txt_cliente.Text = reader.GetString("nome");
+                txt_telefone.Text = reader.GetString("telefone");
+            }
+            conexao.Close();
+
+            if (cmb_placa.Text == "" || cmb_placa.Text == " ")
+            {
+                txt_marca.Text = "";
+                txt_modelo.Text = "";
+                txt_ano.Text = "";
+                doc_cliente = "";
+                txt_doc.Text = "";
+                txt_cliente.Text = "";
+                txt_telefone.Text = "";
             }
         }
     }

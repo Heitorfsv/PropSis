@@ -266,7 +266,7 @@ namespace PrototipoSistema
             var conexao = new MySqlConnection(strConexao);
 
             var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa LIKE '%{cmb_placa.Text}%'", conexao);
-
+            
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -366,10 +366,8 @@ namespace PrototipoSistema
 
                 if (reader.Read())
                 {
-                    if (txt_total.Text != "")
-                    { os.total = txt_total.Text; }
-                    else
-                    { os.total = "0,00"; }
+                    if (txt_total.Text != "") os.total = txt_total.Text; 
+                    else os.total = "0,00"; 
 
                     os.dt_cadastro = dtp_cadastro.Value.ToString();
 
@@ -402,7 +400,6 @@ namespace PrototipoSistema
                 else
                 { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
                 conexao.Close();
-                 
                 try
                 {
                     os.alterar_os();
@@ -705,12 +702,12 @@ namespace PrototipoSistema
                         DateTime = prox_oleo,
                         TimeZone = "America/Sao_Paulo",
                     },
-                    //Attendees = new EventAttendee[] { new EventAttendee() { Email = "jcmotors2020@gmail.com" } },
+                    // Attendees = new EventAttendee[] { new EventAttendee() { Email = "jcmotors2020@gmail.com" } },
                 };
 
-                //    // Insert the event into the user's calendar
+                // Insert the event into the user's calendar
                 EventsResource.InsertRequest request = service.Events.Insert(event_troca, "956ab706496289c001ca9563d240163c1f4c1f4383cd54fc48b28a0db742a186@group.calendar.google.com");
-            Event createdEvent = request.Execute();
+                Event createdEvent = request.Execute();
         }
 
             if (revisao == 1)
