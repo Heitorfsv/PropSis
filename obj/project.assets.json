@@ -6737,17 +6737,17 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jpmot\\.nuget\\packages\\": {},
+    "C:\\Users\\jp.motorsport\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jpmot\\OneDrive\\Documents\\PrototipoSistema\\PrototipoSistema.csproj",
+      "projectUniqueName": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\PrototipoSistema.csproj",
       "projectName": "$safeprojectname$",
-      "projectPath": "C:\\Users\\jpmot\\OneDrive\\Documents\\PrototipoSistema\\PrototipoSistema.csproj",
-      "packagesPath": "C:\\Users\\jpmot\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jpmot\\OneDrive\\Documents\\PrototipoSistema\\obj\\",
+      "projectPath": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\PrototipoSistema.csproj",
+      "packagesPath": "C:\\Users\\jp.motorsport\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "UsingMicrosoftNETSdk": false,
@@ -6755,7 +6755,7 @@
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\jpmot\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jp.motorsport\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

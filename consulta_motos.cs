@@ -1,6 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
+using System.Runtime.ConstrainedExecution;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace PrototipoSistema
@@ -35,7 +38,7 @@ namespace PrototipoSistema
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            List<(string placa, string marca, string modelo, string cor, string ano, string doc_dono)> motos = new();
+            List<(string placa, string marca, string modelo, string cor, string ano, string doc_dono)> motos = new List <(string placa, string marca, string modelo, string cor, string ano, string doc_dono)>();
 
             while (reader.Read())
             {
@@ -86,7 +89,7 @@ namespace PrototipoSistema
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            List<(string placa, string marca, string modelo, string cor, string ano, string doc_dono)> motos = new();
+            List<(string placa, string marca, string modelo, string cor, string ano, string doc_dono)> motos = new List<(string placa, string marca, string modelo, string cor, string ano, string doc_dono)> ();
 
             while (reader.Read())
             {
@@ -148,7 +151,7 @@ namespace PrototipoSistema
                 conexao.Open();
                 reader = cmd.ExecuteReader();
 
-                List<(string placa, string marca, string modelo, string cor, string ano)> motos = new();
+                List <(string placa, string marca, string modelo, string cor, string ano)> motos = new List <(string placa, string marca, string modelo, string cor, string ano)> ();
 
                 while (reader.Read())
                 {

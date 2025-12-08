@@ -7,14 +7,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="$safeprojectname$.exe.manifest" size="27097">
+    <dependentAssembly dependencyType="install" codebase="$safeprojectname$.exe.manifest" size="39972">
       <assemblyIdentity name="$safeprojectname$.exe" version="1.0.0.19" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>RcLH1JgrTU+t0mnW9i2IHLBKLFiA8oyZf8g5TF2h2fY=</dsig:DigestValue>
+        <dsig:DigestValue>AT6/Nvcg8knRjLnohbvb865nNJXgKAxxWkwF1f9uXhU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
