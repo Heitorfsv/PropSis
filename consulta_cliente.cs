@@ -48,7 +48,7 @@ namespace PrototipoSistema
                 string nascimento = reader.IsDBNull(reader.GetOrdinal("dt_nascimento")) ? "" : reader.GetString("dt_nascimento");
 
                 bool sujo = reader.GetInt32("sujo") == 1;
-                3
+                
 
                 var item = new ListViewItem(cadastro);
                 item.SubItems.Add(nome);
@@ -69,9 +69,11 @@ namespace PrototipoSistema
             listView1.Items.Clear();
 
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            var conexao = new MySqlConnection(strConexao); 
 
-            var cmd = new MySqlCommand($"SELECT * FROM clientes WHERE {cmb_consulta.Text} LIKE '%{txt_pesquisa.Text}%'", conexao);
+            string pesquisa = txt_pesquisa.Text.Replace(" ", "%");
+            
+            var cmd = new MySqlCommand($"SELECT * FROM clientes WHERE {cmb_consulta.Text} LIKE '%{pesquisa}%'", conexao);
             conexao.Open();
             var reader = cmd.ExecuteReader();
 
@@ -82,7 +84,7 @@ namespace PrototipoSistema
                 string doc = reader.GetString("doc");
                 string tel = reader.GetString("telefone");
                 string endereco = $"{reader.GetString("rua")}, {reader.GetString("bairro")}, {reader.GetString("cidade")}";
-                string nascimento = reader.IsDBNull(reader.GetOrdinal("dt_nascimento")) ? "" : reader.GetString("dt_nascimento");
+                string nascimento = reader.IsDBNull(reader.GetOrdinal("dt_nascimento"))  ? "" : reader.GetString("dt_nascimento");
 
                 bool sujo = reader.GetInt32("sujo") == 1;
 
@@ -97,7 +99,7 @@ namespace PrototipoSistema
 
                 listView1.Items.Add(item);
             }
-            conexao.Close();
+            conexao.Close();                                                                            
         }
 
         private void bnt_atualizar_Click(object sender, EventArgs e)

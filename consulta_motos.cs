@@ -147,7 +147,7 @@ namespace PrototipoSistema
 
             foreach (var doc in doc_list)
             {
-                cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono LIKE '%{doc}%'", conexao);
+                cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono LIKE '%{doc}%' AND {cmb_consulta.Text} LIKE '%{txt_pesquisa.Text}%'", conexao);
                 conexao.Open();
                 reader = cmd.ExecuteReader();
 
@@ -199,7 +199,7 @@ namespace PrototipoSistema
                 static_class.doc_consultar = item.Text; // placa
                 static_class.doc_dono = item.Tag.ToString(); // doc_dono
                 edicao.Show();
-            }
+            }   
         }
 
         private void bnt_add_Click(object sender, EventArgs e)

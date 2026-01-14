@@ -134,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 1036);
+            this.ClientSize = new System.Drawing.Size(1924, 935);
             this.Controls.Add(this.lst_filtro_atrasado);
             this.Controls.Add(this.lst_filtro);
             this.Controls.Add(this.lst_oleo_atrasado);

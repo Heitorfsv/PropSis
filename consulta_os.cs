@@ -45,6 +45,9 @@ namespace PrototipoSistema
 
         private void consulta_os_Load(object sender, EventArgs e)
         {
+            panel1.Left = (this.ClientSize.Width - panel1.Width) / 2;
+            panel1.Top = (this.ClientSize.Height - panel1.Height) / 2;
+
             cmb_consulta.SelectedIndex = 0;
             cmb_ps.SelectedIndex = 0;
 
@@ -165,24 +168,6 @@ namespace PrototipoSistema
             listView1.Items.Clear();
         }
 
-        private void listView1_DoubleClick(object sender, EventArgs e)
-        {
-            if (listView1.SelectedIndices.Count == 0)
-                return;
-
-            int index = listView1.SelectedIndices[0];
-
-            try
-            {
-                edicao_os os = new edicao_os();
-                os.Text = "Edição OS";
-                
-                static_class.controle = lista_os[index];
-
-                os.Show();
-            }
-            catch { }
-        }
 
         private void bnt_atualizar_Click(object sender, EventArgs e)
         {
@@ -195,6 +180,170 @@ namespace PrototipoSistema
             order = (order == "DESC") ? "ASC" : "DESC";
             lbl_order.Text = (order == "DESC") ? "↑" : "↓";
             consulta_os_Load(sender, e);
+        }
+
+
+        private void bnt_add_Click(object sender, EventArgs e)
+        {
+            edicao_os os = new edicao_os();
+            os.Text = "Cadastro OS";
+            os.Show();
+        }
+
+        private void bnt_pag_Click(object sender, EventArgs e)
+        {
+            filtro = "pago";
+            consulta_os_Load(sender, e);
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count == 0)
+                return;
+
+            int index = listView1.SelectedIndices[0];
+
+            try
+            {
+                edicao_os os = new edicao_os();
+                os.Text = "Edição OS";
+
+                static_class.controle = lista_os[index];
+
+                os.Show();
+            }
+            catch { }
+        }
+
+        private void bnt_pesquisar_ps_Click(object sender, EventArgs e)
+        {
+            List<int> consulta_os = new List<int>();
+            List<string> doc_dono = new List<string>();
+
+            ClearListView();
+            consulta_os.Clear();
+            doc_dono.Clear();
+
+            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+            var conexao = new MySqlConnection(strConexao);
+
+            string tabela = "";
+            if (cmb_ps.Text == "Serviços")
+                tabela = "servicos_os";
+            else if (cmb_ps.Text == "Peças")
+                tabela = "pecas_os";
+
+            // Busca dentro da lista_os as OS que possuem o nome pesquisado na tabela selecionada
+            for (int i = 0; i < lista_os.Count; i++)
+            {
+                string pesquisa = txt_ps.Text.Replace(" ", "%");
+
+                var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE os = {lista_os[i]} AND nome LIKE '%{pesquisa}%'", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                    consulta_os.Add(reader.GetInt32("os"));
+
+                conexao.Close();
+            }
+
+            decimal total_servicos = 0;
+            decimal total_pecas = 0;
+            lista_os.Clear();
+
+            for (int i = 0; i < consulta_os.Count; i++)
+            {
+                var cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = {consulta_os[i]}", conexao);
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    lista_os.Add(reader.GetInt32("controle"));
+
+                    var item = new ListViewItem(reader.GetString("placa"));
+                    item.SubItems.Add(reader.GetString("cliente"));
+                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
+                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy"));
+                    item.SubItems.Add(""); // telefone
+                    item.SubItems.Add(""); // marca
+                    item.SubItems.Add(""); // modelo
+                    item.SubItems.Add(""); // preço peça
+                    item.SubItems.Add(""); // preço serviço
+                    item.SubItems.Add(reader.GetString("total").ToString());
+
+                    bool sujo = reader.GetInt32("pago") == 1;
+
+                    if (sujo == false) item.ForeColor = Color.Red;
+
+                    listView1.Items.Add(item);
+                    doc_dono.Add(reader.GetString("doc"));
+                }
+                conexao.Close();
+            }
+
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                string doc = doc_dono[i];
+                int os = lista_os[i];
+                string placa = listView1.Items[i].SubItems[0].Text;
+
+                var cmd = new MySqlCommand($"SELECT marca, modelo FROM motos WHERE doc_dono = '{doc}'", conexao);
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
+                    listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
+                }
+                conexao.Close();
+
+                try
+                {
+                    cmd = new MySqlCommand($"SELECT telefone FROM clientes WHERE doc = '{doc}'", conexao);
+                    conexao.Open();
+                    reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                        listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
+                    conexao.Close();
+                }
+                catch
+                {
+                    listView1.Items[i].SubItems[4].Text = " ";
+                }
+
+                cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM servicos_os WHERE os = '{os}'", conexao);
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+                decimal soma_servico = 0;
+                while (reader.Read())
+                {
+                    string qtd = reader.GetString("qtd").Replace(".", ",");
+                    soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
+                }
+                conexao.Close();
+                total_servicos += soma_servico;
+                listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
+
+                cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM pecas_os WHERE os = '{os}'", conexao);
+                conexao.Open();
+                reader = cmd.ExecuteReader();
+                decimal soma_peca = 0;
+                while (reader.Read())
+                {
+                    string qtd = reader.GetString("qtd").Replace(".", ",");
+                    soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
+                }
+                conexao.Close();
+                total_pecas += soma_peca;
+                listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
+            }
+
+            txt_total_pecas.Text = total_pecas.ToString("N2");
+            txt_total_servicos.Text = total_servicos.ToString("N2");
+            txt_total.Text = (total_pecas + total_servicos).ToString("N2");
         }
 
         private void bnt_pesquisar_Click(object sender, EventArgs e)
@@ -211,8 +360,10 @@ namespace PrototipoSistema
 
             if (cmb_consulta.Text == "dt_cadastro" || cmb_consulta.Text == "placa" || cmb_consulta.Text == "cliente")
             {
-                var cmd = new MySqlCommand($"SELECT * FROM os WHERE {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%'", conexao);
-                CarregarGrafico($" AND {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%'");
+                string pesquisa = txt_pesquisa.Text.Replace(" ", "%");
+
+                var cmd = new MySqlCommand($"SELECT * FROM os WHERE {cmb_consulta.Text} LIKE '%{pesquisa}%'", conexao);
+                CarregarGrafico($" AND {cmb_consulta.Text} LIKE '%{pesquisa}%'");
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -228,7 +379,8 @@ namespace PrototipoSistema
                     var item = new ListViewItem(placas.Last());
                     item.SubItems.Add(reader.GetString("cliente"));
                     item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
-                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy"));
+                    try { item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy")); }
+                    catch { item.SubItems.Add(""); }
                     item.SubItems.Add(""); // telefone
                     item.SubItems.Add(""); // marca
                     item.SubItems.Add(""); // modelo
@@ -315,7 +467,7 @@ namespace PrototipoSistema
             {
                 List<string> placas = new List<string>();
 
-                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%'", conexao);
+                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE {cmb_consulta.Text} LIKE '%{txt_pesquisa.Text}%'", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -342,7 +494,8 @@ namespace PrototipoSistema
                         var item = new ListViewItem(reader.GetString("placa"));
                         item.SubItems.Add(reader.GetString("cliente"));
                         item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
-                        item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy"));
+                        try { item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy")); }
+                        catch { item.SubItems.Add(""); }
                         item.SubItems.Add(""); // telefone
                         item.SubItems.Add(""); // marca
                         item.SubItems.Add(""); // modelo
@@ -428,148 +581,6 @@ namespace PrototipoSistema
                 txt_total_servicos.Text = total_servicos.ToString("N2");
                 txt_total.Text = (total_pecas + total_servicos).ToString("N2");
             }
-        }
-
-        private void bnt_pesquisar_ps_Click(object sender, EventArgs e)
-        {
-            List<int> consulta_os = new List<int>();
-            List<string> doc_dono = new List<string>();
-
-            ClearListView();
-            consulta_os.Clear();
-            doc_dono.Clear();
-
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            string tabela = "";
-            if (cmb_ps.Text == "Serviços")
-                tabela = "servicos_os";
-            else if (cmb_ps.Text == "Peças")
-                tabela = "pecas_os";
-
-            // Busca dentro da lista_os as OS que possuem o nome pesquisado na tabela selecionada
-            for (int i = 0; i < lista_os.Count; i++)
-            {
-                var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE os = {lista_os[i]} AND nome LIKE '%{txt_ps.Text}%'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                    consulta_os.Add(reader.GetInt32("os"));
-
-                conexao.Close();
-            }
-
-            decimal total_servicos = 0;
-            decimal total_pecas = 0;
-            lista_os.Clear();
-
-            for (int i = 0; i < consulta_os.Count; i++)
-            {
-                var cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = {consulta_os[i]}", conexao);
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    lista_os.Add(reader.GetInt32("controle"));
-
-                    var item = new ListViewItem(reader.GetString("placa"));
-                    item.SubItems.Add(reader.GetString("cliente"));
-                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
-                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy"));
-                    item.SubItems.Add(""); // telefone
-                    item.SubItems.Add(""); // marca
-                    item.SubItems.Add(""); // modelo
-                    item.SubItems.Add(""); // preço peça
-                    item.SubItems.Add(""); // preço serviço
-                    item.SubItems.Add(reader.GetString("total").ToString());
-
-                    bool sujo = reader.GetInt32("pago") == 1;
-
-                    if (sujo == false) item.ForeColor = Color.Red;              
-
-                    listView1.Items.Add(item);
-                    doc_dono.Add(reader.GetString("doc"));
-                }
-                conexao.Close();
-            }
-
-            for (int i = 0; i < listView1.Items.Count; i++)
-            {
-                string doc = doc_dono[i];
-                int os = lista_os[i];
-                string placa = listView1.Items[i].SubItems[0].Text;
-
-                var cmd = new MySqlCommand($"SELECT marca, modelo FROM motos WHERE doc_dono = '{doc}'", conexao);
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
-                    listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
-                }
-                conexao.Close();
-
-                try
-                {
-                    cmd = new MySqlCommand($"SELECT telefone FROM clientes WHERE doc = '{doc}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                        listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
-                    conexao.Close();
-                }
-                catch
-                {
-                    listView1.Items[i].SubItems[4].Text = " ";
-                }
-
-                cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM servicos_os WHERE os = '{os}'", conexao);
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                decimal soma_servico = 0;
-                while (reader.Read())
-                {
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                }
-                conexao.Close();
-                total_servicos += soma_servico;
-                listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
-
-                cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM pecas_os WHERE os = '{os}'", conexao);
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                decimal soma_peca = 0;
-                while (reader.Read())
-                {
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                }
-                conexao.Close();
-                total_pecas += soma_peca;
-                listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
-            }
-
-            txt_total_pecas.Text = total_pecas.ToString("N2");
-            txt_total_servicos.Text = total_servicos.ToString("N2");
-            txt_total.Text = (total_pecas + total_servicos).ToString("N2");
-        }
-
-        private void bnt_add_Click(object sender, EventArgs e)
-        {
-            edicao_os os = new edicao_os();
-            os.Text = "Cadastro OS";
-            os.Show();
-        }
-
-        private void bnt_pag_Click(object sender, EventArgs e)
-        {
-            filtro = "pago";
-            consulta_os_Load(sender, e);
         }
 
         public void CarregarGrafico(string parametro)

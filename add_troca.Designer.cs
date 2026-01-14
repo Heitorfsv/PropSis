@@ -40,48 +40,53 @@
             // gb_troca
             // 
             this.gb_troca.Controls.Add(this.dtp_troca_oleo);
+            this.gb_troca.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_troca.Location = new System.Drawing.Point(13, 12);
             this.gb_troca.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gb_troca.Name = "gb_troca";
             this.gb_troca.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gb_troca.Size = new System.Drawing.Size(150, 57);
+            this.gb_troca.Size = new System.Drawing.Size(169, 51);
             this.gb_troca.TabIndex = 71;
             this.gb_troca.TabStop = false;
             this.gb_troca.Text = "Proxima troca de oleo em:";
             // 
             // dtp_troca_oleo
             // 
+            this.dtp_troca_oleo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtp_troca_oleo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_troca_oleo.Location = new System.Drawing.Point(8, 19);
+            this.dtp_troca_oleo.Location = new System.Drawing.Point(8, 20);
             this.dtp_troca_oleo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dtp_troca_oleo.Name = "dtp_troca_oleo";
-            this.dtp_troca_oleo.Size = new System.Drawing.Size(116, 20);
+            this.dtp_troca_oleo.Size = new System.Drawing.Size(116, 22);
             this.dtp_troca_oleo.TabIndex = 60;
             // 
             // dtp_revisao
             // 
+            this.dtp_revisao.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtp_revisao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_revisao.Location = new System.Drawing.Point(8, 19);
+            this.dtp_revisao.Location = new System.Drawing.Point(8, 20);
             this.dtp_revisao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dtp_revisao.Name = "dtp_revisao";
-            this.dtp_revisao.Size = new System.Drawing.Size(116, 20);
+            this.dtp_revisao.Size = new System.Drawing.Size(116, 22);
             this.dtp_revisao.TabIndex = 60;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dtp_revisao);
-            this.groupBox1.Location = new System.Drawing.Point(182, 12);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(190, 12);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(150, 57);
+            this.groupBox1.Size = new System.Drawing.Size(150, 51);
             this.groupBox1.TabIndex = 72;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Proxima revisão em:";
             // 
             // bnt_salvar
             // 
-            this.bnt_salvar.Location = new System.Drawing.Point(257, 75);
+            this.bnt_salvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_salvar.Location = new System.Drawing.Point(265, 71);
             this.bnt_salvar.Name = "bnt_salvar";
             this.bnt_salvar.Size = new System.Drawing.Size(75, 23);
             this.bnt_salvar.TabIndex = 73;

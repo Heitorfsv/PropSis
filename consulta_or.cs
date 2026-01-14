@@ -195,7 +195,9 @@ namespace PrototipoSistema
 
             if (cmb_consulta.Text == "dt_cadastro" || cmb_consulta.Text == "placa" || cmb_consulta.Text == "cliente")
             {
-                var cmd = new MySqlCommand($"SELECT * FROM orcamentos WHERE {cmb_consulta.Text} LIKE '%{txt_pequisa.Text}%'", conexao);
+                string pesquisa = txt_pequisa.Text.Replace(" ", "%");
+
+                var cmd = new MySqlCommand($"SELECT * FROM orcamentos WHERE {cmb_consulta.Text} LIKE '%{pesquisa}%'", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -417,7 +419,9 @@ namespace PrototipoSistema
             // Busca dentro da lista_or os orçamentos que possuem o nome pesquisado na tabela selecionada
             for (int i = 0; i < lista_or.Count; i++)
             {
-                var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE orca = {lista_or[i]} AND nome LIKE '%{txt_ps.Text}%'", conexao);
+                string pesquisa = txt_ps.Text.Replace(" ", "%");
+
+                var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE orca = {lista_or[i]} AND nome LIKE '%{pesquisa}%'", conexao);
 
                 conexao.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();

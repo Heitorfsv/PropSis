@@ -265,7 +265,9 @@ namespace PrototipoSistema
             var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
             var conexao = new MySqlConnection(strConexao);
 
-            var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa LIKE '%{cmb_placa.Text}%'", conexao);
+            string placa_formata = cmb_placa.Text.Replace(" ", "%");
+
+            var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa LIKE '%{placa_formata}%'", conexao);
             
             conexao.Open();
             MySqlDataReader reader = cmd.ExecuteReader();

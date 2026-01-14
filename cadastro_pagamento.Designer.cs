@@ -45,26 +45,26 @@
             // 
             // txt_metodo
             // 
-            this.txt_metodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_metodo.Location = new System.Drawing.Point(12, 27);
+            this.txt_metodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_metodo.Location = new System.Drawing.Point(15, 27);
             this.txt_metodo.Name = "txt_metodo";
-            this.txt_metodo.Size = new System.Drawing.Size(172, 21);
+            this.txt_metodo.Size = new System.Drawing.Size(172, 22);
             this.txt_metodo.TabIndex = 0;
             // 
             // txt_agencia
             // 
-            this.txt_agencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_agencia.Location = new System.Drawing.Point(12, 69);
+            this.txt_agencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_agencia.Location = new System.Drawing.Point(12, 70);
             this.txt_agencia.Name = "txt_agencia";
-            this.txt_agencia.Size = new System.Drawing.Size(172, 21);
+            this.txt_agencia.Size = new System.Drawing.Size(172, 22);
             this.txt_agencia.TabIndex = 1;
             // 
             // txt_parcelas
             // 
-            this.txt_parcelas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_parcelas.Location = new System.Drawing.Point(12, 111);
+            this.txt_parcelas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_parcelas.Location = new System.Drawing.Point(12, 113);
             this.txt_parcelas.Name = "txt_parcelas";
-            this.txt_parcelas.Size = new System.Drawing.Size(82, 21);
+            this.txt_parcelas.Size = new System.Drawing.Size(82, 22);
             this.txt_parcelas.TabIndex = 2;
             // 
             // label1
@@ -81,7 +81,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 51);
+            this.label2.Location = new System.Drawing.Point(12, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 15);
             this.label2.TabIndex = 4;
@@ -91,7 +91,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 93);
+            this.label3.Location = new System.Drawing.Point(12, 95);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 15);
             this.label3.TabIndex = 5;
@@ -99,10 +99,10 @@
             // 
             // listView1
             // 
-            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(281, 27);
+            this.listView1.Location = new System.Drawing.Point(281, 25);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(317, 130);
             this.listView1.TabIndex = 6;
@@ -111,8 +111,8 @@
             // 
             // bnt_cadastro
             // 
-            this.bnt_cadastro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bnt_cadastro.Location = new System.Drawing.Point(12, 167);
+            this.bnt_cadastro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_cadastro.Location = new System.Drawing.Point(12, 170);
             this.bnt_cadastro.Name = "bnt_cadastro";
             this.bnt_cadastro.Size = new System.Drawing.Size(82, 23);
             this.bnt_cadastro.TabIndex = 7;
@@ -122,9 +122,9 @@
             // 
             // bnt_excluir
             // 
-            this.bnt_excluir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_excluir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_excluir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bnt_excluir.Location = new System.Drawing.Point(12, 138);
+            this.bnt_excluir.Location = new System.Drawing.Point(12, 141);
             this.bnt_excluir.Name = "bnt_excluir";
             this.bnt_excluir.Size = new System.Drawing.Size(82, 23);
             this.bnt_excluir.TabIndex = 8;
@@ -147,8 +147,8 @@
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
-            this.bnt_add.Location = new System.Drawing.Point(577, 7);
-            this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
+            this.bnt_add.Location = new System.Drawing.Point(577, 2);
+            this.bnt_add.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.bnt_add.Name = "bnt_add";
             this.bnt_add.Size = new System.Drawing.Size(21, 20);
             this.bnt_add.TabIndex = 36;
@@ -158,10 +158,10 @@
             // 
             // txt_pesquisa
             // 
-            this.txt_pesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_pesquisa.Location = new System.Drawing.Point(281, 167);
+            this.txt_pesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_pesquisa.Location = new System.Drawing.Point(281, 170);
             this.txt_pesquisa.Name = "txt_pesquisa";
-            this.txt_pesquisa.Size = new System.Drawing.Size(151, 21);
+            this.txt_pesquisa.Size = new System.Drawing.Size(151, 22);
             this.txt_pesquisa.TabIndex = 37;
             // 
             // cadastro_pagamento

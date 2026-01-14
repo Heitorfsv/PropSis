@@ -41,10 +41,11 @@
             // 
             // bnt_excluir
             // 
+            this.bnt_excluir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_excluir.ForeColor = System.Drawing.Color.Red;
             this.bnt_excluir.Location = new System.Drawing.Point(258, 11);
             this.bnt_excluir.Name = "bnt_excluir";
-            this.bnt_excluir.Size = new System.Drawing.Size(73, 20);
+            this.bnt_excluir.Size = new System.Drawing.Size(73, 23);
             this.bnt_excluir.TabIndex = 16;
             this.bnt_excluir.Text = "Excluir";
             this.bnt_excluir.UseVisualStyleBackColor = true;
@@ -53,14 +54,15 @@
             // txt_data
             // 
             this.txt_data.Enabled = false;
+            this.txt_data.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_data.Location = new System.Drawing.Point(12, 12);
             this.txt_data.Name = "txt_data";
-            this.txt_data.Size = new System.Drawing.Size(85, 20);
+            this.txt_data.Size = new System.Drawing.Size(93, 22);
             this.txt_data.TabIndex = 24;
             // 
             // bnt_editar
             // 
-            this.bnt_editar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_editar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_editar.Location = new System.Drawing.Point(249, 153);
             this.bnt_editar.Name = "bnt_editar";
             this.bnt_editar.Size = new System.Drawing.Size(82, 23);
@@ -72,36 +74,36 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(225, 111);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(223, 99);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 15);
+            this.label2.Size = new System.Drawing.Size(26, 16);
             this.label2.TabIndex = 22;
             this.label2.Text = "até";
             // 
             // txt_horario2
             // 
-            this.txt_horario2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_horario2.Location = new System.Drawing.Point(255, 108);
+            this.txt_horario2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_horario2.Location = new System.Drawing.Point(255, 99);
             this.txt_horario2.Name = "txt_horario2";
-            this.txt_horario2.Size = new System.Drawing.Size(76, 21);
+            this.txt_horario2.Size = new System.Drawing.Size(76, 22);
             this.txt_horario2.TabIndex = 21;
             // 
             // txt_horario1
             // 
-            this.txt_horario1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_horario1.Location = new System.Drawing.Point(148, 107);
+            this.txt_horario1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_horario1.Location = new System.Drawing.Point(148, 98);
             this.txt_horario1.Name = "txt_horario1";
-            this.txt_horario1.Size = new System.Drawing.Size(71, 21);
+            this.txt_horario1.Size = new System.Drawing.Size(71, 22);
             this.txt_horario1.TabIndex = 20;
             // 
             // cb_horario
             // 
             this.cb_horario.AutoSize = true;
-            this.cb_horario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_horario.Location = new System.Drawing.Point(16, 110);
+            this.cb_horario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_horario.Location = new System.Drawing.Point(12, 98);
             this.cb_horario.Name = "cb_horario";
-            this.cb_horario.Size = new System.Drawing.Size(126, 19);
+            this.cb_horario.Size = new System.Drawing.Size(135, 20);
             this.cb_horario.TabIndex = 19;
             this.cb_horario.Text = "Adicionar horário?";
             this.cb_horario.UseVisualStyleBackColor = true;
@@ -119,10 +121,10 @@
             // 
             // txt_evento
             // 
-            this.txt_evento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_evento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_evento.Location = new System.Drawing.Point(12, 70);
             this.txt_evento.Name = "txt_evento";
-            this.txt_evento.Size = new System.Drawing.Size(319, 21);
+            this.txt_evento.Size = new System.Drawing.Size(319, 22);
             this.txt_evento.TabIndex = 17;
             this.txt_evento.Text = " ";
             // 

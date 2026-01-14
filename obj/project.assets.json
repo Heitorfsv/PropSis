@@ -6744,7 +6744,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\PrototipoSistema.csproj",
-      "projectName": "$safeprojectname$",
+      "projectName": "Sistema",
       "projectPath": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\PrototipoSistema.csproj",
       "packagesPath": "C:\\Users\\jp.motorsport\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\obj\\",
@@ -6941,7 +6941,7 @@
       "code": "NU1605",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Downgrade de pacote detectado: Google.Protobuf de 3.26.1 para 3.25.3. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n $safeprojectname$ -> MySql.Data 9.1.0 -> Google.Protobuf (>= 3.26.1) \r\n $safeprojectname$ -> Google.Protobuf (>= 3.25.3)",
+      "message": "Downgrade de pacote detectado: Google.Protobuf de 3.26.1 para 3.25.3. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n Sistema -> MySql.Data 9.1.0 -> Google.Protobuf (>= 3.26.1) \r\n Sistema -> Google.Protobuf (>= 3.25.3)",
       "libraryId": "Google.Protobuf",
       "targetGraphs": [
         ".NETFramework,Version=v4.7.2",
@@ -6955,7 +6955,7 @@
       "code": "NU1605",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Downgrade de pacote detectado: K4os.Compression.LZ4.Streams de 1.3.8 para 1.3.6. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n $safeprojectname$ -> MySql.Data 9.1.0 -> K4os.Compression.LZ4.Streams (>= 1.3.8) \r\n $safeprojectname$ -> K4os.Compression.LZ4.Streams (>= 1.3.6)",
+      "message": "Downgrade de pacote detectado: K4os.Compression.LZ4.Streams de 1.3.8 para 1.3.6. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n Sistema -> MySql.Data 9.1.0 -> K4os.Compression.LZ4.Streams (>= 1.3.8) \r\n Sistema -> K4os.Compression.LZ4.Streams (>= 1.3.6)",
       "libraryId": "K4os.Compression.LZ4.Streams",
       "targetGraphs": [
         ".NETFramework,Version=v4.7.2",
@@ -6969,7 +6969,7 @@
       "code": "NU1605",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Downgrade de pacote detectado: System.Diagnostics.DiagnosticSource de 8.0.1 para 8.0.0. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n $safeprojectname$ -> MySql.Data 9.1.0 -> System.Diagnostics.DiagnosticSource (>= 8.0.1) \r\n $safeprojectname$ -> System.Diagnostics.DiagnosticSource (>= 8.0.0)",
+      "message": "Downgrade de pacote detectado: System.Diagnostics.DiagnosticSource de 8.0.1 para 8.0.0. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n Sistema -> MySql.Data 9.1.0 -> System.Diagnostics.DiagnosticSource (>= 8.0.1) \r\n Sistema -> System.Diagnostics.DiagnosticSource (>= 8.0.0)",
       "libraryId": "System.Diagnostics.DiagnosticSource",
       "targetGraphs": [
         ".NETFramework,Version=v4.7.2",
@@ -6983,7 +6983,7 @@
       "code": "NU1605",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Downgrade de pacote detectado: ZstdSharp.Port de 0.8.0 para 0.7.5. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n $safeprojectname$ -> MySql.Data 9.1.0 -> ZstdSharp.Port (>= 0.8.0) \r\n $safeprojectname$ -> ZstdSharp.Port (>= 0.7.5)",
+      "message": "Downgrade de pacote detectado: ZstdSharp.Port de 0.8.0 para 0.7.5. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n Sistema -> MySql.Data 9.1.0 -> ZstdSharp.Port (>= 0.8.0) \r\n Sistema -> ZstdSharp.Port (>= 0.7.5)",
       "libraryId": "ZstdSharp.Port",
       "targetGraphs": [
         ".NETFramework,Version=v4.7.2",

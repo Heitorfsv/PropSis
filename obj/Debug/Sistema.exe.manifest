@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="$safeprojectname$.exe" version="1.0.0.19" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="Sistema.exe" version="1.0.0.21" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="$safeprojectname$" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
-    <commandLine file="$safeprojectname$.exe" parameters="" />
+    <assemblyIdentity name="Sistema" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
+    <commandLine file="Sistema.exe" parameters="" />
   </entryPoint>
   <trustInfo>
     <security>
@@ -39,18 +39,6 @@
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
       <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="$safeprojectname$.exe" size="245760">
-      <assemblyIdentity name="$safeprojectname$" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>WItbq2r2ouLmkgyVq7JIvrpZy/2yiCOmX3AKOVE0Vl8=</dsig:DigestValue>
-      </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
@@ -510,6 +498,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Sistema.exe" size="236544">
+      <assemblyIdentity name="Sistema" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>WsyC4ar8WV4Uet51bDb52K5pXpNgj0x+xr+dPdOWX6U=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Buffers.dll" size="20856">
       <assemblyIdentity name="System.Buffers" version="4.0.3.0" publicKeyToken="CC7B13FFCD2DDD51" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -677,15 +677,6 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="$safeprojectname$.exe.config" size="3403">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>FffDEUPWb6jRMgJBVy5AoaeQSqISavEmglhXweFHviE=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="img\logo.jpg" size="421767">
     <hash>
       <dsig:Transforms>
@@ -693,6 +684,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>jogW6Hp0Cq+wroRrp32SvD3r0Y4T4elJ9YyJ/43hlIg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Sistema.exe.config" size="3403">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>FffDEUPWb6jRMgJBVy5AoaeQSqISavEmglhXweFHviE=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

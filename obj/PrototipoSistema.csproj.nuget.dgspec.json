@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\PrototipoSistema.csproj",
-        "projectName": "$safeprojectname$",
+        "projectName": "Sistema",
         "projectPath": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\PrototipoSistema.csproj",
         "packagesPath": "C:\\Users\\jp.motorsport\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\obj\\",
