@@ -45,9 +45,6 @@ namespace PrototipoSistema
 
         private void consulta_os_Load(object sender, EventArgs e)
         {
-            panel1.Left = (this.ClientSize.Width - panel1.Width) / 2;
-            panel1.Top = (this.ClientSize.Height - panel1.Height) / 2;
-
             cmb_consulta.SelectedIndex = 0;
             cmb_ps.SelectedIndex = 0;
 
