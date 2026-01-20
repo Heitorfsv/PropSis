@@ -230,5 +230,55 @@ namespace PrototipoSistema
             cadastro.MdiParent = this;
             cadastro.Show();
         }
+
+        private void bnt_os_Click(object sender, EventArgs e)
+        {
+            consulta_os consulta_os = new consulta_os();
+            consulta_os.MdiParent = this;
+            consulta_os.Show();
+        }
+
+        private void bnt_motos_Click(object sender, EventArgs e)
+        {
+            consulta_motos consulta_motos = new consulta_motos();
+            consulta_motos.MdiParent = this;
+            consulta_motos.Show();
+        }
+
+        private void bnt_pecas_Click(object sender, EventArgs e)
+        {
+            consulta_pecas consulta_pecas = new consulta_pecas();
+            consulta_pecas.MdiParent = this;
+            consulta_pecas.Show();
+        }
+
+        private void bnt_servicos_Click(object sender, EventArgs e)
+        {
+            consulta_servicos consulta_servico = new consulta_servicos();
+            consulta_servico.MdiParent = this;
+            consulta_servico.Show();
+        }
+
+        private void bnt_oleo_Click(object sender, EventArgs e)
+        {
+            trocas trocas = new trocas();
+            trocas.MdiParent = this;
+            trocas.Show();
+        }
+
+        private void bnt_calendario_Click(object sender, EventArgs e)
+        {
+            calendar calendar = new calendar();
+            calendar.MdiParent = this;
+            calendar.Show();
+        }
+
+        private void bnt_pag_Click(object sender, EventArgs e)
+        {
+            cadastro_pagamento cadastro = new cadastro_pagamento();
+            cadastro.Text = "Cadastro metodo de pagamento";
+            cadastro.MdiParent = this;
+            cadastro.Show();
+        }
     }
 }
