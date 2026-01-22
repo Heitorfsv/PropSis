@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(consulta_os));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.bnt_atualizar = new System.Windows.Forms.Button();
             this.bnt_add = new System.Windows.Forms.Button();
             this.lbl_order = new System.Windows.Forms.Label();
@@ -62,7 +62,7 @@
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_atualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
-            this.bnt_atualizar.Location = new System.Drawing.Point(1836, 13);
+            this.bnt_atualizar.Location = new System.Drawing.Point(1664, 5);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bnt_atualizar.Name = "bnt_atualizar";
             this.bnt_atualizar.Size = new System.Drawing.Size(21, 20);
@@ -77,7 +77,7 @@
             this.bnt_add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_add.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bnt_add.Image = ((System.Drawing.Image)(resources.GetObject("bnt_add.Image")));
-            this.bnt_add.Location = new System.Drawing.Point(1810, 13);
+            this.bnt_add.Location = new System.Drawing.Point(1638, 5);
             this.bnt_add.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_add.Name = "bnt_add";
             this.bnt_add.Size = new System.Drawing.Size(21, 20);
@@ -90,7 +90,7 @@
             // 
             this.lbl_order.AutoSize = true;
             this.lbl_order.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_order.Location = new System.Drawing.Point(1863, 35);
+            this.lbl_order.Location = new System.Drawing.Point(1665, 30);
             this.lbl_order.Name = "lbl_order";
             this.lbl_order.Size = new System.Drawing.Size(18, 20);
             this.lbl_order.TabIndex = 38;
@@ -100,7 +100,7 @@
             // bnt_pag
             // 
             this.bnt_pag.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bnt_pag.Location = new System.Drawing.Point(1659, 13);
+            this.bnt_pag.Location = new System.Drawing.Point(1509, 6);
             this.bnt_pag.Name = "bnt_pag";
             this.bnt_pag.Size = new System.Drawing.Size(124, 21);
             this.bnt_pag.TabIndex = 73;
@@ -111,8 +111,12 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.listView1);
+            this.panel1.Controls.Add(this.lbl_order);
+            this.panel1.Controls.Add(this.bnt_pag);
             this.panel1.Controls.Add(this.chart1);
+            this.panel1.Controls.Add(this.bnt_add);
             this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.bnt_atualizar);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.txt_total_servicos);
             this.panel1.Controls.Add(this.txt_total_pecas);
@@ -127,7 +131,7 @@
             this.panel1.Controls.Add(this.cmb_consulta);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1880, 1017);
+            this.panel1.Size = new System.Drawing.Size(1688, 1017);
             this.panel1.TabIndex = 74;
             // 
             // listView1
@@ -139,7 +143,7 @@
             this.listView1.Location = new System.Drawing.Point(3, 29);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1843, 650);
+            this.listView1.Size = new System.Drawing.Size(1656, 650);
             this.listView1.TabIndex = 87;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -149,16 +153,16 @@
             // 
             this.chart1.BackColor = System.Drawing.Color.Transparent;
             this.chart1.BorderlineColor = System.Drawing.Color.SteelBlue;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(145, 685);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(828, 211);
             this.chart1.TabIndex = 86;
             this.chart1.Text = "chart1";
@@ -308,12 +312,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.ClientSize = new System.Drawing.Size(1924, 1041);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.bnt_pag);
-            this.Controls.Add(this.lbl_order);
-            this.Controls.Add(this.bnt_add);
-            this.Controls.Add(this.bnt_atualizar);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "consulta_os";
@@ -324,7 +324,6 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

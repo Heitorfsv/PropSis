@@ -276,3 +276,4 @@ C:\Users\jp.motorsport\source\repos\PropSis\obj\x64\Debug\Sistema.application
 C:\Users\jp.motorsport\source\repos\PropSis\obj\x64\Debug\Prototip.8C8FBFD8.Up2Date
 C:\Users\jp.motorsport\source\repos\PropSis\obj\x64\Debug\Sistema.exe
 C:\Users\jp.motorsport\source\repos\PropSis\obj\x64\Debug\Sistema.pdb
+C:\Users\jp.motorsport\source\repos\PropSis\bin\x64\Debug\System.Data.SQLite.dll

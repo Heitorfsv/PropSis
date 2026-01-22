@@ -1,9 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PrototipoSistema.classes
 {
@@ -21,57 +23,91 @@ namespace PrototipoSistema.classes
         public string local { get; set; }
         public string estoque { get; set; }
 
-        public void ultimo_index()
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
+
+        public void ultimo_index(bool usarLocal = false)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand("SELECT controle FROM pecas ORDER BY controle DESC LIMIT 1", conexao);
-
-            conexao.Open();
-            index = Convert.ToInt32(cmd.ExecuteScalar());
-            conexao.Close();
+            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = "SELECT controle FROM pecas ORDER BY controle DESC LIMIT 1";
+                    var res = cmd.ExecuteScalar();
+                    index = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                }
+            }
+            catch { if (!usarLocal) ultimo_index(true); }
         }
 
-        public void cadastrar_pecas()
+        public void cadastrar_pecas(bool usarLocal = false)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = @"INSERT INTO pecas (controle, nome, marca, modelo, valor_pago, impostos, valor_sugerido, fornecedor, contato, local, estoque) 
+                                values (@controle, @nome, @marca, @modelo, @valor_pago, @impostos, @valor_sugerido, @fornecedor, @contato, @local, @estoque)";
 
-            var cmd = new MySqlCommand("INSERT INTO pecas (controle, nome, marca, modelo, valor_pago, impostos, valor_sugerido, fornecedor, contato, local, estoque) values (@controle,@nome,@marca,@modelo,@valor_pago,@impostos,@valor_sugerido,@fornecedor,@contato,@local,@estoque)", conexao);
-            cmd.Parameters.AddWithValue("@controle", index);
-            cmd.Parameters.AddWithValue("@nome", nome);
-            cmd.Parameters.AddWithValue("@marca", marca);
-            cmd.Parameters.AddWithValue("@modelo", modelo);
-            cmd.Parameters.AddWithValue("@valor_pago", valor_pago);
-            cmd.Parameters.AddWithValue("@impostos", impostos);
-            cmd.Parameters.AddWithValue("@valor_sugerido", valor_sugerido);
-            cmd.Parameters.AddWithValue("@fornecedor", fornecedor);
-            cmd.Parameters.AddWithValue("@contato", contato);
-            cmd.Parameters.AddWithValue("@local", local);
-            cmd.Parameters.AddWithValue("@estoque", estoque);
+                    PreencherParametrosPecas(cmd);
+                    cmd.ExecuteNonQuery();
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
+                    if (!usarLocal) MessageBox.Show("Peça cadastrada no servidor!");
+                }
+            }
+            catch { if (!usarLocal) cadastrar_pecas(true); }
         }
 
-        public void alterar_pecas()
+        public void alterar_pecas(bool usarLocal = false)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
 
-            var cmd = new MySqlCommand($"SELECT * FROM pecas WHERE nome = '{static_class.doc_consultar}'", conexao);
+                    // Usando a variável estática diretamente no WHERE como você solicitou
+                    cmd.CommandText = $@"UPDATE pecas SET nome = @nome, marca = @marca, modelo = @modelo, valor_pago = @valor_pago, impostos = @impostos, valor_sugerido = @valor_sugerido, fornecedor = @fornecedor, 
+                                contato = @contato, local = @local, estoque = @estoque WHERE nome = '{static_class.doc_consultar}'";
 
-            conexao.Open();
-            index = Convert.ToInt32(cmd.ExecuteScalar());
-            conexao.Close();
+                    PreencherParametrosPecas(cmd);
+                    cmd.ExecuteNonQuery();
 
-            var cmd2 = new MySqlCommand($"UPDATE pecas SET nome = '{nome}', marca = '{marca}', modelo = '{modelo}', valor_pago = '{valor_pago}', impostos = '{impostos}', valor_sugerido = '{valor_sugerido}', fornecedor = '{fornecedor}', contato = '{contato}', local = '{local}', estoque = '{estoque}' WHERE nome = '{static_class.doc_consultar}'", conexao);
+                    if (!usarLocal) MessageBox.Show("Dados da peça atualizados!");
+                }
+            }
+            catch { if (!usarLocal) alterar_pecas(true); }
+        }
 
-            conexao.Open();
-            cmd2.ExecuteReader();
-            conexao.Close();
+        private void PreencherParametrosPecas(System.Data.Common.DbCommand cmd)
+        {
+            void Add(string n, object v)
+            {
+                var p = cmd.CreateParameter();
+                p.ParameterName = n;
+                p.Value = v ?? DBNull.Value;
+                cmd.Parameters.Add(p);
+            }
+
+            Add("@controle", index);
+            Add("@nome", nome);
+            Add("@marca", marca);
+            Add("@modelo", modelo);
+            Add("@valor_pago", valor_pago);
+            Add("@impostos", impostos);
+            Add("@valor_sugerido", valor_sugerido);
+            Add("@fornecedor", fornecedor);
+            Add("@contato", contato);
+            Add("@local", local);
+            Add("@estoque", estoque);
         }
     }
 }

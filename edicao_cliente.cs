@@ -10,6 +10,9 @@ namespace PrototipoSistema
     public partial class edicao_cliente : Form
     {
         cliente cliente = new cliente();
+
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
         public edicao_cliente()
         {
             InitializeComponent();
@@ -128,17 +131,16 @@ namespace PrototipoSistema
             cliente.email = txt_email.Text;
             cliente.cep = txt_cep.Text;
             cliente.doc = txt_doc.Text;
+            try { cliente.inscricao = int.Parse(txt_inscricao.Text); } catch { }
+
+            if (cb_dt_nascimento.Checked == true)
+            { cliente.dt_nascimento = dtp_nascimento.Value.ToString("dd/MM/yyyy"); }
+            else
+            { cliente.dt_nascimento = null; }
 
             if (this.Text == "Edição Cliente")
             {
                 bnt_editar.Text = "Salvar";
-
-                cliente.inscricao = int.Parse(txt_inscricao.Text);
-
-                if (cb_dt_nascimento.Checked == true)
-                { cliente.dt_nascimento = dtp_nascimento.Value.ToString("dd/MM/yyyy"); }
-                else
-                { cliente.dt_nascimento = null; }
 
                 try
                 {
@@ -156,15 +158,6 @@ namespace PrototipoSistema
                 cliente.index++;
                 cliente.dt_cadastro = DateTime.Now;
                 cliente.sujo = 0;
-
-                if (cb_dt_nascimento.Checked == true)
-                { cliente.dt_nascimento = dtp_nascimento.Value.ToString("dd/MM/yyyy"); }
-                else
-                { cliente.dt_nascimento = null; }
-
-                if (txt_inscricao.Text != "")
-                { cliente.inscricao = int.Parse(txt_inscricao.Text); }
-
 
                 if (txt_nome.Text == string.Empty)
                 {
@@ -230,16 +223,52 @@ namespace PrototipoSistema
 
         private void bnt_delete_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(static_class.doc_consultar.ToString());
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            // Confirmação de segurança
+            DialogResult confirmacao = MessageBox.Show($"Deseja realmente excluir o cliente com documento {static_class.doc_consultar}?",
+                "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            var cmd = new MySqlCommand($"DELETE FROM clientes WHERE doc = '{static_class.doc_consultar}'", conexao);
+            if (confirmacao == DialogResult.Yes)
+            {
+                ExecutarDeleteCliente();
+                Close();
+            }
+        }
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
-            Close();
+        private void ExecutarDeleteCliente(bool usarLocal = false)
+        {
+            // Define se usará MySQL ou SQLite
+            System.Data.Common.DbConnection conexao;
+            if (usarLocal)
+                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else
+                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+
+                    // Comando SQL parametrizado
+                    cmd.CommandText = "DELETE FROM clientes WHERE doc = @doc";
+
+                    var pDoc = cmd.CreateParameter();
+                    pDoc.ParameterName = "@doc";
+                    pDoc.Value = static_class.doc_consultar;
+                    cmd.Parameters.Add(pDoc);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                // Se a rede falhar no MySQL, tenta deletar no banco local
+                if (!usarLocal)
+                    ExecutarDeleteCliente(true);
+                else
+                    MessageBox.Show("Erro ao tentar excluir o registro localmente.");
+            }
         }
 
         private void cb_dt_nascimento_CheckedChanged(object sender, EventArgs e)

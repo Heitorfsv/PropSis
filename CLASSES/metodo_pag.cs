@@ -2,6 +2,7 @@
 using PrototipoSistema;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,48 +17,96 @@ namespace classes
         public string agencia { get; set; }
         public int parcelas { get; set; }
 
-        public void ultimo_index()
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
+
+        public void ultimo_index(bool usarLocal = false)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand("SELECT controle FROM metodo_pag ORDER BY controle DESC LIMIT 1", conexao);
-
-            conexao.Open();
-            index = Convert.ToInt32(cmd.ExecuteScalar());
-            conexao.Close();
+            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = "SELECT controle FROM metodo_pag ORDER BY controle DESC LIMIT 1";
+                    var res = cmd.ExecuteScalar();
+                    index = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                }
+            }
+            catch { if (!usarLocal) ultimo_index(true); }
         }
 
-        public void cadastrar_metodo()
+        public void cadastrar_metodo(bool usarLocal = false)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = "INSERT INTO metodo_pag (controle, metodo, agencia, parcelas) VALUES (@controle, @metodo, @agencia, @parcelas)";
 
-            var cmd = new MySqlCommand("INSERT INTO metodo_pag (controle, metodo, banco, parcelas) values (@controle,@metodo,@banco,@parcelas)", conexao);
-            cmd.Parameters.AddWithValue("@controle", index);
-            cmd.Parameters.AddWithValue("@metodo", metodo);
-            cmd.Parameters.AddWithValue("@banco", agencia);
-            cmd.Parameters.AddWithValue("@parcelas", parcelas);
+                    PreencherParametrosMetodo(cmd);
+                    cmd.ExecuteNonQuery();
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
-
-            MessageBox.Show("Método de pagamento cadastrado com sucesso!", "Cadastro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (!usarLocal)
+                        MessageBox.Show("Método de pagamento cadastrado com sucesso!", "Cadastro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch
+            {
+                if (!usarLocal) cadastrar_metodo(true);
+                else MessageBox.Show("Erro ao salvar localmente.");
+            }
         }
 
-        public void alterar_metodo()
+        public void alterar_metodo(bool usarLocal = false)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
 
-            var cmd = new MySqlCommand($"UPDATE metodo_pag SET metodo = '{metodo}', banco = '{agencia}', parcelas = '{parcelas}' WHERE controle = '{index}'", conexao);
+                    // Usando parâmetros para evitar erros de aspas nos nomes dos agencia/métodos
+                    cmd.CommandText = @"UPDATE metodo_pag SET 
+                                metodo = @metodo, 
+                                banco = @agencia, 
+                                parcelas = @parcelas 
+                                WHERE controle = @controle";
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
+                    PreencherParametrosMetodo(cmd);
+                    cmd.ExecuteNonQuery();
 
-            MessageBox.Show("Método de pagamento alterado com sucesso!", "Edição", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (!usarLocal)
+                        MessageBox.Show("Método de pagamento alterado com sucesso!", "Edição", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch
+            {
+                if (!usarLocal) alterar_metodo(true);
+                else MessageBox.Show("Erro ao alterar localmente.");
+            }
+        }
+
+        private void PreencherParametrosMetodo(System.Data.Common.DbCommand cmd)
+        {
+            void Add(string n, object v)
+            {
+                var p = cmd.CreateParameter();
+                p.ParameterName = n;
+                p.Value = v ?? DBNull.Value;
+                cmd.Parameters.Add(p);
+            }
+
+            Add("@controle", index);
+            Add("@metodo", metodo);
+            Add("@agencia", agencia); 
+            Add("@parcelas", parcelas);
         }
     }
 }

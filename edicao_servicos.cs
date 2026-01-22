@@ -14,6 +14,10 @@ namespace PrototipoSistema
     public partial class edicao_servicos : Form
     {
         servicos servicos = new servicos();
+
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
+
         public edicao_servicos()
         {
             InitializeComponent();
@@ -107,15 +111,48 @@ namespace PrototipoSistema
 
         private void bnt_deletar_Click(object sender, EventArgs e)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            // Confirmação para segurança do usuário
+            if (MessageBox.Show($"Deseja excluir permanentemente o serviço '{static_class.doc_consultar}'?",
+                "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ExecutarDeleteServico();
+                Close();
+            }
+        }
 
-            var cmd = new MySqlCommand($"DELETE FROM servicos WHERE nome = '{static_class.doc_consultar}'", conexao);
+        private void ExecutarDeleteServico(bool usarLocal = false)
+        {
+            // Seleciona o driver de conexão (MySQL ou SQLite)
+            System.Data.Common.DbConnection conexao;
+            if (usarLocal)
+                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else
+                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
-            Close();
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+
+                    // Comando parametrizado para evitar erros com aspas simples no nome
+                    cmd.CommandText = "DELETE FROM servicos WHERE nome = @nomeServico";
+
+                    var pNome = cmd.CreateParameter();
+                    pNome.ParameterName = "@nomeServico";
+                    pNome.Value = static_class.doc_consultar;
+                    cmd.Parameters.Add(pNome);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                // Se falhar no servidor MySQL, tenta deletar no banco local para manter a consistência
+                if (!usarLocal)
+                    ExecutarDeleteServico(true);
+            }
         }
 
         private void bnt_historico_Click(object sender, EventArgs e)

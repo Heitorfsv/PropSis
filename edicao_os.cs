@@ -38,6 +38,9 @@ namespace PrototipoSistema
         string cep = "";
         string cor = "";
 
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
+
         OS os = new OS();
         public edicao_os()
         {
@@ -278,6 +281,7 @@ namespace PrototipoSistema
                 txt_marca.Text = reader.GetString("marca");
                 txt_modelo.Text = reader.GetString("modelo");
                 txt_ano.Text = reader.GetString("ano");
+                txt_doc.Text = reader.GetString("doc_dono");
                 doc_cliente = reader.GetString("doc_dono");
             }
             conexao.Close();
@@ -366,25 +370,21 @@ namespace PrototipoSistema
 
                 cliente cliente = new cliente();
 
-                if (reader.Read())
-                {
-                    if (txt_total.Text != "") os.total = txt_total.Text; 
+                if (!reader.Read()) { MessageBox.Show("Não foi possível achar a placa digitada", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+                conexao.Close();
+
+                if (txt_total.Text != "") os.total = txt_total.Text; 
                     else os.total = "0,00"; 
 
-                    os.dt_cadastro = dtp_cadastro.Value.ToString();
+                os.dt_cadastro = dtp_cadastro.Value.ToString();
 
-                    os.cadastrar_os();
+                os.cadastrar_os();
 
-                    MessageBox.Show("OS Cadastrada", "JCMotorsport", MessageBoxButtons.OK);
+                MessageBox.Show("OS Cadastrada", "JCMotorsport", MessageBoxButtons.OK);
 
-                    cliente.doc = txt_doc.Text;
-                    cliente.quitado();
-
-                    os.index++;
-                }
-                else
-                { MessageBox.Show("Não foi possível achar a placa digitada", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-                conexao.Close();
+                cliente.doc = txt_doc.Text;
+                cliente.quitado();
+                os.index++;
             }
             else if (this.Text == "Edição OS")
             {
@@ -569,97 +569,49 @@ namespace PrototipoSistema
             txt_total.Text = (decimal.Parse(txt_total_pecas.Text) + decimal.Parse(txt_total_servico.Text)).ToString("N2");
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            //if (static_class.close == 1)
-            //{
-            //    lst_servicos.Items.Clear();
-            //    lst_pecas.Items.Clear();
-
-            //    decimal servico_total = 0;
-            //    decimal peca_total = 0;
-
-            //    var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            //    var conexao = new MySqlConnection(strConexao);
-
-            //    var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
-
-            //    conexao.Open();
-            //    MySqlDataReader reader = cmd.ExecuteReader();
-
-            //    while (reader.Read())
-            //    {
-            //        string nome = reader.GetString("nome");
-            //        string qtd = reader.GetString("qtd").Replace(".", ",");
-            //        string valor = reader.GetString("valor");
-            //        string desco = reader.GetString("desco");
-            //        string total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
-
-            //        var item = new ListViewItem(nome);
-            //        item.SubItems.Add(qtd);
-            //        item.SubItems.Add(valor);
-            //        item.SubItems.Add(desco);
-            //        item.SubItems.Add(total);
-            //        lst_servicos.Items.Add(item);
-
-            //        string qtd_formatado = reader.GetString("qtd");
-            //        qtd = qtd.Replace(".",",");
-
-            //        try
-            //        { servico_total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
-            //        catch (Exception a) { MessageBox.Show(a.ToString()); }
-            //    }
-            //    conexao.Close();
-
-            //    cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
-
-            //    conexao.Open();
-            //    reader = cmd.ExecuteReader();
-
-            //    while (reader.Read())
-            //    {
-            //        string nome = reader.GetString("nome");
-            //        string qtd = reader.GetString("qtd").Replace(".", ",");
-            //        string valor = reader.GetString("valor");
-            //        string desco = reader.GetString("desco");
-            //        string total;
-            //        try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
-
-            //        var item = new ListViewItem(nome);
-            //        item.SubItems.Add(qtd);
-            //        item.SubItems.Add(valor);
-            //        item.SubItems.Add(desco);
-            //        item.SubItems.Add(total);
-            //        lst_pecas.Items.Add(item);
-
-            //        string qtd_formatado = reader.GetString("qtd");
-            //        qtd = qtd.Replace(".", ",");
-
-            //        try
-            //        { peca_total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); }
-            //        catch { }
-            //    }
-            //    conexao.Close();
-
-            //    txt_total_servico.Text = servico_total.ToString("N2");
-            //    txt_total_pecas.Text = peca_total.ToString("N2");
-            //    txt_total.Text = (peca_total + servico_total).ToString("N2");
-
-            //    static_class.close = 0;
-            //}
-        }
-
         private void bnt_deletar_Click(object sender, EventArgs e)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            // Confirmação para evitar exclusão acidental
+            if (MessageBox.Show("Tem certeza que deseja excluir esta Ordem de Serviço permanentemente?",
+                "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            {
+                ExecutarDeleteOS();
+                Close();
+            }
+        }
 
-            var cmd = new MySqlCommand($"DELETE FROM os WHERE controle = '{static_class.controle}'", conexao);
+        private void ExecutarDeleteOS(bool usarLocal = false)
+        {
+            System.Data.Common.DbConnection conexao;
+            if (usarLocal)
+                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else
+                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
-            Close();
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+
+                    // Comando parametrizado para deletar a OS pelo controle
+                    cmd.CommandText = "DELETE FROM os WHERE controle = @controle";
+
+                    var pControle = cmd.CreateParameter();
+                    pControle.ParameterName = "@controle";
+                    pControle.Value = static_class.controle;
+                    cmd.Parameters.Add(pControle);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                // Se o servidor MySQL estiver offline, deleta do banco de dados local
+                if (!usarLocal)
+                    ExecutarDeleteOS(true);
+            }
         }
 
         private void cb_saida_CheckedChanged(object sender, EventArgs e)

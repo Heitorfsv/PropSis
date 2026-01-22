@@ -31,6 +31,9 @@ namespace PrototipoSistema
         string cep = "";
         string cor = "";
 
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
+
         public cadastro_or()
         {
             InitializeComponent();
@@ -436,128 +439,50 @@ namespace PrototipoSistema
             }
         }
 
-        private void cmb_cliente_TextChanged(object sender, EventArgs e)
-        {
-            //var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            //var conexao = new MySqlConnection(strConexao);
-
-            //var cmd = new MySqlCommand($"SELECT * FROM clientes WHERE nome LIKE '%{cmb_cliente.Text}%'", conexao);
-
-            //conexao.Open();
-            //MySqlDataReader reader = cmd.ExecuteReader();
-
-            //while (reader.Read())
-            //{
-            //    txt_cliente.Items.Add(reader.GetString("nome"));
-            //    txt_doc.Text = reader.GetString("doc");
-            //}
-            //conexao.Close();
-
-            //cmb_placa.Items.Clear();
-
-            //cmd = new MySqlCommand($"SELECT * FROM motos WHERE doc_dono = '{txt_doc.Text}'", conexao);
-
-            //conexao.Open();
-            //reader = cmd.ExecuteReader();
-
-            //while (reader.Read())
-            //{
-            //    cmb_placa.Items.Add(reader.GetString("placa"));
-            //}
-
-            //conexao.Close();
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            //if (static_class.close == 1)
-            //{
-            //    lst_servicos.Items.Clear();
-            //    lst_pecas.Items.Clear();
-
-            //    decimal servico_total = 0;
-            //    decimal peca_total = 0;
-            //    string total = "";
-
-            //    var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            //    var conexao = new MySqlConnection(strConexao);
-
-            //    var cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
-
-            //    conexao.Open();
-            //    MySqlDataReader reader = cmd.ExecuteReader();
-
-            //    while (reader.Read())
-            //    {
-            //        string nome = reader.GetString("nome");
-            //        string qtd = reader.GetString("qtd").Replace(".", ",");
-            //        string valor = reader.GetString("valor");
-            //        string desco = reader.GetString("desco");
-            //        total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
-
-            //        var item = new ListViewItem(nome);
-            //        item.SubItems.Add(qtd);
-            //        item.SubItems.Add(valor);
-            //        item.SubItems.Add(desco);
-            //        item.SubItems.Add(total);
-            //        lst_servicos.Items.Add(item);
-
-            //        string qtd_formatado = reader.GetString("qtd");
-            //        qtd = qtd.Replace(".", ",");
-
-            //        try
-            //        { servico_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
-            //        catch { }
-            //    }
-            //    conexao.Close();
-
-            //    cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE orca = '{static_class.controle}' ORDER BY pos ASC", conexao);
-
-            //    conexao.Open();
-            //    reader = cmd.ExecuteReader();
-
-            //    while (reader.Read())
-            //    {
-            //        string nome = reader.GetString("nome");
-            //        string qtd = reader.GetString("qtd").Replace(".", ",");
-            //        string valor = reader.GetString("valor");
-            //        string desco = reader.GetString("desco");
-            //        total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2");
-
-            //        var item = new ListViewItem(nome);
-            //        item.SubItems.Add(qtd);
-            //        item.SubItems.Add(valor);
-            //        item.SubItems.Add(desco);
-            //        item.SubItems.Add(total);
-            //        lst_pecas.Items.Add(item);
-
-            //        string qtd_formatado = reader.GetString("qtd");
-            //        qtd = qtd.Replace(".", ",");
-
-            //        try
-            //        { peca_total += decimal.Parse(qtd) * decimal.Parse(reader.GetString("valor")); }
-            //        catch { }
-            //    }
-            //    conexao.Close();
-
-            //    txt_total_servico.Text = servico_total.ToString("N2");
-            //    txt_total_pecas.Text = peca_total.ToString("N2");
-            //    txt_total.Text = (peca_total + servico_total).ToString("N2");
-
-            //    static_class.close = 0;
-            //}
-        }
         private void bnt_deletar_Click(object sender, EventArgs e)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            // Confirmação para evitar exclusão acidental de orçamentos
+            if (MessageBox.Show("Deseja realmente excluir este orçamento permanentemente?",
+                "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                ExecutarDeleteOrcamento();
+                Close();
+            }
+        }
 
-            var cmd = new MySqlCommand($"DELETE FROM orcamentos WHERE controle = '{static_class.controle}'", conexao);
+        private void ExecutarDeleteOrcamento(bool usarLocal = false)
+        {
+            // Seleciona o driver de conexão (MySQL ou SQLite)
+            System.Data.Common.DbConnection conexao;
+            if (usarLocal)
+                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else
+                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
-            Close();
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+
+                    // Comando parametrizado: garante que o ID seja tratado corretamente pelo banco
+                    cmd.CommandText = "DELETE FROM orcamentos WHERE controle = @controle";
+
+                    var pControle = cmd.CreateParameter();
+                    pControle.ParameterName = "@controle";
+                    pControle.Value = static_class.controle;
+                    cmd.Parameters.Add(pControle);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                // Se o servidor MySQL falhar, replica a exclusão no banco local
+                if (!usarLocal)
+                    ExecutarDeleteOrcamento(true);
+            }
         }
 
         private void visualizarImpressToolStripMenuItem_Click(object sender, EventArgs e)

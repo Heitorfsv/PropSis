@@ -48,14 +48,14 @@
             this.lst_tarefas.FormattingEnabled = true;
             this.lst_tarefas.Location = new System.Drawing.Point(3, 24);
             this.lst_tarefas.Name = "lst_tarefas";
-            this.lst_tarefas.Size = new System.Drawing.Size(251, 95);
+            this.lst_tarefas.Size = new System.Drawing.Size(227, 95);
             this.lst_tarefas.TabIndex = 2;
             this.lst_tarefas.DoubleClick += new System.EventHandler(this.lst_tarefas_DoubleClick);
             // 
             // bnt_add
             // 
             this.bnt_add.Font = new System.Drawing.Font("Arial Black", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bnt_add.Location = new System.Drawing.Point(231, 0);
+            this.bnt_add.Location = new System.Drawing.Point(207, 0);
             this.bnt_add.Name = "bnt_add";
             this.bnt_add.Size = new System.Drawing.Size(23, 23);
             this.bnt_add.TabIndex = 3;
@@ -71,7 +71,7 @@
             this.Controls.Add(this.lst_tarefas);
             this.Controls.Add(this.lbl_days);
             this.Name = "blankdays";
-            this.Size = new System.Drawing.Size(257, 121);
+            this.Size = new System.Drawing.Size(235, 121);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.DirectoryServices;
 using System.Drawing;
 using System.Linq;
@@ -83,38 +84,97 @@ namespace PrototipoSistema
 
         private void MDI_tela_Load(object sender, EventArgs e)
         {
+            verificar_banco_local();
+
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("pt-BR");
 
-            string lista_aniversarios_futuros = "";
-            string lista_aniversarios = "";
-
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-            
-            var cmd = new MySqlCommand("SELECT * FROM clientes", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read()) 
+            try
             {
-                try
+                string lista_aniversarios_futuros = "";
+                string lista_aniversarios = "";
+
+                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+                var conexao = new MySqlConnection(strConexao);
+
+                var cmd = new MySqlCommand("SELECT * FROM clientes WHERE dt_nascimento REGEXP '[A-Za-z0-9]'", conexao);
+
+                conexao.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    DateTime aniversario = DateTime.Parse(reader.GetString("dt_nascimento").Substring(0, 5));
-                    TimeSpan dif = aniversario - DateTime.Now;
+                    try
+                    {
+                        DateTime aniversario = DateTime.Parse(reader.GetString("dt_nascimento").Substring(0, 5));
+                        TimeSpan dif = aniversario - DateTime.Now;
 
-                    if (dif.TotalDays < 15 && dif.TotalDays > 0) lista_aniversarios_futuros = lista_aniversarios_futuros + "- " + reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")" + "\r\n";
+                        if (dif.TotalDays < 15 && dif.TotalDays > 0) lista_aniversarios_futuros = lista_aniversarios_futuros + "- " + reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")" + "\r\n";
 
-                    if (dif.TotalDays > -1 && dif.TotalDays < 0.1) lista_aniversarios = lista_aniversarios + "- " + reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")" + "\r\n";
+                        if (dif.TotalDays > -1 && dif.TotalDays < 0.1) lista_aniversarios = lista_aniversarios + "- " + reader.GetString("nome") + " (" + aniversario.ToString("dd/MM/yyyy") + ")" + "\r\n";
+                    }
+                    catch { }
                 }
-                catch { }
+                conexao.Close();
+
+                if (lista_aniversarios_futuros != "") MessageBox.Show("Os aniversários de:\r\n\r\n" + lista_aniversarios_futuros + "\r\nEstão chegando", "Aniversários");
+
+                if (lista_aniversarios != "") MessageBox.Show("Os aniversários de:\r\n\r\n" + lista_aniversarios + "\r\nSão hoje", "Aniversários");
             }
-            conexao.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao conectar com o banco de dados reemoto. \r\n\r\n" + ex.Message, "Erro de conexão");
+            }
 
-            if (lista_aniversarios_futuros != "") MessageBox.Show("Os aniversários de:\r\n\r\n" + lista_aniversarios_futuros + "\r\nEstão chegando", "Aniversários");
+        }
 
-            if (lista_aniversarios != "") MessageBox.Show("Os aniversários de:\r\n\r\n" + lista_aniversarios + "\r\nSão hoje", "Aniversários");
+        public void verificar_banco_local()
+        {
+            string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
 
+            // Se o arquivo não existir, o SQLite cria automaticamente ao abrir a conexão
+            using (var conexao = new SQLiteConnection(strLocal))
+            {
+                conexao.Open();
+                var cmd = conexao.CreateCommand();
+
+                // 1. Criar todas as tabelas
+                cmd.CommandText = @"
+            CREATE TABLE IF NOT EXISTS clientes (controle INTEGER PRIMARY KEY, nome TEXT, nome_fantasia TEXT, doc TEXT, inscricao TEXT, dt_nascimento TEXT, telefone TEXT, telefone2 TEXT, email TEXT, rua TEXT, bairro TEXT, cidade TEXT, cep TEXT, sujo INTEGER);
+            
+            CREATE TABLE IF NOT EXISTS motos (controle INTEGER PRIMARY KEY, placa TEXT, marca TEXT, modelo TEXT, cor TEXT, ano TEXT, chassi TEXT, dt_registro TEXT, doc_dono TEXT, observacao TEXT);
+            
+            CREATE TABLE IF NOT EXISTS orcamentos (controle INTEGER PRIMARY KEY, cliente TEXT, doc TEXT, km TEXT, placa TEXT, dt_cadastro TEXT, total TEXT, observacao TEXT);
+            
+            CREATE TABLE IF NOT EXISTS os (controle INTEGER PRIMARY KEY, placa TEXT, km TEXT, cliente TEXT, doc TEXT, observacao TEXT, descricao TEXT, total TEXT, dt_cadastro TEXT, aviso_oleo TEXT, aviso_revisao TEXT, dt_saida TEXT, pago INTEGER, metodo_pag TEXT);
+            
+            CREATE TABLE IF NOT EXISTS pecas (controle INTEGER PRIMARY KEY, nome TEXT, marca TEXT, modelo TEXT, valor_pago TEXT, impostos TEXT, valor_sugerido TEXT, fornecedor TEXT, contato TEXT, local TEXT, estoque TEXT);
+            
+            CREATE TABLE IF NOT EXISTS pecas_os (controle INTEGER PRIMARY KEY, os TEXT, orcamento TEXT, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT);
+            
+            CREATE TABLE IF NOT EXISTS servicos (controle INTEGER PRIMARY KEY, nome TEXT, valor TEXT);
+            
+            CREATE TABLE IF NOT EXISTS servicos_os (controle INTEGER PRIMARY KEY, os TEXT, orcamento TEXT, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT);
+            
+            CREATE TABLE IF NOT EXISTS metodo_pag (controle INTEGER PRIMARY KEY, metodo TEXT, banco TEXT, parcelas TEXT);
+        ";
+                cmd.ExecuteNonQuery();
+
+                // 2. Inserir registros teste (ID 0) para garantir que ultimo_index() não falhe
+                // Usamos INSERT OR IGNORE para não duplicar o registro teste toda vez que abrir o programa
+                cmd.CommandText = @"
+            INSERT OR IGNORE INTO clientes (controle, nome) VALUES (0, 'REGISTRO TESTE');
+            INSERT OR IGNORE INTO motos (controle, placa) VALUES (0, 'TESTE-0000');
+            INSERT OR IGNORE INTO orcamentos (controle, cliente) VALUES (0, 'TESTE');
+            INSERT OR IGNORE INTO os (controle, cliente) VALUES (0, 'TESTE');
+            INSERT OR IGNORE INTO pecas (controle, nome) VALUES (0, 'PEÇA TESTE');
+            INSERT OR IGNORE INTO pecas_os (controle, nome) VALUES (0, 'ITEM TESTE');
+            INSERT OR IGNORE INTO servicos (controle, nome) VALUES (0, 'SERVIÇO TESTE');
+            INSERT OR IGNORE INTO servicos_os (controle, nome) VALUES (0, 'ITEM TESTE');
+            INSERT OR IGNORE INTO metodo_pag (controle, metodo) VALUES (0, 'DINHEIRO');
+        ";
+                cmd.ExecuteNonQuery();
+            }
+            MessageBox.Show("Banco de dados local criado", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cadastroPeçaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -279,6 +339,13 @@ namespace PrototipoSistema
             cadastro.Text = "Cadastro metodo de pagamento";
             cadastro.MdiParent = this;
             cadastro.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            consulta_cliente consulta = new consulta_cliente();
+            consulta.MdiParent = this;
+            consulta.Show();
         }
     }
 }

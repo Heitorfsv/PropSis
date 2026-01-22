@@ -59,6 +59,7 @@
             this.bnt_atualizar.TabIndex = 14;
             this.bnt_atualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.bnt_atualizar.UseVisualStyleBackColor = false;
+            this.bnt_atualizar.Click += new System.EventHandler(this.bnt_atualizar_Click);
             // 
             // bnt_pesquisar
             // 

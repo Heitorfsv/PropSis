@@ -1,6 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -30,96 +32,247 @@ namespace PrototipoSistema
 
         string pesquisa_doc;
 
-        public void ultimo_index()
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
+
+        public void ultimo_index(bool usarLocal = false)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            // Define qual conexão usar
+            System.Data.Common.DbConnection conexao;
 
-            var cmd = new MySqlCommand("SELECT controle FROM clientes ORDER BY controle DESC LIMIT 1", conexao);
+            if (usarLocal)
+                conexao = new SQLiteConnection(strLocal);
+            else
+                conexao = new MySqlConnection(strConexao);
 
-            conexao.Open();
-            index = Convert.ToInt32(cmd.ExecuteScalar());
-            conexao.Close();
-
-        }
-
-        public void cadastrar_cliente()
-        {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand($"SELECT nome FROM clientes WHERE doc LIKE '%{doc}%'", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            if (reader.Read())
+            try
             {
-                pesquisa_doc = reader.GetString("nome");
-            }
-            conexao.Close();
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = "SELECT controle FROM clientes ORDER BY controle DESC LIMIT 1";
 
-            if (pesquisa_doc == null)
+                    var resultado = cmd.ExecuteScalar();
+
+                    // Se o banco estiver vazio, o resultado é null. 
+                    // Tratamos isso para não dar erro no Convert.
+                    if (resultado != null && resultado != DBNull.Value)
+                    {
+                        index = Convert.ToInt32(resultado);
+                    }
+                    else
+                    {
+                        index = 0; // Primeiro registro
+                    }
+                }
+            }
+            catch (Exception)
             {
-                var cmd2 = new MySqlCommand("INSERT INTO clientes (controle, nome, nome_fantasia, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo) values (@controle,@nome,@fantasia,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo)", conexao);
-                cmd2.Parameters.AddWithValue("@controle", index);
-                cmd2.Parameters.AddWithValue("@nome", nome);
-                cmd2.Parameters.AddWithValue("@fantasia", fantasia);
-                cmd2.Parameters.AddWithValue("@doc", doc);
-                cmd2.Parameters.AddWithValue("@inscricao", inscricao);
-                cmd2.Parameters.AddWithValue("@dt_nascimento", dt_nascimento);
-                cmd2.Parameters.AddWithValue("@telefone", telefone);
-                cmd2.Parameters.AddWithValue("@telefone2", telefone2);
-                cmd2.Parameters.AddWithValue("@email", email);
-                cmd2.Parameters.AddWithValue("@rua", rua);
-                cmd2.Parameters.AddWithValue("@bairro", bairro);
-                cmd2.Parameters.AddWithValue("@cidade", cidade);
-                cmd2.Parameters.AddWithValue("@cep", cep);
-                cmd2.Parameters.AddWithValue("@dt_cadastro", dt_cadastro);
-                cmd2.Parameters.AddWithValue("@sujo", sujo);
-
-                conexao.Open();
-                cmd2.ExecuteReader();
-                conexao.Close();
+                // Se falhou no MySQL e ainda não tentamos o local, dispara a tentativa local
+                if (!usarLocal)
+                {
+                    ultimo_index(true);
+                }
+                else
+                {
+                    index = 0; // Fallback final caso ambos falhem
+                }
             }
-            else { MessageBox.Show("Este Documento já está cadastrado", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
-        public void alterar_cliente()
+        public void cadastrar_cliente(bool usarLocal = false)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            pesquisa_doc = null;
+            // Define qual conexão e comando usar com base no parâmetro
+            System.Data.Common.DbConnection conexao;
 
-            var cmd = new MySqlCommand($"UPDATE clientes SET nome = '{nome}', nome_fantasia = '{fantasia}', doc = '{doc}', inscricao = '{inscricao}', dt_nascimento = '{dt_nascimento}', telefone = '{telefone}', telefone2 = '{telefone2}', email = '{email}', rua = '{rua}', bairro = '{bairro}', cidade = '{cidade}', cep = '{cep}' WHERE controle = {index}", conexao);
+            if (usarLocal)
+                conexao = new SQLiteConnection(strLocal);
+            else
+                conexao = new MySqlConnection(strConexao);
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
+            try
+            {
+                using (conexao)
+                {
+                    // 1. Verificação de duplicidade
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = "SELECT nome FROM clientes WHERE doc = @doc";
+                    var pDoc = cmd.CreateParameter();
+                    pDoc.ParameterName = "@doc";
+                    pDoc.Value = doc;
+                    cmd.Parameters.Add(pDoc);
+
+                    conexao.Open();
+                    pesquisa_doc = cmd.ExecuteScalar()?.ToString();
+
+                    if (pesquisa_doc == null)
+                    {
+                        // 2. Inserção
+                        var cmd2 = conexao.CreateCommand();
+                        cmd2.CommandText = @"INSERT INTO clientes (controle, nome, nome_fantasia, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo) 
+                                    values (@controle,@nome,@fantasia,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo)";
+
+                        // Preenche os parâmetros (usando o auxiliar abaixo para não repetir código)
+                        PreencherParametros(cmd2);
+
+                        cmd2.ExecuteNonQuery();
+                        conexao.Close();
+
+                        string msg = usarLocal ? "Salvo localmente (Servidor Offline)!" : "Cadastrado com sucesso!";
+                        MessageBox.Show(msg, "JCMotorsport");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Este Documento já está cadastrado", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Se falhou no MySQL e ainda não tentamos o local, tenta o local agora
+                if (!usarLocal)
+                {
+                    cadastrar_cliente(true);
+                }
+                else
+                {
+                    MessageBox.Show("Erro crítico: Nem o banco local está disponível.");
+                }
+            }
         }
 
-        public void quitado()
+        private void PreencherParametros(System.Data.Common.DbCommand cmd)
         {
-            int sujo = 0;
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand($"SELECT pago FROM os WHERE doc = '{doc}'", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while(reader.Read()) 
-            { 
-                if (reader.GetInt32("pago") == 0)
-                { sujo = 1; }
+            void Add(string nomeParam, object valor)
+            {
+                var p = cmd.CreateParameter();
+                p.ParameterName = nomeParam;
+                p.Value = valor ?? DBNull.Value;
+                cmd.Parameters.Add(p);
             }
-            conexao.Close();
 
-            cmd = new MySqlCommand($"UPDATE clientes SET sujo = '{sujo}' WHERE doc = '{doc}'", conexao);
+            Add("@controle", index);
+            Add("@nome", nome);
+            Add("@fantasia", fantasia);
+            Add("@doc", doc);
+            Add("@inscricao", inscricao);
+            Add("@dt_nascimento", dt_nascimento);
+            Add("@telefone", telefone);
+            Add("@telefone2", telefone2);
+            Add("@email", email);
+            Add("@rua", rua);
+            Add("@bairro", bairro);
+            Add("@cidade", cidade);
+            Add("@cep", cep);
+            Add("@dt_cadastro", dt_cadastro.ToString("yyyy-MM-dd HH:mm:ss"));
+            Add("@sujo", sujo);
+        }
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
+        public void alterar_cliente(bool usarLocal = false)
+        {
+            System.Data.Common.DbConnection conexao;
+
+            if (usarLocal)
+                conexao = new SQLiteConnection(strLocal);
+            else
+                conexao = new MySqlConnection(strConexao);
+
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+
+                    // Usando parâmetros para evitar erros de sintaxe com aspas
+                    cmd.CommandText = @"UPDATE clientes SET nome = @nome, nome_fantasia = @fantasia, doc = @doc, inscricao = @inscricao, dt_nascimento = @dt_nascimento, telefone = @telefone, telefone2 = @telefone2, email = @email, 
+                                rua = @rua, bairro = @bairro, cidade = @cidade, cep = @cep 
+                                WHERE controle = @controle";
+
+                    PreencherParametros(cmd); // Reaproveita os parâmetros que você já tem
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+                if (!usarLocal)
+                {
+                    alterar_cliente(true); // Se falhar o online, tenta o offline
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao alterar cliente no banco local.");
+                }
+            }
+        }
+
+        public void quitado(bool usarLocal = false)
+        {
+            int sujoLocal = 0;
+            System.Data.Common.DbConnection conexao;
+
+            if (usarLocal)
+                conexao = new SQLiteConnection(strLocal);
+            else
+                conexao = new MySqlConnection(strConexao);
+
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+
+                    // 1. Verificar se há OS pendente
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = "SELECT pago FROM os WHERE doc = @doc";
+
+                    var pDoc = cmd.CreateParameter();
+                    pDoc.ParameterName = "@doc";
+                    pDoc.Value = doc;
+                    cmd.Parameters.Add(pDoc);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (Convert.ToInt32(reader["pago"]) == 0)
+                            {
+                                sujoLocal = 1;
+                            }
+                        }
+                    }
+
+                    // 2. Atualizar o status 'sujo' do cliente
+                    var cmdUpdate = conexao.CreateCommand();
+                    cmdUpdate.CommandText = "UPDATE clientes SET sujo = @sujo WHERE doc = @doc";
+
+                    var pSujo = cmdUpdate.CreateParameter();
+                    pSujo.ParameterName = "@sujo";
+                    pSujo.Value = sujoLocal;
+                    cmdUpdate.Parameters.Add(pSujo);
+
+                    var pDoc2 = cmdUpdate.CreateParameter();
+                    pDoc2.ParameterName = "@doc";
+                    pDoc2.Value = doc;
+                    cmdUpdate.Parameters.Add(pDoc2);
+
+                    cmdUpdate.ExecuteNonQuery();
+                }
+            }
+            catch (Exception)
+            {
+                if (!usarLocal)
+                {
+                    quitado(true);
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao processar status de quitação localmente.");
+                }
+            }
         }
     }
 }

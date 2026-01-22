@@ -209,5 +209,9 @@ namespace PrototipoSistema
             cadastro.Show();
         }
 
+        private void bnt_atualizar_Click(object sender, EventArgs e)
+        {
+            consulta_motos_Load(sender, e);
+        }
     }
 }

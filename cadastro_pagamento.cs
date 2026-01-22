@@ -10,6 +10,9 @@ namespace PrototipoSistema
     {
         metodo_pag metodo = new metodo_pag();
         List<int> controle = new List<int>();
+
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
         public cadastro_pagamento()
         {
             InitializeComponent();
@@ -33,7 +36,7 @@ namespace PrototipoSistema
             {
                 controle.Add(reader.GetInt32("controle"));
                 string metodo = reader.GetString("metodo");
-                string agencia = reader.GetString("banco");
+                string agencia = reader.GetString("agencia");
                 int parcelas = reader.GetInt32("parcelas");
 
                 var item = new ListViewItem(metodo);
@@ -93,6 +96,53 @@ namespace PrototipoSistema
 
             this.Text = "Cadastro metodo de pagamento";
             bnt_cadastro.Text = "Cadastrar";
+        }
+
+        private void bnt_excluir_Click(object sender, EventArgs e)
+        {
+            // Confirmação de segurança
+            DialogResult confirmacao = MessageBox.Show($"Deseja realmente excluir o metodo de pagamento?",
+                "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (confirmacao == DialogResult.Yes) ExecutarDeleteCliente();
+            
+        }
+
+        private void ExecutarDeleteCliente(bool usarLocal = false)
+        {
+            // Define se usará MySQL ou SQLite
+            System.Data.Common.DbConnection conexao;
+            if (usarLocal)
+                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else
+                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+
+                    // Comando SQL parametrizado
+                    cmd.CommandText = "DELETE FROM metodo_pag WHERE metodo = @metodo";
+
+                    var pNome = cmd.CreateParameter();
+                    pNome.ParameterName = "@metodo";
+                    pNome.Value = txt_metodo.Text;
+                    cmd.Parameters.Add(pNome);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch 
+            {
+                // Se a rede falhar no MySQL, tenta deletar no banco local
+                if (!usarLocal)
+                    ExecutarDeleteCliente(true);
+                else
+                    MessageBox.Show("Erro ao tentar excluir o registro localmente.");
+            }
         }
     }
 }

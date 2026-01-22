@@ -96,13 +96,13 @@
               "target": "Package",
               "version": "[9.0.2, )"
             },
-            "SQLite": {
-              "target": "Package",
-              "version": "[3.13.0, )"
-            },
             "System.Configuration.ConfigurationManager": {
               "target": "Package",
               "version": "[10.0.2, )"
+            },
+            "System.Data.SQLite.Core": {
+              "target": "Package",
+              "version": "[1.0.119, )"
             },
             "System.Diagnostics.DiagnosticSource": {
               "target": "Package",

@@ -192,6 +192,7 @@
             this.bnt_deletar.TabIndex = 121;
             this.bnt_deletar.Text = "Deletar";
             this.bnt_deletar.UseVisualStyleBackColor = true;
+            this.bnt_deletar.Click += new System.EventHandler(this.bnt_deletar_Click);
             // 
             // label23
             // 

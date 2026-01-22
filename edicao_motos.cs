@@ -15,6 +15,10 @@ namespace PrototipoSistema
     public partial class edicao_motos : Form
     {
         motos motos = new motos();
+
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
+
         public edicao_motos()
         {
             InitializeComponent();
@@ -136,22 +140,51 @@ namespace PrototipoSistema
 
         private void bnt_deletar_Click(object sender, EventArgs e)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            // Pergunta antes de deletar para evitar acidentes
+            if (MessageBox.Show("Deseja realmente excluir esta moto e todas as suas ordens de serviço?", "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                ExecutarExclusaoTotal();
+                Close();
+            }
+        }
 
-            var cmd = new MySqlCommand($"DELETE FROM motos WHERE placa = '{static_class.doc_consultar}'", conexao);
+        private void ExecutarExclusaoTotal(bool usarLocal = false)
+        {
+            System.Data.Common.DbConnection conexao;
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close(); 
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
 
-            cmd = new MySqlCommand($"DELETE FROM os WHERE placa = '{static_class.doc_consultar}'", conexao);
+                    // 1. Deletar da tabela MOTOS
+                    var cmd1 = conexao.CreateCommand();
+                    cmd1.CommandText = "DELETE FROM motos WHERE placa = @placa";
+                    var p1 = cmd1.CreateParameter();
+                    p1.ParameterName = "@placa";
+                    p1.Value = static_class.doc_consultar;
+                    cmd1.Parameters.Add(p1);
+                    cmd1.ExecuteNonQuery();
 
-            conexao.Open();
-            cmd.ExecuteReader();
-            conexao.Close();
-
-            Close();
+                    // 2. Deletar da tabela OS (Ordens de Serviço vinculadas a essa placa)
+                    var cmd2 = conexao.CreateCommand();
+                    cmd2.CommandText = "DELETE FROM os WHERE placa = @placa";
+                    var p2 = cmd2.CreateParameter();
+                    p2.ParameterName = "@placa";
+                    p2.Value = static_class.doc_consultar;
+                    cmd2.Parameters.Add(p2);
+                    cmd2.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Erro ao excluir dados: " + ex.Message, "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Se falhar no MySQL, tenta replicar a exclusão no banco local
+                if (!usarLocal) ExecutarExclusaoTotal(true);
+            }
         }
 
         private void bnt_historico_Click(object sender, EventArgs e)

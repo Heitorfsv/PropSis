@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Forms;
 
@@ -12,6 +13,9 @@ namespace PrototipoSistema
 
         servicos_os servicos_os = new servicos_os();
         pecas_os pecas_os = new pecas_os();
+
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
 
         public add()
         {
@@ -28,96 +32,81 @@ namespace PrototipoSistema
 
         private void add_servicos_Load(object sender, EventArgs e)
         {
-            var lista = itens_pecas;
-            if (table == "pecas") lista = itens_pecas;
-            else if (table == "servicos") lista = itens_servicos;
+            // Lógica das Listas temporárias (Padrão original)
+            var lista = (table == "pecas") ? itens_pecas : itens_servicos;
 
             foreach (ListViewItem item in lista)
-                {
-                    item.BackColor = listView1.BackColor;
-                    // Clona o item antes de adicionar (evita referência duplicada)
-                    listView1.Items.Add((ListViewItem)item.Clone());
-                }
+            {
+                item.BackColor = listView1.BackColor;
+                listView1.Items.Add((ListViewItem)item.Clone());
+            }
+
             itens_pecas.Clear();
             itens_servicos.Clear();
 
-            if (table == "servicos") this.Text = "Adicionar serviços";
-            else if (table == "pecas") this.Text = "Adicionar peças";
+            // Título da Janela
+            this.Text = (table == "servicos") ? "Adicionar serviços" : "Adicionar peças";
 
-            lst_pesquisa.Items.Clear();
+            // Carregar dados (Híbrido)
+            CarregarLista(txt_pesquisa.Text.Trim());
 
-            using (var conexao = new MySqlConnection("server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport"))
-            {
-                // Carregar lista de serviços disponíveis
-                var cmd = new MySqlCommand($"SELECT * FROM {table}", conexao);
-                conexao.Open();
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    lst_pesquisa.Items.Add(reader.GetString("nome"));
-                }
-                conexao.Close();
-
-                //    // Carregar serviços da OS/Orçamento
-                //    cmd = new MySqlCommand($"SELECT * FROM {table}_os WHERE {modo} = '{static_class.controle}' ORDER BY pos ASC", conexao);
-                //    conexao.Open();
-                //    reader = cmd.ExecuteReader();
-
-                //    while (reader.Read())
-                //    {
-                //        string nome = reader.GetString("nome");
-                //        string qtdStr = reader.GetString("qtd").Replace(".", ",");
-                //        decimal desc = decimal.Parse(reader.GetString("desco"));
-                //        string valorStr = reader.GetString("valor");
-                //        decimal qtd = decimal.Parse(qtdStr);
-                //        decimal valor, totalItem;
-
-                //        var item = new ListViewItem(nome);
-                //        item.SubItems.Add(qtd.ToString());
-
-                //        try
-                //        {
-                //            valor = decimal.Parse(valorStr);
-                //            totalItem = valor * qtd;
-
-                //            item.SubItems.Add(valor.ToString("N2"));
-                //            item.SubItems.Add(desc.ToString("N2"));
-                //            item.SubItems.Add(totalItem.ToString("N2")); 
-                //        }
-                //        catch
-                //        {
-                //            item.SubItems.Add(valorStr);
-                //            item.SubItems.Add(desc.ToString("N2"));
-                //            item.SubItems.Add(valorStr);
-                //        }
-
-                //        listView1.Items.Add(item);
-                //    }
-                //    conexao.Close();
-            }
             AtualizarTotal();
         }
 
         private void txt_pesquisa_TextChanged(object sender, EventArgs e)
         {
+            // Carregar dados enquanto digita (Híbrido)
+            CarregarLista(txt_pesquisa.Text.Trim());
+        }
+
+        private void CarregarLista(string filtro, bool usarLocal = false)
+        {
             lst_pesquisa.Items.Clear();
-            string filtro = txt_pesquisa.Text.Trim();
 
-            using (var conexao = new MySqlConnection("server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport"))
+            // Define a conexão (Mesmo padrão das outras classes)
+            System.Data.Common.DbConnection conexao;
+            if (usarLocal)
+                conexao = new SQLiteConnection(strLocal);
+            else
+                conexao = new MySqlConnection(strConexao);
+
+            try
             {
-                MySqlCommand cmd;
-                if (!string.IsNullOrEmpty(filtro))
-                    cmd = new MySqlCommand($"SELECT * FROM {table} WHERE nome LIKE '%{filtro}%'", conexao);
-                else
-                    cmd = new MySqlCommand($"SELECT * FROM {table}", conexao);
-
-                conexao.Open();
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (conexao)
                 {
-                    lst_pesquisa.Items.Add(reader.GetString("nome"));
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+
+                    // Monta a query com parâmetro para evitar SQL Injection no filtro
+                    if (!string.IsNullOrEmpty(filtro))
+                    {
+                        cmd.CommandText = $"SELECT nome FROM {table} WHERE nome LIKE @filtro";
+                        var p = cmd.CreateParameter();
+                        p.ParameterName = "@filtro";
+                        p.Value = "%" + filtro + "%";
+                        cmd.Parameters.Add(p);
+                    }
+                    else
+                    {
+                        cmd.CommandText = $"SELECT nome FROM {table}";
+                    }
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lst_pesquisa.Items.Add(reader.GetString(0));
+                        }
+                    }
                 }
-                conexao.Close();
+            }
+            catch (Exception)
+            {
+                // Se falhou no MySQL, tenta no banco local
+                if (!usarLocal)
+                {
+                    CarregarLista(filtro, true);
+                }
             }
         }
 
@@ -129,86 +118,79 @@ namespace PrototipoSistema
             try
             {
                 object nome = lst_pesquisa.SelectedItem;
+                if (nome == null) return; // Proteção caso clique no vazio
+
                 string valor = "", desc = "";
 
-                using (var conexao = new MySqlConnection("server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport"))
+                // --- INÍCIO DA BUSCA HÍBRIDA ---
+                void BuscarPreco(bool usarLocal = false)
                 {
-                    var cmd = new MySqlCommand($"SELECT * FROM {table} WHERE nome = '{nome}'", conexao);
-                    conexao.Open();
-                    var reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    System.Data.Common.DbConnection conexao;
+                    if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+                    else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+
+                    try
                     {
-                        if (table == "servicos") valor = reader.GetString("valor");
-                        else valor = reader.GetString("valor_sugerido");
+                        using (conexao)
+                        {
+                            conexao.Open();
+                            var cmd = conexao.CreateCommand();
+                            // Uso de parâmetros para evitar erro com aspas (ex: Pneu 18")
+                            cmd.CommandText = $"SELECT * FROM {table} WHERE nome = @nomeItem";
+
+                            var p = cmd.CreateParameter();
+                            p.ParameterName = "@nomeItem";
+                            p.Value = nome.ToString();
+                            cmd.Parameters.Add(p);
+
+                            using (var reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    if (table == "servicos") valor = reader["valor"].ToString();
+                                    else valor = reader["valor_sugerido"].ToString();
+                                }
+                            }
+                        }
                     }
-                    conexao.Close();
+                    catch { if (!usarLocal) BuscarPreco(true); }
                 }
 
+                BuscarPreco(); // Executa a busca (Online ou Offline)
+                               // --- FIM DA BUSCA HÍBRIDA ---
+
                 qtd qtd_tela = new qtd();
-                //sugere o valor na tela qtd
-                qtd_tela.valor = valor;
+                qtd_tela.valor = valor; // Sugere o valor recuperado do banco
                 qtd_tela.ShowDialog();
 
                 if (qtd_tela.quantidade > 0)
                 {
                     decimal qtd = qtd_tela.quantidade;
-                    //valor pode ser letra ou número
-                    valor = qtd_tela.valor;
+                    valor = qtd_tela.valor; // Pode ter sido alterado na tela 'qtd'
                     desc = qtd_tela.desc;
 
                     string total;
                     decimal totalItem;
 
-                    //try catch para aceitar letras nos valores ( try -> numero | catch -> letras )
+                    // Mantendo sua lógica: try -> número | catch -> letras
                     try
-                    { 
+                    {
                         totalItem = (decimal.Parse(valor) * qtd) - decimal.Parse(desc);
-                        total = totalItem.ToString("N2"); 
+                        total = totalItem.ToString("N2");
                     }
                     catch { total = valor; }
 
                     var item = new ListViewItem(nome.ToString());
                     item.SubItems.Add(qtd.ToString());
+
                     try { item.SubItems.Add(decimal.Parse(valor).ToString("N2")); }
                     catch { item.SubItems.Add(valor); }
+
                     item.SubItems.Add(desc);
                     item.SubItems.Add(total);
                     listView1.Items.Add(item);
 
                     AtualizarTotal();
-
-                //    if (table == "servicos")
-                //    {
-                //        servicos_os.ultimo_index();
-                //        servicos_os.index++;
-                //        servicos_os.modo = modo;
-
-                //        //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
-                //        servicos_os.os_or = static_class.controle;
-
-                //        servicos_os.nome = nome.ToString();
-                //        servicos_os.valor = valor;
-                //        servicos_os.qtd = qtd;
-                //        servicos_os.desc = desc;
-                //        servicos_os.pos = listView1.Items.Count - 1;
-                //        servicos_os.cadastrar_servico_os();
-                //    }
-                //    else if (table == "pecas")
-                //    {
-                //        pecas_os.ultimo_index();
-                //        pecas_os.index++;
-                //        pecas_os.modo = modo;
-
-                //        //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
-                //        pecas_os.os_or = static_class.controle;
-
-                //        pecas_os.nome = nome.ToString();
-                //        pecas_os.valor = valor;
-                //        pecas_os.qtd = qtd;
-                //        pecas_os.desc = desc;
-                //        pecas_os.pos = listView1.Items.Count - 1;
-                //        pecas_os.cadastrar_peca_os();
-                //    }
                 }
             }
             catch (Exception a) { MessageBox.Show(a.ToString()); }
@@ -222,24 +204,6 @@ namespace PrototipoSistema
                 if (table == "pecas") itens_pecas.Add((ListViewItem)items);
                 else if (table == "servicos") itens_servicos.Add((ListViewItem)items);
             }
-
-            //static_class.close = 1;
-            //try
-            //{
-            //    using (var conexao = new MySqlConnection("server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport"))
-            //    {
-            //        for (int i = 0; i < listView1.Items.Count; i++)
-            //        {
-            //            var cmd = new MySqlCommand(
-            //                $"UPDATE {table}_os SET pos = '{i}' WHERE {modo} = {static_class.controle} AND nome = '{listView1.Items[i].Text}'",
-            //                conexao);
-            //            conexao.Open();
-            //            cmd.ExecuteNonQuery();
-            //            conexao.Close();
-            //        }
-            //    }
-            //}
-            //catch { }
         }
 
         private void bnt_delete_Click(object sender, EventArgs e)
@@ -248,16 +212,48 @@ namespace PrototipoSistema
             {
                 var servicoNome = listView1.SelectedItems[0].Text;
 
-                using (var conexao = new MySqlConnection("server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport"))
+                // Função local para executar o delete onde houver conexão
+                void ExecutarDelete(bool usarLocal = false)
                 {
-                    var cmd = new MySqlCommand(
-                        $"DELETE FROM {table}_os WHERE nome = '{servicoNome}' AND {modo} = {static_class.controle}",
-                        conexao);
-                    conexao.Open();
-                    cmd.ExecuteNonQuery();
-                    conexao.Close();
+                    System.Data.Common.DbConnection conexao;
+                    if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+                    else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+
+                    try
+                    {
+                        using (conexao)
+                        {
+                            conexao.Open();
+                            var cmd = conexao.CreateCommand();
+
+                            // Usamos parâmetros para o nome e para o ID de controle
+                            // O nome da tabela {table}_os e a coluna {modo} permanecem dinâmicos
+                            cmd.CommandText = $@"DELETE FROM {table}_os WHERE nome = @nome AND {modo} = @controle";
+
+                            var pNome = cmd.CreateParameter();
+                            pNome.ParameterName = "@nome";
+                            pNome.Value = servicoNome;
+                            cmd.Parameters.Add(pNome);
+
+                            var pControle = cmd.CreateParameter();
+                            pControle.ParameterName = "@controle";
+                            pControle.Value = static_class.controle;
+                            cmd.Parameters.Add(pControle);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch
+                    {
+                        // Se falhar no MySQL, tenta deletar no banco local (SQLite)
+                        if (!usarLocal) ExecutarDelete(true);
+                    }
                 }
 
+                // Tenta deletar no banco de dados
+                ExecutarDelete();
+
+                // Remove da interface visual e atualiza o total da tela
                 listView1.Items.Remove(listView1.SelectedItems[0]);
                 AtualizarTotal();
             }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "oIMkYkuc8Ms=",
+  "dgSpecHash": "I7+OHs2LvQw=",
   "success": true,
   "projectFilePath": "C:\\Users\\jp.motorsport\\source\\repos\\PropSis\\PrototipoSistema.csproj",
   "expectedPackageFiles": [
@@ -33,9 +33,10 @@
     "C:\\Users\\jp.motorsport\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512",
     "C:\\Users\\jp.motorsport\\.nuget\\packages\\questpdf\\2025.12.3\\questpdf.2025.12.3.nupkg.sha512",
     "C:\\Users\\jp.motorsport\\.nuget\\packages\\refit\\9.0.2\\refit.9.0.2.nupkg.sha512",
-    "C:\\Users\\jp.motorsport\\.nuget\\packages\\sqlite\\3.13.0\\sqlite.3.13.0.nupkg.sha512",
+    "C:\\Users\\jp.motorsport\\.nuget\\packages\\stub.system.data.sqlite.core.netframework\\1.0.119\\stub.system.data.sqlite.core.netframework.1.0.119.nupkg.sha512",
     "C:\\Users\\jp.motorsport\\.nuget\\packages\\system.buffers\\4.6.1\\system.buffers.4.6.1.nupkg.sha512",
     "C:\\Users\\jp.motorsport\\.nuget\\packages\\system.configuration.configurationmanager\\10.0.2\\system.configuration.configurationmanager.10.0.2.nupkg.sha512",
+    "C:\\Users\\jp.motorsport\\.nuget\\packages\\system.data.sqlite.core\\1.0.119\\system.data.sqlite.core.1.0.119.nupkg.sha512",
     "C:\\Users\\jp.motorsport\\.nuget\\packages\\system.diagnostics.diagnosticsource\\10.0.2\\system.diagnostics.diagnosticsource.10.0.2.nupkg.sha512",
     "C:\\Users\\jp.motorsport\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
     "C:\\Users\\jp.motorsport\\.nuget\\packages\\system.io.pipelines\\10.0.2\\system.io.pipelines.10.0.2.nupkg.sha512",

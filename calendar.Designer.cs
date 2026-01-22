@@ -48,14 +48,14 @@
             this.dayscontainer.BackColor = System.Drawing.SystemColors.Control;
             this.dayscontainer.Location = new System.Drawing.Point(12, 138);
             this.dayscontainer.Name = "dayscontainer";
-            this.dayscontainer.Size = new System.Drawing.Size(1900, 806);
+            this.dayscontainer.Size = new System.Drawing.Size(1762, 737);
             this.dayscontainer.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(1676, 79);
+            this.label2.Location = new System.Drawing.Point(1519, 79);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 31);
             this.label2.TabIndex = 2;
@@ -65,7 +65,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(339, 79);
+            this.label3.Location = new System.Drawing.Point(311, 79);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 31);
             this.label3.TabIndex = 3;
@@ -75,7 +75,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Tai Le", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(614, 79);
+            this.label4.Location = new System.Drawing.Point(567, 79);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 31);
             this.label4.TabIndex = 4;
@@ -85,7 +85,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Tai Le", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(870, 79);
+            this.label5.Location = new System.Drawing.Point(811, 79);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(92, 31);
             this.label5.TabIndex = 5;
@@ -95,7 +95,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(1152, 79);
+            this.label6.Location = new System.Drawing.Point(1034, 79);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 31);
             this.label6.TabIndex = 6;
@@ -105,7 +105,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Tai Le", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(1420, 79);
+            this.label7.Location = new System.Drawing.Point(1303, 79);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 31);
             this.label7.TabIndex = 7;
@@ -115,7 +115,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Tai Le", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(55, 79);
+            this.label8.Location = new System.Drawing.Point(76, 79);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(121, 31);
             this.label8.TabIndex = 8;
@@ -124,9 +124,9 @@
             // bnt_anterior
             // 
             this.bnt_anterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bnt_anterior.Location = new System.Drawing.Point(1735, 949);
+            this.bnt_anterior.Location = new System.Drawing.Point(1622, 928);
             this.bnt_anterior.Name = "bnt_anterior";
-            this.bnt_anterior.Size = new System.Drawing.Size(75, 33);
+            this.bnt_anterior.Size = new System.Drawing.Size(75, 27);
             this.bnt_anterior.TabIndex = 9;
             this.bnt_anterior.Text = "Anterior";
             this.bnt_anterior.UseVisualStyleBackColor = true;
@@ -135,9 +135,9 @@
             // bnt_proximo
             // 
             this.bnt_proximo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bnt_proximo.Location = new System.Drawing.Point(1828, 950);
+            this.bnt_proximo.Location = new System.Drawing.Point(1703, 928);
             this.bnt_proximo.Name = "bnt_proximo";
-            this.bnt_proximo.Size = new System.Drawing.Size(75, 33);
+            this.bnt_proximo.Size = new System.Drawing.Size(75, 27);
             this.bnt_proximo.TabIndex = 10;
             this.bnt_proximo.Text = "Próximo";
             this.bnt_proximo.UseVisualStyleBackColor = true;
@@ -158,12 +158,12 @@
             this.bnt_atualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.bnt_atualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bnt_atualizar.Image = ((System.Drawing.Image)(resources.GetObject("bnt_atualizar.Image")));
-            this.bnt_atualizar.Location = new System.Drawing.Point(1891, 19);
+            this.bnt_atualizar.Location = new System.Drawing.Point(1596, 932);
             this.bnt_atualizar.Margin = new System.Windows.Forms.Padding(2);
             this.bnt_atualizar.Name = "bnt_atualizar";
             this.bnt_atualizar.Size = new System.Drawing.Size(21, 20);
             this.bnt_atualizar.TabIndex = 15;
-            this.bnt_atualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.bnt_atualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bnt_atualizar.UseVisualStyleBackColor = false;
             this.bnt_atualizar.Click += new System.EventHandler(this.bnt_atualizar_Click);
             // 

@@ -68,13 +68,14 @@
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.bnt_os = new System.Windows.Forms.Button();
-            this.bnt_motos = new System.Windows.Forms.Button();
-            this.bnt_pecas = new System.Windows.Forms.Button();
-            this.bnt_servicos = new System.Windows.Forms.Button();
-            this.bnt_oleo = new System.Windows.Forms.Button();
-            this.bnt_calendario = new System.Windows.Forms.Button();
             this.bnt_pag = new System.Windows.Forms.Button();
+            this.bnt_calendario = new System.Windows.Forms.Button();
+            this.bnt_oleo = new System.Windows.Forms.Button();
+            this.bnt_servicos = new System.Windows.Forms.Button();
+            this.bnt_pecas = new System.Windows.Forms.Button();
+            this.bnt_motos = new System.Windows.Forms.Button();
+            this.bnt_os = new System.Windows.Forms.Button();
+            this.bnt_clientes = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -372,6 +373,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.bnt_clientes);
             this.panel1.Controls.Add(this.bnt_pag);
             this.panel1.Controls.Add(this.bnt_calendario);
             this.panel1.Controls.Add(this.bnt_oleo);
@@ -384,6 +386,84 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(113, 558);
             this.panel1.TabIndex = 2;
+            // 
+            // bnt_pag
+            // 
+            this.bnt_pag.Image = ((System.Drawing.Image)(resources.GetObject("bnt_pag.Image")));
+            this.bnt_pag.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bnt_pag.Location = new System.Drawing.Point(3, 437);
+            this.bnt_pag.Name = "bnt_pag";
+            this.bnt_pag.Size = new System.Drawing.Size(105, 56);
+            this.bnt_pag.TabIndex = 9;
+            this.bnt_pag.Text = "Metodos de pag.";
+            this.bnt_pag.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.bnt_pag.UseVisualStyleBackColor = true;
+            this.bnt_pag.Click += new System.EventHandler(this.bnt_pag_Click);
+            // 
+            // bnt_calendario
+            // 
+            this.bnt_calendario.Image = ((System.Drawing.Image)(resources.GetObject("bnt_calendario.Image")));
+            this.bnt_calendario.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bnt_calendario.Location = new System.Drawing.Point(3, 375);
+            this.bnt_calendario.Name = "bnt_calendario";
+            this.bnt_calendario.Size = new System.Drawing.Size(105, 56);
+            this.bnt_calendario.TabIndex = 8;
+            this.bnt_calendario.Text = "Calendario Google";
+            this.bnt_calendario.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.bnt_calendario.UseVisualStyleBackColor = true;
+            this.bnt_calendario.Click += new System.EventHandler(this.bnt_calendario_Click);
+            // 
+            // bnt_oleo
+            // 
+            this.bnt_oleo.Image = ((System.Drawing.Image)(resources.GetObject("bnt_oleo.Image")));
+            this.bnt_oleo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bnt_oleo.Location = new System.Drawing.Point(3, 313);
+            this.bnt_oleo.Name = "bnt_oleo";
+            this.bnt_oleo.Size = new System.Drawing.Size(105, 56);
+            this.bnt_oleo.TabIndex = 7;
+            this.bnt_oleo.Text = "Óleo e revisão";
+            this.bnt_oleo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.bnt_oleo.UseVisualStyleBackColor = true;
+            this.bnt_oleo.Click += new System.EventHandler(this.bnt_oleo_Click);
+            // 
+            // bnt_servicos
+            // 
+            this.bnt_servicos.Image = ((System.Drawing.Image)(resources.GetObject("bnt_servicos.Image")));
+            this.bnt_servicos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bnt_servicos.Location = new System.Drawing.Point(3, 251);
+            this.bnt_servicos.Name = "bnt_servicos";
+            this.bnt_servicos.Size = new System.Drawing.Size(105, 56);
+            this.bnt_servicos.TabIndex = 6;
+            this.bnt_servicos.Text = "Consultar Serviços";
+            this.bnt_servicos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.bnt_servicos.UseVisualStyleBackColor = true;
+            this.bnt_servicos.Click += new System.EventHandler(this.bnt_servicos_Click);
+            // 
+            // bnt_pecas
+            // 
+            this.bnt_pecas.Image = ((System.Drawing.Image)(resources.GetObject("bnt_pecas.Image")));
+            this.bnt_pecas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bnt_pecas.Location = new System.Drawing.Point(3, 189);
+            this.bnt_pecas.Name = "bnt_pecas";
+            this.bnt_pecas.Size = new System.Drawing.Size(105, 56);
+            this.bnt_pecas.TabIndex = 5;
+            this.bnt_pecas.Text = "Consultar Peças";
+            this.bnt_pecas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.bnt_pecas.UseVisualStyleBackColor = true;
+            this.bnt_pecas.Click += new System.EventHandler(this.bnt_pecas_Click);
+            // 
+            // bnt_motos
+            // 
+            this.bnt_motos.Image = ((System.Drawing.Image)(resources.GetObject("bnt_motos.Image")));
+            this.bnt_motos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bnt_motos.Location = new System.Drawing.Point(3, 127);
+            this.bnt_motos.Name = "bnt_motos";
+            this.bnt_motos.Size = new System.Drawing.Size(105, 56);
+            this.bnt_motos.TabIndex = 4;
+            this.bnt_motos.Text = "Consultar Motos";
+            this.bnt_motos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.bnt_motos.UseVisualStyleBackColor = true;
+            this.bnt_motos.Click += new System.EventHandler(this.bnt_motos_Click);
             // 
             // bnt_os
             // 
@@ -398,83 +478,18 @@
             this.bnt_os.UseVisualStyleBackColor = true;
             this.bnt_os.Click += new System.EventHandler(this.bnt_os_Click);
             // 
-            // bnt_motos
+            // bnt_clientes
             // 
-            this.bnt_motos.Image = ((System.Drawing.Image)(resources.GetObject("bnt_motos.Image")));
-            this.bnt_motos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bnt_motos.Location = new System.Drawing.Point(3, 65);
-            this.bnt_motos.Name = "bnt_motos";
-            this.bnt_motos.Size = new System.Drawing.Size(105, 56);
-            this.bnt_motos.TabIndex = 4;
-            this.bnt_motos.Text = "Consultar Motos";
-            this.bnt_motos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bnt_motos.UseVisualStyleBackColor = true;
-            this.bnt_motos.Click += new System.EventHandler(this.bnt_motos_Click);
-            // 
-            // bnt_pecas
-            // 
-            this.bnt_pecas.Image = ((System.Drawing.Image)(resources.GetObject("bnt_pecas.Image")));
-            this.bnt_pecas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bnt_pecas.Location = new System.Drawing.Point(3, 127);
-            this.bnt_pecas.Name = "bnt_pecas";
-            this.bnt_pecas.Size = new System.Drawing.Size(105, 56);
-            this.bnt_pecas.TabIndex = 5;
-            this.bnt_pecas.Text = "Consultar Peças";
-            this.bnt_pecas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bnt_pecas.UseVisualStyleBackColor = true;
-            this.bnt_pecas.Click += new System.EventHandler(this.bnt_pecas_Click);
-            // 
-            // bnt_servicos
-            // 
-            this.bnt_servicos.Image = ((System.Drawing.Image)(resources.GetObject("bnt_servicos.Image")));
-            this.bnt_servicos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bnt_servicos.Location = new System.Drawing.Point(3, 189);
-            this.bnt_servicos.Name = "bnt_servicos";
-            this.bnt_servicos.Size = new System.Drawing.Size(105, 56);
-            this.bnt_servicos.TabIndex = 6;
-            this.bnt_servicos.Text = "Consultar Serviços";
-            this.bnt_servicos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bnt_servicos.UseVisualStyleBackColor = true;
-            this.bnt_servicos.Click += new System.EventHandler(this.bnt_servicos_Click);
-            // 
-            // bnt_oleo
-            // 
-            this.bnt_oleo.Image = ((System.Drawing.Image)(resources.GetObject("bnt_oleo.Image")));
-            this.bnt_oleo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bnt_oleo.Location = new System.Drawing.Point(3, 251);
-            this.bnt_oleo.Name = "bnt_oleo";
-            this.bnt_oleo.Size = new System.Drawing.Size(105, 56);
-            this.bnt_oleo.TabIndex = 7;
-            this.bnt_oleo.Text = "Óleo e revisão";
-            this.bnt_oleo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bnt_oleo.UseVisualStyleBackColor = true;
-            this.bnt_oleo.Click += new System.EventHandler(this.bnt_oleo_Click);
-            // 
-            // bnt_calendario
-            // 
-            this.bnt_calendario.Image = ((System.Drawing.Image)(resources.GetObject("bnt_calendario.Image")));
-            this.bnt_calendario.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bnt_calendario.Location = new System.Drawing.Point(3, 313);
-            this.bnt_calendario.Name = "bnt_calendario";
-            this.bnt_calendario.Size = new System.Drawing.Size(105, 56);
-            this.bnt_calendario.TabIndex = 8;
-            this.bnt_calendario.Text = "Calendario Google";
-            this.bnt_calendario.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bnt_calendario.UseVisualStyleBackColor = true;
-            this.bnt_calendario.Click += new System.EventHandler(this.bnt_calendario_Click);
-            // 
-            // bnt_pag
-            // 
-            this.bnt_pag.Image = ((System.Drawing.Image)(resources.GetObject("bnt_pag.Image")));
-            this.bnt_pag.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bnt_pag.Location = new System.Drawing.Point(3, 375);
-            this.bnt_pag.Name = "bnt_pag";
-            this.bnt_pag.Size = new System.Drawing.Size(105, 56);
-            this.bnt_pag.TabIndex = 9;
-            this.bnt_pag.Text = "Metodos de pag.";
-            this.bnt_pag.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bnt_pag.UseVisualStyleBackColor = true;
-            this.bnt_pag.Click += new System.EventHandler(this.bnt_pag_Click);
+            this.bnt_clientes.Image = ((System.Drawing.Image)(resources.GetObject("bnt_clientes.Image")));
+            this.bnt_clientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bnt_clientes.Location = new System.Drawing.Point(3, 65);
+            this.bnt_clientes.Name = "bnt_clientes";
+            this.bnt_clientes.Size = new System.Drawing.Size(105, 56);
+            this.bnt_clientes.TabIndex = 10;
+            this.bnt_clientes.Text = "Consultar clientes";
+            this.bnt_clientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.bnt_clientes.UseVisualStyleBackColor = true;
+            this.bnt_clientes.Click += new System.EventHandler(this.button1_Click);
             // 
             // MDI_tela
             // 
@@ -544,6 +559,7 @@
         private System.Windows.Forms.Button bnt_pecas;
         private System.Windows.Forms.Button bnt_pag;
         private System.Windows.Forms.Button bnt_calendario;
+        private System.Windows.Forms.Button bnt_clientes;
     }
 }
 
