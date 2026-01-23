@@ -31,21 +31,7 @@ namespace PrototipoSistema
                 bnt_historico.Visible = true;
                 bnt_editar.Text = "Salvar";
 
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
-
-                var cmd = new MySqlCommand($"SELECT * FROM servicos WHERE nome LIKE '{static_class.doc_consultar}'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    txt_nome.Text = reader.GetString("nome");
-                    txt_valor.Text = reader.GetDecimal("valor").ToString("N2");
-                }
-
-                conexao.Close();
+                CarregarDadosServico();
             }
             else if (this.Text == "Cadastro serviços")
             {
@@ -55,58 +41,119 @@ namespace PrototipoSistema
             }
         }
 
+        private void CarregarDadosServico(bool usarLocal = false)
+        {
+            System.Data.Common.DbConnection conexao;
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+
+                    // Uso de parâmetros para evitar erros com serviços como "Mão d'obra"
+                    cmd.CommandText = "SELECT * FROM servicos WHERE nome = @nome LIMIT 1";
+
+                    var p = cmd.CreateParameter();
+                    p.ParameterName = "@nome";
+                    p.Value = static_class.doc_consultar;
+                    cmd.Parameters.Add(p);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            txt_nome.Text = reader["nome"].ToString();
+
+                            // Convert.ToDecimal é mais seguro para alternar entre MySQL e SQLite
+                            if (reader["valor"] != DBNull.Value)
+                            {
+                                txt_valor.Text = Convert.ToDecimal(reader["valor"]).ToString("N2");
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Se falhar no MySQL (servidor), tenta buscar a definição do serviço no SQLite (local)
+                if (!usarLocal) CarregarDadosServico(true);
+            }
+        }
+
         private void bnt_editar_Click(object sender, EventArgs e)
         {
+            // 1. Validação de Entrada
+            if (string.IsNullOrWhiteSpace(txt_nome.Text))
+            {
+                MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!decimal.TryParse(txt_valor.Text, out decimal valorServico))
+            {
+                MessageBox.Show("Preencha o campo Valor com caracteres numéricos (ex: 150,00)", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Atribuição ao objeto
+            servicos.nome = txt_nome.Text;
+            servicos.valor = valorServico;
+
             if (this.Text == "Edição serviços")
             {
-                servicos.nome = txt_nome.Text;
-                servicos.valor = decimal.Parse(txt_valor.Text);
-
-                try
-                {
-                    MessageBox.Show("Serviço Alterado!", "JCMotorsport", MessageBoxButtons.OK);
-                    servicos.alterar_servico();
-                }
-                catch { }
+                servicos.alterar_servico();
             }
             else if (this.Text == "Cadastro serviços")
             {
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
-
-                var cmd = new MySqlCommand($"SELECT * FROM servicos WHERE nome = '{txt_nome.Text}'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                // 3. Verificação de existência Híbrida
+                if (VerificarServicoExistente(txt_nome.Text))
                 {
-                    MessageBox.Show("Serviço já cadastrada", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Serviço já cadastrado no sistema", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
                     servicos.ultimo_index();
                     servicos.index++;
-
-                    servicos.nome = txt_nome.Text;
-                    try
-                    {
-                        servicos.valor = decimal.Parse(txt_valor.Text);
-
-                        if (txt_nome.Text == string.Empty)
-                        {
-                            MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        else
-                        {
-                            servicos.cadastrar_servicos();
-                            MessageBox.Show("Serviço cadastrado!", "JCMotorsport", MessageBoxButtons.OK);
-                        }
-                    }
-                    catch (Exception) { MessageBox.Show("Preencha o campo Valor com caracteres numéricos", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                    servicos.cadastrar_servicos();
                 }
-                conexao.Close();
             }
+        }
+
+        // Método para checar duplicidade em ambos os bancos
+        private bool VerificarServicoExistente(string nomeServico, bool usarLocal = false)
+        {
+            bool existe = false;
+            System.Data.Common.DbConnection conexao;
+
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = "SELECT COUNT(*) FROM servicos WHERE nome = @nome";
+
+                    var p = cmd.CreateParameter();
+                    p.ParameterName = "@nome";
+                    p.Value = nomeServico;
+                    cmd.Parameters.Add(p);
+
+                    existe = Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                }
+            }
+            catch
+            {
+                // Se falhar no MySQL, tenta no SQLite local
+                if (!usarLocal) return VerificarServicoExistente(nomeServico, true);
+            }
+            return existe;
         }
 
         private void bnt_deletar_Click(object sender, EventArgs e)

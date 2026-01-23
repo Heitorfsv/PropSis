@@ -18,104 +18,122 @@ namespace PrototipoSistema
             InitializeComponent();
         }
 
-        public void tela_cliente_Load(object sender, EventArgs e)
+        private void tela_cliente_Load(object sender, EventArgs e)
         {
             if (this.Text == "Edição Cliente")
             {
-                bnt_editar.Text = "Salvar";
-                txt_dt_registro.Visible = true;
-                label15.Visible = true;
-
-                txt_inscricao.Visible = false;
-                lbl_inscricao.Visible = false;
-                bnt_delete.Visible = true;
-
-                consulta_cliente consulta = new consulta_cliente();
-
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
-
-                var cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc LIKE '%{static_class.doc_consultar}%'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    txt_nome.Text = reader.GetString("nome");
-
-                    try { txt_fantasia.Text = reader.GetString("nome_fantasia"); } catch { }
-
-                    string doc = reader.GetString("doc");
-
-                    if (doc.Length == 14)
-                    {
-                        lbl_cpf.Text = "CPF";
-                        txt_doc.Mask = "000.000.000-00";
-                        txt_inscricao.Visible = false;
-                        lbl_inscricao.Visible = false;
-                        rb_fisica.Checked = true;
-                        txt_doc.Text = doc;
-                    }
-                    else
-                    {
-                        lbl_cpf.Text = "CNPJ";
-                        txt_doc.Mask = "00.000.000/0000-00";
-                        txt_inscricao.Visible = true;
-                        lbl_inscricao.Visible = true;
-                        rb_juridica.Checked = true;
-                        txt_doc.Text = doc;
-                    }
-
-                    try
-                    {
-                        if (reader.GetString("dt_nascimento") == null)
-                        { }
-                        else
-                        {
-                            cb_dt_nascimento.Checked = true;
-                            dtp_nascimento.Value = DateTime.Parse(reader.GetString("dt_nascimento"));
-                        }
-                    }
-                    catch
-                    {
-                        cb_dt_nascimento.Checked = false;
-                        dtp_nascimento.Enabled = false;
-                    }
-
-                    txt_inscricao.Text = reader.GetInt32("inscricao").ToString();
-                    txt_telefone.Text = reader.GetString("telefone");
-                    txt_telefone2.Text = reader.GetString("telefone2");
-                    txt_email.Text = reader.GetString("email");
-                    txt_cep.Text = reader.GetString("cep");
-                    txt_rua.Text = reader.GetString("rua");
-                    txt_bairro.Text = reader.GetString("bairro");
-                    txt_cidade.Text = reader.GetString("cidade");
-                    txt_dt_registro.Text = reader.GetDateTime("dt_cadastro").ToString("d");
-                }
-
-                conexao.Close();
-
-                cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{static_class.doc_consultar}'", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    cliente.index = reader.GetInt32("controle");
-                }
-                conexao.Close();
+                ConfigurarTelaEdicao();
+                CarregarDadosCliente();
             }
             else if (this.Text == "Cadastro Cliente")
             {
-                bnt_editar.Text = "Cadastrar";
-                txt_doc.Mask = "000.000.000-00";
-                txt_dt_registro.Visible = false;
-                label15.Visible = false;
-                dtp_nascimento.Enabled = false;
-                txt_inscricao.Visible = false;
-                lbl_inscricao.Visible = false;
-                bnt_delete.Visible = false;
+                ConfigurarTelaCadastro();
+            }
+        }
+
+        private void ConfigurarTelaEdicao()
+        {
+            bnt_editar.Text = "Salvar";
+            txt_dt_registro.Visible = true;
+            label15.Visible = true;
+            txt_inscricao.Visible = false;
+            lbl_inscricao.Visible = false;
+            bnt_delete.Visible = true;
+        }
+
+        private void ConfigurarTelaCadastro()
+        {
+            bnt_editar.Text = "Cadastrar";
+            txt_doc.Mask = "000.000.000-00";
+            txt_dt_registro.Visible = false;
+            label15.Visible = false;
+            dtp_nascimento.Enabled = false;
+            txt_inscricao.Visible = false;
+            lbl_inscricao.Visible = false;
+            bnt_delete.Visible = false;
+        }
+
+        private void CarregarDadosCliente(bool usarLocal = false)
+        {
+            System.Data.Common.DbConnection conexao;
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+
+            try
+            {
+                using (conexao)
+                {
+                    conexao.Open();
+                    var cmd = conexao.CreateCommand();
+                    // Busca usando parâmetro para segurança e precisão
+                    cmd.CommandText = "SELECT * FROM clientes WHERE doc = @doc LIMIT 1";
+
+                    var p = cmd.CreateParameter();
+                    p.ParameterName = "@doc";
+                    p.Value = static_class.doc_consultar;
+                    cmd.Parameters.Add(p);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Atribui o index (controle) logo de cara
+                            cliente.index = Convert.ToInt32(reader["controle"]);
+
+                            txt_nome.Text = reader["nome"].ToString();
+                            txt_fantasia.Text = reader["nome_fantasia"]?.ToString() ?? "";
+
+                            string doc = reader["doc"].ToString();
+
+                            // Lógica de Máscara CPF/CNPJ
+                            if (doc.Length == 14)
+                            {
+                                lbl_cpf.Text = "CPF";
+                                txt_doc.Mask = "000.000.000-00";
+                                rb_fisica.Checked = true;
+                            }
+                            else
+                            {
+                                lbl_cpf.Text = "CNPJ";
+                                txt_doc.Mask = "00.000.000/0000-00";
+                                txt_inscricao.Visible = true;
+                                lbl_inscricao.Visible = true;
+                                rb_juridica.Checked = true;
+                            }
+                            txt_doc.Text = doc;
+
+                            // Data de Nascimento
+                            try
+                            {
+                                if (reader["dt_nascimento"] != DBNull.Value)
+                                {
+                                    cb_dt_nascimento.Checked = true;
+                                    dtp_nascimento.Value = DateTime.Parse(reader["dt_nascimento"].ToString());
+                                }
+                            }
+                            catch { cb_dt_nascimento.Checked = false; }
+
+                            txt_inscricao.Text = reader["inscricao"]?.ToString() ?? "";
+                            txt_telefone.Text = reader["telefone"]?.ToString() ?? "";
+                            txt_telefone2.Text = reader["telefone2"]?.ToString() ?? "";
+                            txt_email.Text = reader["email"]?.ToString() ?? "";
+                            txt_cep.Text = reader["cep"]?.ToString() ?? "";
+                            txt_rua.Text = reader["rua"]?.ToString() ?? "";
+                            txt_bairro.Text = reader["bairro"]?.ToString() ?? "";
+                            txt_cidade.Text = reader["cidade"]?.ToString() ?? "";
+
+                            // Data de Registro
+                            if (reader["dt_cadastro"] != DBNull.Value)
+                                txt_dt_registro.Text = Convert.ToDateTime(reader["dt_cadastro"]).ToString("d");
+                        }
+                    }
+                }
+            }
+            catch (Exception w)
+            {
+                MessageBox.Show(w.ToString());
+                // Se falhar no servidor, tenta buscar no banco local
+                if (!usarLocal) CarregarDadosCliente(true);
             }
         }
 
