@@ -213,6 +213,7 @@
             this.txt_total_servico.ReadOnly = true;
             this.txt_total_servico.Size = new System.Drawing.Size(119, 22);
             this.txt_total_servico.TabIndex = 13;
+            this.txt_total_servico.Text = "0";
             // 
             // groupBox4
             // 
@@ -275,6 +276,7 @@
             this.txt_total_pecas.ReadOnly = true;
             this.txt_total_pecas.Size = new System.Drawing.Size(119, 22);
             this.txt_total_pecas.TabIndex = 13;
+            this.txt_total_pecas.Text = "0";
             // 
             // groupBox3
             // 

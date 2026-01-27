@@ -198,39 +198,47 @@ namespace PrototipoSistema
         private void ExecutarExclusaoTotal(bool usarLocal = false)
         {
             System.Data.Common.DbConnection conexao;
-            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            if (usarLocal)
+                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+            else
+                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
 
             try
             {
                 using (conexao)
                 {
                     conexao.Open();
+                    var cmd = conexao.CreateCommand();
 
-                    // 1. Deletar da tabela MOTOS
-                    var cmd1 = conexao.CreateCommand();
-                    cmd1.CommandText = "DELETE FROM motos WHERE placa = @placa";
-                    var p1 = cmd1.CreateParameter();
+                    // Usamos a placa como referência para encontrar as OSs vinculadas
+                    string placaMoto = static_class.doc_consultar;
+
+                    // 1. Deletar PEÇAS vinculadas às OSs desta moto
+                    cmd.CommandText = @"DELETE FROM pecas_os WHERE os IN (SELECT controle FROM os WHERE placa = @placa)";
+                    var p1 = cmd.CreateParameter();
                     p1.ParameterName = "@placa";
-                    p1.Value = static_class.doc_consultar;
-                    cmd1.Parameters.Add(p1);
-                    cmd1.ExecuteNonQuery();
+                    p1.Value = placaMoto;
+                    cmd.Parameters.Add(p1);
+                    cmd.ExecuteNonQuery();
 
-                    // 2. Deletar da tabela OS (Ordens de Serviço vinculadas a essa placa)
-                    var cmd2 = conexao.CreateCommand();
-                    cmd2.CommandText = "DELETE FROM os WHERE placa = @placa";
-                    var p2 = cmd2.CreateParameter();
-                    p2.ParameterName = "@placa";
-                    p2.Value = static_class.doc_consultar;
-                    cmd2.Parameters.Add(p2);
-                    cmd2.ExecuteNonQuery();
+                    // 2. Deletar SERVIÇOS vinculados às OSs desta moto
+                    cmd.CommandText = @"DELETE FROM servicos_os WHERE os IN (SELECT controle FROM os WHERE placa = @placa)";
+                    // Reutiliza o parâmetro @placa que já está no cmd
+                    cmd.ExecuteNonQuery();
+
+                    // 3. Deletar as OSs da moto
+                    cmd.CommandText = "DELETE FROM os WHERE placa = @placa";
+                    cmd.ExecuteNonQuery();
+
+                    // 4. Por fim, deletar a MOTO 
+                    cmd.CommandText = "DELETE FROM motos WHERE placa = @placa";
+                    cmd.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                MessageBox.Show("Erro ao excluir dados: " + ex.Message, "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Se falhar no MySQL, tenta replicar a exclusão no banco local
-                if (!usarLocal) ExecutarExclusaoTotal(true);
+                // Trate o erro conforme sua necessidade
+                throw new Exception("Erro ao excluir histórico da moto: " + ex.Message);
             }
         }
 

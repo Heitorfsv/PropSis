@@ -86,7 +86,7 @@ namespace PrototipoSistema
 
         private void bnt_editar_Click(object sender, EventArgs e)
         {
-            // 1. Validação de Entrada
+                // 1. Validação de Entrada
             if (string.IsNullOrWhiteSpace(txt_nome.Text))
             {
                 MessageBox.Show("Preencha o campo Nome", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);

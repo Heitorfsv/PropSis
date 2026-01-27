@@ -52,7 +52,7 @@ namespace PrototipoSistema
                     PreencherParametrosServico(cmd);
                     cmd.ExecuteNonQuery();
 
-                    if (!usarLocal) MessageBox.Show("Serviço cadastrado com sucesso!");
+                    //if (!usarLocal) MessageBox.Show("Serviço cadastrado com sucesso!");
                 }
             }
             catch { if (!usarLocal) cadastrar_servicos(true); }

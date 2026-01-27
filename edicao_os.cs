@@ -379,8 +379,7 @@ namespace PrototipoSistema
                 os.dt_cadastro = dtp_cadastro.Value.ToString();
 
                 os.cadastrar_os();
-
-                MessageBox.Show("OS Cadastrada", "JCMotorsport", MessageBoxButtons.OK);
+                verificar_itens();
 
                 cliente.doc = txt_doc.Text;
                 cliente.quitado();
@@ -409,8 +408,6 @@ namespace PrototipoSistema
 
                     cliente.doc = txt_doc.Text;
                     cliente.quitado();
-
-                    MessageBox.Show("OS Alterada!", "JCMotorsport", MessageBoxButtons.OK);
                 }
                 catch (Exception a) { MessageBox.Show(a.ToString()); }
 
@@ -604,10 +601,29 @@ namespace PrototipoSistema
                     cmd.Parameters.Add(pControle);
 
                     cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "DELETE FROM servicos_os WHERE os = @controle2";
+
+                    var pControle2 = cmd.CreateParameter();
+                    pControle2.ParameterName = "@controle2";
+                    pControle2.Value = static_class.controle;
+                    cmd.Parameters.Add(pControle2);
+
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "DELETE FROM pecas_os WHERE os = @controle3";
+
+                    var pControle3 = cmd.CreateParameter();
+                    pControle3.ParameterName = "@controle3";
+                    pControle3.Value = static_class.controle;
+                    cmd.Parameters.Add(pControle3);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show($"Erro ao deletar OS: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 // Se o servidor MySQL estiver offline, deleta do banco de dados local
                 if (!usarLocal)
                     ExecutarDeleteOS(true);

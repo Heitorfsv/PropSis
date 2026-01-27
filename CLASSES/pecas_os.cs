@@ -60,7 +60,7 @@ namespace PrototipoSistema
                     PreencherParametrosPecasOS(cmd);
                     cmd.ExecuteNonQuery();
 
-                    if (!usarLocal) MessageBox.Show("Item adicionado ao servidor!");
+                    //if (!usarLocal) MessageBox.Show("Item adicionado ao servidor!");
                 }
             }
             catch { if (!usarLocal) cadastrar_peca_os(true); }

@@ -59,7 +59,7 @@ namespace PrototipoSistema
                     if (!usarLocal) MessageBox.Show("Serviço adicionado ao servidor!");
                 }
             }
-            catch { if (!usarLocal) cadastrar_servico_os(true); }
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); if (!usarLocal) cadastrar_servico_os(true); }
         }
 
         private void PreencherParametrosServicoOS(System.Data.Common.DbCommand cmd)

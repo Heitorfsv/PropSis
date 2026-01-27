@@ -498,14 +498,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Sistema.exe" size="268800">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Sistema.exe" size="270848">
       <assemblyIdentity name="Sistema" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>un1PIExyce5hYdSj+kVShH/vcwKCBOYqXQ75UjHLOEU=</dsig:DigestValue>
+        <dsig:DigestValue>7Dg0nGwCJnF4jh1733l6+waWfM7vexyD5UiaBtAy46I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
