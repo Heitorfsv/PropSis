@@ -487,6 +487,7 @@
             this.txt_km.Name = "txt_km";
             this.txt_km.Size = new System.Drawing.Size(74, 22);
             this.txt_km.TabIndex = 6;
+            this.txt_km.TextChanged += new System.EventHandler(this.txt_km_TextChanged);
             // 
             // label3
             // 
@@ -812,7 +813,6 @@
             this.Name = "edicao_os";
             this.Text = "Edição OS";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.edicao_os_FormClosing);
             this.Load += new System.EventHandler(this.edicao_os2_Load);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();

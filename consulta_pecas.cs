@@ -13,6 +13,8 @@ namespace PrototipoSistema
 {
     public partial class consulta_pecas : Form
     {
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
         public consulta_pecas()
         {
             InitializeComponent();
@@ -21,63 +23,93 @@ namespace PrototipoSistema
         private void consulta_pecas_Load(object sender, EventArgs e)
         {
             cmb_consulta.SelectedIndex = 0;
-
             listView1.Items.Clear();
             listView1.Columns.Clear();
 
-            // Adiciona colunas ao ListView
             listView1.Columns.Add("Nome", 260);
             listView1.Columns.Add("Marca", 100);
             listView1.Columns.Add("Modelo", 100);
             listView1.Columns.Add("Fornecedor", 150);
 
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand("SELECT * FROM pecas", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                ListViewItem item = new ListViewItem(reader.GetString("nome")); // Nome
-                item.SubItems.Add(reader.GetString("marca"));     // Marca
-                item.SubItems.Add(reader.GetString("modelo"));    // Modelo
-                item.SubItems.Add(reader.GetString("fornecedor")); // Fornecedor
-                listView1.Items.Add(item);
-            }
-
-            conexao.Close();
-
-            if (listView1.Items.Count > 0)
-                listView1.Items[0].Selected = true;
+            CarregarPecas(); // Carrega tudo ao iniciar
         }
 
         private void bnt_pesquisar_Click(object sender, EventArgs e)
         {
+            CarregarPecas(txt_pesquisa.Text);
+        }
+
+        private void CarregarPecas(string filtro = "")
+        {
             listView1.Items.Clear();
+            System.Data.IDbConnection conexao;
 
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            string pesquisa = txt_pesquisa.Text.Replace(" ", "%");
-
-            var cmd = new MySqlCommand($"SELECT * FROM pecas WHERE {cmb_consulta.Text} LIKE '%{pesquisa}%'", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            // 1. TENTATIVA HÍBRIDA (MySQL -> SQLite)
+            try
             {
-                ListViewItem item = new ListViewItem(reader.GetString("nome"));
-                item.SubItems.Add(reader.GetString("marca"));
-                item.SubItems.Add(reader.GetString("modelo"));
-                item.SubItems.Add(reader.GetString("fornecedor"));
-                listView1.Items.Add(item);
+                var mysql = new MySqlConnection(strConexao);
+                mysql.Open();
+                conexao = mysql;
+            }
+            catch
+            {
+                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                sqlite.Open();
+                conexao = sqlite;
             }
 
-            conexao.Close();
+            try
+            {
+                using (conexao)
+                {
+                    var cmd = conexao.CreateCommand();
+
+                    // 2. DISTINCT para evitar duplicados na lista
+                    string sql = "SELECT DISTINCT nome, marca, modelo, fornecedor FROM pecas";
+
+                    if (!string.IsNullOrEmpty(filtro))
+                    {
+                        sql += $" WHERE {cmb_consulta.Text} LIKE @pesquisa";
+
+                        var pPesquisa = cmd.CreateParameter();
+                        pPesquisa.ParameterName = "@pesquisa";
+                        pPesquisa.Value = "%" + filtro.Replace(" ", "%") + "%";
+                        cmd.Parameters.Add(pPesquisa);
+                    }
+
+                    cmd.CommandText = sql;
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        // HashSet como segunda trava de segurança contra duplicidade no C#
+                        HashSet<string> chavesUnicas = new HashSet<string>();
+
+                        while (reader.Read())
+                        {
+                            // Criamos uma chave combinando nome e marca para verificar se já existe na lista
+                            string chave = $"{reader["nome"]}-{reader["marca"]}-{reader["modelo"]}";
+
+                            if (!chavesUnicas.Contains(chave))
+                            {
+                                var item = new ListViewItem(reader["nome"].ToString());
+                                item.SubItems.Add(reader["marca"].ToString());
+                                item.SubItems.Add(reader["modelo"].ToString());
+                                item.SubItems.Add(reader["fornecedor"].ToString());
+
+                                listView1.Items.Add(item);
+                                chavesUnicas.Add(chave);
+                            }
+                        }
+                    }
+                }
+
+                if (listView1.Items.Count > 0)
+                    listView1.Items[0].Selected = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar peças: " + ex.Message, "JCMotorsport");
+            }
         }
 
         private void listView1_DoubleClick(object sender, EventArgs e)

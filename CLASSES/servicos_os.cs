@@ -56,7 +56,7 @@ namespace PrototipoSistema
                     PreencherParametrosServicoOS(cmd);
                     cmd.ExecuteNonQuery();
 
-                    if (!usarLocal) MessageBox.Show("Serviço adicionado ao servidor!");
+                    //if (!usarLocal) MessageBox.Show("Serviço adicionado ao servidor!");
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.ToString()); if (!usarLocal) cadastrar_servico_os(true); }

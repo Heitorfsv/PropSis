@@ -54,7 +54,13 @@ namespace PrototipoSistema.classes
 
         public void cadastrar_os(bool usarLocal = false)
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
+            System.Data.Common.DbConnection conexao;
+
+            if (usarLocal)
+                conexao = new SQLiteConnection(strLocal);
+            else
+                conexao = new MySqlConnection(strConexao);
+
             try
             {
                 using (conexao)
@@ -70,12 +76,18 @@ namespace PrototipoSistema.classes
                     if (!usarLocal) MessageBox.Show("Ordem de Serviço salva no servidor!");
                 }
             }
-            catch (Exception w) { MessageBox.Show(w.ToString()); if (!usarLocal) cadastrar_os(true); }
+            catch { if (!usarLocal) cadastrar_os(true); }
         }
 
         public void alterar_os(bool usarLocal = false)
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
+            System.Data.Common.DbConnection conexao;
+
+            if (usarLocal)
+                conexao = new SQLiteConnection(strLocal);
+            else
+                conexao = new MySqlConnection(strConexao);
+
             try
             {
                 using (conexao)

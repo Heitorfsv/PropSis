@@ -49,264 +49,262 @@ namespace PrototipoSistema
 
         private void edicao_os2_Load(object sender, EventArgs e)
         {
+            // 1. Configuração Visual das Listas
+            ConfigurarColunasListViews();
+
+            // 2. Definição da Conexão Híbrida
+            System.Data.IDbConnection conexao;
+            try
+            {
+                var mysql = new MySqlConnection(strConexao);
+                mysql.Open();
+                conexao = mysql;
+            }
+            catch
+            {
+                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                sqlite.Open();
+                conexao = sqlite;
+            }
+
+            using (conexao)
+            {
+                // 3. Carregar Métodos de Pagamento
+                var cmd = conexao.CreateCommand();
+                cmd.CommandText = "SELECT * FROM metodo_pag";
+                using (var reader = cmd.ExecuteReader())
+                {
+                    cmb_pago.Items.Clear();
+                    while (reader.Read()) { cmb_pago.Items.Add(reader["metodo"].ToString()); }
+                }
+                cmb_pago.Visible = false;
+
+                // 4. Lógica de Cadastro ou Edição
+                if (this.Text == "Cadastro OS")
+                {
+                    bnt_editar.Text = "Cadastrar";
+                    dtp_saida.Enabled = false;
+                    dtp_cadastro.Value = DateTime.Now;
+
+                    os.ultimo_index();
+                    os.index++;
+                    static_class.controle = os.index;
+                }
+                else if (this.Text == "Edição OS")
+                {
+                    bnt_editar.Text = "Salvar";
+
+                    // CARREGAR DADOS DA OS
+                    cmd.CommandText = $"SELECT * FROM os WHERE controle = '{static_class.controle}'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            os.index = Convert.ToInt32(reader["controle"]);
+                            cmb_placa.Text = reader["placa"].ToString();
+                            txt_doc.Text = reader["doc"].ToString();
+                            txt_km.Text = reader["km"].ToString();
+                            dtp_cadastro.Value = DateTime.Parse(reader["dt_cadastro"].ToString());
+                            txt_observacao.Text = reader["observacao"].ToString();
+                            try { txt_descricao.Text = reader["descricao"].ToString(); } catch { }
+
+                            try
+                            {
+                                if (reader["dt_saida"] != DBNull.Value && !string.IsNullOrEmpty(reader["dt_saida"].ToString()))
+                                {
+                                    dtp_saida.Value = DateTime.Parse(reader["dt_saida"].ToString());
+                                    dtp_saida.Enabled = true;
+                                    cb_saida.Checked = true;
+                                }
+                            }
+                            catch { dtp_saida.Enabled = false; cb_saida.Checked = false; }
+
+                            if (reader["pago"].ToString() == "1")
+                            {
+                                cb_pago.Checked = true;
+                                cmb_pago.Visible = true;
+                                try { cmb_pago.Text = reader["metodo_pag"].ToString(); } catch { }
+                            }
+                        }
+                    }
+
+                    // CARREGAR MOTO
+                    cmd.CommandText = $"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            txt_marca.Text = reader["marca"].ToString();
+                            txt_modelo.Text = reader["modelo"].ToString();
+                            txt_ano.Text = reader["ano"].ToString();
+                            cor = reader["cor"].ToString();
+                            txt_chassi.Text = reader["chassi"].ToString();
+                            doc_cliente = reader["doc_dono"].ToString();
+                        }
+                    }
+
+                    // CARREGAR CLIENTE
+                    cmd.CommandText = $"SELECT * FROM clientes WHERE doc = '{doc_cliente}'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            txt_cliente.Text = reader["nome"].ToString();
+                            txt_telefone.Text = reader["telefone"].ToString();
+                            rua = reader["rua"].ToString();
+                            bairro = reader["bairro"].ToString();
+                            cidade = reader["cidade"].ToString();
+                            cep = reader["cep"].ToString();
+                        }
+                    }
+
+                    // CARREGAR LISTAS (Serviços e Peças)
+                    decimal s_total = PreencherLista(conexao, "servicos_os", lst_servicos, txt_total_servico);
+                    decimal p_total = PreencherLista(conexao, "pecas_os", lst_pecas, txt_total_pecas);
+                    txt_total.Text = (s_total + p_total).ToString("N2");
+
+                    // CARREGAR HISTÓRICOS (Óleo e Revisão)
+                    CarregarAlertas(conexao);
+                }
+            }
+        }
+
+        // --- FUNÇÕES DE SUPORTE ---
+
+        private void ConfigurarColunasListViews()
+        {
+            if (lst_servicos.Columns.Count > 0) return;
+
             lst_servicos.View = View.Details;
-            lst_servicos.Columns.Add("Nome", 230);
-            lst_servicos.Columns.Add("Qtd", 50);
-            lst_servicos.Columns.Add("Valor", 50);
-            lst_servicos.Columns.Add("Desc.", 50);
-            lst_servicos.Columns.Add("Total", 80);
+            lst_servicos.Columns.Add("Nome", 230); lst_servicos.Columns.Add("Qtd", 50);
+            lst_servicos.Columns.Add("Valor", 50); lst_servicos.Columns.Add("Desc.", 50); lst_servicos.Columns.Add("Total", 80);
 
             lst_pecas.View = View.Details;
-            lst_pecas.Columns.Add("Nome", 230);
-            lst_pecas.Columns.Add("Qtd", 50);
-            lst_pecas.Columns.Add("Valor", 50);
-            lst_pecas.Columns.Add("Desc.", 50);
-            lst_pecas.Columns.Add("Total", 80);
+            lst_pecas.Columns.Add("Nome", 230); lst_pecas.Columns.Add("Qtd", 50);
+            lst_pecas.Columns.Add("Valor", 50); lst_pecas.Columns.Add("Desc.", 50); lst_pecas.Columns.Add("Total", 80);
+        }
 
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+        private decimal PreencherLista(System.Data.IDbConnection conn, string tabela, ListView lista, TextBox txtSub)
+        {
+            lista.Items.Clear();
+            decimal subtotal = 0;
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = $"SELECT * FROM {tabela} WHERE os = '{static_class.controle}' ORDER BY pos ASC";
 
-            var cmd = new MySqlCommand($"SELECT * FROM metodo_pag", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            { cmb_pago.Items.Add(reader.GetString("metodo"));}
-
-            conexao.Close();
-
-            cmb_pago.Visible = false;
-
-            if (this.Text == "Cadastro OS")
+            using (var reader = cmd.ExecuteReader())
             {
-                bnt_editar.Text = "Cadastrar";
-
-                dtp_saida.Enabled = false;
-                dtp_cadastro.Value = DateTime.Now;
-
-                os.ultimo_index();
-                os.index++;
-                static_class.controle = os.index;
-            }
-            else if (this.Text == "Edição OS")
-            {
-                bnt_editar.Text = "Salvar";
-
-                cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = '{static_class.controle}'", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-
                 while (reader.Read())
                 {
-                    os.index = reader.GetInt32("controle");
-                    cmb_placa.Text = reader.GetString("placa");
-                    txt_doc.Text = reader.GetString("doc");
-                    txt_km.Text = reader.GetInt32("km").ToString();
-                    dtp_cadastro.Value = DateTime.Parse(reader.GetString("dt_cadastro"));
-                    txt_observacao.Text = reader.GetString("observacao");
-                    try { txt_descricao.Text = reader.GetString("descricao"); } catch { }
+                    string nome = reader["nome"].ToString();
+                    string qtd = reader["qtd"].ToString().Replace(".", ",");
+                    string valor = reader["valor"].ToString();
+                    string desco = reader["desco"].ToString();
+                    string totalStr;
 
                     try
                     {
-                        dtp_saida.Value = DateTime.Parse(reader.GetString("dt_saida"));
-                        dtp_saida.Enabled = true;
-                        cb_saida.Checked = true;
+                        decimal t = (decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco);
+                        totalStr = t.ToString("N2");
+                        subtotal += t;
                     }
-                    catch
-                    {
-                        dtp_saida.Enabled = false;
-                        cb_saida.Checked = false;
-                    }
-
-                    if (reader.GetInt32("pago") == 1)
-                    {
-                        cb_pago.Checked = true;
-                        cmb_pago.Visible = true;
-                        try
-                        { cmb_pago.Text = reader.GetString("metodo_pag"); }
-                        catch { MessageBox.Show("Nenhum metodo de pagamento cadastrado"); }
-                    }
-                    else
-                    { 
-                        cb_pago.Checked = false;
-                        cmb_pago.Visible = false;
-                    }
-                }
-                conexao.Close();
-
-                cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    txt_marca.Text = reader.GetString("marca");
-                    txt_modelo.Text = reader.GetString("modelo");
-                    txt_ano.Text = reader.GetString("ano");
-                    cor = reader.GetString("cor");
-                    txt_chassi.Text = reader.GetString("chassi");
-                    doc_cliente = reader.GetString("doc_dono");
-                }
-                conexao.Close();
-
-                cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc = '{doc_cliente}'", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    txt_cliente.Text = reader.GetString("nome");
-                    txt_telefone.Text = reader.GetString("telefone");
-                    rua = reader.GetString("rua");
-                    bairro = reader.GetString("bairro");
-                    cidade = reader.GetString("cidade");
-                    cep = reader.GetString("cep");
-                }
-                conexao.Close();
-
-                cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                decimal total_servico = 0;
-                string total = "";
-
-                while (reader.Read())
-                {
-                    string nome = reader.GetString("nome");
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    string valor = reader.GetString("valor");
-                    string desco = reader.GetString("desco");
-                    //try catch para aceitar letras no campo valor ( try -> numero | catch -> letras )
-                    try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
+                    catch { totalStr = valor; }
 
                     var item = new ListViewItem(nome);
-                    item.SubItems.Add(qtd);
-                    item.SubItems.Add(valor);
-                    item.SubItems.Add(desco);
-                    item.SubItems.Add(total);
-                    lst_servicos.Items.Add(item);
-
-                    string qtd_formatado = reader.GetString("qtd");
-                    qtd = qtd.Replace(".", ",");
-
-                    //try catch para ignorar valores com letras na soma do total
-                    try { total_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
+                    item.SubItems.Add(qtd); item.SubItems.Add(valor);
+                    item.SubItems.Add(desco); item.SubItems.Add(totalStr);
+                    lista.Items.Add(item);
                 }
-                txt_total_servico.Text = total_servico.ToString("N2");
-                conexao.Close();
+            }
+            txtSub.Text = subtotal.ToString("N2");
+            return subtotal;
+        }
 
-                cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{static_class.controle}' ORDER BY pos ASC", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                decimal total_peca = 0;
-
-                while (reader.Read())
-                {
-                    string nome = reader.GetString("nome");
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    string valor = reader.GetString("valor");
-                    string desco = reader.GetString("desco");
-                    //try catch para aceitar letras no campo valor ( try -> numero | catch -> letras )
-                    try { total = ((decimal.Parse(valor) * decimal.Parse(qtd)) - decimal.Parse(desco)).ToString("N2"); } catch { total = valor; }
-
-                    var item = new ListViewItem(nome);
-                    item.SubItems.Add(qtd);
-                    item.SubItems.Add(valor);
-                    item.SubItems.Add(desco);
-                    item.SubItems.Add(total);
-                    lst_pecas.Items.Add(item);
-
-                    string qtd_formatado = reader.GetString("qtd");
-                    qtd = qtd.Replace(".", ",");
-
-                    //try catch para ignorar valores com letras na soma do total 
-                    try { total_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
-                }
-                txt_total_pecas.Text = total_peca.ToString("N2");
-                conexao.Close();
-
-                txt_total.Text = (total_peca + total_servico).ToString("N2");
-
-                /////////////////////////////////////////
-
-                // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
-                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_oleo REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-
+        private void CarregarAlertas(System.Data.IDbConnection conn)
+        {
+            var cmd = conn.CreateCommand();
+            // Óleo
+            cmd.CommandText = $"SELECT * FROM os WHERE (aviso_oleo IS NOT NULL AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY controle DESC";
+            using (var reader = cmd.ExecuteReader())
+            {
                 if (reader.Read())
                 {
-                    try { txt_oleo_dt.Text = reader.GetString("dt_saida"); } catch { }
-                    txt_oleo_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
+                    try { txt_oleo_dt.Text = reader["dt_saida"].ToString(); } catch { }
+                    try { txt_oleo_km.Text = (int.Parse(txt_km.Text) - int.Parse(reader["km"].ToString())).ToString(); } catch { }
                 }
-                conexao.Close();
-
-                // Verifica se já existe uma OS com aviso de troca de óleo ou filtro para a placa selecionada
-                cmd = new MySqlCommand($"SELECT * FROM os WHERE (aviso_revisao REGEXP '[A-Za-z0-9]' AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') DESC;", conexao);
-
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-
+            }
+            // Revisão
+            cmd.CommandText = $"SELECT * FROM os WHERE (aviso_revisao IS NOT NULL AND placa = '{cmb_placa.Text}') AND controle < {static_class.controle} ORDER BY controle DESC";
+            using (var reader = cmd.ExecuteReader())
+            {
                 if (reader.Read())
                 {
-                    try { txt_revisao_dt.Text = reader.GetString("dt_saida"); } catch { }
-                    txt_revisao.Text = (int.Parse(txt_km.Text) - int.Parse(reader.GetString("km"))).ToString();
+                    try { txt_revisao_dt.Text = reader["dt_saida"].ToString(); } catch { }
+                    try { txt_revisao.Text = (int.Parse(txt_km.Text) - int.Parse(reader["km"].ToString())).ToString(); } catch { }
                 }
-                conexao.Close();
             }
         }
 
         private void cmb_placa_TextChanged(object sender, EventArgs e)
         {
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            // Limpeza rápida se o campo estiver vazio
+            if (string.IsNullOrWhiteSpace(cmb_placa.Text))
+            {
+                txt_marca.Text = ""; txt_modelo.Text = ""; txt_ano.Text = "";
+                doc_cliente = ""; txt_doc.Text = ""; txt_cliente.Text = "";
+                txt_telefone.Text = "";
+                return;
+            }
 
             string placa_formata = cmb_placa.Text.Replace(" ", "%");
+            System.Data.IDbConnection conexao;
 
-            var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa LIKE '%{placa_formata}%'", conexao);
-            
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            // Lógica Híbrida: Tenta MySQL, se falhar vai SQLite
+            try
             {
-                cmb_placa.Items.Add(reader.GetString("placa"));
-                txt_marca.Text = reader.GetString("marca");
-                txt_modelo.Text = reader.GetString("modelo");
-                txt_ano.Text = reader.GetString("ano");
-                txt_doc.Text = reader.GetString("doc_dono");
-                doc_cliente = reader.GetString("doc_dono");
+                var mysql = new MySqlConnection(strConexao);
+                mysql.Open();
+                conexao = mysql;
             }
-            conexao.Close();
-
-            cmd = new MySqlCommand($"SELECT * FROM clientes WHERE doc LIKE '%{doc_cliente}%'", conexao);
-
-            conexao.Open();
-            reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            catch
             {
-                txt_cliente.Text = reader.GetString("nome");
-                txt_telefone.Text = reader.GetString("telefone");
+                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                sqlite.Open();
+                conexao = sqlite;
             }
-            conexao.Close();
 
-            if (cmb_placa.Text == "" || cmb_placa.Text == " ")
+            using (conexao)
             {
-                txt_marca.Text = "";
-                txt_modelo.Text = "";
-                txt_ano.Text = "";
-                doc_cliente = "";
-                txt_doc.Text = "";
-                txt_cliente.Text = "";
-                txt_telefone.Text = "";
+                var cmd = conexao.CreateCommand();
+
+                // 1. BUSCA MOTO
+                cmd.CommandText = $"SELECT * FROM motos WHERE placa LIKE '%{placa_formata}%'";
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        cmb_placa.Items.Add(reader["placa"].ToString());
+                        txt_marca.Text = reader["marca"].ToString();
+                        txt_modelo.Text = reader["modelo"].ToString();
+                        txt_ano.Text = reader["ano"].ToString();
+                        txt_doc.Text = reader["doc_dono"].ToString();
+                        doc_cliente = reader["doc_dono"].ToString();
+                    }
+                }
+
+                // 2. BUSCA CLIENTE (Baseado no doc_cliente encontrado acima)
+                if (!string.IsNullOrEmpty(doc_cliente))
+                {
+                    cmd.CommandText = $"SELECT * FROM clientes WHERE doc LIKE '%{doc_cliente}%'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            txt_cliente.Text = reader["nome"].ToString();
+                            txt_telefone.Text = reader["telefone"].ToString();
+                        }
+                    }
+                    CarregarAlertas(conexao);
+                }
             }
         }
 
@@ -315,197 +313,172 @@ namespace PrototipoSistema
             os.placa = cmb_placa.Text;
             os.cliente = txt_cliente.Text;
             os.doc = txt_doc.Text;
-            os.km = int.Parse(txt_km.Text);
+            os.km = int.TryParse(txt_km.Text, out int resultKm) ? resultKm : 0;
             os.observacao = txt_observacao.Text;
             os.descricao = txt_descricao.Text;
             os.dt_cadastro = dtp_cadastro.Value.ToString();
 
-            if (cb_pago.Checked == true)
+            if (cb_pago.Checked)
             {
                 os.pago = 1;
                 os.metodo = cmb_pago.Text;
             }
-            else os.pago = 0; os.metodo = "";
+            else { os.pago = 0; os.metodo = ""; }
 
-            if (dtp_saida.Enabled == true) os.dt_saida = dtp_saida.Value.ToString("dd/MM/yyyy");
-            else os.dt_saida = null;
+            os.dt_saida = dtp_saida.Enabled ? dtp_saida.Value.ToString("dd/MM/yyyy") : null;
 
-            //verifica se foi feita troca de oleo e revisão
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            add_troca troca = new add_troca();
-            foreach (ListViewItem item in lst_pecas.Items)
+            // Conexão Híbrida para verificação
+            System.Data.IDbConnection conexao;
+            try
             {
-                var cmd = new MySqlCommand($"SELECT * FROM pecas WHERE nome = '{item.Text}' AND troca_oleo = 1", conexao); 
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read()) troca_oleo = 1;
-                conexao.Close();
+                var mysql = new MySqlConnection(strConexao);
+                mysql.Open();
+                conexao = mysql;
             }
-            foreach (ListViewItem item in lst_servicos.Items)
+            catch
             {
-                if (item.Text.Contains("REVISÃO"))  revisao = 1;
-            }
-            if (troca_oleo == 1 || revisao == 1)
-            {
-                troca.ShowDialog();
-
-                prox_oleo = troca.oleo;
-                os.aviso_oleo = prox_oleo.ToString();
-
-                prox_revisao = troca.revisao;
-                os.aviso_revisao = prox_revisao.ToString();
+                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                sqlite.Open();
+                conexao = sqlite;
             }
 
-            if (this.Text == "Cadastro OS")
+            using (conexao)
             {
-                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
-
-                conexao.Open();
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                cliente cliente = new cliente();
-
-                if (!reader.Read()) { MessageBox.Show("Não foi possível achar a placa digitada", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
-                conexao.Close();
-
-                if (txt_total.Text != "") os.total = txt_total.Text; 
-                    else os.total = "0,00"; 
-
-                os.dt_cadastro = dtp_cadastro.Value.ToString();
-
-                os.cadastrar_os();
-                verificar_itens();
-
-                cliente.doc = txt_doc.Text;
-                cliente.quitado();
-                os.index++;
-            }
-            else if (this.Text == "Edição OS")
-            {
-                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                cliente cliente = new cliente();
-
-                if (reader.Read())
+                // Verifica troca de óleo nas peças
+                foreach (ListViewItem item in lst_pecas.Items)
                 {
-                    os.total = txt_total.Text;
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = $"SELECT * FROM pecas WHERE nome = '{item.Text}' AND troca_oleo = 1";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read()) troca_oleo = 1;
+                    }
                 }
-                else
-                { MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-                conexao.Close();
-                try
+
+                // Verifica revisão nos serviços
+                foreach (ListViewItem item in lst_servicos.Items)
                 {
-                    os.alterar_os();
-                    verificar_itens();
-
-                    cliente.doc = txt_doc.Text;
-                    cliente.quitado();
+                    if (item.Text.ToUpper().Contains("REVISÃO")) revisao = 1;
                 }
-                catch (Exception a) { MessageBox.Show(a.ToString()); }
 
-             //  conexao_calendario();
+                if (troca_oleo == 1 || revisao == 1)
+                {
+                    add_troca troca = new add_troca();
+                    troca.ShowDialog();
+                    prox_oleo = troca.oleo;
+                    os.aviso_oleo = prox_oleo.ToString();
+                    prox_revisao = troca.revisao;
+                    os.aviso_revisao = prox_revisao.ToString();
+                }
+
+                cliente clienteObj = new cliente();
+
+                if (this.Text == "Cadastro OS")
+                {
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = $"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (!reader.Read())
+                        {
+                            MessageBox.Show("Não foi possível achar a placa digitada", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    os.total = !string.IsNullOrEmpty(txt_total.Text) ? txt_total.Text : "0,00";
+                    os.cadastrar_os();
+                    verificar_itens(); // Chama a função híbrida abaixo
+
+                    clienteObj.doc = txt_doc.Text;
+                    clienteObj.quitado();
+                    os.index++;
+                }
+                else if (this.Text == "Edição OS")
+                {
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = $"SELECT * FROM motos WHERE placa = '{cmb_placa.Text}'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read()) os.total = txt_total.Text;
+                        else MessageBox.Show("Preencha os dados da moto", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    try
+                    {
+                        os.alterar_os();
+                        verificar_itens();
+                        clienteObj.doc = txt_doc.Text;
+                        clienteObj.quitado();
+                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
+                }
             }
-            atualizar_posicoes();
         }
 
         public void verificar_itens()
         {
-            string table = "pecas_os";
-            var lista = lst_pecas;
-            pecas_os pecas_os = new pecas_os();
-            servicos_os servicos_os = new servicos_os();
+            pecas_os objPeca = new pecas_os();
+            servicos_os objServico = new servicos_os();
 
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            for (int i = 0; i <= 1; i++)
-            {
-                foreach (ListViewItem item in lista.Items)
-                {
-                    var cmd = new MySqlCommand($"SELECT * FROM {table} WHERE nome = '{item.Text}' AND os = {static_class.controle}", conexao);
-                    conexao.Open();
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    if (reader.Read()) { }
-                    else
-                    {
-                        if (table == "pecas_os")
-                        {
-                            pecas_os.ultimo_index();
-                            pecas_os.index++;
-                            pecas_os.modo = "os";
-
-                            //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
-                            pecas_os.os_or = static_class.controle;
-
-                            pecas_os.nome = item.Text;
-                            pecas_os.qtd = decimal.Parse(item.SubItems[1].Text);
-                            pecas_os.valor = item.SubItems[2].Text;
-                            pecas_os.desc = item.SubItems[3].Text;
-                            pecas_os.pos = lista.Items.IndexOf(item) - 1;
-
-                            pecas_os.cadastrar_peca_os();
-                        }
-                        else if (table == "servicos_os")
-                        {
-                            servicos_os.ultimo_index();
-                            servicos_os.index++;
-                            servicos_os.modo = "os";
-
-                            //OS serve tanto pra orçamento quando pra ordem de serviço nesse contexto
-                            servicos_os.os_or = static_class.controle;
-
-                            servicos_os.nome = item.Text;
-                            servicos_os.qtd = decimal.Parse(item.SubItems[1].Text);
-                            servicos_os.valor = item.SubItems[2].Text;
-                            servicos_os.desc = item.SubItems[3].Text;
-                            servicos_os.pos = lista.Items.IndexOf(item) - 1;
-
-                            servicos_os.cadastrar_servico_os();
-                        }
-                    }
-                    conexao.Close();
-                }
-                table = "servicos_os";
-                lista = lst_servicos;
-            }
-        }
-
-        public void atualizar_posicoes()
-        {
+            System.Data.IDbConnection conexao;
             try
             {
-                using (var conexao = new MySqlConnection("server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport"))
+                var mysql = new MySqlConnection(strConexao);
+                mysql.Open();
+                conexao = mysql;
+            }
+            catch
+            {
+                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                sqlite.Open();
+                conexao = sqlite;
+            }
+
+            using (conexao)
+            {
+                var cmd = conexao.CreateCommand();
+
+                // 1. LIMPA TUDO QUE JÁ EXISTE DESSA OS NO BANCO
+                // Fazemos isso primeiro para evitar duplicidade e limpar itens que você removeu da lista
+                cmd.CommandText = $"DELETE FROM pecas_os WHERE os = {static_class.controle}";
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = $"DELETE FROM servicos_os WHERE os = {static_class.controle}";
+                cmd.ExecuteNonQuery();
+
+                // 2. REINSERE AS PEÇAS
+                foreach (ListViewItem item in lst_pecas.Items)
                 {
-                    for (int i = 0; i < lst_pecas.Items.Count; i++)
-                    {
-                        var cmd = new MySqlCommand(
-                            $"UPDATE pecas_os SET pos = '{i}' WHERE os = {static_class.controle} AND nome = '{lst_pecas.Items[i].Text}'",
-                            conexao);
-                        conexao.Open();
-                        cmd.ExecuteNonQuery();
-                        conexao.Close();
-                    }
-                    for (int i = 0; i < lst_servicos.Items.Count; i++)
-                    {
-                        var cmd = new MySqlCommand(
-                            $"UPDATE servicos_os SET pos = '{i}' WHERE os = {static_class.controle} AND nome = '{lst_servicos.Items[i].Text}'",
-                            conexao);
-                        conexao.Open();
-                        cmd.ExecuteNonQuery();
-                        conexao.Close();
-                    }
+                    objPeca.ultimo_index();
+                    objPeca.index++;
+                    objPeca.modo = "os";
+                    objPeca.os_or = static_class.controle;
+                    objPeca.nome = item.Text;
+                    objPeca.qtd = decimal.Parse(item.SubItems[1].Text);
+                    objPeca.valor = item.SubItems[2].Text;
+                    objPeca.desc = item.SubItems[3].Text;
+                    objPeca.pos = lst_pecas.Items.IndexOf(item); // Posição atual na lista
+
+                    objPeca.cadastrar_peca_os();
+                }
+
+                // 3. REINSERE OS SERVIÇOS
+                foreach (ListViewItem item in lst_servicos.Items)
+                {
+                    objServico.ultimo_index();
+                    objServico.index++;
+                    objServico.modo = "os";
+                    objServico.os_or = static_class.controle;
+                    objServico.nome = item.Text;
+                    objServico.qtd = decimal.Parse(item.SubItems[1].Text);
+                    objServico.valor = item.SubItems[2].Text;
+                    objServico.desc = item.SubItems[3].Text;
+                    objServico.pos = lst_servicos.Items.IndexOf(item); // Posição atual na lista
+
+                    objServico.cadastrar_servico_os();
                 }
             }
-            catch { }
         }
 
         private void bnt_add_peca_Click(object sender, EventArgs e)
@@ -584,7 +557,6 @@ namespace PrototipoSistema
                 conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
             else
                 conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
-
             try
             {
                 using (conexao)
@@ -592,6 +564,10 @@ namespace PrototipoSistema
                     conexao.Open();
                     var cmd = conexao.CreateCommand();
 
+                    conexao.Open();
+                    cmd.ExecuteReader();
+                    conexao.Close();
+                    Close();
                     // Comando parametrizado para deletar a OS pelo controle
                     cmd.CommandText = "DELETE FROM os WHERE controle = @controle";
 
@@ -780,6 +756,44 @@ namespace PrototipoSistema
             }
         }
 
+        private void txt_km_TextChanged(object sender, EventArgs e)
+        {
+            // 1. Só avança se o KM for um número válido
+            if (!int.TryParse(txt_km.Text, out int kmDigitado)) return;
+
+            System.Data.IDbConnection conexao;
+            try
+            {
+                var mysql = new MySqlConnection(strConexao);
+                mysql.Open();
+                conexao = mysql;
+            }
+            catch
+            {
+                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                sqlite.Open();
+                conexao = sqlite;
+            }
+
+            using (conexao)
+            {
+                var cmd = conexao.CreateCommand();
+                // 2. Busca o KM mais alto já registrado para esta moto na tabela OS
+                cmd.CommandText = $"SELECT MAX(km) FROM os WHERE placa = '{cmb_placa.Text}'";
+
+                var resultado = cmd.ExecuteScalar();
+                int ultimoKmGravado = 0;
+
+                if (resultado != DBNull.Value && resultado != null) ultimoKmGravado = Convert.ToInt32(resultado);
+                
+
+                // 3. TRAVA: Só carrega alertas se o KM que você está digitando 
+                // for maior ou igual ao último que já estava no banco.
+                if (kmDigitado >= ultimoKmGravado) CarregarAlertas(conexao);
+                    else txt_oleo_km.Text = ""; txt_revisao.Text = "";               
+            }
+        }
+
         private void imprimirToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             QuestPDF.Settings.License = LicenseType.Community;
@@ -828,39 +842,7 @@ namespace PrototipoSistema
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao gerar PDF:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void edicao_os_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (this.Text == "Cadastro OS")
-            {
-                int delete = 0;
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
-
-                var cmd = new MySqlCommand($"SELECT controle FROM os WHERE controle = '{os.index}'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (!reader.Read()) delete = 1; 
-
-                conexao.Close();
-
-                if (delete == 1)
-                {
-                    cmd = new MySqlCommand($"DELETE FROM pecas_os WHERE os = '{os.index}'", conexao);
-                    conexao.Open();
-                    cmd.ExecuteReader();
-                    conexao.Close();
-
-                    cmd = new MySqlCommand($"DELETE FROM servicos_os WHERE os = '{os.index}'", conexao);
-                    conexao.Open();
-                    cmd.ExecuteReader();
-                    conexao.Close();
-                }
-            }
+            }          
         }
 
         private void cb_pago_CheckedChanged(object sender, EventArgs e)

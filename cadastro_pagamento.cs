@@ -21,31 +21,66 @@ namespace PrototipoSistema
         private void cadastro_pagamento_Load(object sender, EventArgs e)
         {
             listView1.View = View.Details;
-            listView1.Columns.Add("Metodo", 100);
-            listView1.Columns.Add("Agência", 100);
-            listView1.Columns.Add("Parcelas", 100);
+            listView1.Columns.Clear(); // Garante que não duplique colunas se o form reabrir
+            listView1.Columns.Add("Metodo", 150);
+            listView1.Columns.Add("Banco/Agência", 150);
+            listView1.Columns.Add("Parcelas", 80);
 
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
+            System.Data.IDbConnection conexao;
 
-            var cmd = new MySqlCommand($"SELECT * FROM metodo_pag", conexao);
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            // 1. TENTATIVA HÍBRIDA (MySQL -> SQLite)
+            try
             {
-                controle.Add(reader.GetInt32("controle"));
-                string metodo = reader.GetString("metodo");
-                string agencia = reader.GetString("agencia");
-                int parcelas = reader.GetInt32("parcelas");
-
-                var item = new ListViewItem(metodo);
-                item.SubItems.Add(agencia);
-                item.SubItems.Add(parcelas.ToString());
-                listView1.Items.Add(item);
+                var mysql = new MySqlConnection(strConexao);
+                mysql.Open();
+                conexao = mysql;
             }
-            conexao.Close();
+            catch
+            {
+                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                sqlite.Open();
+                conexao = sqlite;
+            }
 
+            try
+            {
+                using (conexao)
+                {
+                    var cmd = conexao.CreateCommand();
+                    cmd.CommandText = "SELECT * FROM metodo_pag";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        listView1.Items.Clear();
+                        controle.Clear(); // Limpa a lista de IDs estática
+
+                        while (reader.Read())
+                        {
+                            controle.Add(Convert.ToInt32(reader["controle"]));
+
+                            string metodoNome = reader["metodo"].ToString();
+
+                            // Tratamento para a coluna que pode mudar de nome entre bancos
+                            string agenciaOuBanco = "";
+                            try { agenciaOuBanco = reader["agencia"].ToString(); }
+                            catch { agenciaOuBanco = reader["banco"].ToString(); }
+
+                            string parcelas = reader["parcelas"].ToString();
+
+                            var item = new ListViewItem(metodoNome);
+                            item.SubItems.Add(agenciaOuBanco);
+                            item.SubItems.Add(parcelas);
+                            listView1.Items.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar métodos: " + ex.Message);
+            }
+
+            // 2. LÓGICA DE INDEXAÇÃO
             if (this.Text == "Cadastro metodo de pagamento")
             {
                 metodo.ultimo_index();

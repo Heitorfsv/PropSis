@@ -1,8 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SQLite;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -10,11 +11,15 @@ namespace PrototipoSistema
 {
     public partial class consulta_os : Form
     {
-        List<String> lista_doc = new List<String>();
-        public List<int> lista_os = new List<int>();
+        // Configurações de Conexão (Ajuste os caminhos conforme sua necessidade)
+        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
+        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
 
-        int count;
-        string order = "DESC", filtro = "STR_TO_DATE(dt_cadastro, '%d/%m/%y')";
+        public List<int> lista_os = new List<int>();
+        List<string> lista_doc = new List<string>();
+
+        string order = "DESC";
+        string campoOrdenacao = "dt_cadastro";
 
         public consulta_os()
         {
@@ -24,161 +29,267 @@ namespace PrototipoSistema
 
         private void SetupListView()
         {
-            // Configurar colunas da ListView (deve estar no modo Details)
             listView1.Columns.Clear();
             listView1.View = View.Details;
             listView1.FullRowSelect = true;
             listView1.GridLines = true;
-            listView1.MultiSelect = false;
-
             listView1.Columns.Add("Placa", 100);
-            listView1.Columns.Add("Cliente", 370);
-            listView1.Columns.Add("Data de cadastro", 100);
-            listView1.Columns.Add("Data de saída", 100);
+            listView1.Columns.Add("Cliente", 250);
+            listView1.Columns.Add("Cadastro", 90);
+            listView1.Columns.Add("Saída", 90);
             listView1.Columns.Add("Telefone", 110);
-            listView1.Columns.Add("Marca", 150);
-            listView1.Columns.Add("Modelo", 150);
-            listView1.Columns.Add("Preço Peça", 90);
-            listView1.Columns.Add("Preço Serviço", 100);
-            listView1.Columns.Add("Total", 90);
+            listView1.Columns.Add("Marca", 120);
+            listView1.Columns.Add("Modelo", 120);
+            listView1.Columns.Add("Peças (R$)", 90);
+            listView1.Columns.Add("Serviços (R$)", 100);
+            listView1.Columns.Add("Total (R$)", 90);
         }
 
-        private void consulta_os_Load(object sender, EventArgs e)
-        {
-            cmb_consulta.SelectedIndex = 0;
-            cmb_ps.SelectedIndex = 0;
-
-            ClearListView();
-            lista_os.Clear();
-            lista_doc.Clear();
-            CarregarGrafico("");
-
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            var cmd = new MySqlCommand($"SELECT * FROM os ORDER BY {filtro} {order}", conexao);
-
-            conexao.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-            count = 0;
-
-            while (reader.Read())
-            {
-                lista_os.Add(reader.GetInt32("controle"));
-                lista_doc.Add(reader.GetString("doc"));
-
-                // Vamos adicionar uma linha na ListView com as colunas iniciais
-                var item = new ListViewItem(reader.GetString("placa"));
-                item.SubItems.Add(reader.GetString("cliente"));
-                item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
-                try { item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy")); } catch { item.SubItems.Add(""); }
-                item.SubItems.Add(""); // telefone - preencher depois
-                item.SubItems.Add(""); // marca - preencher depois
-                item.SubItems.Add(""); // modelo - preencher depois
-                item.SubItems.Add(""); // preço peça - preencher depois
-                item.SubItems.Add(""); // preço serviço - preencher depois
-                item.SubItems.Add(reader.GetString("total").ToString());
-
-                bool sujo = reader.GetInt32("pago") == 1;
-
-                if (sujo == false) item.ForeColor = Color.Red;
-
-                listView1.Items.Add(item);
-
-                count++;
-            }
-            conexao.Close();
-
-            // Agora preencher as colunas restantes (telefone, marca, modelo, preços)
-            decimal total_servicos = 0;
-            decimal total_pecas = 0;
-
-            for (int i = 0; i < listView1.Items.Count; i++)
-            {
-                var placa = listView1.Items[i].SubItems[0].Text;
-                var doc = lista_doc[i];
-                var os = lista_os[i];
-
-                // Telefone
-                cmd = new MySqlCommand($"SELECT telefone FROM clientes WHERE doc = '{doc}'", conexao);
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                if (reader.Read())
-                    listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
-                conexao.Close();
-
-                // Marca e modelo
-                cmd = new MySqlCommand($"SELECT marca, modelo FROM motos WHERE placa = '{placa}'", conexao);
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
-                    listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
-                }
-                conexao.Close();
-
-                // Preço serviço
-                decimal soma_servico = 0;
-                cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM servicos_os WHERE os = '{os}'", conexao);
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    try
-                    {
-                        string qtd = reader.GetString("qtd").Replace(".", ",");
-                        soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                    }
-                    catch { }
-                }
-                conexao.Close();
-                listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
-                total_servicos += soma_servico;
-
-                // Preço peça
-                decimal soma_peca = 0;
-                cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM pecas_os WHERE os = '{os}'", conexao);
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    try
-                    {
-                        string qtd = reader.GetString("qtd").Replace(".", ",");
-                        soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                    }
-                    catch { }
-                }
-                conexao.Close();
-                listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
-                total_pecas += soma_peca;
-            }
-
-            txt_total_pecas.Text = total_pecas.ToString("N2");
-            txt_total_servicos.Text = total_servicos.ToString("N2");
-            txt_total.Text = (total_pecas + total_servicos).ToString("N2");
-        }
-
-        private void ClearListView()
+        // --- LÓGICA PRINCIPAL DE CARREGAMENTO ---
+        private void CarregarDadosOS(string filtroSql = "")
         {
             listView1.Items.Clear();
+            lista_os.Clear();
+            lista_doc.Clear();
+
+            decimal totalGeralPecas = 0;
+            decimal totalGeralServicos = 0;
+
+            System.Data.IDbConnection conexao;
+            try
+            {
+                var mysql = new MySqlConnection(strConexao);
+                mysql.Open();
+                conexao = mysql;
+            }
+            catch
+            {
+                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                sqlite.Open();
+                conexao = sqlite;
+            }
+
+            try
+            {
+                using (conexao)
+                {
+                    var cmd = conexao.CreateCommand();
+
+                    // SQL com Alias 'o' para evitar ambiguidade no SQLite e COALESCE para os cálculos
+                    string sql = $@"
+                SELECT DISTINCT
+                    o.*, 
+                    c.telefone, 
+                    m.marca, 
+                    m.modelo,
+                    (SELECT COALESCE(SUM((valor * qtd) - desco), 0) FROM servicos_os WHERE os = o.controle) as total_serv_calc,
+                    (SELECT COALESCE(SUM((valor * qtd) - desco), 0) FROM pecas_os WHERE os = o.controle) as total_peca_calc
+                FROM os o
+                LEFT JOIN clientes c ON o.doc = c.doc
+                LEFT JOIN motos m ON o.placa = m.placa
+                WHERE 1=1 {filtroSql}
+                ORDER BY o.controle DESC";
+
+                    cmd.CommandText = sql;
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // 1. Validação do ID de controle
+                            int controle = reader["controle"] != DBNull.Value ? Convert.ToInt32(reader["controle"]) : 0;
+                            if (controle == 0 || lista_os.Contains(controle)) continue;
+
+                            lista_os.Add(controle);
+                            lista_doc.Add(reader["doc"]?.ToString() ?? "");
+
+                            // 2. Criação do item com strings seguras (uso de ?? para evitar null)
+                            var item = new ListViewItem(reader["placa"]?.ToString() ?? "");
+                            item.SubItems.Add(reader["cliente"]?.ToString() ?? "");
+                            item.SubItems.Add(FormatData(reader["dt_cadastro"]?.ToString() ?? ""));
+                            item.SubItems.Add(FormatData(reader["dt_saida"]?.ToString() ?? ""));
+                            item.SubItems.Add(reader["telefone"]?.ToString() ?? "");
+                            item.SubItems.Add(reader["marca"]?.ToString() ?? "");
+                            item.SubItems.Add(reader["modelo"]?.ToString() ?? "");
+
+                            // 3. BLINDAGEM CONTRA DBNULL: Conversão segura de decimais
+                            decimal vPeca = reader["total_peca_calc"] != DBNull.Value ? Convert.ToDecimal(reader["total_peca_calc"]) : 0;
+                            decimal vServ = reader["total_serv_calc"] != DBNull.Value ? Convert.ToDecimal(reader["total_serv_calc"]) : 0;
+
+                            item.SubItems.Add(vPeca.ToString("N2"));
+                            item.SubItems.Add(vServ.ToString("N2"));
+                            item.SubItems.Add(reader["total"]?.ToString() ?? "0,00");
+
+                            // 4. Validação do campo Pago
+                            int pago = reader["pago"] != DBNull.Value ? Convert.ToInt32(reader["pago"]) : 0;
+                            if (pago == 0) item.ForeColor = Color.Red;
+
+                            listView1.Items.Add(item);
+
+                            totalGeralPecas += vPeca;
+                            totalGeralServicos += vServ;
+                        }
+                    }
+                }
+
+                // Atualização dos totais na tela
+                txt_total_pecas.Text = totalGeralPecas.ToString("N2");
+                txt_total_servicos.Text = totalGeralServicos.ToString("N2");
+                txt_total.Text = (totalGeralPecas + totalGeralServicos).ToString("N2");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar OS: " + ex.Message);
+            }
         }
 
-
-        private void bnt_atualizar_Click(object sender, EventArgs e)
+        public void CarregarGrafico(string filtroExtra = "")
         {
-            filtro = "STR_TO_DATE(dt_cadastro, '%d/%m/%y')";
-            consulta_os_Load(sender, e);
+            chart1.Series.Clear();
+            chart1.ChartAreas.Clear();
+            chart1.ChartAreas.Add(new ChartArea("Main"));
+
+            Series sServ = new Series("Serviços") { ChartType = SeriesChartType.Line, Color = Color.Purple, BorderWidth = 3 };
+            Series sPec = new Series("Peças") { ChartType = SeriesChartType.Line, Color = Color.Green, BorderWidth = 3 };
+
+            System.Data.IDbConnection conexao;
+            bool isSqlite = false;
+
+            try
+            {
+                var mysql = new MySqlConnection(strConexao);
+                mysql.Open();
+                conexao = mysql;
+            }
+            catch
+            {
+                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                sqlite.Open();
+                conexao = sqlite;
+                isSqlite = true;
+            }
+
+            try
+            {
+                using (conexao)
+                {
+                    var cmd = conexao.CreateCommand();
+
+                    // Ajuste de função de data conforme o banco conectado
+                    string funcMes = isSqlite ? "strftime('%m', dt_cadastro)" : "MONTH(STR_TO_DATE(dt_cadastro, '%d/%m/%Y'))";
+
+                    cmd.CommandText = $@"
+                SELECT 
+                    {funcMes} as mes,
+                    SUM((SELECT COALESCE(SUM((valor * qtd) - desco), 0) FROM servicos_os WHERE os = os.controle)) as soma_s,
+                    SUM((SELECT COALESCE(SUM((valor * qtd) - desco), 0) FROM pecas_os WHERE os = os.controle)) as soma_p
+                FROM os 
+                WHERE 1=1 {filtroExtra}
+                GROUP BY mes ORDER BY mes ASC";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int numMes = Convert.ToInt32(reader["mes"]);
+                            string mesNome = GetNomeMes(numMes);
+
+                            sServ.Points.AddXY(mesNome, reader["soma_s"] != DBNull.Value ? reader["soma_s"] : 0);
+                            sPec.Points.AddXY(mesNome, reader["soma_p"] != DBNull.Value ? reader["soma_p"] : 0);
+                        }
+                    }
+                }
+                chart1.Series.Add(sServ);
+                chart1.Series.Add(sPec);
+            }
+            catch { /* Silencioso */ }
+        }
+
+        // --- EVENTOS ---
+        private void consulta_os_Load(object sender, EventArgs e)
+        {
+            CarregarDadosOS();
+            CarregarGrafico("");
+        }
+
+        private void bnt_pesquisar_Click(object sender, EventArgs e)
+        {
+            string col = cmb_consulta.Text;
+            string pesq = txt_pesquisa.Text.Replace(" ", "%");
+
+            // Se pesquisar por marca/modelo que está em outra tabela
+            if (col == "marca" || col == "modelo")
+                CarregarDadosOS($" AND m.{col} LIKE '%{pesq}%'");
+            else
+                CarregarDadosOS($" AND os.{col} LIKE '%{pesq}%'");
+
+            CarregarGrafico(col != "marca" && col != "modelo" ? $" AND {col} LIKE '%{pesq}%'" : "");
+        }
+
+        private void bnt_pesquisar_ps_Click(object sender, EventArgs e)
+        {
+            // 1. Identifica qual tabela de itens pesquisar
+            string tabelaItens = cmb_ps.Text == "Serviços" ? "servicos_os" : "pecas_os";
+
+            // 2. Formata o termo de pesquisa (Troca Oleo -> Troca%Oleo)
+            string termo = txt_ps.Text.Replace(" ", "%");
+
+            // 3. Criamos uma lista com os IDs das OSs que estão atualmente na tela
+            // Se a lista_os estiver vazia, não há o que pesquisar
+            if (lista_os.Count == 0) return;
+
+            string idsAtuais = string.Join(",", lista_os);
+
+            // 4. Chamamos o carregamento principal passando o filtro de "Subpesquisa"
+            // O comando "IN" garante que só buscaremos dentro do que já estava na tela
+            // O "EXISTS" verifica se dentro daquela OS existe o item pesquisado
+            string subFiltro = $@"
+        AND os.controle IN ({idsAtuais})
+        AND EXISTS (SELECT 1 FROM {tabelaItens} i 
+                    WHERE i.os = os.controle 
+                    AND i.nome LIKE '%{termo}%')";
+
+            CarregarDadosOS(subFiltro);
+
+            // 5. Atualiza o gráfico para refletir apenas essas OSs encontradas
+            CarregarGrafico(subFiltro);
         }
 
         private void lbl_order_Click(object sender, EventArgs e)
         {
             order = (order == "DESC") ? "ASC" : "DESC";
             lbl_order.Text = (order == "DESC") ? "↑" : "↓";
-            consulta_os_Load(sender, e);
+            CarregarDadosOS();
         }
 
+        private void bnt_atualizar_Click(object sender, EventArgs e)
+        {
+            campoOrdenacao = "dt_cadastro";
+            CarregarDadosOS();
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                static_class.controle = lista_os[listView1.SelectedIndices[0]];
+                new edicao_os { Text = "Edição OS" }.Show();
+            }
+        }
+
+        // --- MÉTODOS AUXILIARES ---
+
+        private string FormatData(string data)
+        {
+            if (string.IsNullOrEmpty(data)) return "";
+            try { return DateTime.Parse(data).ToString("dd/MM/yyyy"); } catch { return data; }
+        }
+
+        private string GetNomeMes(int mes)
+        {
+            string[] meses = { "", "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" };
+            return meses[mes];
+        }
 
         private void bnt_add_Click(object sender, EventArgs e)
         {
@@ -189,492 +300,14 @@ namespace PrototipoSistema
 
         private void bnt_pag_Click(object sender, EventArgs e)
         {
-            filtro = "pago";
-            consulta_os_Load(sender, e);
-        }
+            // Filtra apenas onde pago é igual a 0 (pendente)
+            // Se quiser alternar, podemos usar a variável 'order' ou 'filtro'
+            string filtroPagamento = " AND os.pago = 0";
 
-        private void listView1_DoubleClick(object sender, EventArgs e)
-        {
-            if (listView1.SelectedIndices.Count == 0)
-                return;
+            CarregarDadosOS(filtroPagamento);
 
-            int index = listView1.SelectedIndices[0];
-
-            try
-            {
-                edicao_os os = new edicao_os();
-                os.Text = "Edição OS";
-
-                static_class.controle = lista_os[index];
-
-                os.Show();
-            }
-            catch { }
-        }
-
-        private void bnt_pesquisar_ps_Click(object sender, EventArgs e)
-        {
-            List<int> consulta_os = new List<int>();
-            List<string> doc_dono = new List<string>();
-
-            ClearListView();
-            consulta_os.Clear();
-            doc_dono.Clear();
-
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            string tabela = "";
-            if (cmb_ps.Text == "Serviços")
-                tabela = "servicos_os";
-            else if (cmb_ps.Text == "Peças")
-                tabela = "pecas_os";
-
-            // Busca dentro da lista_os as OS que possuem o nome pesquisado na tabela selecionada
-            for (int i = 0; i < lista_os.Count; i++)
-            {
-                string pesquisa = txt_ps.Text.Replace(" ", "%");
-
-                var cmd = new MySqlCommand($"SELECT * FROM {tabela} WHERE os = {lista_os[i]} AND nome LIKE '%{pesquisa}%'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                    consulta_os.Add(reader.GetInt32("os"));
-
-                conexao.Close();
-            }
-
-            decimal total_servicos = 0;
-            decimal total_pecas = 0;
-            lista_os.Clear();
-
-            for (int i = 0; i < consulta_os.Count; i++)
-            {
-                var cmd = new MySqlCommand($"SELECT * FROM os WHERE controle = {consulta_os[i]}", conexao);
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    lista_os.Add(reader.GetInt32("controle"));
-
-                    var item = new ListViewItem(reader.GetString("placa"));
-                    item.SubItems.Add(reader.GetString("cliente"));
-                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
-                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy"));
-                    item.SubItems.Add(""); // telefone
-                    item.SubItems.Add(""); // marca
-                    item.SubItems.Add(""); // modelo
-                    item.SubItems.Add(""); // preço peça
-                    item.SubItems.Add(""); // preço serviço
-                    item.SubItems.Add(reader.GetString("total").ToString());
-
-                    bool sujo = reader.GetInt32("pago") == 1;
-
-                    if (sujo == false) item.ForeColor = Color.Red;
-
-                    listView1.Items.Add(item);
-                    doc_dono.Add(reader.GetString("doc"));
-                }
-                conexao.Close();
-            }
-
-            for (int i = 0; i < listView1.Items.Count; i++)
-            {
-                string doc = doc_dono[i];
-                int os = lista_os[i];
-                string placa = listView1.Items[i].SubItems[0].Text;
-
-                var cmd = new MySqlCommand($"SELECT marca, modelo FROM motos WHERE doc_dono = '{doc}'", conexao);
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
-                    listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
-                }
-                conexao.Close();
-
-                try
-                {
-                    cmd = new MySqlCommand($"SELECT telefone FROM clientes WHERE doc = '{doc}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                        listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
-                    conexao.Close();
-                }
-                catch
-                {
-                    listView1.Items[i].SubItems[4].Text = " ";
-                }
-
-                cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM servicos_os WHERE os = '{os}'", conexao);
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                decimal soma_servico = 0;
-                while (reader.Read())
-                {
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                }
-                conexao.Close();
-                total_servicos += soma_servico;
-                listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
-
-                cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM pecas_os WHERE os = '{os}'", conexao);
-                conexao.Open();
-                reader = cmd.ExecuteReader();
-                decimal soma_peca = 0;
-                while (reader.Read())
-                {
-                    string qtd = reader.GetString("qtd").Replace(".", ",");
-                    soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                }
-                conexao.Close();
-                total_pecas += soma_peca;
-                listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
-            }
-
-            txt_total_pecas.Text = total_pecas.ToString("N2");
-            txt_total_servicos.Text = total_servicos.ToString("N2");
-            txt_total.Text = (total_pecas + total_servicos).ToString("N2");
-        }
-
-        private void bnt_pesquisar_Click(object sender, EventArgs e)
-        {
-            ClearListView();
-            lista_os.Clear();
-            lista_doc.Clear();
-
-            decimal total_servicos = 0;
-            decimal total_pecas = 0;
-
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            if (cmb_consulta.Text == "dt_cadastro" || cmb_consulta.Text == "placa" || cmb_consulta.Text == "cliente")
-            {
-                string pesquisa = txt_pesquisa.Text.Replace(" ", "%");
-
-                var cmd = new MySqlCommand($"SELECT * FROM os WHERE {cmb_consulta.Text} LIKE '%{pesquisa}%'", conexao);
-                CarregarGrafico($" AND {cmb_consulta.Text} LIKE '%{pesquisa}%'");
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                List<string> placas = new List<string>();
-
-                while (reader.Read())
-                {
-                    lista_os.Add(reader.GetInt32("controle"));
-                    lista_doc.Add(reader.GetString("doc"));
-                    placas.Add(reader.GetString("placa"));
-
-                    // Criar item com os dados iniciais e colunas vazias para preencher depois
-                    var item = new ListViewItem(placas.Last());
-                    item.SubItems.Add(reader.GetString("cliente"));
-                    item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
-                    try { item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy")); }
-                    catch { item.SubItems.Add(""); }
-                    item.SubItems.Add(""); // telefone
-                    item.SubItems.Add(""); // marca
-                    item.SubItems.Add(""); // modelo
-                    item.SubItems.Add(""); // preço peça
-                    item.SubItems.Add(""); // preço serviço
-                    item.SubItems.Add(reader.GetString("total").ToString());
-
-                    bool sujo = reader.GetInt32("pago") == 1;
-
-                    if (sujo == false) item.ForeColor = Color.Red;
-
-                    listView1.Items.Add(item);
-                }
-                conexao.Close();
-
-                // Agora preenche as colunas que faltam
-                for (int i = 0; i < placas.Count; i++)
-                {
-                    string placa = placas[i];
-                    string doc = lista_doc[i];
-                    int os = lista_os[i];
-
-                    // Telefone
-                    cmd = new MySqlCommand($"SELECT telefone FROM clientes WHERE doc = '{doc}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                        listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
-                    conexao.Close();
-
-                    // Marca e modelo
-                    cmd = new MySqlCommand($"SELECT marca, modelo FROM motos WHERE placa = '{placa}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
-                        listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
-                    }
-                    conexao.Close();
-
-                    // Preço serviço
-                    decimal soma_servico = 0;
-                    cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM servicos_os WHERE os = '{os}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        try
-                        {
-                            string qtd = reader.GetString("qtd").Replace(".", ",");
-                            soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                        }
-                        catch { }
-                    }
-                    conexao.Close();
-                    total_servicos += soma_servico;
-                    listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
-
-                    // Preço peça
-                    decimal soma_peca = 0;
-                    cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM pecas_os WHERE os = '{os}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        try
-                        {
-                            string qtd = reader.GetString("qtd").Replace(".", ",");
-                            soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                        }
-                        catch { }
-                    }
-                    conexao.Close();
-                    total_pecas += soma_peca;
-                    listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
-                }
-
-                txt_total_pecas.Text = total_pecas.ToString("N2");
-                txt_total_servicos.Text = total_servicos.ToString("N2");
-                txt_total.Text = (total_pecas + total_servicos).ToString("N2");
-            }
-            else if (cmb_consulta.Text == "marca" || cmb_consulta.Text == "modelo")
-            {
-                List<string> placas = new List<string>();
-
-                var cmd = new MySqlCommand($"SELECT * FROM motos WHERE {cmb_consulta.Text} LIKE '%{txt_pesquisa.Text}%'", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    placas.Add(reader.GetString("placa"));
-                }
-                conexao.Close();
-
-                for (int i = 0; i < placas.Count; i++)
-                {
-                    string placa = placas[i];
-
-                    cmd = new MySqlCommand($"SELECT * FROM os WHERE placa = '{placa}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        lista_os.Add(reader.GetInt32("controle"));
-                        lista_doc.Add(reader.GetString("doc"));
-
-                        var item = new ListViewItem(reader.GetString("placa"));
-                        item.SubItems.Add(reader.GetString("cliente"));
-                        item.SubItems.Add(DateTime.Parse(reader.GetString("dt_cadastro")).ToString("dd/MM/yyyy"));
-                        try { item.SubItems.Add(DateTime.Parse(reader.GetString("dt_saida")).ToString("dd/MM/yyyy")); }
-                        catch { item.SubItems.Add(""); }
-                        item.SubItems.Add(""); // telefone
-                        item.SubItems.Add(""); // marca
-                        item.SubItems.Add(""); // modelo
-                        item.SubItems.Add(""); // preço peça
-                        item.SubItems.Add(""); // preço serviço
-                        item.SubItems.Add(reader.GetString("total").ToString());
-
-                        bool sujo = reader.GetInt32("pago") == 1;
-
-                        if (sujo == false) item.ForeColor = Color.Red;
-
-                        listView1.Items.Add(item);
-                    }
-                    conexao.Close();
-                }
-
-                // Preencher marca, modelo, telefone e preços
-                for (int i = 0; i < listView1.Items.Count; i++)
-                {
-                    string placa = listView1.Items[i].SubItems[0].Text;
-                    string doc = lista_doc[i];
-                    int os = lista_os[i];
-
-                    // Marca e modelo
-                    cmd = new MySqlCommand($"SELECT marca, modelo FROM motos WHERE doc_dono = '{doc}' AND placa = '{placa}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        listView1.Items[i].SubItems[5].Text = reader.GetString("marca");
-                        listView1.Items[i].SubItems[6].Text = reader.GetString("modelo");
-                    }
-                    conexao.Close();
-
-                    // Telefone
-                    try
-                    {
-                        cmd = new MySqlCommand($"SELECT telefone FROM clientes WHERE doc = '{doc}'", conexao);
-                        conexao.Open();
-                        reader = cmd.ExecuteReader();
-                        if (reader.Read())
-                            listView1.Items[i].SubItems[4].Text = reader.GetString("telefone");
-                        conexao.Close();
-                    }
-                    catch { listView1.Items[i].SubItems[4].Text = " "; }
-
-                    // Preço serviço
-                    decimal soma_servico = 0;
-                    cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM servicos_os WHERE os = '{os}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        try
-                        {
-                            string qtd = reader.GetString("qtd").Replace(".", ",");
-                            soma_servico += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                        }
-                        catch { }
-                    }
-                    conexao.Close();
-                    listView1.Items[i].SubItems[8].Text = soma_servico.ToString("N2");
-
-                    // Preço peça
-                    decimal soma_peca = 0;
-                    cmd = new MySqlCommand($"SELECT valor, qtd, desco FROM pecas_os WHERE os = '{os}'", conexao);
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        try
-                        {
-                            string qtd = reader.GetString("qtd").Replace(".", ",");
-                            soma_peca += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco"));
-                        }
-                        catch { }
-                    }
-                    conexao.Close();
-                    listView1.Items[i].SubItems[7].Text = soma_peca.ToString("N2");
-                }
-
-                txt_total_pecas.Text = total_pecas.ToString("N2");
-                txt_total_servicos.Text = total_servicos.ToString("N2");
-                txt_total.Text = (total_pecas + total_servicos).ToString("N2");
-            }
-        }
-
-        public void CarregarGrafico(string parametro)
-        {
-            chart1.Series.Clear();
-            chart1.ChartAreas.Clear();
-
-            // Criar área do gráfico
-            ChartArea area = new ChartArea("AreaPrincipal");
-            chart1.ChartAreas.Add(area);
-
-            // Criar série (linha do gráfico)
-            Series servicos = new Series("Faturamento de serviços");
-            servicos.ChartType = SeriesChartType.Line;
-            servicos.BorderWidth = 1;
-            servicos.Color = System.Drawing.Color.Purple;
-
-            Series pecas = new Series("Faturamento de peças");
-            pecas.ChartType = SeriesChartType.Line;
-            pecas.BorderWidth = 1;
-            pecas.Color = System.Drawing.Color.Green;
-
-            var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-            var conexao = new MySqlConnection(strConexao);
-
-            int mes = 1;
-            List<int> os = new List<int>();
-            List<string> data = new List<string>();
-            count = 0;
-
-            while (mes != 12)
-            {
-                var cmd = new MySqlCommand($"SELECT * FROM os WHERE MONTH (STR_TO_DATE(dt_cadastro, '%d/%m/%y')) = {mes}{parametro} ORDER BY STR_TO_DATE(dt_cadastro, '%d/%m/%y') ASC", conexao);
-
-                conexao.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    os.Add(reader.GetInt32("controle"));
-                    data.Add(reader.GetString("dt_cadastro").Substring(0, 10));
-                }
-                conexao.Close();
-
-                while (count < os.Count)
-                {
-                    decimal total = 0;
-
-                    cmd = new MySqlCommand($"SELECT * FROM servicos_os WHERE os = '{os[count]}'", conexao);
-
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        string qtd = reader.GetString("qtd");
-                        qtd = qtd.Replace(".", ",");
-
-                        try { total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
-                    }
-                    conexao.Close();
-
-                    // Simulação de dados: Faturamento por mês
-                    servicos.Points.AddXY(data[count], total);
-
-                    total = 0;
-
-                    cmd = new MySqlCommand($"SELECT * FROM pecas_os WHERE os = '{os[count]}'", conexao);
-
-                    conexao.Open();
-                    reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        string qtd = reader.GetString("qtd");
-                        qtd = qtd.Replace(".", ",");
-
-                        try { total += (decimal.Parse(reader.GetString("valor")) * decimal.Parse(qtd)) - decimal.Parse(reader.GetString("desco")); } catch { }
-                    }
-                    conexao.Close();
-
-                    // Simulação de dados: Faturamento por mês
-                    pecas.Points.AddXY(data[count], total);
-
-                    count++;
-                }
-
-                mes++;
-            }
-
-            // Adiciona a série ao gráfico
-            chart1.Series.Add(servicos);
-            chart1.Series.Add(pecas);
-
-            // Título (opcional)
-            chart1.Titles.Clear();
-            chart1.Titles.Add("Faturamento");
+            // Atualiza o gráfico para mostrar o faturamento apenas das OS pendentes (opcional)
+            CarregarGrafico(filtroPagamento);
         }
     }
 }

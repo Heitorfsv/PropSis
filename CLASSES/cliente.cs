@@ -215,7 +215,7 @@ namespace PrototipoSistema
             System.Data.Common.DbConnection conexao;
 
             if (usarLocal)
-                conexao = new SQLiteConnection(strLocal);
+                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
             else
                 conexao = new MySqlConnection(strConexao);
 
@@ -225,9 +225,10 @@ namespace PrototipoSistema
                 {
                     conexao.Open();
 
-                    // 1. Verificar se há OS pendente
+                    // 1. Verificamos se AINDA EXISTE alguma OS não paga para esse documento
                     var cmd = conexao.CreateCommand();
-                    cmd.CommandText = "SELECT pago FROM os WHERE doc = @doc";
+                    // Importante: Selecionar o controle evita o erro de índice que você teve
+                    cmd.CommandText = "SELECT controle FROM os WHERE doc = @doc AND (pago = 0 OR pago IS NULL) LIMIT 1";
 
                     var pDoc = cmd.CreateParameter();
                     pDoc.ParameterName = "@doc";
@@ -236,16 +237,19 @@ namespace PrototipoSistema
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
-                            if (Convert.ToInt32(reader["pago"]) == 0)
-                            {
-                                sujoLocal = 1;
-                            }
+                            // Se ele entrar aqui, ele achou uma OS aberta. Status continua 1.
+                            sujoLocal = 1;
+                        }
+                        else
+                        {
+                            // Se ele não achou nenhuma OS aberta, status vira 0.
+                            sujoLocal = 0;
                         }
                     }
 
-                    // 2. Atualizar o status 'sujo' do cliente
+                    // 2. Atualiza o cadastro do cliente com o resultado (0 ou 1)
                     var cmdUpdate = conexao.CreateCommand();
                     cmdUpdate.CommandText = "UPDATE clientes SET sujo = @sujo WHERE doc = @doc";
 
@@ -260,18 +264,15 @@ namespace PrototipoSistema
                     cmdUpdate.Parameters.Add(pDoc2);
 
                     cmdUpdate.ExecuteNonQuery();
+
+                    // DEBUG: Isso aqui vai te confirmar se o banco mudou para 0 ou 1
+                    MessageBox.Show($"Lógica Finalizada!\nStatus do Cliente {doc}: {(sujoLocal == 1 ? "SUJO" : "LIMPO")}");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                if (!usarLocal)
-                {
-                    quitado(true);
-                }
-                else
-                {
-                    MessageBox.Show("Erro ao processar status de quitação localmente.");
-                }
+                if (!usarLocal) quitado(true);
+                else MessageBox.Show("Erro na função quitado: " + ex.Message);
             }
         }
     }
