@@ -146,7 +146,8 @@ namespace PrototipoSistema
             "CREATE TABLE IF NOT EXISTS pecas_os (controle INTEGER PRIMARY KEY, os TEXT, orca TEXT, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT)",
             "CREATE TABLE IF NOT EXISTS servicos (controle INTEGER PRIMARY KEY, nome TEXT, valor TEXT)",
             "CREATE TABLE IF NOT EXISTS servicos_os (controle INTEGER PRIMARY KEY, os TEXT, orca TEXT, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT)",
-            "CREATE TABLE IF NOT EXISTS metodo_pag (controle INTEGER PRIMARY KEY, metodo TEXT, banco TEXT, parcelas TEXT)"
+            "CREATE TABLE IF NOT EXISTS metodo_pag (controle INTEGER PRIMARY KEY, metodo TEXT, banco TEXT, parcelas TEXT)",
+            "CREATE TABLE IF NOT EXISTS login (controle INTEGER PRIMARY KEY, usuario TEXT, senha TEXT)"
         };
 
                 foreach (var sql in comandosCriacao)
@@ -165,7 +166,8 @@ namespace PrototipoSistema
             "INSERT OR IGNORE INTO pecas_os (controle, nome, os, orca) VALUES (0, 'ITEM TESTE', '0', '0')",
             "INSERT OR IGNORE INTO servicos (controle, nome) VALUES (0, 'SERVIÇO TESTE')",
             "INSERT OR IGNORE INTO servicos_os (controle, nome, os, orca) VALUES (0, 'ITEM TESTE', '0', '0')",
-            "INSERT OR IGNORE INTO metodo_pag (controle, metodo) VALUES (0, 'DINHEIRO')"
+            "INSERT OR IGNORE INTO metodo_pag (controle, metodo) VALUES (0, 'DINHEIRO')",
+            "INSERT OR IGNORE INTO login (controle, usuario, senha) VALUES (0, 'JCMOTORSPORT', '$2a$11$g9AH6wV7QHS5QQJE42J.1.Yca7ctF7RviEHGVkIpz96HUNGB58/Ti')"
         };
 
                 foreach (var sql in inserts)

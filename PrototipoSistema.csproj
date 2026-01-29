@@ -153,16 +153,16 @@
     <Compile Include="blankdays.Designer.cs">
       <DependentUpon>blankdays.cs</DependentUpon>
     </Compile>
-    <Compile Include="cadastro_or.cs">
+    <Compile Include="cadastro_e_edicao\cadastro_or.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="cadastro_or.Designer.cs">
+    <Compile Include="cadastro_e_edicao\cadastro_or.Designer.cs">
       <DependentUpon>cadastro_or.cs</DependentUpon>
     </Compile>
-    <Compile Include="cadastro_pagamento.cs">
+    <Compile Include="cadastro_e_edicao\cadastro_pagamento.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="cadastro_pagamento.Designer.cs">
+    <Compile Include="cadastro_e_edicao\cadastro_pagamento.Designer.cs">
       <DependentUpon>cadastro_pagamento.cs</DependentUpon>
     </Compile>
     <Compile Include="calendar.cs">
@@ -179,10 +179,10 @@
     <Compile Include="classes\OS.cs" />
     <Compile Include="classes\osPdf.cs" />
     <Compile Include="classes\pecas.cs" />
-    <Compile Include="consulta_or.cs">
+    <Compile Include="consultas\consulta_or.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="consulta_or.Designer.cs">
+    <Compile Include="consultas\consulta_or.Designer.cs">
       <DependentUpon>consulta_or.cs</DependentUpon>
     </Compile>
     <Compile Include="edicao_calendar.cs">
@@ -191,59 +191,65 @@
     <Compile Include="edicao_calendar.Designer.cs">
       <DependentUpon>edicao_calendar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Consultas\consulta_cliente.cs">
+    <Compile Include="consultas\consulta_cliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Consultas\consulta_cliente.Designer.cs">
+    <Compile Include="consultas\consulta_cliente.Designer.cs">
       <DependentUpon>consulta_cliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="consulta_motos.cs">
+    <Compile Include="consultas\consulta_motos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="consulta_motos.Designer.cs">
+    <Compile Include="consultas\consulta_motos.Designer.cs">
       <DependentUpon>consulta_motos.cs</DependentUpon>
     </Compile>
-    <Compile Include="consulta_os.cs">
+    <Compile Include="consultas\consulta_os.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="consulta_os.Designer.cs">
+    <Compile Include="consultas\consulta_os.Designer.cs">
       <DependentUpon>consulta_os.cs</DependentUpon>
     </Compile>
-    <Compile Include="consulta_pecas.cs">
+    <Compile Include="consultas\consulta_pecas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="consulta_pecas.Designer.cs">
+    <Compile Include="consultas\consulta_pecas.Designer.cs">
       <DependentUpon>consulta_pecas.cs</DependentUpon>
     </Compile>
-    <Compile Include="consulta_servicos.cs">
+    <Compile Include="consultas\consulta_servicos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="consulta_servicos.Designer.cs">
+    <Compile Include="consultas\consulta_servicos.Designer.cs">
       <DependentUpon>consulta_servicos.cs</DependentUpon>
     </Compile>
-    <Compile Include="edicao_motos.cs">
+    <Compile Include="cadastro_e_edicao\edicao_motos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="edicao_motos.Designer.cs">
+    <Compile Include="cadastro_e_edicao\edicao_motos.Designer.cs">
       <DependentUpon>edicao_motos.cs</DependentUpon>
     </Compile>
-    <Compile Include="edicao_os.cs">
+    <Compile Include="cadastro_e_edicao\edicao_os.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="edicao_os.Designer.cs">
+    <Compile Include="cadastro_e_edicao\edicao_os.Designer.cs">
       <DependentUpon>edicao_os.cs</DependentUpon>
     </Compile>
-    <Compile Include="edicao_pecas.cs">
+    <Compile Include="cadastro_e_edicao\edicao_pecas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="edicao_pecas.Designer.cs">
+    <Compile Include="cadastro_e_edicao\edicao_pecas.Designer.cs">
       <DependentUpon>edicao_pecas.cs</DependentUpon>
     </Compile>
-    <Compile Include="edicao_servicos.cs">
+    <Compile Include="cadastro_e_edicao\edicao_servicos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="edicao_servicos.Designer.cs">
+    <Compile Include="cadastro_e_edicao\edicao_servicos.Designer.cs">
       <DependentUpon>edicao_servicos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login.Designer.cs">
+      <DependentUpon>login.cs</DependentUpon>
     </Compile>
     <Compile Include="historico.cs">
       <SubType>Form</SubType>
@@ -273,10 +279,10 @@
     </Compile>
     <Compile Include="classes\servicos.cs" />
     <Compile Include="classes\static_class.cs" />
-    <Compile Include="edicao_cliente.cs">
+    <Compile Include="cadastro_e_edicao\edicao_cliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="edicao_cliente.Designer.cs">
+    <Compile Include="cadastro_e_edicao\edicao_cliente.Designer.cs">
       <DependentUpon>edicao_cliente.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\servicos_os.cs" />
@@ -286,10 +292,10 @@
     <Compile Include="qtd.Designer.cs">
       <DependentUpon>qtd.cs</DependentUpon>
     </Compile>
-    <Compile Include="trocas.cs">
+    <Compile Include="consultas\trocas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="trocas.Designer.cs">
+    <Compile Include="consultas\trocas.Designer.cs">
       <DependentUpon>trocas.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="add.resx">
@@ -307,48 +313,51 @@
     <EmbeddedResource Include="blankdays.resx">
       <DependentUpon>blankdays.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="cadastro_or.resx">
+    <EmbeddedResource Include="cadastro_e_edicao\cadastro_or.resx">
       <DependentUpon>cadastro_or.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="cadastro_pagamento.resx">
+    <EmbeddedResource Include="cadastro_e_edicao\cadastro_pagamento.resx">
       <DependentUpon>cadastro_pagamento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="calendar.resx">
       <DependentUpon>calendar.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="consulta_or.resx">
+    <EmbeddedResource Include="consultas\consulta_or.resx">
       <DependentUpon>consulta_or.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="edicao_calendar.resx">
       <DependentUpon>edicao_calendar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Consultas\consulta_cliente.resx">
+    <EmbeddedResource Include="consultas\consulta_cliente.resx">
       <DependentUpon>consulta_cliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="consulta_motos.resx">
+    <EmbeddedResource Include="consultas\consulta_motos.resx">
       <DependentUpon>consulta_motos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="consulta_os.resx">
+    <EmbeddedResource Include="consultas\consulta_os.resx">
       <DependentUpon>consulta_os.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="consulta_pecas.resx">
+    <EmbeddedResource Include="consultas\consulta_pecas.resx">
       <DependentUpon>consulta_pecas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="consulta_servicos.resx">
+    <EmbeddedResource Include="consultas\consulta_servicos.resx">
       <DependentUpon>consulta_servicos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="edicao_motos.resx">
+    <EmbeddedResource Include="cadastro_e_edicao\edicao_motos.resx">
       <DependentUpon>edicao_motos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="edicao_os.resx">
+    <EmbeddedResource Include="cadastro_e_edicao\edicao_os.resx">
       <DependentUpon>edicao_os.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="edicao_pecas.resx">
+    <EmbeddedResource Include="cadastro_e_edicao\edicao_pecas.resx">
       <DependentUpon>edicao_pecas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="edicao_servicos.resx">
+    <EmbeddedResource Include="cadastro_e_edicao\edicao_servicos.resx">
       <DependentUpon>edicao_servicos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login.resx">
+      <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="historico.resx">
       <DependentUpon>historico.cs</DependentUpon>
@@ -364,16 +373,16 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="edicao_cliente.resx">
+    <EmbeddedResource Include="cadastro_e_edicao\edicao_cliente.resx">
       <DependentUpon>edicao_cliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="qtd.resx">
       <DependentUpon>qtd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="trocas.resx">
+    <EmbeddedResource Include="consultas\trocas.resx">
       <DependentUpon>trocas.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="credenciais\credentials.json" />
+    <None Include="consultas\credentials.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -404,6 +413,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next">
+      <Version>4.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Correios.CEP.Net">
       <Version>1.1.6</Version>
     </PackageReference>
@@ -481,6 +493,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="credenciais\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>

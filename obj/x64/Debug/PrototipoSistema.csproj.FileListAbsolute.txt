@@ -277,3 +277,5 @@ C:\Users\jp.motorsport\source\repos\PropSis\obj\x64\Debug\Prototip.8C8FBFD8.Up2D
 C:\Users\jp.motorsport\source\repos\PropSis\obj\x64\Debug\Sistema.exe
 C:\Users\jp.motorsport\source\repos\PropSis\obj\x64\Debug\Sistema.pdb
 C:\Users\jp.motorsport\source\repos\PropSis\bin\x64\Debug\System.Data.SQLite.dll
+C:\Users\jp.motorsport\source\repos\PropSis\obj\x64\Debug\PrototipoSistema.login.resources
+C:\Users\jp.motorsport\source\repos\PropSis\bin\x64\Debug\BCrypt.Net-Next.dll

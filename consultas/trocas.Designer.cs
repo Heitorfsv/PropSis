@@ -47,29 +47,29 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(162, 15);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Próximas trocas de oleo";
+            this.label1.Text = "Próximas trocas de óleo";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(1022, 12);
+            this.label2.Location = new System.Drawing.Point(838, 12);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(169, 15);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Trocas de oleo atrasadas";
+            this.label2.Text = "Trocas de óleo atrasadas";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1022, 459);
+            this.label3.Location = new System.Drawing.Point(838, 459);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(170, 15);
+            this.label3.Size = new System.Drawing.Size(132, 15);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Trocas de filtro atrasadas";
+            this.label3.Text = "Revisões atrasadas";
             // 
             // label4
             // 
@@ -78,9 +78,9 @@
             this.label4.Location = new System.Drawing.Point(9, 459);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(163, 15);
+            this.label4.Size = new System.Drawing.Size(124, 15);
             this.label4.TabIndex = 12;
-            this.label4.Text = "Próximas trocas de filtro";
+            this.label4.Text = "Próximas revisões";
             // 
             // lst_oleo
             // 
@@ -89,7 +89,7 @@
             this.lst_oleo.Location = new System.Drawing.Point(14, 30);
             this.lst_oleo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lst_oleo.Name = "lst_oleo";
-            this.lst_oleo.Size = new System.Drawing.Size(912, 414);
+            this.lst_oleo.Size = new System.Drawing.Size(805, 414);
             this.lst_oleo.TabIndex = 20;
             this.lst_oleo.UseCompatibleStateImageBehavior = false;
             this.lst_oleo.DoubleClick += new System.EventHandler(this.lst_oleo_DoubleClick);
@@ -98,10 +98,10 @@
             // 
             this.lst_oleo_atrasado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_oleo_atrasado.HideSelection = false;
-            this.lst_oleo_atrasado.Location = new System.Drawing.Point(1025, 30);
+            this.lst_oleo_atrasado.Location = new System.Drawing.Point(841, 30);
             this.lst_oleo_atrasado.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lst_oleo_atrasado.Name = "lst_oleo_atrasado";
-            this.lst_oleo_atrasado.Size = new System.Drawing.Size(912, 414);
+            this.lst_oleo_atrasado.Size = new System.Drawing.Size(805, 414);
             this.lst_oleo_atrasado.TabIndex = 21;
             this.lst_oleo_atrasado.UseCompatibleStateImageBehavior = false;
             this.lst_oleo_atrasado.DoubleClick += new System.EventHandler(this.lst_oleo_atrasado_DoubleClick);
@@ -113,7 +113,7 @@
             this.lst_filtro.Location = new System.Drawing.Point(14, 477);
             this.lst_filtro.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lst_filtro.Name = "lst_filtro";
-            this.lst_filtro.Size = new System.Drawing.Size(912, 414);
+            this.lst_filtro.Size = new System.Drawing.Size(805, 414);
             this.lst_filtro.TabIndex = 22;
             this.lst_filtro.UseCompatibleStateImageBehavior = false;
             this.lst_filtro.DoubleClick += new System.EventHandler(this.lst_filtro_DoubleClick);
@@ -122,10 +122,10 @@
             // 
             this.lst_filtro_atrasado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lst_filtro_atrasado.HideSelection = false;
-            this.lst_filtro_atrasado.Location = new System.Drawing.Point(1025, 477);
+            this.lst_filtro_atrasado.Location = new System.Drawing.Point(841, 477);
             this.lst_filtro_atrasado.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lst_filtro_atrasado.Name = "lst_filtro_atrasado";
-            this.lst_filtro_atrasado.Size = new System.Drawing.Size(912, 414);
+            this.lst_filtro_atrasado.Size = new System.Drawing.Size(805, 414);
             this.lst_filtro_atrasado.TabIndex = 23;
             this.lst_filtro_atrasado.UseCompatibleStateImageBehavior = false;
             this.lst_filtro_atrasado.DoubleClick += new System.EventHandler(this.lst_filtro_atrasado_DoubleClick);

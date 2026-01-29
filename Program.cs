@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace PrototipoSistema
@@ -16,7 +17,16 @@ namespace PrototipoSistema
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MDI_tela());
+
+            // Cria e exibe o login como um diálogo modal
+            using (login login = new login())
+            {
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    // Se o login for bem-sucedido, inicia o MDI
+                    Application.Run(new MDI_tela());
+                }
+            }
         }
     }
 }
