@@ -32,116 +32,110 @@ namespace PrototipoSistema
 
         string pesquisa_doc;
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
-        public void ultimo_index(bool usarLocal = false)
+        public void ultimo_index()
         {
-            // Define qual conexão usar
-            System.Data.Common.DbConnection conexao;
+            int indexLocal = 0;
+            int indexRemoto = 0;
 
-            if (usarLocal)
-                conexao = new SQLiteConnection(strLocal);
-            else
-                conexao = new MySqlConnection(strConexao);
-
-            try
+            // 1. Busca o maior ID no SQLite
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
-                    cmd.CommandText = "SELECT controle FROM clientes ORDER BY controle DESC LIMIT 1";
-
-                    var resultado = cmd.ExecuteScalar();
-
-                    // Se o banco estiver vazio, o resultado é null. 
-                    // Tratamos isso para não dar erro no Convert.
-                    if (resultado != null && resultado != DBNull.Value)
-                    {
-                        index = Convert.ToInt32(resultado);
-                    }
-                    else
-                    {
-                        index = 0; // Primeiro registro
-                    }
+                    conLocal.Open();
+                    var cmd = conLocal.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM clientes";
+                    var res = cmd.ExecuteScalar();
+                    indexLocal = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
                 }
+                catch { indexLocal = 0; }
             }
-            catch (Exception)
+
+            // 2. Busca o maior ID no MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
             {
-                // Se falhou no MySQL e ainda não tentamos o local, dispara a tentativa local
-                if (!usarLocal)
+                try
                 {
-                    ultimo_index(true);
+                    conRemoto.Open();
+                    var cmd = conRemoto.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM clientes";
+                    var res = cmd.ExecuteScalar();
+                    indexRemoto = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
                 }
-                else
-                {
-                    index = 0; // Fallback final caso ambos falhem
-                }
+                catch { indexRemoto = 0; } // Se falhar (offline), ignoramos e usamos o local
             }
+
+            // 3. O 'index' global será o maior entre os dois
+            // Usamos Math.Max para garantir que pegamos o maior valor absoluto
+            index = Math.Max(indexLocal, indexRemoto);
         }
 
-        public void cadastrar_cliente(bool usarLocal = false)
+        public void cadastrar_cliente()
         {
             pesquisa_doc = null;
-            // Define qual conexão e comando usar com base no parâmetro
-            System.Data.Common.DbConnection conexao;
 
-            if (usarLocal)
-                conexao = new SQLiteConnection(strLocal);
-            else
-                conexao = new MySqlConnection(strConexao);
-
-            try
+            // 1. SEMPRE tenta gravar no Local (SQLite) primeiro
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    // 1. Verificação de duplicidade
-                    var cmd = conexao.CreateCommand();
-                    cmd.CommandText = "SELECT nome FROM clientes WHERE doc = @doc";
-                    var pDoc = cmd.CreateParameter();
-                    pDoc.ParameterName = "@doc";
-                    pDoc.Value = doc;
-                    cmd.Parameters.Add(pDoc);
+                    conLocal.Open();
 
-                    conexao.Open();
-                    pesquisa_doc = cmd.ExecuteScalar()?.ToString();
+                    // Verificação de duplicidade local
+                    var cmdCheck = conLocal.CreateCommand();
+                    cmdCheck.CommandText = "SELECT nome FROM clientes WHERE doc = @doc";
+                    cmdCheck.Parameters.AddWithValue("@doc", doc);
+                    pesquisa_doc = cmdCheck.ExecuteScalar()?.ToString();
 
-                    if (pesquisa_doc == null)
+                    if (pesquisa_doc != null)
                     {
-                        // 2. Inserção
-                        var cmd2 = conexao.CreateCommand();
-                        cmd2.CommandText = @"INSERT INTO clientes (controle, nome, nome_fantasia, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo) 
-                                    values (@controle,@nome,@fantasia,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo)";
-
-                        // Preenche os parâmetros (usando o auxiliar abaixo para não repetir código)
-                        PreencherParametros(cmd2);
-
-                        cmd2.ExecuteNonQuery();
-                        conexao.Close();
-
-                        string msg = usarLocal ? "Salvo localmente (Servidor Offline)!" : "Cadastrado com sucesso!";
-                        MessageBox.Show(msg, "JCMotorsport");
+                        MessageBox.Show("Este Documento já está cadastrado localmente.", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
-                    else
-                    {
-                        MessageBox.Show("Este Documento já está cadastrado", "JCMotorsport", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+
+                    // Inserção Local (Inicia com sync = 0)
+                    var cmdInsertLocal = conLocal.CreateCommand();
+                    cmdInsertLocal.CommandText = @"INSERT INTO clientes (controle, nome, nome_fantasia, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo, sync) 
+                                           VALUES (@controle,@nome,@fantasia,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo, 0)";
+
+                    PreencherParametros(cmdInsertLocal);
+                    cmdInsertLocal.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao salvar no banco local: " + ex.Message);
+                    return; // Se não gravou nem no local, para tudo.
                 }
             }
-            catch (Exception)
+
+            // 2. Agora tenta replicar para o MySQL (Servidor Remoto)
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
             {
-                // Se falhou no MySQL e ainda não tentamos o local, tenta o local agora
-                if (!usarLocal)
+                try
                 {
-                    cadastrar_cliente(true);
+                    conRemoto.Open();
+
+                    // Tenta inserir no MySQL
+                    var cmdRemoto = conRemoto.CreateCommand();
+                    cmdRemoto.CommandText = @"INSERT INTO clientes (controle, nome, nome_fantasia, doc, inscricao, dt_nascimento, telefone, telefone2, email, rua, bairro, cidade, cep, dt_cadastro, sujo) 
+                                      VALUES (@controle,@nome,@fantasia,@doc,@inscricao,@dt_nascimento,@telefone,@telefone2,@email,@rua,@bairro,@cidade,@cep,@dt_cadastro,@sujo)";
+
+                    PreencherParametros(cmdRemoto);
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // 3. Se deu certo no MySQL, atualiza o status de 'sync' no SQLite para 1
+                    static_class.AtualizarStatusSync("clientes", index, 1);
+
+                    MessageBox.Show("Cliente cadastrado e sincronizado com sucesso!", "JCMotorsport");
                 }
-                else
+                catch (Exception)
                 {
-                    MessageBox.Show("Erro crítico: Nem o banco local está disponível.");
+                    // Se falhar o MySQL, não fazemos nada. O dado já está no SQLite com sync=0
+                    MessageBox.Show("Salvo localmente. O servidor está offline, a sincronização ocorrerá em breve.", "Modo Offline", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
+
 
         private void PreencherParametros(System.Data.Common.DbCommand cmd)
         {
@@ -170,109 +164,125 @@ namespace PrototipoSistema
             Add("@sujo", sujo);
         }
 
-        public void alterar_cliente(bool usarLocal = false)
+        public void alterar_cliente()
         {
-            System.Data.Common.DbConnection conexao;
-
-            if (usarLocal)
-                conexao = new SQLiteConnection(strLocal);
-            else
-                conexao = new MySqlConnection(strConexao);
-
-            try
+            // 1. SEMPRE altera no Local (SQLite) primeiro
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
+                    conLocal.Open();
+                    var cmdLocal = conLocal.CreateCommand();
 
-                    // Usando parâmetros para evitar erros de sintaxe com aspas
-                    cmd.CommandText = @"UPDATE clientes SET nome = @nome, nome_fantasia = @fantasia, doc = @doc, inscricao = @inscricao, dt_nascimento = @dt_nascimento, telefone = @telefone, telefone2 = @telefone2, email = @email, 
-                                rua = @rua, bairro = @bairro, cidade = @cidade, cep = @cep 
-                                WHERE controle = @controle";
+                    // Ao alterar, voltamos o sync para 0 (Pendente) 
+                    // porque o MySQL agora tem uma versão desatualizada.
+                    cmdLocal.CommandText = @"UPDATE clientes SET 
+                                    nome = @nome, nome_fantasia = @fantasia, doc = @doc, 
+                                    inscricao = @inscricao, dt_nascimento = @dt_nascimento, 
+                                    telefone = @telefone, telefone2 = @telefone2, email = @email, 
+                                    rua = @rua, bairro = @bairro, cidade = @cidade, cep = @cep,
+                                    sync = 0 
+                                    WHERE controle = @controle";
 
-                    PreencherParametros(cmd); // Reaproveita os parâmetros que você já tem
-
-                    cmd.ExecuteNonQuery();
+                    PreencherParametros(cmdLocal);
+                    cmdLocal.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao alterar no banco local: " + ex.Message);
+                    return; // Se falhou no local, não tentamos o remoto
                 }
             }
-            catch (Exception)
+
+            // 2. Tenta replicar a alteração para o MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
             {
-                if (!usarLocal)
+                try
                 {
-                    alterar_cliente(true); // Se falhar o online, tenta o offline
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+
+                    cmdRemoto.CommandText = @"UPDATE clientes SET 
+                                    nome = @nome, nome_fantasia = @fantasia, doc = @doc, 
+                                    inscricao = @inscricao, dt_nascimento = @dt_nascimento, 
+                                    telefone = @telefone, telefone2 = @telefone2, email = @email, 
+                                    rua = @rua, bairro = @bairro, cidade = @cidade, cep = @cep 
+                                    WHERE controle = @controle";
+
+                    PreencherParametros(cmdRemoto);
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // 3. Se funcionou no MySQL, marcamos como sincronizado (1) no local
+                    static_class.AtualizarStatusSync("clientes", index, 1);
+
+                    MessageBox.Show("Cliente atualizado e sincronizado!", "JCMotorsport");
                 }
-                else
+                catch (Exception)
                 {
-                    MessageBox.Show("Erro ao alterar cliente no banco local.");
+                    // Se falhar o MySQL, o sync continua como 0 no SQLite.
+                    // O usuário continua trabalhando normalmente.
+                    MessageBox.Show("Alteração salva localmente. Sincronização pendente (servidor offline).", "Modo Offline");
                 }
             }
         }
 
-        public void quitado(bool usarLocal = false)
+        public void quitado()
         {
-            int sujoLocal = 0;
-            System.Data.Common.DbConnection conexao;
+            int sujoCalculado = 0;
 
-            if (usarLocal)
-                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else
-                conexao = new MySqlConnection(strConexao);
-
-            try
+            // 1. SEMPRE processa a lógica no Local (SQLite) primeiro
+            using (var conLocal = new System.Data.SQLite.SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
+                    conLocal.Open();
 
-                    // 1. Verificamos se AINDA EXISTE alguma OS não paga para esse documento
-                    var cmd = conexao.CreateCommand();
-                    // Importante: Selecionar o controle evita o erro de índice que você teve
-                    cmd.CommandText = "SELECT controle FROM os WHERE doc = @doc AND (pago = 0 OR pago IS NULL) LIMIT 1";
+                    // A. Verifica OS abertas no SQLite (Prioriza a realidade local)
+                    var cmdCheck = conLocal.CreateCommand();
+                    cmdCheck.CommandText = "SELECT controle FROM os WHERE doc = @doc AND (pago = 0 OR pago IS NULL) LIMIT 1";
+                    cmdCheck.Parameters.AddWithValue("@doc", doc);
 
-                    var pDoc = cmd.CreateParameter();
-                    pDoc.ParameterName = "@doc";
-                    pDoc.Value = doc;
-                    cmd.Parameters.Add(pDoc);
-
-                    using (var reader = cmd.ExecuteReader())
+                    using (var reader = cmdCheck.ExecuteReader())
                     {
-                        if (reader.Read())
-                        {
-                            // Se ele entrar aqui, ele achou uma OS aberta. Status continua 1.
-                            sujoLocal = 1;
-                        }
-                        else
-                        {
-                            // Se ele não achou nenhuma OS aberta, status vira 0.
-                            sujoLocal = 0;
-                        }
+                        sujoCalculado = reader.Read() ? 1 : 0;
                     }
 
-                    // 2. Atualiza o cadastro do cliente com o resultado (0 ou 1)
-                    var cmdUpdate = conexao.CreateCommand();
-                    cmdUpdate.CommandText = "UPDATE clientes SET sujo = @sujo WHERE doc = @doc";
-
-                    var pSujo = cmdUpdate.CreateParameter();
-                    pSujo.ParameterName = "@sujo";
-                    pSujo.Value = sujoLocal;
-                    cmdUpdate.Parameters.Add(pSujo);
-
-                    var pDoc2 = cmdUpdate.CreateParameter();
-                    pDoc2.ParameterName = "@doc";
-                    pDoc2.Value = doc;
-                    cmdUpdate.Parameters.Add(pDoc2);
-
+                    // B. Atualiza o status do cliente localmente e marca como pendente (sync = 0)
+                    var cmdUpdate = conLocal.CreateCommand();
+                    cmdUpdate.CommandText = "UPDATE clientes SET sujo = @sujo, sync = 0 WHERE doc = @doc";
+                    cmdUpdate.Parameters.AddWithValue("@sujo", sujoCalculado);
+                    cmdUpdate.Parameters.AddWithValue("@doc", doc);
                     cmdUpdate.ExecuteNonQuery();
-
-                    // DEBUG: Isso aqui vai te confirmar se o banco mudou para 0 ou 1
-                    MessageBox.Show($"Lógica Finalizada!\nStatus do Cliente {doc}: {(sujoLocal == 1 ? "SUJO" : "LIMPO")}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao processar status financeiro local: " + ex.Message);
+                    return;
                 }
             }
-            catch (Exception ex)
+
+            // 2. Tenta replicar a atualização de status para o MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
             {
-                if (!usarLocal) quitado(true);
-                else MessageBox.Show("Erro na função quitado: " + ex.Message);
+                try
+                {
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+                    cmdRemoto.CommandText = "UPDATE clientes SET sujo = @sujo WHERE doc = @doc";
+                    cmdRemoto.Parameters.AddWithValue("@sujo", sujoCalculado);
+                    cmdRemoto.Parameters.AddWithValue("@doc", doc);
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // 3. Se funcionou no servidor, volta no SQLite e marca como sincronizado (1)
+                    static_class.AtualizarStatusSync("clientes", index, 1);
+
+                    MessageBox.Show($"Financeiro atualizado!\nStatus: {(sujoCalculado == 1 ? "DÉBITO PENDENTE" : "QUITADO")}", "JCMotorsport");
+                }
+                catch (Exception)
+                {
+                    // Servidor offline: O status no SQLite já está correto e com sync=0
+                    MessageBox.Show("Status atualizado localmente. O servidor será atualizado quando houver conexão.", "Modo Offline");
+                }
             }
         }
     }

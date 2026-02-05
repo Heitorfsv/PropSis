@@ -11,8 +11,6 @@ namespace PrototipoSistema
     {
         cliente cliente = new cliente();
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
         public edicao_cliente()
         {
             InitializeComponent();
@@ -47,7 +45,7 @@ namespace PrototipoSistema
             txt_doc.Mask = "000.000.000-00";
             txt_dt_registro.Visible = false;
             label15.Visible = false;
-            dtp_nascimento.Enabled = false;
+            cb_dt_nascimento.Checked = false;
             txt_inscricao.Visible = false;
             lbl_inscricao.Visible = false;
             bnt_delete.Visible = false;
@@ -56,8 +54,8 @@ namespace PrototipoSistema
         private void CarregarDadosCliente(bool usarLocal = false)
         {
             System.Data.Common.DbConnection conexao;
-            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
             try
             {
@@ -247,45 +245,44 @@ namespace PrototipoSistema
 
             if (confirmacao == DialogResult.Yes)
             {
-                ExecutarDeleteCliente();
+                ExecutarDelete();
                 Close();
             }
         }
 
-        private void ExecutarDeleteCliente(bool usarLocal = false)
+        private void ExecutarDelete()
         {
-            // Define se usará MySQL ou SQLite
-            System.Data.Common.DbConnection conexao;
-            if (usarLocal)
-                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else
-                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            int idControle = static_class.controle;
 
-            try
+            // 1. SOFT DELETE no Local (SQLite)
+            // Em vez de apagar, marcamos sync = 2. Assim ele some da sua tela (usando o filtro no SELECT)
+            // e o sincronizador saberá que precisa apagar isso no servidor depois.
+            static_class.AtualizarStatusSync("clientes", idControle, 2);
+
+            // 2. Tenta o DELETE Real no MySQL (Servidor)
+            using (var conRemoto = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+                    cmdRemoto.CommandText = "DELETE FROM clientes WHERE controle = @controle";
+                    cmdRemoto.Parameters.AddWithValue("@controle", idControle);
 
-                    // Comando SQL parametrizado
-                    cmd.CommandText = "DELETE FROM clientes WHERE doc = @doc";
+                    cmdRemoto.ExecuteNonQuery();
 
-                    var pDoc = cmd.CreateParameter();
-                    pDoc.ParameterName = "@doc";
-                    pDoc.Value = static_class.doc_consultar;
-                    cmd.Parameters.Add(pDoc);
+                    // 3. Se funcionou no MySQL, podemos apagar FISICAMENTE do SQLite
+                    static_class.ApagarRegistroLocal("clientes", idControle);
 
-                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Orçamento excluído com sucesso!");
                 }
-            }
-            catch
-            {
-                // Se a rede falhar no MySQL, tenta deletar no banco local
-                if (!usarLocal)
-                    ExecutarDeleteCliente(true);
-                else
-                    MessageBox.Show("Erro ao tentar excluir o registro localmente.");
+                catch (Exception)
+                {
+                    // Se o servidor estiver fora, não tem problema. 
+                    // O registro continua no SQLite com sync=2, invisível para o usuário,
+                    // aguardando a internet voltar para ser deletado no MySQL.
+                    MessageBox.Show("Excluído localmente. O servidor será atualizado assim que houver conexão.", "Modo Offline");
+                }
             }
         }
 

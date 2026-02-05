@@ -10,8 +10,6 @@ namespace PrototipoSistema
 {
     public partial class consulta_motos : Form
     {
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
 
         public consulta_motos()
         {
@@ -43,14 +41,14 @@ namespace PrototipoSistema
             // 1. LÓGICA HÍBRIDA DE CONEXÃO
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
                 // Se o MySQL falhar, ele cai aqui e abre o SQLite
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }
@@ -125,13 +123,13 @@ namespace PrototipoSistema
             System.Data.IDbConnection conexao;
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }

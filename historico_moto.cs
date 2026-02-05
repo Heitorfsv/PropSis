@@ -19,9 +19,6 @@ namespace PrototipoSistema
         public string modelo;
         public string ano;
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
         public historico_moto()
         {
             InitializeComponent();
@@ -41,14 +38,14 @@ namespace PrototipoSistema
             txt_modelo.Text = modelo;
             txt_ano.Text = ano;
 
-            // 2. Definir conexão (Certifique-se que strLocal ou strConexao estão corretas)
+            // 2. Definir conexão (Certifique-se que static_class.strLocal ou static_class.strConexao estão corretas)
             bool usarLocal = false;
             System.Data.Common.DbConnection conexao;
 
             if (usarLocal)
-                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
+                conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
             else
-                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+                conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
             try
             {

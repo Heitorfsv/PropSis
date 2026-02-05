@@ -84,8 +84,6 @@ namespace PrototipoSistema
 
         private void MDI_tela_Load(object sender, EventArgs e)
         {
-            verificar_banco_local();
-
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("pt-BR");
 
             try
@@ -93,8 +91,7 @@ namespace PrototipoSistema
                 string lista_aniversarios_futuros = "";
                 string lista_aniversarios = "";
 
-                var strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-                var conexao = new MySqlConnection(strConexao);
+                var conexao = new MySqlConnection(static_class.strConexao);
 
                 var cmd = new MySqlCommand("SELECT * FROM clientes WHERE dt_nascimento REGEXP '[A-Za-z0-9]'", conexao);
 
@@ -125,57 +122,6 @@ namespace PrototipoSistema
                 MessageBox.Show("Erro ao conectar com o banco de dados reemoto. \r\n\r\n" + ex.Message, "Erro de conexão");
             }
 
-        }
-
-        public void verificar_banco_local()
-        {
-            string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
-            using (var conexao = new System.Data.SQLite.SQLiteConnection(strLocal))
-            {
-                conexao.Open();
-                var cmd = conexao.CreateCommand();
-
-                // 1. Lista de comandos INDIVIDUAIS (Garante que se um falhar, os outros tentam)
-                string[] comandosCriacao = {
-            "CREATE TABLE IF NOT EXISTS clientes (controle INTEGER PRIMARY KEY, dt_cadastro TEXT, nome TEXT, nome_fantasia TEXT, doc TEXT, inscricao TEXT, dt_nascimento TEXT, telefone TEXT, telefone2 TEXT, email TEXT, rua TEXT, bairro TEXT, cidade TEXT, cep TEXT, sujo INTEGER)",
-            "CREATE TABLE IF NOT EXISTS motos (controle INTEGER PRIMARY KEY, placa TEXT, marca TEXT, modelo TEXT, cor TEXT, ano TEXT, chassi TEXT, dt_registro TEXT, doc_dono TEXT, observacao TEXT)",
-            "CREATE TABLE IF NOT EXISTS orcamentos (controle INTEGER PRIMARY KEY, cliente TEXT, doc TEXT, km TEXT, placa TEXT, dt_cadastro TEXT, total TEXT, observacao TEXT)",
-            "CREATE TABLE IF NOT EXISTS os (controle INTEGER PRIMARY KEY, placa TEXT, km TEXT, cliente TEXT, doc TEXT, observacao TEXT, descricao TEXT, total TEXT, dt_cadastro TEXT, aviso_oleo TEXT, aviso_revisao TEXT, dt_saida TEXT, pago INTEGER, metodo_pag TEXT)",
-            "CREATE TABLE IF NOT EXISTS pecas (controle INTEGER PRIMARY KEY, nome TEXT, marca TEXT, modelo TEXT, valor_pago TEXT, impostos TEXT, valor_sugerido TEXT, fornecedor TEXT, contato TEXT, local TEXT, estoque TEXT)",
-            "CREATE TABLE IF NOT EXISTS pecas_os (controle INTEGER PRIMARY KEY, os TEXT, orca TEXT, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT)",
-            "CREATE TABLE IF NOT EXISTS servicos (controle INTEGER PRIMARY KEY, nome TEXT, valor TEXT)",
-            "CREATE TABLE IF NOT EXISTS servicos_os (controle INTEGER PRIMARY KEY, os TEXT, orca TEXT, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT)",
-            "CREATE TABLE IF NOT EXISTS metodo_pag (controle INTEGER PRIMARY KEY, metodo TEXT, banco TEXT, parcelas TEXT)",
-            "CREATE TABLE IF NOT EXISTS login (controle INTEGER PRIMARY KEY, usuario TEXT, senha TEXT)"
-        };
-
-                foreach (var sql in comandosCriacao)
-                {
-                    cmd.CommandText = sql;
-                    cmd.ExecuteNonQuery();
-                }
-
-                // 2. Inserts de teste (Mantido sua lógica)
-                string[] inserts = {
-            "INSERT OR IGNORE INTO clientes (controle, nome, doc, dt_cadastro, sujo) VALUES (0, 'REGISTRO TESTE', '0', '2024-01-01', 0)",
-            "INSERT OR IGNORE INTO motos (controle, placa, doc_dono) VALUES (0, 'TESTE-0000', '0')",
-            "INSERT OR IGNORE INTO orcamentos (controle, km, cliente) VALUES (0, '0', 'TESTE')",
-            "INSERT OR IGNORE INTO os (controle, placa, km, cliente, doc) VALUES (0, '000-0000', '0', 'TESTE', '0')",
-            "INSERT OR IGNORE INTO pecas (controle, nome) VALUES (0, 'PEÇA TESTE')",
-            "INSERT OR IGNORE INTO pecas_os (controle, nome, os, orca) VALUES (0, 'ITEM TESTE', '0', '0')",
-            "INSERT OR IGNORE INTO servicos (controle, nome) VALUES (0, 'SERVIÇO TESTE')",
-            "INSERT OR IGNORE INTO servicos_os (controle, nome, os, orca) VALUES (0, 'ITEM TESTE', '0', '0')",
-            "INSERT OR IGNORE INTO metodo_pag (controle, metodo) VALUES (0, 'DINHEIRO')",
-            "INSERT OR IGNORE INTO login (controle, usuario, senha) VALUES (0, 'JCMOTORSPORT', '$2a$11$g9AH6wV7QHS5QQJE42J.1.Yca7ctF7RviEHGVkIpz96HUNGB58/Ti')"
-        };
-
-                foreach (var sql in inserts)
-                {
-                    cmd.CommandText = sql;
-                    cmd.ExecuteNonQuery();
-                }
-            }
         }
 
         private void cadastroPeçaToolStripMenuItem_Click(object sender, EventArgs e)

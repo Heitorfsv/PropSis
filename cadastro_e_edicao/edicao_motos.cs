@@ -16,9 +16,6 @@ namespace PrototipoSistema
     {
         motos motos = new motos();
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
         public edicao_motos()
         {
             InitializeComponent();
@@ -47,8 +44,8 @@ namespace PrototipoSistema
         private void CarregarDadosMoto(bool usarLocal = false)
         {
             System.Data.Common.DbConnection conexao;
-            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
             try
             {
@@ -158,8 +155,8 @@ namespace PrototipoSistema
             string documento = "";
             System.Data.Common.DbConnection conexao;
 
-            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
             try
             {
@@ -195,51 +192,99 @@ namespace PrototipoSistema
             }
         }
 
-        private void ExecutarExclusaoTotal(bool usarLocal = false)
+        private void ExecutarExclusaoTotal()
         {
-            System.Data.Common.DbConnection conexao;
-            if (usarLocal)
-                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else
-                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            string placaMoto = static_class.doc_consultar;
+            int idMoto = static_class.controle;
 
+            // A. Busca os IDs das ordens de serviço antes de começar
+            List<int> idsOSs = BuscarControlesOSPorPlaca(placaMoto);
+
+            // B. SOFT DELETE LOCAL (Utilizando as funções da classe estática)
             try
             {
-                using (conexao)
+                foreach (int idOS in idsOSs)
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
-
-                    // Usamos a placa como referência para encontrar as OSs vinculadas
-                    string placaMoto = static_class.doc_consultar;
-
-                    // 1. Deletar PEÇAS vinculadas às OSs desta moto
-                    cmd.CommandText = @"DELETE FROM pecas_os WHERE os IN (SELECT controle FROM os WHERE placa = @placa)";
-                    var p1 = cmd.CreateParameter();
-                    p1.ParameterName = "@placa";
-                    p1.Value = placaMoto;
-                    cmd.Parameters.Add(p1);
-                    cmd.ExecuteNonQuery();
-
-                    // 2. Deletar SERVIÇOS vinculados às OSs desta moto
-                    cmd.CommandText = @"DELETE FROM servicos_os WHERE os IN (SELECT controle FROM os WHERE placa = @placa)";
-                    // Reutiliza o parâmetro @placa que já está no cmd
-                    cmd.ExecuteNonQuery();
-
-                    // 3. Deletar as OSs da moto
-                    cmd.CommandText = "DELETE FROM os WHERE placa = @placa";
-                    cmd.ExecuteNonQuery();
-
-                    // 4. Por fim, deletar a MOTO 
-                    cmd.CommandText = "DELETE FROM motos WHERE placa = @placa";
-                    cmd.ExecuteNonQuery();
+                    static_class.AtualizarStatusSync("pecas_os", idOS, 2);
+                    static_class.AtualizarStatusSync("servicos_os", idOS, 2);
+                    static_class.AtualizarStatusSync("os", idOS, 2);
                 }
+                static_class.AtualizarStatusSync("motos", idMoto, 2);
             }
             catch (Exception ex)
             {
-                // Trate o erro conforme sua necessidade
-                throw new Exception("Erro ao excluir histórico da moto: " + ex.Message);
+                MessageBox.Show("Erro no Soft Delete: " + ex.Message);
+                return;
             }
+
+            // C. TENTA EXCLUSÃO REAL NO SERVIDOR (MYSQL)
+            using (var conRemoto = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao))
+            {
+                try
+                {
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+                    cmdRemoto.Parameters.AddWithValue("@placa", placaMoto);
+
+                    // Deleta na ordem de hierarquia (Filhos -> Pai)
+                    cmdRemoto.CommandText = @"
+                DELETE FROM pecas_os WHERE os IN (SELECT controle FROM os WHERE placa = @placa);
+                DELETE FROM servicos_os WHERE os IN (SELECT controle FROM os WHERE placa = @placa);
+                DELETE FROM os WHERE placa = @placa;
+                DELETE FROM motos WHERE placa = @placa;";
+
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // D. SE O MYSQL APAGOU, LIMPA O SQLITE DEFINITIVAMENTE
+                    foreach (int idOS in idsOSs)
+                    {
+                        static_class.ApagarRegistroLocal("pecas_os", idOS);
+                        static_class.ApagarRegistroLocal("servicos_os", idOS);
+                        static_class.ApagarRegistroLocal("os", idOS);
+                    }
+                    static_class.ApagarRegistroLocal("motos", idMoto);
+
+                    MessageBox.Show("Histórico da moto removido do servidor e do PC!");
+                }
+                catch
+                {
+                    // Se cair aqui, a internet falhou. 
+                    // Como já fizemos o Soft Delete lá em cima (B), os dados já sumiram da tela.
+                    MessageBox.Show("Sem conexão com o servidor. A moto foi marcada para exclusão automática assim que a internet voltar.");
+                }
+            }
+
+            this.Close();
+        }
+
+        public static List<int> BuscarControlesOSPorPlaca(string placa)
+        {
+            List<int> listaIds = new List<int>();
+
+            using (var conLocal = new System.Data.SQLite.SQLiteConnection(static_class.strLocal))
+            {
+                try
+                {
+                    conLocal.Open();
+                    var cmd = conLocal.CreateCommand();
+                    cmd.CommandText = "SELECT controle FROM os WHERE placa = @placa";
+                    cmd.Parameters.AddWithValue("@placa", placa);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Adiciona cada ID de OS encontrado na lista
+                            listaIds.Add(Convert.ToInt32(reader["controle"]));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show("Erro ao buscar IDs das OSs: " + ex.Message);
+                }
+            }
+            return listaIds;
         }
 
         private void bnt_historico_Click(object sender, EventArgs e)
@@ -268,8 +313,8 @@ namespace PrototipoSistema
         private void BuscarDonoHibrido(string filtro, bool usarLocal = false)
         {
             System.Data.Common.DbConnection conexao;
-            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
             try
             {

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PrototipoSistema;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -20,65 +21,150 @@ namespace classes
         public string dt_cadastro { get; set; }
         public string observacao { get; set; }
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
-        public void ultimo_index(bool usarLocal = false)
+        public void ultimo_index()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            int indexLocal = 0;
+            int indexRemoto = 0;
+
+            // 1. Busca o maior ID no banco Local (SQLite)
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
-                    cmd.CommandText = "SELECT controle FROM orcamentos ORDER BY controle DESC LIMIT 1";
+                    conLocal.Open();
+                    var cmd = conLocal.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM orcamentos";
                     var res = cmd.ExecuteScalar();
-                    index = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                    indexLocal = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
                 }
+                catch { indexLocal = 0; }
             }
-            catch { if (!usarLocal) ultimo_index(true); }
+
+            // 2. Busca o maior ID no banco Remoto (MySQL)
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
+            {
+                try
+                {
+                    conRemoto.Open();
+                    var cmd = conRemoto.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM orcamentos";
+                    var res = cmd.ExecuteScalar();
+                    indexRemoto = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                }
+                catch { indexRemoto = 0; } // Se falhar (offline), assume 0 e usa o local como base
+            }
+
+            // 3. O índice final será o maior valor encontrado entre os dois bancos
+            index = Math.Max(indexLocal, indexRemoto);
         }
 
-        public void cadastrar_or(bool usarLocal = false)
+        public void cadastrar_or()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            // 1. SEMPRE grava no Local (SQLite) primeiro
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
-                    cmd.CommandText = @"INSERT INTO orcamentos (controle, cliente, doc, km, placa, dt_cadastro, total, observacao) 
-                                VALUES (@controle, @cliente, @doc, @km, @placa, @dt_cadastro, @total, @observacao)";
+                    conLocal.Open();
+                    var cmdLocal = conLocal.CreateCommand();
 
-                    PreencherParametrosOrcamento(cmd);
-                    cmd.ExecuteNonQuery();
+                    // Incluímos a coluna sync = 0
+                    cmdLocal.CommandText = @"INSERT INTO orcamentos (controle, cliente, doc, km, placa, dt_cadastro, total, observacao, sync) 
+                                    VALUES (@controle, @cliente, @doc, @km, @placa, @dt_cadastro, @total, @observacao, 0)";
 
-                    if (!usarLocal) MessageBox.Show("Orçamento salvo no servidor!", "Sucesso");
+                    PreencherParametrosOrcamento(cmdLocal);
+                    cmdLocal.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao salvar orçamento localmente: " + ex.Message);
+                    return; // Se não salvou no PC, para aqui para não perder os dados.
                 }
             }
-            catch { if (!usarLocal) cadastrar_or(true); }
+
+            // 2. Tenta replicar para o MySQL (Servidor)
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
+            {
+                try
+                {
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+
+                    cmdRemoto.CommandText = @"INSERT INTO orcamentos (controle, cliente, doc, km, placa, dt_cadastro, total, observacao) 
+                                    VALUES (@controle, @cliente, @doc, @km, @placa, @dt_cadastro, @total, @observacao)";
+
+                    PreencherParametrosOrcamento(cmdRemoto);
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // 3. Se deu certo no MySQL, marcamos como sincronizado (1)
+                    static_class.AtualizarStatusSync("orcamentos", index, 1);
+
+                    MessageBox.Show("Orçamento cadastrado e sincronizado com sucesso!", "JCMotorsport");
+                }
+                catch (Exception)
+                {
+                    // Se falhar o MySQL, o dado já está no SQLite seguro com sync=0
+                    MessageBox.Show("Orçamento salvo localmente (Modo Offline). A sincronização ocorrerá em breve.", "Informação");
+                }
+            }
         }
 
-        public void alterar_or(bool usarLocal = false)
+        public void alterar_or()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            // 1. SEMPRE altera no Local (SQLite) primeiro
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
-                    cmd.CommandText = @"UPDATE orcamentos SET cliente = @cliente, doc = @doc, km = @km, placa = @placa, dt_cadastro = @dt_cadastro, total = @total, observacao = @observacao WHERE controle = @controle";
+                    conLocal.Open();
+                    var cmdLocal = conLocal.CreateCommand();
 
-                    PreencherParametrosOrcamento(cmd);
-                    cmd.ExecuteNonQuery();
+                    // Atualiza os dados e reseta o sync para 0 (Pendente)
+                    cmdLocal.CommandText = @"UPDATE orcamentos SET 
+                                    cliente = @cliente, doc = @doc, km = @km, 
+                                    placa = @placa, dt_cadastro = @dt_cadastro, 
+                                    total = @total, observacao = @observacao, 
+                                    sync = 0 
+                                    WHERE controle = @controle";
 
-                    if (!usarLocal) MessageBox.Show("Orçamento atualizado no servidor!", "Sucesso");
+                    PreencherParametrosOrcamento(cmdLocal);
+                    cmdLocal.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao atualizar orçamento localmente: " + ex.Message);
+                    return;
                 }
             }
-            catch { if (!usarLocal) alterar_or(true); }
+
+            // 2. Agora tenta replicar para o MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
+            {
+                try
+                {
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+
+                    cmdRemoto.CommandText = @"UPDATE orcamentos SET 
+                                    cliente = @cliente, doc = @doc, km = @km, 
+                                    placa = @placa, dt_cadastro = @dt_cadastro, 
+                                    total = @total, observacao = @observacao 
+                                    WHERE controle = @controle";
+
+                    PreencherParametrosOrcamento(cmdRemoto);
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // 3. Se deu certo no MySQL, volta o sync para 1
+                    static_class.AtualizarStatusSync("orcamentos", index, 1);
+
+                    MessageBox.Show("Orçamento atualizado e sincronizado!", "Sucesso");
+                }
+                catch (Exception)
+                {
+                    // Se falhar o MySQL, o dado está salvo com sync=0 no SQLite
+                    MessageBox.Show("Alteração salva localmente. O servidor será atualizado na próxima sincronização.", "Modo Offline");
+                }
+            }
         }
 
         private void PreencherParametrosOrcamento(System.Data.Common.DbCommand cmd)

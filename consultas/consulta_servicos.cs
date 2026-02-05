@@ -13,8 +13,6 @@ namespace PrototipoSistema
 {
     public partial class consulta_servicos : Form
     {
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
         public consulta_servicos()
         {
             InitializeComponent();
@@ -45,14 +43,14 @@ namespace PrototipoSistema
             // 1. TENTATIVA HÍBRIDA AUTOMÁTICA
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
                 // Fallback para SQLite local caso o servidor esteja offline
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }

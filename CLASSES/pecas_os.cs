@@ -24,46 +24,93 @@ namespace PrototipoSistema
         public decimal qtd { get; set; }
         public int pos { get; set; }
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
-        public void ultimo_index(bool usarLocal = false)
+        public void ultimo_index()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            int indexLocal = 0;
+            int indexRemoto = 0;
+
+            // 1. Busca o maior ID no SQLite
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
-                    cmd.CommandText = "SELECT controle FROM pecas_os ORDER BY controle DESC LIMIT 1";
+                    conLocal.Open();
+                    var cmd = conLocal.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM pecas_os";
                     var res = cmd.ExecuteScalar();
-                    index = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                    indexLocal = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
                 }
+                catch { indexLocal = 0; }
             }
-            catch { if (!usarLocal) ultimo_index(true); }
+
+            // 2. Busca o maior ID no MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
+            {
+                try
+                {
+                    conRemoto.Open();
+                    var cmd = conRemoto.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM pecas_os";
+                    var res = cmd.ExecuteScalar();
+                    indexRemoto = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                }
+                catch { indexRemoto = 0; }
+            }
+
+            // 3. Define o index como o maior valor encontrado + 1 (ou apenas o maior se você somar depois)
+            // Mantendo sua lógica de apenas retornar o valor do último controle encontrado:
+            index = Math.Max(indexLocal, indexRemoto);
         }
 
-        public void cadastrar_peca_os(bool usarLocal = false)
+        public void cadastrar_peca_os()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            // 1. SEMPRE Local (SQLite) primeiro
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
+                    conLocal.Open();
+                    var cmdLocal = conLocal.CreateCommand();
 
-                    // Mantive a interpolação apenas na coluna {modo}, pois nomes de colunas não podem ser parâmetros
-                    cmd.CommandText = $@"INSERT INTO pecas_os (controle, {modo}, nome, valor, qtd, desco, pos) values (@controle, @modo, @nome, @valor, @qtd, @desco, @pos)";
+                    // Adicionamos a coluna sync = 0
+                    // Mantive sua lógica de {modo} para o nome da coluna (ex: os ou orcamento)
+                    cmdLocal.CommandText = $@"INSERT INTO pecas_os (controle, {modo}, nome, valor, qtd, desco, pos, sync) 
+                                    values (@controle, @modo, @nome, @valor, @qtd, @desco, @pos, 0)";
 
-                    PreencherParametrosPecasOS(cmd);
-                    cmd.ExecuteNonQuery();
-
-                    //if (!usarLocal) MessageBox.Show("Item adicionado ao servidor!");
+                    PreencherParametrosPecasOS(cmdLocal);
+                    cmdLocal.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao adicionar item localmente: " + ex.Message);
+                    return;
                 }
             }
-            catch { if (!usarLocal) cadastrar_peca_os(true); }
+
+            // 2. Tenta replicar para o MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
+            {
+                try
+                {
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+
+                    cmdRemoto.CommandText = $@"INSERT INTO pecas_os (controle, {modo}, nome, valor, qtd, desco, pos) 
+                                    values (@controle, @modo, @nome, @valor, @qtd, @desco, @pos)";
+
+                    PreencherParametrosPecasOS(cmdRemoto);
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // 3. SE deu certo no MySQL, usa a FUNÇÃO MESTRE pelo ID (controle)
+                    static_class.AtualizarStatusSync("pecas_os", index, 1);
+                }
+                catch
+                {
+                    // Se falhar, não damos MessageBox aqui para não travar o loop de inserção de itens, 
+                    // já que geralmente são várias peças de uma vez.
+                    Console.WriteLine("Item da OS salvo offline.");
+                }
+            }
         }
 
         private void PreencherParametrosPecasOS(System.Data.Common.DbCommand cmd)

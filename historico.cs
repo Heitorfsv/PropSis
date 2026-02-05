@@ -10,9 +10,6 @@ namespace PrototipoSistema
         List<int> lista_os = new List<int>();
         List<decimal> lista_total = new List<decimal>();
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
         public historico()
         {
             InitializeComponent();
@@ -45,8 +42,8 @@ namespace PrototipoSistema
         private void CarregarHistoricoHibrido(bool usarLocal = false)
         {
             System.Data.Common.DbConnection conexao;
-            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
             try
             {

@@ -20,46 +20,91 @@ namespace PrototipoSistema
         public decimal qtd { get; set; }
         public int pos { get; set; }
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
-        public void ultimo_index(bool usarLocal = false)
+        public void ultimo_index()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            int indexLocal = 0;
+            int indexRemoto = 0;
+
+            // 1. Busca o maior ID no SQLite
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
-                    cmd.CommandText = "SELECT controle FROM servicos_os ORDER BY controle DESC LIMIT 1";
+                    conLocal.Open();
+                    var cmd = conLocal.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM servicos_os";
                     var res = cmd.ExecuteScalar();
-                    index = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                    indexLocal = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
                 }
+                catch { indexLocal = 0; }
             }
-            catch { if (!usarLocal) ultimo_index(true); }
+
+            // 2. Busca o maior ID no MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
+            {
+                try
+                {
+                    conRemoto.Open();
+                    var cmd = conRemoto.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM servicos_os";
+                    var res = cmd.ExecuteScalar();
+                    indexRemoto = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                }
+                catch { indexRemoto = 0; }
+            }
+
+            // 3. Define o index como o maior valor encontrado + 1 (ou apenas o maior se você somar depois)
+            // Mantendo sua lógica de apenas retornar o valor do último controle encontrado:
+            index = Math.Max(indexLocal, indexRemoto);
         }
 
-        public void cadastrar_servico_os(bool usarLocal = false)
+        public void cadastrar_servico_os()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            // 1. SEMPRE Local (SQLite) primeiro para garantir o funcionamento offline
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
+                    conLocal.Open();
+                    var cmdLocal = conLocal.CreateCommand();
 
-                    // Mantemos a coluna {modo} dinâmica via string, os valores via parâmetros
-                    cmd.CommandText = $@"INSERT INTO servicos_os (controle, {modo}, nome, valor, qtd, desco, pos) VALUES (@controle, @modo, @nome, @valor, @qtd, @desco, @pos)";
+                    // Adicionamos a coluna sync = 0 e mantemos a lógica do {modo}
+                    cmdLocal.CommandText = $@"INSERT INTO servicos_os (controle, {modo}, nome, valor, qtd, desco, pos, sync) 
+                                    VALUES (@controle, @modo, @nome, @valor, @qtd, @desco, @pos, 0)";
 
-                    PreencherParametrosServicoOS(cmd);
-                    cmd.ExecuteNonQuery();
-
-                    //if (!usarLocal) MessageBox.Show("Serviço adicionado ao servidor!");
+                    PreencherParametrosServicoOS(cmdLocal);
+                    cmdLocal.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao salvar serviço da OS localmente: " + ex.Message);
+                    return; // Se falhar no PC, não tenta o servidor para não causar desalinhamento
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); if (!usarLocal) cadastrar_servico_os(true); }
+
+            // 2. Agora tenta replicar para o MySQL (Servidor)
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
+            {
+                try
+                {
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+
+                    cmdRemoto.CommandText = $@"INSERT INTO servicos_os (controle, {modo}, nome, valor, qtd, desco, pos) 
+                                    VALUES (@controle, @modo, @nome, @valor, @qtd, @desco, @pos)";
+
+                    PreencherParametrosServicoOS(cmdRemoto);
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // 3. SE funcionou no servidor, usamos a FUNÇÃO MESTRE pelo ID (controle) para marcar como 1
+                    static_class.AtualizarStatusSync("servicos_os", index, 1);
+                }
+                catch
+                {
+                    // Silencioso no catch remoto para não interromper o fluxo caso haja vários serviços
+                    Console.WriteLine("Serviço da OS salvo apenas localmente (Offline).");
+                }
+            }
         }
 
         private void PreencherParametrosServicoOS(System.Data.Common.DbCommand cmd)

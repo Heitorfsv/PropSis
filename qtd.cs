@@ -20,7 +20,7 @@ namespace PrototipoSistema
         {
             InitializeComponent();
         }
-            
+           
         private void qtd_Load(object sender, EventArgs e)
         {
             MaximizeBox = false;

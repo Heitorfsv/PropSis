@@ -510,14 +510,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Sistema.exe" size="692224">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Sistema.exe" size="713216">
       <assemblyIdentity name="Sistema" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SvjNHxijqIQls8UM7WLxQiQE98HIzXJLU4E6wzTcx3k=</dsig:DigestValue>
+        <dsig:DigestValue>fKjr2e8ECuLVa+17x/1Lb7E0oMv2mWn228kYg2HumRI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

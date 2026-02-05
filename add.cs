@@ -14,9 +14,6 @@ namespace PrototipoSistema
         servicos_os servicos_os = new servicos_os();
         pecas_os pecas_os = new pecas_os();
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
         public add()
         {
             InitializeComponent();
@@ -66,9 +63,9 @@ namespace PrototipoSistema
             // Define a conexão (Mesmo padrão das outras classes)
             System.Data.Common.DbConnection conexao;
             if (usarLocal)
-                conexao = new SQLiteConnection(strLocal);
+                conexao = new SQLiteConnection(static_class.strLocal);
             else
-                conexao = new MySqlConnection(strConexao);
+                conexao = new MySqlConnection(static_class.strConexao);
 
             try
             {
@@ -126,8 +123,8 @@ namespace PrototipoSistema
                 void BuscarPreco(bool usarLocal = false)
                 {
                     System.Data.Common.DbConnection conexao;
-                    if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-                    else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+                    if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
+                    else conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
                     try
                     {
@@ -216,8 +213,8 @@ namespace PrototipoSistema
                 void ExecutarDelete(bool usarLocal = false)
                 {
                     System.Data.Common.DbConnection conexao;
-                    if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-                    else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+                    if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
+                    else conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
                     try
                     {

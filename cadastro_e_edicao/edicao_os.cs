@@ -38,9 +38,6 @@ namespace PrototipoSistema
         string cep = "";
         string cor = "";
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
         OS os = new OS();
         public edicao_os()
         {
@@ -56,13 +53,13 @@ namespace PrototipoSistema
             System.Data.IDbConnection conexao;
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }
@@ -83,7 +80,7 @@ namespace PrototipoSistema
                 if (this.Text == "Cadastro OS")
                 {
                     bnt_editar.Text = "Cadastrar";
-                    dtp_saida.Enabled = false;
+                    cb_saida.Checked = false;
                     dtp_cadastro.Value = DateTime.Now;
 
                     os.ultimo_index();
@@ -112,9 +109,8 @@ namespace PrototipoSistema
                             {
                                 if (reader["dt_saida"] != DBNull.Value && !string.IsNullOrEmpty(reader["dt_saida"].ToString()))
                                 {
-                                    dtp_saida.Value = DateTime.Parse(reader["dt_saida"].ToString());
-                                    dtp_saida.Enabled = true;
                                     cb_saida.Checked = true;
+                                    dtp_saida.Value = DateTime.Parse(reader["dt_saida"].ToString());
                                 }
                             }
                             catch { dtp_saida.Enabled = false; cb_saida.Checked = false; }
@@ -261,13 +257,13 @@ namespace PrototipoSistema
             // Lógica Híbrida: Tenta MySQL, se falhar vai SQLite
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }
@@ -325,19 +321,19 @@ namespace PrototipoSistema
             }
             else { os.pago = 0; os.metodo = ""; }
 
-            os.dt_saida = dtp_saida.Enabled ? dtp_saida.Value.ToString("dd/MM/yyyy") : null;
+            os.dt_saida = cb_saida.Checked ? dtp_saida.Value.ToString("dd/MM/yyyy") : null;
 
             // Conexão Híbrida para verificação
             System.Data.IDbConnection conexao;
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }
@@ -424,13 +420,13 @@ namespace PrototipoSistema
             System.Data.IDbConnection conexao;
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }
@@ -545,64 +541,44 @@ namespace PrototipoSistema
             if (MessageBox.Show("Tem certeza que deseja excluir esta Ordem de Serviço permanentemente?",
                 "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
             {
-                ExecutarDeleteOS();
+                ExecutarDelete();
                 Close();
             }
         }
 
-        private void ExecutarDeleteOS(bool usarLocal = false)
+        private void ExecutarDelete()
         {
-            System.Data.Common.DbConnection conexao;
-            if (usarLocal)
-                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else
-                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
-            try
+            int idControle = static_class.controle;
+
+            // 1. SOFT DELETE no Local (SQLite)
+            // Em vez de apagar, marcamos sync = 2. Assim ele some da sua tela (usando o filtro no SELECT)
+            // e o sincronizador saberá que precisa apagar isso no servidor depois.
+            static_class.AtualizarStatusSync("os", idControle, 2);
+
+            // 2. Tenta o DELETE Real no MySQL (Servidor)
+            using (var conRemoto = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+                    cmdRemoto.CommandText = "DELETE FROM os WHERE controle = @controle";
+                    cmdRemoto.Parameters.AddWithValue("@controle", idControle);
 
-                    conexao.Open();
-                    cmd.ExecuteReader();
-                    conexao.Close();
-                    Close();
-                    // Comando parametrizado para deletar a OS pelo controle
-                    cmd.CommandText = "DELETE FROM os WHERE controle = @controle";
+                    cmdRemoto.ExecuteNonQuery();
 
-                    var pControle = cmd.CreateParameter();
-                    pControle.ParameterName = "@controle";
-                    pControle.Value = static_class.controle;
-                    cmd.Parameters.Add(pControle);
+                    // 3. Se funcionou no MySQL, podemos apagar FISICAMENTE do SQLite
+                    static_class.ApagarRegistroLocal("os", idControle);
 
-                    cmd.ExecuteNonQuery();
-
-                    cmd.CommandText = "DELETE FROM servicos_os WHERE os = @controle2";
-
-                    var pControle2 = cmd.CreateParameter();
-                    pControle2.ParameterName = "@controle2";
-                    pControle2.Value = static_class.controle;
-                    cmd.Parameters.Add(pControle2);
-
-                    cmd.ExecuteNonQuery();
-
-                    cmd.CommandText = "DELETE FROM pecas_os WHERE os = @controle3";
-
-                    var pControle3 = cmd.CreateParameter();
-                    pControle3.ParameterName = "@controle3";
-                    pControle3.Value = static_class.controle;
-                    cmd.Parameters.Add(pControle3);
-
-                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Orçamento excluído com sucesso!");
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao deletar OS: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Se o servidor MySQL estiver offline, deleta do banco de dados local
-                if (!usarLocal)
-                    ExecutarDeleteOS(true);
+                catch (Exception)
+                {
+                    // Se o servidor estiver fora, não tem problema. 
+                    // O registro continua no SQLite com sync=2, invisível para o usuário,
+                    // aguardando a internet voltar para ser deletado no MySQL.
+                    MessageBox.Show("Excluído localmente. O servidor será atualizado assim que houver conexão.", "Modo Offline");
+                }
             }
         }
 
@@ -764,13 +740,13 @@ namespace PrototipoSistema
             System.Data.IDbConnection conexao;
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }

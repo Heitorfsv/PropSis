@@ -31,9 +31,6 @@ namespace PrototipoSistema
         string cep = "";
         string cor = "";
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
         public cadastro_or()
         {
             InitializeComponent();
@@ -48,13 +45,13 @@ namespace PrototipoSistema
             System.Data.IDbConnection conexao;
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }
@@ -196,13 +193,13 @@ namespace PrototipoSistema
             System.Data.IDbConnection conexao;
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }
@@ -254,13 +251,13 @@ namespace PrototipoSistema
             System.Data.IDbConnection conexao;
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }
@@ -372,43 +369,44 @@ namespace PrototipoSistema
             if (MessageBox.Show("Deseja realmente excluir este orçamento permanentemente?",
                 "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                ExecutarDeleteOrcamento();
+                ExecutarDelete();
                 Close();
             }
         }
 
-        private void ExecutarDeleteOrcamento(bool usarLocal = false)
+        private void ExecutarDelete()
         {
-            // Seleciona o driver de conexão (MySQL ou SQLite)
-            System.Data.Common.DbConnection conexao;
-            if (usarLocal)
-                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else
-                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            int idControle = static_class.controle;
 
-            try
+            // 1. SOFT DELETE no Local (SQLite)
+            // Em vez de apagar, marcamos sync = 2. Assim ele some da sua tela (usando o filtro no SELECT)
+            // e o sincronizador saberá que precisa apagar isso no servidor depois.
+            static_class.AtualizarStatusSync("orcamentos", idControle, 2);
+
+            // 2. Tenta o DELETE Real no MySQL (Servidor)
+            using (var conRemoto = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+                    cmdRemoto.CommandText = "DELETE FROM orcamentos WHERE controle = @controle";
+                    cmdRemoto.Parameters.AddWithValue("@controle", idControle);
 
-                    // Comando parametrizado: garante que o ID seja tratado corretamente pelo banco
-                    cmd.CommandText = "DELETE FROM orcamentos WHERE controle = @controle";
+                    cmdRemoto.ExecuteNonQuery();
 
-                    var pControle = cmd.CreateParameter();
-                    pControle.ParameterName = "@controle";
-                    pControle.Value = static_class.controle;
-                    cmd.Parameters.Add(pControle);
+                    // 3. Se funcionou no MySQL, podemos apagar FISICAMENTE do SQLite
+                    static_class.ApagarRegistroLocal("orcamentos", idControle);
 
-                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Orçamento excluído com sucesso!");
                 }
-            }
-            catch
-            {
-                // Se o servidor MySQL falhar, replica a exclusão no banco local
-                if (!usarLocal)
-                    ExecutarDeleteOrcamento(true);
+                catch (Exception)
+                {
+                    // Se o servidor estiver fora, não tem problema. 
+                    // O registro continua no SQLite com sync=2, invisível para o usuário,
+                    // aguardando a internet voltar para ser deletado no MySQL.
+                    MessageBox.Show("Excluído localmente. O servidor será atualizado assim que houver conexão.", "Modo Offline");
+                }
             }
         }
 
@@ -561,13 +559,13 @@ namespace PrototipoSistema
             System.Data.IDbConnection conexao;
             try
             {
-                var mysql = new MySqlConnection(strConexao);
+                var mysql = new MySqlConnection(static_class.strConexao);
                 mysql.Open();
                 conexao = mysql;
             }
             catch
             {
-                var sqlite = new System.Data.SQLite.SQLiteConnection(strLocal);
+                var sqlite = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
                 sqlite.Open();
                 conexao = sqlite;
             }

@@ -16,8 +16,6 @@ namespace PrototipoSistema
     {
         pecas pecas = new pecas();
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
         public edicao_pecas()
         {
             InitializeComponent();
@@ -44,8 +42,8 @@ namespace PrototipoSistema
         private void CarregarDadosPeca(bool usarLocal = false)
         {
             System.Data.Common.DbConnection conexao;
-            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
             try
             {
@@ -162,8 +160,8 @@ namespace PrototipoSistema
             bool existe = false;
             System.Data.Common.DbConnection conexao;
 
-            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            if (usarLocal) conexao = new System.Data.SQLite.SQLiteConnection(static_class.strLocal);
+            else conexao = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao);
 
             try
             {
@@ -204,42 +202,44 @@ namespace PrototipoSistema
             if (MessageBox.Show($"Deseja realmente excluir a peça '{static_class.doc_consultar}' do inventário?",
                 "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                ExecutarDeletePeca();
+                ExecutarDelete();
                 Close();
             }
         }
 
-        private void ExecutarDeletePeca(bool usarLocal = false)
+        private void ExecutarDelete()
         {
-            System.Data.Common.DbConnection conexao;
-            if (usarLocal)
-                conexao = new System.Data.SQLite.SQLiteConnection(strLocal);
-            else
-                conexao = new MySql.Data.MySqlClient.MySqlConnection(strConexao);
+            int idControle = static_class.controle;
 
-            try
+            // 1. SOFT DELETE no Local (SQLite)
+            // Em vez de apagar, marcamos sync = 2. Assim ele some da sua tela (usando o filtro no SELECT)
+            // e o sincronizador saberá que precisa apagar isso no servidor depois.
+            static_class.AtualizarStatusSync("pecas", idControle, 2);
+
+            // 2. Tenta o DELETE Real no MySQL (Servidor)
+            using (var conRemoto = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+                    cmdRemoto.CommandText = "DELETE FROM pecas WHERE controle = @controle";
+                    cmdRemoto.Parameters.AddWithValue("@controle", idControle);
 
-                    // Usando parâmetros para evitar erros com nomes de peças que possuem aspas (ex: Pneu 17")
-                    cmd.CommandText = "DELETE FROM pecas WHERE nome = @nomePeca";
+                    cmdRemoto.ExecuteNonQuery();
 
-                    var pNome = cmd.CreateParameter();
-                    pNome.ParameterName = "@nomePeca";
-                    pNome.Value = static_class.doc_consultar;
-                    cmd.Parameters.Add(pNome);
+                    // 3. Se funcionou no MySQL, podemos apagar FISICAMENTE do SQLite
+                    static_class.ApagarRegistroLocal("pecas", idControle);
 
-                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Orçamento excluído com sucesso!");
                 }
-            }
-            catch
-            {
-                // Se falhar no servidor, tenta deletar no banco local para manter a lista atualizada
-                if (!usarLocal)
-                    ExecutarDeletePeca(true);
+                catch (Exception)
+                {
+                    // Se o servidor estiver fora, não tem problema. 
+                    // O registro continua no SQLite com sync=2, invisível para o usuário,
+                    // aguardando a internet voltar para ser deletado no MySQL.
+                    MessageBox.Show("Excluído localmente. O servidor será atualizado assim que houver conexão.", "Modo Offline");
+                }
             }
         }
 

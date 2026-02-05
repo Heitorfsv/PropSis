@@ -17,79 +17,149 @@ namespace classes
         public string agencia { get; set; }
         public int parcelas { get; set; }
 
-        string strConexao = "server=192.168.15.10;uid=heitor;pwd=Vitoria1;database=db_jcmotorsport";
-        string strLocal = "Data Source=backup_jcmotorsport.db;Version=3;";
-
-        public void ultimo_index(bool usarLocal = false)
+        public void ultimo_index()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            int indexLocal = 0;
+            int indexRemoto = 0;
+
+            // 1. Busca o maior ID no SQLite
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
-                    cmd.CommandText = "SELECT controle FROM metodo_pag ORDER BY controle DESC LIMIT 1";
+                    conLocal.Open();
+                    var cmd = conLocal.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM metodo_pag";
                     var res = cmd.ExecuteScalar();
-                    index = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                    indexLocal = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
                 }
+                catch { indexLocal = 0; }
             }
-            catch { if (!usarLocal) ultimo_index(true); }
+
+            // 2. Busca o maior ID no MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
+            {
+                try
+                {
+                    conRemoto.Open();
+                    var cmd = conRemoto.CreateCommand();
+                    cmd.CommandText = "SELECT MAX(controle) FROM metodo_pag";
+                    var res = cmd.ExecuteScalar();
+                    indexRemoto = (res != null && res != DBNull.Value) ? Convert.ToInt32(res) : 0;
+                }
+                catch { indexRemoto = 0; }
+            }
+
+            // 3. Define o index como o maior valor encontrado + 1 (ou apenas o maior se você somar depois)
+            // Mantendo sua lógica de apenas retornar o valor do último controle encontrado:
+            index = Math.Max(indexLocal, indexRemoto);
         }
 
-        public void cadastrar_metodo(bool usarLocal = false)
+        // 1. O CADASTRO (Adaptado para Local-First)
+        public void cadastrar_metodo()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            // SEMPRE Local primeiro
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
-                    cmd.CommandText = "INSERT INTO metodo_pag (controle, metodo, agencia, parcelas) VALUES (@controle, @metodo, @agencia, @parcelas)";
+                    conLocal.Open();
+                    var cmdLocal = conLocal.CreateCommand();
 
-                    PreencherParametrosMetodo(cmd);
-                    cmd.ExecuteNonQuery();
+                    // Inicia com sync = 0 (Pendente)
+                    cmdLocal.CommandText = @"INSERT INTO metodo_pag (controle, metodo, agencia, parcelas, sync) 
+                                    VALUES (@controle, @metodo, @agencia, @parcelas, 0)";
 
-                    if (!usarLocal)
-                        MessageBox.Show("Método de pagamento cadastrado com sucesso!", "Cadastro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    PreencherParametrosMetodo(cmdLocal);
+                    cmdLocal.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro local: " + ex.Message);
+                    return;
                 }
             }
-            catch
+
+            // Tenta o MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
             {
-                if (!usarLocal) cadastrar_metodo(true);
-                else MessageBox.Show("Erro ao salvar localmente.");
+                try
+                {
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+                    cmdRemoto.CommandText = @"INSERT INTO metodo_pag (controle, metodo, agencia, parcelas) 
+                                    VALUES (@controle, @metodo, @agencia, @parcelas)";
+
+                    PreencherParametrosMetodo(cmdRemoto);
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // Se funcionou, marca como sincronizado (1)
+                    static_class.AtualizarStatusSync("metodo_pag", index, 1);
+
+                    MessageBox.Show("Método cadastrado e sincronizado!");
+                }
+                catch
+                {
+                    MessageBox.Show("Salvo localmente. Sincronização pendente.");
+                }
             }
         }
 
-        public void alterar_metodo(bool usarLocal = false)
+        public void alterar_metodo()
         {
-            var conexao = usarLocal ? (System.Data.Common.DbConnection)new SQLiteConnection(strLocal) : (System.Data.Common.DbConnection)new MySqlConnection(strConexao);
-            try
+            // 1. SEMPRE altera no Local (SQLite) primeiro
+            using (var conLocal = new SQLiteConnection(static_class.strLocal))
             {
-                using (conexao)
+                try
                 {
-                    conexao.Open();
-                    var cmd = conexao.CreateCommand();
+                    conLocal.Open();
+                    var cmdLocal = conLocal.CreateCommand();
 
-                    // Usando parâmetros para evitar erros de aspas nos nomes dos agencia/métodos
-                    cmd.CommandText = @"UPDATE metodo_pag SET 
-                                metodo = @metodo, 
-                                banco = @agencia, 
-                                parcelas = @parcelas 
-                                WHERE controle = @controle";
+                    // Ao alterar, voltamos o sync para 0 (Pendente)
+                    cmdLocal.CommandText = @"UPDATE metodo_pag SET 
+                                    metodo = @metodo, 
+                                    banco = @agencia, 
+                                    parcelas = @parcelas,
+                                    sync = 0 
+                                    WHERE controle = @controle";
 
-                    PreencherParametrosMetodo(cmd);
-                    cmd.ExecuteNonQuery();
-
-                    if (!usarLocal)
-                        MessageBox.Show("Método de pagamento alterado com sucesso!", "Edição", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    PreencherParametrosMetodo(cmdLocal);
+                    cmdLocal.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao alterar método localmente: " + ex.Message);
+                    return;
                 }
             }
-            catch
+
+            // 2. Tenta replicar para o MySQL
+            using (var conRemoto = new MySqlConnection(static_class.strConexao))
             {
-                if (!usarLocal) alterar_metodo(true);
-                else MessageBox.Show("Erro ao alterar localmente.");
+                try
+                {
+                    conRemoto.Open();
+                    var cmdRemoto = conRemoto.CreateCommand();
+
+                    cmdRemoto.CommandText = @"UPDATE metodo_pag SET 
+                                    metodo = @metodo, 
+                                    banco = @agencia, 
+                                    parcelas = @parcelas 
+                                    WHERE controle = @controle";
+
+                    PreencherParametrosMetodo(cmdRemoto);
+                    cmdRemoto.ExecuteNonQuery();
+
+                    // 3. Se funcionou no MySQL, marca como sincronizado (1) no local
+                    static_class.AtualizarStatusSync("metodo_pag", index, 1);
+
+                    MessageBox.Show("Método de pagamento alterado e sincronizado!", "JCMotorsport");
+                }
+                catch (Exception)
+                {
+                    // Se falhar o MySQL, o sync continua 0 no SQLite
+                    MessageBox.Show("Alteração salva localmente. Sincronização pendente com o servidor.", "Modo Offline");
+                }
             }
         }
 
