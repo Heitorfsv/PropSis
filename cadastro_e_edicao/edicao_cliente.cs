@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using classes;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using PrototipoSistema.classes;
 using System;
@@ -41,6 +42,9 @@ namespace PrototipoSistema
 
         private void ConfigurarTelaCadastro()
         {
+            cliente.ultimo_index();
+            cliente.index++;
+
             bnt_editar.Text = "Cadastrar";
             txt_doc.Mask = "000.000.000-00";
             txt_dt_registro.Visible = false;
@@ -170,8 +174,6 @@ namespace PrototipoSistema
             {
                 bnt_editar.Text = "Cadastrar";
 
-                cliente.ultimo_index();
-                cliente.index++;
                 cliente.dt_cadastro = DateTime.Now;
                 cliente.sujo = 0;
 
@@ -245,44 +247,8 @@ namespace PrototipoSistema
 
             if (confirmacao == DialogResult.Yes)
             {
-                ExecutarDelete();
+                static_class.ExecutarDelete(cliente.index, "clientes");
                 Close();
-            }
-        }
-
-        private void ExecutarDelete()
-        {
-            int idControle = static_class.controle;
-
-            // 1. SOFT DELETE no Local (SQLite)
-            // Em vez de apagar, marcamos sync = 2. Assim ele some da sua tela (usando o filtro no SELECT)
-            // e o sincronizador saberá que precisa apagar isso no servidor depois.
-            static_class.AtualizarStatusSync("clientes", idControle, 2);
-
-            // 2. Tenta o DELETE Real no MySQL (Servidor)
-            using (var conRemoto = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao))
-            {
-                try
-                {
-                    conRemoto.Open();
-                    var cmdRemoto = conRemoto.CreateCommand();
-                    cmdRemoto.CommandText = "DELETE FROM clientes WHERE controle = @controle";
-                    cmdRemoto.Parameters.AddWithValue("@controle", idControle);
-
-                    cmdRemoto.ExecuteNonQuery();
-
-                    // 3. Se funcionou no MySQL, podemos apagar FISICAMENTE do SQLite
-                    static_class.ApagarRegistroLocal("clientes", idControle);
-
-                    MessageBox.Show("Orçamento excluído com sucesso!");
-                }
-                catch (Exception)
-                {
-                    // Se o servidor estiver fora, não tem problema. 
-                    // O registro continua no SQLite com sync=2, invisível para o usuário,
-                    // aguardando a internet voltar para ser deletado no MySQL.
-                    MessageBox.Show("Excluído localmente. O servidor será atualizado assim que houver conexão.", "Modo Offline");
-                }
             }
         }
 

@@ -115,12 +115,9 @@ namespace PrototipoSistema
                                     nome = @nome, 
                                     valor = @valor, 
                                     sync = 0 
-                                    WHERE controle = @id";
+                                    WHERE controle = @controle";
 
                     PreencherParametrosServico(cmdLocal);
-
-                    // Adicionamos o parâmetro do ID manualmente se ele não estiver no PreencherParametros
-                    cmdLocal.Parameters.AddWithValue("@id", index);
 
                     cmdLocal.ExecuteNonQuery();
                 }
@@ -142,10 +139,9 @@ namespace PrototipoSistema
                     cmdRemoto.CommandText = @"UPDATE servicos SET 
                                     nome = @nome, 
                                     valor = @valor 
-                                    WHERE controle = @id";
+                                    WHERE controle = @controle";
 
                     PreencherParametrosServico(cmdRemoto);
-                    cmdRemoto.Parameters.AddWithValue("@id", index);
 
                     cmdRemoto.ExecuteNonQuery();
 

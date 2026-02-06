@@ -130,7 +130,7 @@ namespace PrototipoSistema.classes
                                     valor_sugerido = @valor_sugerido, fornecedor = @fornecedor, 
                                     contato = @contato, local = @local, estoque = @estoque, 
                                     sync = 0 
-                                    WHERE nome = '{static_class.doc_consultar}'";
+                                    WHERE controle = @controle";
 
                     PreencherParametrosPecas(cmdLocal);
                     cmdLocal.ExecuteNonQuery();
@@ -155,7 +155,7 @@ namespace PrototipoSistema.classes
                                     valor_pago = @valor_pago, impostos = @impostos, 
                                     valor_sugerido = @valor_sugerido, fornecedor = @fornecedor, 
                                     contato = @contato, local = @local, estoque = @estoque 
-                                    WHERE nome = '{static_class.doc_consultar}'";
+                                    WHERE controle = @controle";
 
                     PreencherParametrosPecas(cmdRemoto);
                     cmdRemoto.ExecuteNonQuery();

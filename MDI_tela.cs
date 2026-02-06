@@ -84,6 +84,10 @@ namespace PrototipoSistema
 
         private void MDI_tela_Load(object sender, EventArgs e)
         {
+            timer_sincronia.Interval = 60000; // 60 segundos
+            timer_sincronia.Enabled = true;
+            timer_sincronia.Start();
+
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("pt-BR");
 
             try
@@ -293,6 +297,107 @@ namespace PrototipoSistema
             consulta_cliente consulta = new consulta_cliente();
             consulta.MdiParent = this;
             consulta.Show();
+        }
+
+        private async void timer_sincronia_Tick(object sender, EventArgs e)
+        {
+            // 1. Para o timer para não encavalar uma sincronia na outra
+            timer_sincronia.Stop();
+
+            // 2. Cria uma variável para controlar se deu erro
+            bool sucesso = false;
+
+            // 3. O Task.Run joga a carga pesada para outra linha de processamento (Thread)
+            await Task.Run(() =>
+            {
+                try
+                {
+                    // Chama sua função mestre da classe estática
+                    ExecutarSincronizacaoGlobal();
+                    sucesso = true;
+                }
+                catch (Exception ex)
+                {
+                    // Aqui você pode logar o erro, mas não exiba MessageBox (pode travar o timer)
+                    Console.WriteLine("Erro na sincronia automática: " + ex.Message);
+                    sucesso = false;
+                }
+            });
+
+            // 4. Se você tiver uma Label de status no MDI, pode atualizar assim:
+            if (sucesso)
+            {
+                lbl_status_sync.Text = "Sincronizado: " + DateTime.Now.ToString("HH:mm");
+                lbl_status_sync.ForeColor = Color.Green;
+            }
+            else
+            {
+                lbl_status_sync.Text = "Aguardando Conexão...";
+                lbl_status_sync.ForeColor = Color.Red;
+            }
+
+            // 5. Reinicia o timer para a próxima volta
+            timer_sincronia.Start();
+        }
+
+        public static void ExecutarSincronizacaoGlobal()
+        {
+            // --- DEFINIÇÃO DAS COLUNAS (BATENDO COM A INFO FORNECIDA) ---
+
+            string[] colunasClientes = {
+        "controle", "dt_cadastro", "nome", "nome_fantasia", "doc",
+        "inscricao", "dt_nascimento", "telefone", "telefone2",
+        "email", "rua", "bairro", "cidade", "cep", "sujo"
+    };
+
+            string[] colunasMotos = {
+        "controle", "placa", "marca", "modelo", "cor",
+        "ano", "chassi", "dt_registro", "doc_dono", "observacao"
+    };
+
+            string[] colunasMetodo = { "controle", "metodo", "agencia", "parcelas" };
+
+            string[] colunasPecas = {
+        "controle", "nome", "marca", "modelo", "valor_pago",
+        "impostos", "valor_sugerido", "fornecedor", "contato",
+        "local", "estoque", "troca_oleo"
+    };
+
+            string[] colunasServicos = { "controle", "nome", "valor" };
+
+            string[] colunasOS = {
+        "controle", "placa", "km", "cliente", "doc", "observacao",
+        "descricao", "total", "dt_cadastro", "aviso_oleo",
+        "aviso_revisao", "dt_saida", "pago", "metodo_pag"
+    };
+
+            string[] colunasOrc = {
+        "controle", "cliente", "doc", "km", "placa",
+        "dt_cadastro", "total", "observacao"
+    };
+
+            // Note: Usei "orca" como campo de vínculo conforme sua estrutura
+            string[] colunasItensOS = {
+        "controle", "os", "orca", "nome", "valor", "qtd", "desco", "pos"
+    };
+
+            // --- 1º PASSO: CADASTROS INDEPENDENTES ---
+            static_class.SincronizarTabelaUniversal("clientes", colunasClientes);
+            static_class.SincronizarTabelaUniversal("metodo_pag", colunasMetodo);
+            static_class.SincronizarTabelaUniversal("pecas", colunasPecas);
+            static_class.SincronizarTabelaUniversal("servicos", colunasServicos);
+
+            // --- 2º PASSO: MOTOS (Dependem de Clientes) ---
+            static_class.SincronizarTabelaUniversal("motos", colunasMotos);
+
+            // --- 3º PASSO: ORÇAMENTOS E OS (Pais) ---
+            // Se o ID mudar, a função re-vincula os filhos usando a coluna "orca" ou "os"
+            static_class.SincronizarTabelaUniversal("orcamentos", colunasOrc, "orca");
+            static_class.SincronizarTabelaUniversal("os", colunasOS, "os");
+
+            // --- 4º PASSO: ITENS (Filhos) ---
+            static_class.SincronizarTabelaUniversal("pecas_os", colunasItensOS);
+            static_class.SincronizarTabelaUniversal("servicos_os", colunasItensOS);
         }
     }
 }

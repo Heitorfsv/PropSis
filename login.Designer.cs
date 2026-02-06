@@ -152,6 +152,7 @@
             this.Controls.Add(this.txt_usuario);
             this.Name = "login";
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

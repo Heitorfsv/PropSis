@@ -66,7 +66,6 @@ namespace PrototipoSistema
 
                     orcamento.ultimo_index();
                     orcamento.index++;
-                    static_class.controle = orcamento.index;
                 }
                 else if (this.Text == "Edição orçamento")
                 {
@@ -369,44 +368,8 @@ namespace PrototipoSistema
             if (MessageBox.Show("Deseja realmente excluir este orçamento permanentemente?",
                 "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                ExecutarDelete();
+                static_class.ExecutarDelete(orcamento.index, "orcamentos");
                 Close();
-            }
-        }
-
-        private void ExecutarDelete()
-        {
-            int idControle = static_class.controle;
-
-            // 1. SOFT DELETE no Local (SQLite)
-            // Em vez de apagar, marcamos sync = 2. Assim ele some da sua tela (usando o filtro no SELECT)
-            // e o sincronizador saberá que precisa apagar isso no servidor depois.
-            static_class.AtualizarStatusSync("orcamentos", idControle, 2);
-
-            // 2. Tenta o DELETE Real no MySQL (Servidor)
-            using (var conRemoto = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao))
-            {
-                try
-                {
-                    conRemoto.Open();
-                    var cmdRemoto = conRemoto.CreateCommand();
-                    cmdRemoto.CommandText = "DELETE FROM orcamentos WHERE controle = @controle";
-                    cmdRemoto.Parameters.AddWithValue("@controle", idControle);
-
-                    cmdRemoto.ExecuteNonQuery();
-
-                    // 3. Se funcionou no MySQL, podemos apagar FISICAMENTE do SQLite
-                    static_class.ApagarRegistroLocal("orcamentos", idControle);
-
-                    MessageBox.Show("Orçamento excluído com sucesso!");
-                }
-                catch (Exception)
-                {
-                    // Se o servidor estiver fora, não tem problema. 
-                    // O registro continua no SQLite com sync=2, invisível para o usuário,
-                    // aguardando a internet voltar para ser deletado no MySQL.
-                    MessageBox.Show("Excluído localmente. O servidor será atualizado assim que houver conexão.", "Modo Offline");
-                }
             }
         }
 

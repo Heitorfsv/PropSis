@@ -34,6 +34,9 @@ namespace PrototipoSistema
             }
             else if (this.Text == "Cadastro motos")
             {
+                motos.ultimo_index();
+                motos.index++;
+
                 bnt_historico.Visible = false;
                 bnt_deletar.Visible = false;
                 cmb_dono.Enabled = true;
@@ -137,8 +140,6 @@ namespace PrototipoSistema
                     motos.doc_dono = docEncontrado;
 
                     // Busca o próximo ID disponível (Híbrido)
-                    motos.ultimo_index();
-                    motos.index++;
                     motos.dt_registro = DateTime.Now;
 
                     // Tenta cadastrar
@@ -187,104 +188,9 @@ namespace PrototipoSistema
             // Pergunta antes de deletar para evitar acidentes
             if (MessageBox.Show("Deseja realmente excluir esta moto e todas as suas ordens de serviço?", "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                ExecutarExclusaoTotal();
+                static_class.ExecutarDelete(motos.index, "motos");
                 Close();
             }
-        }
-
-        private void ExecutarExclusaoTotal()
-        {
-            string placaMoto = static_class.doc_consultar;
-            int idMoto = static_class.controle;
-
-            // A. Busca os IDs das ordens de serviço antes de começar
-            List<int> idsOSs = BuscarControlesOSPorPlaca(placaMoto);
-
-            // B. SOFT DELETE LOCAL (Utilizando as funções da classe estática)
-            try
-            {
-                foreach (int idOS in idsOSs)
-                {
-                    static_class.AtualizarStatusSync("pecas_os", idOS, 2);
-                    static_class.AtualizarStatusSync("servicos_os", idOS, 2);
-                    static_class.AtualizarStatusSync("os", idOS, 2);
-                }
-                static_class.AtualizarStatusSync("motos", idMoto, 2);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro no Soft Delete: " + ex.Message);
-                return;
-            }
-
-            // C. TENTA EXCLUSÃO REAL NO SERVIDOR (MYSQL)
-            using (var conRemoto = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao))
-            {
-                try
-                {
-                    conRemoto.Open();
-                    var cmdRemoto = conRemoto.CreateCommand();
-                    cmdRemoto.Parameters.AddWithValue("@placa", placaMoto);
-
-                    // Deleta na ordem de hierarquia (Filhos -> Pai)
-                    cmdRemoto.CommandText = @"
-                DELETE FROM pecas_os WHERE os IN (SELECT controle FROM os WHERE placa = @placa);
-                DELETE FROM servicos_os WHERE os IN (SELECT controle FROM os WHERE placa = @placa);
-                DELETE FROM os WHERE placa = @placa;
-                DELETE FROM motos WHERE placa = @placa;";
-
-                    cmdRemoto.ExecuteNonQuery();
-
-                    // D. SE O MYSQL APAGOU, LIMPA O SQLITE DEFINITIVAMENTE
-                    foreach (int idOS in idsOSs)
-                    {
-                        static_class.ApagarRegistroLocal("pecas_os", idOS);
-                        static_class.ApagarRegistroLocal("servicos_os", idOS);
-                        static_class.ApagarRegistroLocal("os", idOS);
-                    }
-                    static_class.ApagarRegistroLocal("motos", idMoto);
-
-                    MessageBox.Show("Histórico da moto removido do servidor e do PC!");
-                }
-                catch
-                {
-                    // Se cair aqui, a internet falhou. 
-                    // Como já fizemos o Soft Delete lá em cima (B), os dados já sumiram da tela.
-                    MessageBox.Show("Sem conexão com o servidor. A moto foi marcada para exclusão automática assim que a internet voltar.");
-                }
-            }
-
-            this.Close();
-        }
-
-        public static List<int> BuscarControlesOSPorPlaca(string placa)
-        {
-            List<int> listaIds = new List<int>();
-
-            using (var conLocal = new System.Data.SQLite.SQLiteConnection(static_class.strLocal))
-            {
-                try
-                {
-                    conLocal.Open();
-                    var cmd = conLocal.CreateCommand();
-                    cmd.CommandText = "SELECT controle FROM os WHERE placa = @placa";
-                    cmd.Parameters.AddWithValue("@placa", placa);
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            // Adiciona cada ID de OS encontrado na lista
-                            listaIds.Add(Convert.ToInt32(reader["controle"]));
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Windows.Forms.MessageBox.Show("Erro ao buscar IDs das OSs: " + ex.Message);
-                }
-            }
-            return listaIds;
         }
 
         private void bnt_historico_Click(object sender, EventArgs e)

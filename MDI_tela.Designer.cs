@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDI_tela));
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +69,7 @@
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bnt_clientes = new System.Windows.Forms.Button();
             this.bnt_pag = new System.Windows.Forms.Button();
             this.bnt_calendario = new System.Windows.Forms.Button();
             this.bnt_oleo = new System.Windows.Forms.Button();
@@ -75,7 +77,8 @@
             this.bnt_pecas = new System.Windows.Forms.Button();
             this.bnt_motos = new System.Windows.Forms.Button();
             this.bnt_os = new System.Windows.Forms.Button();
-            this.bnt_clientes = new System.Windows.Forms.Button();
+            this.timer_sincronia = new System.Windows.Forms.Timer(this.components);
+            this.lbl_status_sync = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -221,7 +224,7 @@
             this.cadastroOrçamentoToolStripMenuItem,
             this.cToolStripMenuItem});
             this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
-            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.newWindowToolStripMenuItem.Text = "Cadastro";
             // 
             // cadastroClienteToolStripMenuItem
@@ -283,7 +286,7 @@
             this.consultarMotoToolStripMenuItem,
             this.consultarOrçamentosToolStripMenuItem});
             this.consultaToolStripMenuItem.Name = "consultaToolStripMenuItem";
-            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.consultaToolStripMenuItem.Text = "Consulta";
             // 
             // consultaDeClienteToolStripMenuItem
@@ -331,21 +334,21 @@
             // aniversáriosToolStripMenuItem
             // 
             this.aniversáriosToolStripMenuItem.Name = "aniversáriosToolStripMenuItem";
-            this.aniversáriosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aniversáriosToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.aniversáriosToolStripMenuItem.Text = "Aniversários";
             this.aniversáriosToolStripMenuItem.Click += new System.EventHandler(this.aniversáriosToolStripMenuItem_Click);
             // 
             // calendarioToolStripMenuItem
             // 
             this.calendarioToolStripMenuItem.Name = "calendarioToolStripMenuItem";
-            this.calendarioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.calendarioToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.calendarioToolStripMenuItem.Text = "Calendário ";
             this.calendarioToolStripMenuItem.Click += new System.EventHandler(this.calendarioToolStripMenuItem_Click);
             // 
             // trocaDeOleoToolStripMenuItem
             // 
             this.trocaDeOleoToolStripMenuItem.Name = "trocaDeOleoToolStripMenuItem";
-            this.trocaDeOleoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.trocaDeOleoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.trocaDeOleoToolStripMenuItem.Text = "Troca de oleo";
             this.trocaDeOleoToolStripMenuItem.Click += new System.EventHandler(this.trocaDeOleoToolStripMenuItem_Click);
             // 
@@ -367,7 +370,7 @@
             this.menuStrip.MdiWindowListItem = this.windowsMenu;
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip.Size = new System.Drawing.Size(1149, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1412, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -386,6 +389,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(113, 558);
             this.panel1.TabIndex = 2;
+            // 
+            // bnt_clientes
+            // 
+            this.bnt_clientes.Image = ((System.Drawing.Image)(resources.GetObject("bnt_clientes.Image")));
+            this.bnt_clientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bnt_clientes.Location = new System.Drawing.Point(3, 65);
+            this.bnt_clientes.Name = "bnt_clientes";
+            this.bnt_clientes.Size = new System.Drawing.Size(105, 56);
+            this.bnt_clientes.TabIndex = 10;
+            this.bnt_clientes.Text = "Consultar clientes";
+            this.bnt_clientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.bnt_clientes.UseVisualStyleBackColor = true;
+            this.bnt_clientes.Click += new System.EventHandler(this.button1_Click);
             // 
             // bnt_pag
             // 
@@ -478,24 +494,24 @@
             this.bnt_os.UseVisualStyleBackColor = true;
             this.bnt_os.Click += new System.EventHandler(this.bnt_os_Click);
             // 
-            // bnt_clientes
+            // timer_sincronia
             // 
-            this.bnt_clientes.Image = ((System.Drawing.Image)(resources.GetObject("bnt_clientes.Image")));
-            this.bnt_clientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bnt_clientes.Location = new System.Drawing.Point(3, 65);
-            this.bnt_clientes.Name = "bnt_clientes";
-            this.bnt_clientes.Size = new System.Drawing.Size(105, 56);
-            this.bnt_clientes.TabIndex = 10;
-            this.bnt_clientes.Text = "Consultar clientes";
-            this.bnt_clientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bnt_clientes.UseVisualStyleBackColor = true;
-            this.bnt_clientes.Click += new System.EventHandler(this.button1_Click);
+            this.timer_sincronia.Tick += new System.EventHandler(this.timer_sincronia_Tick);
+            // 
+            // lbl_status_sync
+            // 
+            this.lbl_status_sync.AutoSize = true;
+            this.lbl_status_sync.Location = new System.Drawing.Point(1128, 27);
+            this.lbl_status_sync.Name = "lbl_status_sync";
+            this.lbl_status_sync.Size = new System.Drawing.Size(0, 13);
+            this.lbl_status_sync.TabIndex = 4;
             // 
             // MDI_tela
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1149, 582);
+            this.ClientSize = new System.Drawing.Size(1412, 582);
+            this.Controls.Add(this.lbl_status_sync);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
@@ -560,6 +576,8 @@
         private System.Windows.Forms.Button bnt_pag;
         private System.Windows.Forms.Button bnt_calendario;
         private System.Windows.Forms.Button bnt_clientes;
+        private System.Windows.Forms.Timer timer_sincronia;
+        private System.Windows.Forms.Label lbl_status_sync;
     }
 }
 

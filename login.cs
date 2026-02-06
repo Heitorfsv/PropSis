@@ -168,18 +168,39 @@ namespace PrototipoSistema
                 conexao.Open();
                 var cmd = conexao.CreateCommand();
 
-                // 1. Primeiro, garantimos que as tabelas existam (conforme seu código original)
+                // IMPORTANTE: Ativa o suporte a Foreign Keys no SQLite (por padrão vem desligado)
+                cmd.CommandText = "PRAGMA foreign_keys = ON;";
+                cmd.ExecuteNonQuery();
+
                 string[] comandosCriacao = {
-            "CREATE TABLE IF NOT EXISTS clientes (controle INTEGER PRIMARY KEY, dt_cadastro TEXT, nome TEXT, nome_fantasia TEXT, doc TEXT, inscricao TEXT, dt_nascimento TEXT, telefone TEXT, telefone2 TEXT, email TEXT, rua TEXT, bairro TEXT, cidade TEXT, cep TEXT, sujo INTEGER, sync INTEGER)",
-            "CREATE TABLE IF NOT EXISTS motos (controle INTEGER PRIMARY KEY, placa TEXT, marca TEXT, modelo TEXT, cor TEXT, ano TEXT, chassi TEXT, dt_registro TEXT, doc_dono TEXT, observacao TEXT, sync INTEGER)",
-            "CREATE TABLE IF NOT EXISTS orcamentos (controle INTEGER PRIMARY KEY, cliente TEXT, doc TEXT, km TEXT, placa TEXT, dt_cadastro TEXT, total TEXT, observacao TEXT, sync INTEGER)",
-            "CREATE TABLE IF NOT EXISTS os (controle INTEGER PRIMARY KEY, placa TEXT, km TEXT, cliente TEXT, doc TEXT, observacao TEXT, descricao TEXT, total TEXT, dt_cadastro TEXT, aviso_oleo TEXT, aviso_revisao TEXT, dt_saida TEXT, pago INTEGER, metodo_pag TEXT, sync INTEGER)",
-            "CREATE TABLE IF NOT EXISTS pecas (controle INTEGER PRIMARY KEY, nome TEXT, marca TEXT, modelo TEXT, valor_pago TEXT, impostos TEXT, valor_sugerido TEXT, fornecedor TEXT, contato TEXT, local TEXT, estoque TEXT, troca_oleo INTEGER, sync INTEGER)",
-            "CREATE TABLE IF NOT EXISTS pecas_os (controle INTEGER PRIMARY KEY, os TEXT, orca TEXT, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT, sync INTEGER)",
-            "CREATE TABLE IF NOT EXISTS servicos (controle INTEGER PRIMARY KEY, nome TEXT, valor TEXT, sync INTEGER)",
-            "CREATE TABLE IF NOT EXISTS servicos_os (controle INTEGER PRIMARY KEY, os TEXT, orca TEXT, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT, sync INTEGER)",
+            // 1. Clientes 
+            "CREATE TABLE IF NOT EXISTS clientes (controle INTEGER PRIMARY KEY, dt_cadastro TEXT, nome TEXT UNIQUE, nome_fantasia TEXT, doc TEXT UNIQUE, inscricao TEXT, dt_nascimento TEXT, telefone TEXT, telefone2 TEXT, email TEXT, rua TEXT, bairro TEXT, city TEXT, cep TEXT, sujo INTEGER, sync INTEGER)",
+
+            // 2. Motos (Referencia Clientes pelo DOC)
+            "CREATE TABLE IF NOT EXISTS motos (controle INTEGER PRIMARY KEY, placa TEXT UNIQUE, marca TEXT, modelo TEXT, cor TEXT, ano TEXT, chassi TEXT, dt_registro TEXT, doc_dono TEXT, observacao TEXT, sync INTEGER, " +
+            "FOREIGN KEY(doc_dono) REFERENCES clientes(doc) ON DELETE CASCADE ON UPDATE CASCADE)",
+
+            // 3. Orçamentos (Referencia Clientes pelo DOC e Motos pela Placa)
+            "CREATE TABLE IF NOT EXISTS orcamentos (controle INTEGER PRIMARY KEY, cliente TEXT, doc TEXT, km TEXT, placa TEXT, dt_cadastro TEXT, total TEXT, observacao TEXT, sync INTEGER, " +
+            "FOREIGN KEY(cliente) REFERENCES clientes(nome) ON DELETE NO ACTION ON UPDATE CASCADE, FOREIGN KEY(doc) REFERENCES clientes(doc) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(placa) REFERENCES motos(placa) ON DELETE CASCADE ON UPDATE CASCADE)",
+
+            // 4. OS (Referencia Clientes pelo DOC e Motos pela Placa)
+            "CREATE TABLE IF NOT EXISTS os (controle INTEGER PRIMARY KEY, placa TEXT, km TEXT, cliente TEXT, doc TEXT, observacao TEXT, descricao TEXT, total TEXT, dt_cadastro TEXT, aviso_oleo TEXT, aviso_revisao TEXT, dt_saida TEXT, pago INTEGER, metodo_pag TEXT, sync INTEGER, " +
+            "FOREIGN KEY(cliente) REFERENCES clientes(nome) ON DELETE NO ACTION ON UPDATE CASCADE, FOREIGN KEY(doc) REFERENCES clientes(doc) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(placa) REFERENCES motos(placa) ON DELETE CASCADE ON UPDATE CASCADE)",
+
+            // 5. Tabelas Independentes
+            "CREATE TABLE IF NOT EXISTS pecas (controle INTEGER PRIMARY KEY, nome TEXT UNIQUE, marca TEXT, modelo TEXT, valor_pago TEXT, impostos TEXT, valor_sugerido TEXT, fornecedor TEXT, contato TEXT, local TEXT, estoque TEXT, troca_oleo INTEGER, sync INTEGER)",
+            "CREATE TABLE IF NOT EXISTS servicos (controle INTEGER PRIMARY KEY, nome TEXT UNIQUE, valor TEXT, sync INTEGER)",
             "CREATE TABLE IF NOT EXISTS metodo_pag (controle INTEGER PRIMARY KEY, metodo TEXT, agencia TEXT, parcelas TEXT, sync INTEGER)",
-            "CREATE TABLE IF NOT EXISTS login (controle INTEGER PRIMARY KEY, usuario TEXT, senha TEXT)"
+            "CREATE TABLE IF NOT EXISTS login (controle INTEGER PRIMARY KEY, usuario TEXT, senha TEXT)",
+
+            // 6. Peças OS (Referencia OS pelo Controle e Orçamentos pelo Controle)
+            "CREATE TABLE IF NOT EXISTS pecas_os (controle INTEGER PRIMARY KEY, os INTEGER, orca INTEGER, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT, sync INTEGER, " +
+            "FOREIGN KEY(os) REFERENCES os(controle) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(orca) REFERENCES orcamentos(controle) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(nome) REFERENCES pecas(nome) ON DELETE CASCADE ON UPDATE CASCADE)",
+
+            // 7. Serviços OS (Referencia OS pelo Controle e Orçamentos pelo Controle)
+            "CREATE TABLE IF NOT EXISTS servicos_os (controle INTEGER PRIMARY KEY, os INTEGER, orca INTEGER, nome TEXT, valor TEXT, qtd TEXT, desco TEXT, pos TEXT, sync INTEGER, " +
+            "FOREIGN KEY(os) REFERENCES os(controle) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(orca) REFERENCES orcamentos(controle) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(nome) REFERENCES servicos(nome) ON DELETE CASCADE ON UPDATE CASCADE)"
         };
 
                 foreach (var sql in comandosCriacao)
@@ -218,11 +239,14 @@ namespace PrototipoSistema
             }
         }
 
-
-
         private void bnt_sair_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

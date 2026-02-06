@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using classes;
+using MySql.Data.MySqlClient;
+using PrototipoSistema.classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,6 +34,9 @@ namespace PrototipoSistema
             }
             else if (this.Text == "Cadastro serviços")
             {
+                servicos.ultimo_index();
+                servicos.index++;
+
                 bnt_deletar.Visible = false;
                 bnt_historico.Visible = false;
                 bnt_editar.Text = "Cadastrar";
@@ -63,6 +68,7 @@ namespace PrototipoSistema
                     {
                         if (reader.Read())
                         {
+                            servicos.index = Convert.ToInt32(reader["controle"]);
                             txt_nome.Text = reader["nome"].ToString();
 
                             // Convert.ToDecimal é mais seguro para alternar entre MySQL e SQLite
@@ -113,8 +119,6 @@ namespace PrototipoSistema
                 }
                 else
                 {
-                    servicos.ultimo_index();
-                    servicos.index++;
                     servicos.cadastrar_servicos();
                 }
             }
@@ -159,44 +163,8 @@ namespace PrototipoSistema
             if (MessageBox.Show($"Deseja excluir permanentemente o serviço '{static_class.doc_consultar}'?",
                 "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                ExecutarDelete();
+                static_class.ExecutarDelete(servicos.index, "servicos");
                 Close();
-            }
-        }
-
-        private void ExecutarDelete()
-        {
-            int idControle = static_class.controle;
-
-            // 1. SOFT DELETE no Local (SQLite)
-            // Em vez de apagar, marcamos sync = 2. Assim ele some da sua tela (usando o filtro no SELECT)
-            // e o sincronizador saberá que precisa apagar isso no servidor depois.
-            static_class.AtualizarStatusSync("servicos", idControle, 2);
-
-            // 2. Tenta o DELETE Real no MySQL (Servidor)
-            using (var conRemoto = new MySql.Data.MySqlClient.MySqlConnection(static_class.strConexao))
-            {
-                try
-                {
-                    conRemoto.Open();
-                    var cmdRemoto = conRemoto.CreateCommand();
-                    cmdRemoto.CommandText = "DELETE FROM servicos WHERE controle = @controle";
-                    cmdRemoto.Parameters.AddWithValue("@controle", idControle);
-
-                    cmdRemoto.ExecuteNonQuery();
-
-                    // 3. Se funcionou no MySQL, podemos apagar FISICAMENTE do SQLite
-                    static_class.ApagarRegistroLocal("servicos", idControle);
-
-                    MessageBox.Show("Orçamento excluído com sucesso!");
-                }
-                catch (Exception)
-                {
-                    // Se o servidor estiver fora, não tem problema. 
-                    // O registro continua no SQLite com sync=2, invisível para o usuário,
-                    // aguardando a internet voltar para ser deletado no MySQL.
-                    MessageBox.Show("Excluído localmente. O servidor será atualizado assim que houver conexão.", "Modo Offline");
-                }
             }
         }
 

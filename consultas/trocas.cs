@@ -61,6 +61,7 @@ namespace PrototipoSistema
             try
             {
                 var mysql = new MySqlConnection(static_class.strConexao);
+
                 mysql.Open();
                 conexao = mysql;
             }
