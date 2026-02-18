@@ -76,6 +76,7 @@ namespace PrototipoSistema
                     while (reader.Read()) { cmb_pago.Items.Add(reader["metodo"].ToString()); }
                 }
                 cmb_pago.Visible = false;
+                dtp_saida.Enabled = false;
 
                 // 4. Lógica de Cadastro ou Edição
                 if (this.Text == "Cadastro OS")
@@ -359,11 +360,11 @@ namespace PrototipoSistema
 
                 if (troca_oleo == 1 || revisao == 1)
                 {
-                    add_troca troca = new add_troca();
+                    add_troca troca = new add_troca(troca_oleo, revisao);
                     troca.ShowDialog();
-                    prox_oleo = troca.oleo;
+                    prox_oleo = troca.prox_oleo;
                     os.aviso_oleo = prox_oleo.ToString();
-                    prox_revisao = troca.revisao;
+                    prox_revisao = troca.prox_revisao;
                     os.aviso_revisao = prox_revisao.ToString();
                 }
 
@@ -437,10 +438,10 @@ namespace PrototipoSistema
 
                 // 1. LIMPA TUDO QUE JÁ EXISTE DESSA OS NO BANCO
                 // Fazemos isso primeiro para evitar duplicidade e limpar itens que você removeu da lista
-                cmd.CommandText = $"DELETE FROM pecas_os WHERE os = {static_class.controle}";
+                cmd.CommandText = $"DELETE FROM pecas_os WHERE os = {os.index}";
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = $"DELETE FROM servicos_os WHERE os = {static_class.controle}";
+                cmd.CommandText = $"DELETE FROM servicos_os WHERE os = {os.index}";
                 cmd.ExecuteNonQuery();
 
                 // 2. REINSERE AS PEÇAS
@@ -449,7 +450,7 @@ namespace PrototipoSistema
                     objPeca.ultimo_index();
                     objPeca.index++;
                     objPeca.modo = "os";
-                    objPeca.os_or = static_class.controle;
+                    objPeca.os_or = os.index;
                     objPeca.nome = item.Text;
                     objPeca.qtd = decimal.Parse(item.SubItems[1].Text);
                     objPeca.valor = item.SubItems[2].Text;
@@ -465,7 +466,7 @@ namespace PrototipoSistema
                     objServico.ultimo_index();
                     objServico.index++;
                     objServico.modo = "os";
-                    objServico.os_or = static_class.controle;
+                    objServico.os_or = os.index;
                     objServico.nome = item.Text;
                     objServico.qtd = decimal.Parse(item.SubItems[1].Text);
                     objServico.valor = item.SubItems[2].Text;

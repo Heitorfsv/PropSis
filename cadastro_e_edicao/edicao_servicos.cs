@@ -104,7 +104,7 @@ namespace PrototipoSistema
 
             // 2. Atribuição ao objeto
             servicos.nome = txt_nome.Text;
-            servicos.valor = valorServico;
+            servicos.valor = txt_valor.Text;
 
             if (this.Text == "Edição serviços")
             {

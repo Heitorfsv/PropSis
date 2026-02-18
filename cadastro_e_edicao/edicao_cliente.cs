@@ -165,7 +165,6 @@ namespace PrototipoSistema
                 try
                 {
                     cliente.alterar_cliente();
-                    MessageBox.Show("Cliente Alterado!", "JCMotorsport", MessageBoxButtons.OK);
                 }
                 catch (Exception erro)
                 { MessageBox.Show(erro.ToString()); }
@@ -186,7 +185,6 @@ namespace PrototipoSistema
                     try
                     {
                         cliente.cadastrar_cliente();
-                        MessageBox.Show("Cliente cadastrado!", "JCMotorsport", MessageBoxButtons.OK);
                     }
                     catch (Exception erro)
                     { MessageBox.Show(erro.ToString()); }

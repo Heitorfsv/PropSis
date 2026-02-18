@@ -67,7 +67,7 @@ namespace PrototipoSistema
                     // 3. Se funcionou no MySQL, podemos apagar FISICAMENTE do SQLite
                     ApagarRegistroLocal(table, idControle);
 
-                    MessageBox.Show("Orçamento excluído com sucesso!");
+                    MessageBox.Show($"Registro da tabela {table} excluído com sucesso!");
                 }
                 catch (Exception)
                 {

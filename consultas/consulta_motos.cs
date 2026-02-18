@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.ConstrainedExecution;
+using System.Security.Permissions;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -18,7 +19,9 @@ namespace PrototipoSistema
 
         private void consulta_motos_Load(object sender, EventArgs e)
         {
-            cmb_consulta.SelectedIndex = 0;
+            cmb_consulta.SelectedIndex = 0; txt_pesquisa.Text = "";
+            txt_pesquisar_nome.Text = "";
+
             listView1.Items.Clear();
             listView1.Columns.Clear();
 
@@ -210,6 +213,7 @@ namespace PrototipoSistema
         {
             edicao_motos cadastro = new edicao_motos();
             cadastro.Text = "Cadastro motos";
+            cadastro.MdiParent = this.MdiParent;
             cadastro.Show();
         }
 

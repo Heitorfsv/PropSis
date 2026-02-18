@@ -85,7 +85,7 @@ namespace PrototipoSistema
                 LEFT JOIN clientes c ON o.doc = c.doc
                 LEFT JOIN motos m ON o.placa = m.placa
                 WHERE 1=1 {filtroSql}
-                ORDER BY o.controle DESC";
+                ORDER BY o.controle {order}";
 
                     cmd.CommandText = sql;
 
@@ -178,8 +178,8 @@ namespace PrototipoSistema
                     cmd.CommandText = $@"
                 SELECT 
                     {funcMes} as mes,
-                    SUM((SELECT COALESCE(SUM((valor * qtd) - desco), 0) FROM servicos_os WHERE os = os.controle)) as soma_s,
-                    SUM((SELECT COALESCE(SUM((valor * qtd) - desco), 0) FROM pecas_os WHERE os = os.controle)) as soma_p
+                    SUM((SELECT COALESCE(SUM((valor * qtd) - desco), 0) FROM servicos_os WHERE os = o.controle)) as soma_s,
+                    SUM((SELECT COALESCE(SUM((valor * qtd) - desco), 0) FROM pecas_os WHERE os = o.controle)) as soma_p
                 FROM os 
                 WHERE 1=1 {filtroExtra}
                 GROUP BY mes ORDER BY mes ASC";
@@ -205,6 +205,9 @@ namespace PrototipoSistema
         // --- EVENTOS ---
         private void consulta_os_Load(object sender, EventArgs e)
         {
+            cmb_consulta.SelectedIndex = 0; txt_pesquisa.Text = "";
+            cmb_ps.SelectedIndex = 0; txt_ps.Text = "";
+
             CarregarDadosOS();
             CarregarGrafico("");
         }
@@ -218,7 +221,7 @@ namespace PrototipoSistema
             if (col == "marca" || col == "modelo")
                 CarregarDadosOS($" AND m.{col} LIKE '%{pesq}%'");
             else
-                CarregarDadosOS($" AND os.{col} LIKE '%{pesq}%'");
+                CarregarDadosOS($" AND o.{col} LIKE '%{pesq}%'");
 
             CarregarGrafico(col != "marca" && col != "modelo" ? $" AND {col} LIKE '%{pesq}%'" : "");
         }
@@ -241,9 +244,9 @@ namespace PrototipoSistema
             // O comando "IN" garante que só buscaremos dentro do que já estava na tela
             // O "EXISTS" verifica se dentro daquela OS existe o item pesquisado
             string subFiltro = $@"
-        AND os.controle IN ({idsAtuais})
+        AND o.controle IN ({idsAtuais})
         AND EXISTS (SELECT 1 FROM {tabelaItens} i 
-                    WHERE i.os = os.controle 
+                    WHERE i.os = o.controle 
                     AND i.nome LIKE '%{termo}%')";
 
             CarregarDadosOS(subFiltro);
@@ -292,6 +295,7 @@ namespace PrototipoSistema
         {
             edicao_os os = new edicao_os();
             os.Text = "Cadastro OS";
+            os.MdiParent = this.MdiParent;
             os.Show();
         }
 
@@ -299,7 +303,7 @@ namespace PrototipoSistema
         {
             // Filtra apenas onde pago é igual a 0 (pendente)
             // Se quiser alternar, podemos usar a variável 'order' ou 'filtro'
-            string filtroPagamento = " AND os.pago = 0";
+            string filtroPagamento = " AND o.pago = 0";
 
             CarregarDadosOS(filtroPagamento);
 

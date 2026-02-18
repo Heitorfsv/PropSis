@@ -370,7 +370,7 @@
             this.menuStrip.MdiWindowListItem = this.windowsMenu;
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip.Size = new System.Drawing.Size(1412, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1841, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -501,7 +501,7 @@
             // lbl_status_sync
             // 
             this.lbl_status_sync.AutoSize = true;
-            this.lbl_status_sync.Location = new System.Drawing.Point(1128, 27);
+            this.lbl_status_sync.Location = new System.Drawing.Point(1618, 27);
             this.lbl_status_sync.Name = "lbl_status_sync";
             this.lbl_status_sync.Size = new System.Drawing.Size(0, 13);
             this.lbl_status_sync.TabIndex = 4;
@@ -510,14 +510,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1412, 582);
+            this.ClientSize = new System.Drawing.Size(1841, 582);
             this.Controls.Add(this.lbl_status_sync);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MDI_tela";
-            this.Text = "Sistema";
+            this.Text = ".";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MDI_tela_Load);
             this.menuStrip.ResumeLayout(false);

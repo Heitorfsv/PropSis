@@ -15,13 +15,14 @@ namespace PrototipoSistema.classes
         public string nome { get; set; }
         public string marca { get; set; }
         public string modelo { get; set; }
-        public decimal valor_pago { get; set; }
-        public decimal impostos { get; set; }
-        public decimal valor_sugerido { get; set; }
+        public string valor_pago { get; set; }
+        public string impostos { get; set; }
+        public string valor_sugerido { get; set; }
         public string fornecedor { get; set; }
         public string contato { get; set; }
         public string local { get; set; }
         public string estoque { get; set; }
+        public bool troca_oleo { get; set; }
 
         public void ultimo_index()
         {
@@ -72,8 +73,8 @@ namespace PrototipoSistema.classes
                     var cmdLocal = conLocal.CreateCommand();
 
                     // Adicionamos a coluna sync = 0 (Pendente)
-                    cmdLocal.CommandText = @"INSERT INTO pecas (controle, nome, marca, modelo, valor_pago, impostos, valor_sugerido, fornecedor, contato, local, estoque, sync) 
-                                    values (@controle, @nome, @marca, @modelo, @valor_pago, @impostos, @valor_sugerido, @fornecedor, @contato, @local, @estoque, 0)";
+                    cmdLocal.CommandText = @"INSERT INTO pecas (controle, nome, marca, modelo, valor_pago, impostos, valor_sugerido, fornecedor, contato, local, estoque, troca_oleo, sync) 
+                                    values (@controle, @nome, @marca, @modelo, @valor_pago, @impostos, @valor_sugerido, @fornecedor, @contato, @local, @estoque, @troca_oleo, 0)";
 
                     PreencherParametrosPecas(cmdLocal);
                     cmdLocal.ExecuteNonQuery();
@@ -93,8 +94,8 @@ namespace PrototipoSistema.classes
                     conRemoto.Open();
                     var cmdRemoto = conRemoto.CreateCommand();
 
-                    cmdRemoto.CommandText = @"INSERT INTO pecas (controle, nome, marca, modelo, valor_pago, impostos, valor_sugerido, fornecedor, contato, local, estoque) 
-                                    values (@controle, @nome, @marca, @modelo, @valor_pago, @impostos, @valor_sugerido, @fornecedor, @contato, @local, @estoque)";
+                    cmdRemoto.CommandText = @"INSERT INTO pecas (controle, nome, marca, modelo, valor_pago, impostos, valor_sugerido, fornecedor, contato, local, estoque, troca_oleo) 
+                                    values (@controle, @nome, @marca, @modelo, @valor_pago, @impostos, @valor_sugerido, @fornecedor, @contato, @local, @estoque, @troca_oleo)";
 
                     PreencherParametrosPecas(cmdRemoto);
                     cmdRemoto.ExecuteNonQuery();
@@ -128,7 +129,7 @@ namespace PrototipoSistema.classes
                                     nome = @nome, marca = @marca, modelo = @modelo, 
                                     valor_pago = @valor_pago, impostos = @impostos, 
                                     valor_sugerido = @valor_sugerido, fornecedor = @fornecedor, 
-                                    contato = @contato, local = @local, estoque = @estoque, 
+                                    contato = @contato, local = @local, estoque = @estoque, troca_oleo = @troca_oleo, 
                                     sync = 0 
                                     WHERE controle = @controle";
 
@@ -154,7 +155,7 @@ namespace PrototipoSistema.classes
                                     nome = @nome, marca = @marca, modelo = @modelo, 
                                     valor_pago = @valor_pago, impostos = @impostos, 
                                     valor_sugerido = @valor_sugerido, fornecedor = @fornecedor, 
-                                    contato = @contato, local = @local, estoque = @estoque 
+                                    contato = @contato, local = @local, estoque = @estoque, troca_oleo = @troca_oleo 
                                     WHERE controle = @controle";
 
                     PreencherParametrosPecas(cmdRemoto);
@@ -195,6 +196,7 @@ namespace PrototipoSistema.classes
             Add("@contato", contato);
             Add("@local", local);
             Add("@estoque", estoque);
+            Add("@troca_oleo", troca_oleo);
         }
     }
 }

@@ -109,7 +109,7 @@ namespace PrototipoSistema
                         // --- LÓGICA: PRÓXIMA TROCA DE ÓLEO ---
                         if (reader["aviso_oleo"] != DBNull.Value && !placasOleoVistas.Contains(placa))
                         {
-                            if (DateTime.TryParse(reader["aviso_oleo"].ToString(), out DateTime dtOleo))
+                            if (DateTime.TryParse(reader["aviso_oleo"].ToString(), out DateTime dtOleo) && reader["aviso_oleo"].ToString() != "01/01/0001 00:00:00")
                             {
                                 placasOleoVistas.Add(placa);
                                 // Novo array de colunas: Cliente, Placa, Marca, Modelo, KM, Saída, Próx. Troca
@@ -131,7 +131,7 @@ namespace PrototipoSistema
                         // --- LÓGICA: PREVISÃO PARA REVISÃO ---
                         if (reader["aviso_revisao"] != DBNull.Value && !placasRevVistas.Contains(placa))
                         {
-                            if (DateTime.TryParse(reader["aviso_revisao"].ToString(), out DateTime dtRev))
+                            if (DateTime.TryParse(reader["aviso_revisao"].ToString(), out DateTime dtRev) && reader["aviso_revisao"].ToString() != "01/01/0001 00:00:00")
                             {
                                 placasRevVistas.Add(placa);
                                 // Novo array de colunas seguindo o mesmo padrão

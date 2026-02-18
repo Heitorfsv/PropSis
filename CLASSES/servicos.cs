@@ -16,7 +16,7 @@ namespace PrototipoSistema
     {
         public int index { get; set; }
         public string nome { get; set; }
-        public decimal valor { get; set; }
+        public string valor { get; set; }
 
         public void ultimo_index()
         {

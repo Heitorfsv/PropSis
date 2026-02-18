@@ -18,7 +18,7 @@ namespace PrototipoSistema
 
         private void consulta_Load(object sender, EventArgs e)
         {
-            cmb_consulta.SelectedIndex = 0;
+            cmb_consulta.SelectedIndex = 0; txt_pesquisa.Text = "";
 
             // Configura colunas apenas uma vez
             listView1.View = View.Details;
@@ -132,6 +132,7 @@ namespace PrototipoSistema
         {
             var cadastro = new edicao_cliente();
             cadastro.Text = "Cadastro Cliente";
+            cadastro.MdiParent = this.MdiParent;
             cadastro.Show();
         }
     }

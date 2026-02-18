@@ -82,6 +82,7 @@ namespace PrototipoSistema
                             txt_contato.Text = reader["contato"].ToString();
                             txt_local.Text = reader["local"].ToString();
                             txt_estoque.Text = reader["estoque"]?.ToString() ?? "0";
+                            ck_troca_oleo.Checked = reader["troca_oleo"] != DBNull.Value && Convert.ToBoolean(reader["troca_oleo"]);
                         }
                     }
                 }
@@ -125,13 +126,14 @@ namespace PrototipoSistema
             pecas.fornecedor = txt_fornecedor.Text;
             pecas.contato = txt_contato.Text;
             pecas.local = txt_local.Text;
+            pecas.troca_oleo = ck_troca_oleo.Checked ? true : false;
 
             // Validação Numérica
             try
             {
-                pecas.valor_pago = decimal.Parse(txt_valor.Text);
-                pecas.impostos = decimal.Parse(txt_impostos.Text);
-                pecas.valor_sugerido = decimal.Parse(txt_preco.Text);
+                pecas.valor_pago = txt_valor.Text;
+                pecas.impostos = txt_impostos.Text;
+                pecas.valor_sugerido = txt_preco.Text;
                 pecas.estoque = decimal.TryParse(txt_estoque.Text.Trim(), out _) ? txt_estoque.Text.Trim() : "0";
             }
             catch (Exception)

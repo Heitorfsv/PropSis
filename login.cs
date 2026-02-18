@@ -174,7 +174,7 @@ namespace PrototipoSistema
 
                 string[] comandosCriacao = {
             // 1. Clientes 
-            "CREATE TABLE IF NOT EXISTS clientes (controle INTEGER PRIMARY KEY, dt_cadastro TEXT, nome TEXT UNIQUE, nome_fantasia TEXT, doc TEXT UNIQUE, inscricao TEXT, dt_nascimento TEXT, telefone TEXT, telefone2 TEXT, email TEXT, rua TEXT, bairro TEXT, city TEXT, cep TEXT, sujo INTEGER, sync INTEGER)",
+            "CREATE TABLE IF NOT EXISTS clientes (controle INTEGER PRIMARY KEY, dt_cadastro TEXT, nome TEXT UNIQUE, nome_fantasia TEXT, doc TEXT UNIQUE, inscricao TEXT, dt_nascimento TEXT, telefone TEXT, telefone2 TEXT, email TEXT, rua TEXT, bairro TEXT, cidade TEXT, cep TEXT, sujo INTEGER, sync INTEGER)",
 
             // 2. Motos (Referencia Clientes pelo DOC)
             "CREATE TABLE IF NOT EXISTS motos (controle INTEGER PRIMARY KEY, placa TEXT UNIQUE, marca TEXT, modelo TEXT, cor TEXT, ano TEXT, chassi TEXT, dt_registro TEXT, doc_dono TEXT, observacao TEXT, sync INTEGER, " +

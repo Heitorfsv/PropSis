@@ -145,8 +145,9 @@ namespace PrototipoSistema
 
         private void consulta_or_Load(object sender, EventArgs e)
         {
-            cmb_consulta.SelectedIndex = 0;
-            cmb_ps.SelectedIndex = 0;
+            cmb_consulta.SelectedIndex = 0; txt_pequisa.Text = "";
+            cmb_ps.SelectedIndex = 0; txt_ps.Text = "";
+
             CarregarDadosOrcamento();
         }
 
@@ -185,6 +186,7 @@ namespace PrototipoSistema
             static_class.controle = 0; // Zera para novo cadastro
             cadastro_or frm = new cadastro_or();
             frm.Text = "Cadastro Orçamento";
+            frm.MdiParent = this.MdiParent;
             frm.Show();
         }
 

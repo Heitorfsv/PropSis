@@ -55,6 +55,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.bnt_deletar = new System.Windows.Forms.Button();
             this.bnt_historico = new System.Windows.Forms.Button();
+            this.ck_troca_oleo = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txt_contato
@@ -345,11 +346,22 @@
             this.bnt_historico.UseVisualStyleBackColor = true;
             this.bnt_historico.Click += new System.EventHandler(this.bnt_historico_Click_1);
             // 
+            // ck_troca_oleo
+            // 
+            this.ck_troca_oleo.AutoSize = true;
+            this.ck_troca_oleo.Location = new System.Drawing.Point(469, 169);
+            this.ck_troca_oleo.Name = "ck_troca_oleo";
+            this.ck_troca_oleo.Size = new System.Drawing.Size(130, 17);
+            this.ck_troca_oleo.TabIndex = 108;
+            this.ck_troca_oleo.Text = "Aciona troca de óleo?";
+            this.ck_troca_oleo.UseVisualStyleBackColor = true;
+            // 
             // edicao_pecas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 259);
+            this.Controls.Add(this.ck_troca_oleo);
             this.Controls.Add(this.bnt_historico);
             this.Controls.Add(this.bnt_deletar);
             this.Controls.Add(this.txt_estoque);
@@ -415,5 +427,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button bnt_deletar;
         private System.Windows.Forms.Button bnt_historico;
+        private System.Windows.Forms.CheckBox ck_troca_oleo;
     }
 }

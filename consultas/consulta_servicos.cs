@@ -20,7 +20,8 @@ namespace PrototipoSistema
 
         private void consulta_servicos_Load(object sender, EventArgs e)
         {
-            cmb_consulta.SelectedIndex = 0;
+            cmb_consulta.SelectedIndex = 0; txt_pesquisa.Text = "";
+
             listView1.Items.Clear();
             listView1.Columns.Clear();
 
@@ -122,6 +123,7 @@ namespace PrototipoSistema
         {
             edicao_servicos cadastro = new edicao_servicos();
             cadastro.Text = "Cadastro serviços";
+            cadastro.MdiParent = this.MdiParent;
             cadastro.Show();
         }
 
